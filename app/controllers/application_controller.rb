@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-  before_action: :snake_case_params
+  before_action :snake_case_params
 
   private
 
