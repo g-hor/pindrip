@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::API
-  before_action :snake_case_params
   rescue_from StandardError, with: :unhandled_error
   rescue_from ActionController::InvalidAuthenticityToken,
     with: :invalid_authenticity_token

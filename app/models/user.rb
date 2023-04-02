@@ -23,7 +23,8 @@ class User < ApplicationRecord
   validates :username,
     uniqueness: { message: "That username is already taken." },
     length: { in: 3..30, message: "That username is too long! Try for under 30 characters." },
-    format: { without: URI::MailTo::EMAIL_REGEXP, message: "A username must contain only numbers and letters." }
+    format: { without: URI::MailTo::EMAIL_REGEXP, message: "A username must contain only numbers and letters." },
+    allow_nil: true
   validates :email,
     uniqueness: { message: "Deja vu! That email's taken."},
     length: { in: 8..255 },
@@ -32,9 +33,6 @@ class User < ApplicationRecord
   validates :password, 
     length: { in: 6..255, message: "Your password is too short! You need 6+ characters." }, 
     allow_nil: true
-  # validates :pronouns, 
-  #   array_inclusion: { in: ['ey/em', 'he/him', 'ne/nem', 'she/her', 'they/them', 've/ver', 'xe/xem', 'xie,xem', 'ze/zir'] },
-  #   allow_nil: true
   validates_inclusion_of :pronouns, :in => PRONOUNS, allow_nil: true
 
   before_validation :ensure_session_token

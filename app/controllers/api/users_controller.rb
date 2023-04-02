@@ -1,21 +1,25 @@
 class Api::UsersController < ApplicationController
-  before_action :ensure_logged_in, only: [:show]
-  before_action :ensure_logged_out, only: [:create, :update]
-
-  def show
-    if current_user
-      @user = current_user
-    end
-
-  end
+  # def show
+  #   if current_user
+  #     @user = current_user
+  #     render 'api/users/show'
+  #   end
+  # end
 
   def create
+    @user = User.new(user_params)
 
+    if @user.save
+      login!(@user)
+      render 'api/users/show'
+    else
+      render json: { errors: @user.errors.full_messages }, status: 422
+    end
   end
 
-  def update
+  # def update
 
-  end
+  # end
 
   private
 
