@@ -7,6 +7,9 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 ApplicationRecord.transaction do 
+
+  PRONOUNS = ['ey/em', 'he/him', 'ne/nem', 'she/her', 'they/them', 've/ver', 'xe/xem', 'xie,xem', 'ze/zir']
+
   puts "Destroying tables..."
   # Unnecessary if using `rails db:seed:replant`
   User.destroy_all
@@ -28,17 +31,21 @@ ApplicationRecord.transaction do
     User.create!({
       username: Faker::Internet.unique.username(specifier: 3),
       email: Faker::Internet.unique.email,
-      password: 'password'
+      password: 'pindrip'
     }) 
   end
 
-  # Creating users with more information
-  5.times do
-    User.creat!({
-      username: Faker::Internet.unique.username(specifier: 3),
-      email: Faker::Internet.unique.email,
-      password: 'password',
-  # CONTINUE HERE ********************************************************
+  # Creating users with more information (no website info)
+  10.times do
+    User.create!({
+      username: Faker::Creature::Cat.unique.name,
+      email: Faker::Internet.unique.safe_email,
+      password: 'pindrip',
+      first_name: Faker::Music::Hiphop.artist,
+      last_name: Faker::JapaneseMedia::Naruto.demon,
+      about: Faker::Quotes::Shakespeare.hamlet_quote,
+      pronouns: PRONOUNS[rand(9)],
+      website: Faker::Internet.domain_name
     })
   end
 
