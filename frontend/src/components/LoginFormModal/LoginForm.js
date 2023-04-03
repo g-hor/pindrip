@@ -13,7 +13,7 @@ const LoginForm = () => {
 
   if (sessionUser) return <Redirect to="/" />;
 
-  const handleSubmit = async (e) => {
+  const clickLogin = async (e) => {
     e.preventDefault();
     setErrors([]);
     return dispatch(sessionActions.loginUser({ email, password }))
@@ -30,9 +30,14 @@ const LoginForm = () => {
       });
   };
 
+  const clickDemo = async (e) => {
+    e.preventDefault();
+    dispatch(sessionActions.loginUser({ email: 'demo@pin.drip', password: 'pindrip' }));
+  }
+
   return (
     <div className="form-container">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={clickLogin}>
         <div className="form-icon-container">
           <img className="pindrip-icon" src="https://cdn3.iconfinder.com/data/icons/2018-social-media-black-and-white-logos/1000/2018_social_media_popular_app_logo_pinterest-512.png" alt="pindrip logo" />
         </div>
@@ -63,11 +68,20 @@ const LoginForm = () => {
           />
           </div>
         <div className='btn-holder'>
-          <input className="login-form-btn" type="submit" value="Log In" ></input>
+          <input 
+            className="login-form-btn" 
+            type="submit" 
+            value="Log In" 
+          />
         </div>
         <div id="form-or-text">OR</div>
         <div className='btn-holder'>
-          <input className="demo-btn" type="submit" value="Log In as Demo User"></input>
+          <input 
+            className="demo-btn" 
+            type="submit" 
+            value="Log In as Demo User"
+            onClick={clickDemo}
+          />
         </div>
       </form>
     </div>

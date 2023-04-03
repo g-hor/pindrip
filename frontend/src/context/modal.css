@@ -1,10 +1,7 @@
 #modal {
   display: flex;
-  width: 100vw;
-  height: 100vh;
   justify-content: space-around;
   align-items: center;
-  /* background-color: rgba(0, 0, 0, 0.503); */
 }
 
 #modal-background {
