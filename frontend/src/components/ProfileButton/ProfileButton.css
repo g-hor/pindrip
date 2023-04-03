@@ -1,5 +1,8 @@
 .dropdown {
   position: relative;
-  display: inline-block;
+  /* display: inline-block; */
 }
 
+.dropbtn {
+  margin-left: 8px;
+}

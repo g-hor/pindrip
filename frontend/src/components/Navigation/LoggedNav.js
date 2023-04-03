@@ -45,18 +45,26 @@ const LoggedNav = () => {
         Search
       </div>
       <div className="loggednav-right">
-        <div className="icon-holder">
-          <a href="https://github.com/g-hor">
-            <i className="fa-brands fa-github social-icon"></i>
-          </a>
+        <div className="right-icon-holder">
+          <div className="icon-holder">
+            <a href="https://github.com/g-hor">
+              <i className="fa-brands fa-github social-icon"></i>
+            </a>
+          </div>
         </div>
-        <div className="icon-holder">
-          <a href="https://www.linkedin.com/in/garyhor65/">
-            <i className="fa-brands fa-linkedin social-icon"></i>
-          </a>
+        <div className="right-icon-holder">
+          <div className="icon-holder">
+            <a href="https://www.linkedin.com/in/garyhor65/">
+              <i className="fa-brands fa-linkedin social-icon"></i>
+            </a>
+          </div>
         </div>
-        <div className="initial-holder">{displayInitial}</div>
-        <ProfileButton displayInitial={displayInitial} displayName={displayName}/>
+        <div className="right-icon-holder">
+          <div className="initial-holder">{displayInitial}</div>
+        </div>
+        <div className="right-icon-holder">
+          <ProfileButton displayInitial={displayInitial} displayName={displayName}/>
+        </div>
       </div>
     </div>
   )
