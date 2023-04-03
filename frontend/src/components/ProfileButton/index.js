@@ -19,12 +19,12 @@ const ProfileButton = () => {
 
     const profileButton = document.querySelector('.dropdown');
     document.addEventListener('click', function(e) {
-      if (e.currentTarget !== profileButton) {
+      if (e.target !== profileButton) {
         clickHide();
       }
     });
 
-    document.addEventListener('click', clickHide);
+    // document.addEventListener('click', clickHide);
 
     return () => document.removeEventListener('click', clickHide);
   }, [showDrop])
