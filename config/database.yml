@@ -81,6 +81,4 @@ test:
 #
 production:
   <<: *default
-  database: pindrip_production
-  username: pindrip
-  password: <%= ENV["pindrip_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>

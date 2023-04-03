@@ -1,0 +1,26 @@
+{
+  "name": "pindrip",
+  "version": "1.0.0",
+  "description": "This README would normally document whatever steps are necessary to get the application up and running.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "build": "npm install --prefix frontend && npm run build --prefix frontend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/g-hor/pindrip.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/g-hor/pindrip/issues"
+  },
+  "homepage": "https://github.com/g-hor/pindrip#readme",
+  "engines": {
+    "node": "16.19.0"
+  }
+}
