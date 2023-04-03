@@ -71,8 +71,17 @@
   justify-content: center;
 }
 
-.social-icon {
-  width: 36px;
-  height: 36px;
+.social-icon, .initial-holder {
+  font-size: 16px;
+  padding: 16px;
+  border-radius: 100%;
+  background-color: gray;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.social-icon:hover, .initial-holder:hover {
+  
 }
 

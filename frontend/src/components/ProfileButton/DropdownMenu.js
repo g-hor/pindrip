@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
 import * as sessionActions from '../../store/session';
 
 const DropdownMenu = ({ displayInitial, displayName }) => {
@@ -13,20 +12,20 @@ const DropdownMenu = ({ displayInitial, displayName }) => {
 
 
   return (
-    <div className="dropdown-content">
-    <div>Currently logged in as:</div>
-    <div>
+    <div className="dropdown-content" >
+      <div>Currently logged in as:</div>
       <div>
-        <div>{displayInitial}</div>
         <div>
-          <div>{displayName}</div>
-          <div>{currentUser.email}</div>
+          <div>{displayInitial}</div>
+          <div>
+            <div>{displayName}</div>
+            <div>{currentUser.email}</div>
+          </div>
         </div>
       </div>
+      <div>More options</div>
+      <div onClick={clickLogout}>Log out</div>
     </div>
-    <div>More options</div>
-    <div onClick={clickLogout}>Log out</div>
-  </div>
   );
 };
 

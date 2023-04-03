@@ -1,17 +1,17 @@
 import React from 'react';
-import { Route, Switch } from 'react-router-dom';
-import SignupFormModal from './components/SignupFormModal';
+// import { Route, Switch } from 'react-router-dom';
+// import SignupFormModal from './components/SignupFormModal';
 import Navbar from './components/Navigation';
 
 function App() {
   return (
     <>
       <Navbar />
-      <Switch>
+      {/* <Switch> */}
         {/* <Route path="/signup">
           <SignupFormModal />
         </Route> */}
-      </Switch>
+      {/* </Switch> */}
     </>
   );
 }

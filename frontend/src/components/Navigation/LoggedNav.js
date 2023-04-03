@@ -55,7 +55,7 @@ const LoggedNav = () => {
             <i className="fa-brands fa-linkedin social-icon"></i>
           </a>
         </div>
-        <div>{displayInitial}</div>
+        <div className="initial-holder">{displayInitial}</div>
         <ProfileButton displayInitial={displayInitial} displayName={displayName}/>
       </div>
     </div>

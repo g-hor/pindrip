@@ -31,32 +31,6 @@ const SignupForm = () => {
   };
 
   return (
-    // <form className="login" onSubmit={handleSubmit}>
-    //   <ul className="errors-container">
-    //     {errors.map(error => <li key={error}>{error}</li>)}
-    //   </ul>
-    //   <label>
-    //     Email
-    //     <input
-    //       className="login-input"
-    //       type="text"
-    //       value={email}
-    //       onChange={(e) => setEmail(e.target.value)}
-    //       required
-    //     />
-    //   </label>
-    //   <label>
-    //     Password
-    //     <input
-    //       className="login-input"
-    //       type="password"
-    //       value={password}
-    //       onChange={(e) => setPassword(e.target.value)}
-    //       required
-    //     />
-    //   </label>
-    //   <input type="submit" value="Continue"></input>
-    // </form>
     <div className="form-container">
       <form onSubmit={clickSignup}>
         <div className="form-icon-container">
@@ -95,15 +69,6 @@ const SignupForm = () => {
             value="Continue" 
           />
         </div>
-        {/* <div id="form-or-text">OR</div>
-        <div className='btn-holder'>
-          <input 
-            className="demo-btn" 
-            type="submit" 
-            value="Log In as Demo User"
-            onClick={clickDemo}
-          />
-        </div> */}
       </form>
     </div>
   );

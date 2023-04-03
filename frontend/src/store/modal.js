@@ -34,17 +34,33 @@ export const hideSignup = () => {
 }
 
 // REDUCER
-const initialState = { loginModalState: false, signupModalState: false }
+const initialState = { bgModalState: false, loginModalState: false, signupModalState: false }
 const modalReducer = (state = initialState, action) => {
   switch (action.type) {
     case SHOWLOGIN:
-      return { ...state, loginModalState: action.payload }
+      return { 
+        ...state, 
+        loginModalState: action.payload, 
+        bgModalState: true 
+      }
     case HIDELOGIN: 
-      return { ...state, loginModalState: action.payload }
+      return { 
+        ...state, 
+        loginModalState: action.payload, 
+        bgModalState: false 
+      }
     case SHOWSIGNUP:
-      return { ...state, signupModalState: action.payload }
+      return { 
+        ...state, 
+        signupModalState: action.payload, 
+        bgModalState: true 
+      }
     case HIDESIGNUP:
-      return { ...state, signupModalState: action.payload }
+      return { 
+        ...state, 
+        signupModalState: action.payload, 
+        bgModalState: false 
+      }
     default: 
       return state;
   }
