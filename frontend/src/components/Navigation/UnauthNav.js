@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import LoginFormModal from "../LoginFormModal";
+import SignupFormModal from "../SignupFormModal";
 
 const UnauthNav = () => {
 
@@ -31,9 +32,7 @@ const UnauthNav = () => {
             <LoginFormModal />
           </div>
           <div className="btn-container">
-            <button className="signup-btn">
-              Sign up
-            </button>
+            <SignupFormModal />
           </div>
       </div>
     </div>

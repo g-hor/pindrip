@@ -3,7 +3,7 @@ import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-const LoginForm = () => {
+const SignupForm = () => {
   const dispatch = useDispatch();
   const sessionUser = useSelector(state => state.session.user);
   const [email, setEmail] = useState('');
@@ -12,10 +12,11 @@ const LoginForm = () => {
 
   if (sessionUser) return <Redirect to="/" />;
 
-  const clickLogin = async (e) => {
+  const clickSignup = async(e) => {
     e.preventDefault();
     setErrors([]);
-    return dispatch(sessionActions.loginUser({ email, password }))
+
+    return dispatch(sessionActions.signupUser({ email, password }))
       .catch(async (res) => {
         let data;
         try {
@@ -29,14 +30,35 @@ const LoginForm = () => {
       });
   };
 
-  const clickDemo = async (e) => {
-    e.preventDefault();
-    dispatch(sessionActions.loginUser({ email: 'demo@pin.drip', password: 'pindrip' }));
-  }
-
   return (
+    // <form className="login" onSubmit={handleSubmit}>
+    //   <ul className="errors-container">
+    //     {errors.map(error => <li key={error}>{error}</li>)}
+    //   </ul>
+    //   <label>
+    //     Email
+    //     <input
+    //       className="login-input"
+    //       type="text"
+    //       value={email}
+    //       onChange={(e) => setEmail(e.target.value)}
+    //       required
+    //     />
+    //   </label>
+    //   <label>
+    //     Password
+    //     <input
+    //       className="login-input"
+    //       type="password"
+    //       value={password}
+    //       onChange={(e) => setPassword(e.target.value)}
+    //       required
+    //     />
+    //   </label>
+    //   <input type="submit" value="Continue"></input>
+    // </form>
     <div className="form-container">
-      <form onSubmit={clickLogin}>
+      <form onSubmit={clickSignup}>
         <div className="form-icon-container">
           <img className="unauth-pindrip-icon" src="https://cdn3.iconfinder.com/data/icons/2018-social-media-black-and-white-logos/1000/2018_social_media_popular_app_logo_pinterest-512.png" alt="pindrip logo" />
         </div>
@@ -70,10 +92,10 @@ const LoginForm = () => {
           <input 
             className="login-form-btn" 
             type="submit" 
-            value="Log In" 
+            value="Continue" 
           />
         </div>
-        <div id="form-or-text">OR</div>
+        {/* <div id="form-or-text">OR</div>
         <div className='btn-holder'>
           <input 
             className="demo-btn" 
@@ -81,10 +103,11 @@ const LoginForm = () => {
             value="Log In as Demo User"
             onClick={clickDemo}
           />
-        </div>
+        </div> */}
       </form>
     </div>
   );
+
 };
 
-export default LoginForm;
+export default SignupForm;

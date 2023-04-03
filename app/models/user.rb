@@ -27,11 +27,11 @@ class User < ApplicationRecord
     allow_nil: true
   validates :email,
     uniqueness: { message: "Deja vu! That email's taken."},
-    length: { in: 8..255 },
+    length: { in: 8..100 },
     format: { with: URI::MailTo::EMAIL_REGEXP, message: "Hmm... That doesn't look like an email address." }
   validates :session_token, presence: true, uniqueness: true
   validates :password, 
-    length: { in: 6..255, message: "Your password is too short! You need 6+ characters." }, 
+    length: { in: 6..50, message: "Your password is too short! You need 6+ characters." }, 
     allow_nil: true
   validates_inclusion_of :pronouns, :in => PRONOUNS, allow_nil: true
 

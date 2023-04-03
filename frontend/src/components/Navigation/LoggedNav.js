@@ -1,14 +1,30 @@
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import * as sessionActions from '../../store/session';
+import ProfileButton from "../ProfileButton";
 
 const LoggedNav = () => {
-  const dispatch = useDispatch();
+  const currentUser = useSelector(state => state.session.user);
 
-  const clickLogout = (e) => {
-    e.preventDefault();
-    dispatch(sessionActions.logoutUser());
+  const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
+
+  const formatEmail = (emailAddress) => {
+    const email = emailAddress.split("@")[0];
+    return capitalizeFirstLetter(email);
+  };
+
+  const [displayName, setDisplayName] = useState(formatEmail(currentUser.email));
+  const [displayInitial, setDisplayInitial] = useState(displayName[0]);
+
+  useEffect(() => {
+    if (currentUser.firstName) {
+      setDisplayName(prevName => capitalizeFirstLetter(currentUser.firstName));
+      setDisplayInitial(prevInitial => displayName[0]);
+    } 
+  }, [displayName, currentUser.firstName]);
+
 
   return (
     <div className="loggednav-container">
@@ -31,21 +47,16 @@ const LoggedNav = () => {
       <div className="loggednav-right">
         <div className="icon-holder">
           <a href="https://github.com/g-hor">
-            <i className="fa-brands fa-github fa-2x social-icon"></i>
+            <i className="fa-brands fa-github social-icon"></i>
           </a>
         </div>
         <div className="icon-holder">
           <a href="https://www.linkedin.com/in/garyhor65/">
-            <i className="fa-brands fa-linkedin fa-2x social-icon"></i>
+            <i className="fa-brands fa-linkedin social-icon"></i>
           </a>
         </div>
-        <div>user avatar</div>
-        <div className="dropdown">
-          <i className="fa-solid fa-chevron-down"></i>
-          <div className="dropdown-content" onClick={clickLogout}>
-            Logout
-          </div>
-        </div>
+        <div>{displayInitial}</div>
+        <ProfileButton displayInitial={displayInitial} displayName={displayName}/>
       </div>
     </div>
   )

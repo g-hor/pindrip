@@ -61,8 +61,8 @@
 .link {
   box-sizing: border-box;
   margin: 16px;
-  font-size: 100%;
-  font-weight: 500;
+  font-size: 16px;
+  font-weight: 600;
 }
 
 .btn-container {
@@ -81,8 +81,9 @@
   border-radius: 24px;
   padding: 8px 12px 8px 12px;
   border: 0;
-  font-size: 100%;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
 }
 
 .signup-btn {
@@ -95,8 +96,9 @@
   border-radius: 24px;
   padding: 8px 12px 8px 12px;
   border: 0;
-  font-size: 100%;
-  font-weight: 400;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
 }
 
 .login-btn:hover {
