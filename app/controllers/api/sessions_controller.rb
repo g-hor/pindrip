@@ -18,7 +18,7 @@ class Api::SessionsController < ApplicationController
       login!(@user)
       render 'api/users/show'
     else
-      render json: { errors: ['The password you entered is incorrect.'] }, status: :unauthorized
+      render json: { errors: ["Hmm... We weren't able to find a match."] }, status: :unauthorized
     end
   end
 

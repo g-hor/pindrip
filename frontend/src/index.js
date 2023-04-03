@@ -7,6 +7,7 @@ import configureStore from './store/index';
 import csrfFetch from './store/csrf';
 import * as sessionActions from './store/session';
 import './index.css';
+import { ModalProvider } from './context/modal';
 
 
 
@@ -31,7 +32,9 @@ function Root() {
 const renderApp = () => {
   ReactDOM.render(
     <React.StrictMode>
-      <Root />
+      <ModalProvider>
+        <Root />
+      </ModalProvider>
     </React.StrictMode>,
     document.getElementById('root')
   );

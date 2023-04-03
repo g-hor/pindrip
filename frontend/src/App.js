@@ -1,16 +1,13 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import LoginFormPage from './components/LoginFormPage/index'
 import SignupFormPage from './components/SignupFormPage';
+import Navbar from './components/Navigation';
 
 function App() {
   return (
     <>
-      <h1>hey wassup welcome to pindrip</h1>
+      <Navbar />
       <Switch>
-        <Route path="/login">
-          <LoginFormPage />
-        </Route>
         <Route path="/signup">
           <SignupFormPage />
         </Route>

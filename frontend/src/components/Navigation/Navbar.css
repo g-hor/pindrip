@@ -1,0 +1,108 @@
+.nav-container {
+  height: 80px;
+  width: 100%;
+  z-index: 420;
+  position: fixed;
+  box-sizing: border-box;
+}
+
+/* UNAUTHNAV */
+/* LEFT SIDE */
+.unauth-container {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+  padding: 16px;
+  flex-direction: row;
+}
+
+.unauth-logo-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin: 0;
+  cursor: pointer;
+}
+
+.pindrip-icon {
+  width: 32px;
+  height: 32px;
+}
+
+.title-container {
+  letter-spacing: -1px;
+  margin-left: 4px;
+  box-sizing: border-box;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+/* RIGHT SIDE */
+.unauth-links-container {
+  margin: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.unauth-links {
+  margin-right: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+}
+
+.link {
+  box-sizing: border-box;
+  margin: 16px;
+  font-size: 100%;
+  font-weight: 500;
+}
+
+.btn-container {
+  margin-left: 8px;
+  box-sizing: border-box;
+}
+
+.login-btn {
+  min-width: 60px;
+  min-height: 40px;
+  box-sizing: border-box;
+  display: inline-block;
+  background-color: rgb(85, 15, 159);
+  color: white;
+  cursor: pointer;
+  border-radius: 24px;
+  padding: 8px 12px 8px 12px;
+  border: 0;
+  font-size: 100%;
+  font-weight: 400;
+}
+
+.signup-btn {
+  min-width: 60px;
+  min-height: 40px;
+  box-sizing: border-box;
+  display: inline-block;
+  background-color: lightgray;
+  cursor: pointer;
+  border-radius: 24px;
+  padding: 8px 12px 8px 12px;
+  border: 0;
+  font-size: 100%;
+  font-weight: 400;
+}
+
+.login-btn:hover {
+  background-color: rgb(152, 121, 185);
+}
+
+.signup-btn:hover {
+  background-color: darkgray;
+}

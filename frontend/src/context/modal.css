@@ -1,0 +1,25 @@
+#modal {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: space-around;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.503);
+}
+
+#modal-background {
+  min-width: 420px;
+  min-height: 600px;
+  border-radius: 24px;
+  background-color: white;
+  opacity: 1.0;
+  box-shadow: 0 2px 2px 0 rgba(128, 128, 128, 0.054);
+  display: flex;
+  justify-content: center;
+}
+
+#modal-content {
+  position: absolute;
+  background-color:white;
+  border-radius: 24px;
+}
