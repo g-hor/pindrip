@@ -1,0 +1,90 @@
+.loggednav-container {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  width: 100%;
+  padding: 16px;
+  flex-direction: row;
+}
+
+.logged-logo-container {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin: 0;
+  cursor: pointer;
+}
+
+.logged-pindrip-icon {
+  width: 22px;
+  height: 22px;
+  margin: 10px;
+}
+
+.loggednav-left {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.loggednav-btn {
+  min-width: 60px;
+  min-height: 40px;
+  box-sizing: border-box;
+  background-color: transparent;
+  color: rgb(0, 0, 0);
+  cursor: pointer;
+  border-radius: 24px;
+  padding: 16px 16px 16px 16px;
+  border: 0;
+  font-size: 100%;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.active {
+  background-color: black;
+  color: white;
+  min-width: 60px;
+  min-height: 40px;
+  box-sizing: border-box;
+  cursor: pointer;
+  border-radius: 24px;
+  padding: 16px 16px 16px 16px;
+  border: 0;
+  font-size: 100%;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loggednav-right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.social-icon {
+  width: 36px;
+  height: 36px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}

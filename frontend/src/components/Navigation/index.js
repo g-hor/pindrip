@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
 import LoggedNav from "./LoggedNav";
 import UnauthNav from "./UnauthNav";
-import './Navbar.css';
+import './UnauthNav.css';
+import './LoggedNav.css';
 
 const Navbar = () => {
   const currentUser = useSelector(state => state.session.user); 
