@@ -24,7 +24,7 @@
 
 .field-label {
   font-size: 12px;
-  padding: 8px 0 5px 5px;
+  padding: 8px 0 5px 32px;
   display: flex;
 }
 
@@ -47,6 +47,7 @@ form {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  /* align-items: center; */
   border-radius: 24px;
 }
 
@@ -59,7 +60,6 @@ form {
   color: white;
   cursor: pointer;
   border-radius: 24px;
-  padding: 8px 12px 8px 12px;
   border: 0;
   font-size: 14px;
   font-weight: 400;
@@ -68,6 +68,15 @@ form {
 #form-or-text {
   text-align: center;
   padding: 5px;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.btn-holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 8px 0 8px 0;
 }
 
 .demo-btn {
@@ -79,7 +88,6 @@ form {
   color: white;
   cursor: pointer;
   border-radius: 24px;
-  padding: 4px 12px 4px 12px;
   border: 0;
   font-size: 14px;
   font-weight: 400;

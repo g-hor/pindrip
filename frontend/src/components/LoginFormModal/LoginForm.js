@@ -36,7 +36,7 @@ const LoginForm = () => {
         <div className="form-icon-container">
           <img className="pindrip-icon" src="https://cdn3.iconfinder.com/data/icons/2018-social-media-black-and-white-logos/1000/2018_social_media_popular_app_logo_pinterest-512.png" alt="pindrip logo" />
         </div>
-        <div className='form-welcome-msg'>Welcome to Pindrip!</div>
+        <div className='form-welcome-msg'>Welcome to Pindrip</div>
         <ul className="errors-container">
           {errors.map(error => <li key={error}>{error}</li>)}
         </ul>
@@ -62,9 +62,13 @@ const LoginForm = () => {
             required
           />
           </div>
-        <input className="login-form-btn" type="submit" value="Log In" ></input>
+        <div className='btn-holder'>
+          <input className="login-form-btn" type="submit" value="Log In" ></input>
+        </div>
         <div id="form-or-text">OR</div>
-        <input className="demo-btn" type="submit" value="Log In as Demo User"></input>
+        <div className='btn-holder'>
+          <input className="demo-btn" type="submit" value="Log In as Demo User"></input>
+        </div>
       </form>
     </div>
   );
