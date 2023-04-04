@@ -2,21 +2,26 @@
   display: flex;
   justify-content: space-around;
   align-items: center;
-}
-
-#modal-background {
-  min-width: 420px;
-  min-height: 600px;
+  flex-direction: row;
+  top: 0;
+  left: 0;
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.503);
   box-shadow: 0 2px 2px 0 rgba(128, 128, 128, 0.054);
-  display: flex;
   justify-content: center;
+  position: fixed;
+  z-index: 1;
 }
 
+/* #modal-background {
+  min-width: 420px;
+  min-height: 600px;
+} */
+
 #modal-content {
-  position: absolute;
+  position: relative;
   background-color:white;
   border-radius: 24px;
+  z-index: 2;
 }

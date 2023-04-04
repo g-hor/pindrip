@@ -72,7 +72,7 @@
 }
 
 .right-icon-holder:hover {
-  background-color: rgb(228, 228, 228);
+  background-color: rgb(238, 238, 238);
   padding: 16px;
 }
 
@@ -97,24 +97,39 @@
   align-items: center;
 }
 
-/* .initial-holder {
-  font-size: 10px;
-  background-color: rgb(228, 228, 228);
-  padding: 8px;
-  border-radius: 100%;
-  width: 16px;
-  height: 16px;
-} */
-
 .initial-holder {
   font-size: 10px;
-  background-color: rgb(228, 228, 228);
+  background-color: rgb(238, 238, 238);
   width: 16px;
   height: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 100%;
-  padding: 1px;
+  padding: 4px;
+  margin: 8px;
 }
 
+.right-initial-icon-holder {
+  padding: 4px;
+}
+
+.right-initial-icon-holder:hover {
+  background-color: rgb(238, 238, 238);
+  border-radius: 100%;
+}
+
+.right-drop-icon-holder {
+  border-radius: 100%;
+  padding: 6px;
+  margin-left: 8px;
+}
+
+.right-drop-icon-holder i {
+  font-size: 14px;
+}
+
+.right-drop-icon-holder:hover {
+  cursor: pointer;
+  background-color: rgb(238, 238, 238);
+}

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import './ProfileButton.css';
 import DropdownMenu from "./DropdownMenu";
 
-const ProfileButton = () => {
+const ProfileButton = ({ displayInitial, displayName }) => {
   const [showDrop, setShowDrop] = useState(false);
 
   const clickShow = (e) => {
@@ -23,12 +23,14 @@ const ProfileButton = () => {
   }, [showDrop])
 
   return (
-    <div className="dropdown" onClick={clickShow}>
+    <>
+    <div className="right-drop-icon-holder dropdown" onClick={clickShow}>
       <i className="fa-solid fa-chevron-down dropbtn" />
-      {showDrop && (
-        <DropdownMenu />
-      )}
     </div>
+      {showDrop && (
+        <DropdownMenu displayName={displayName} displayInitial={displayInitial}/>
+      )}
+    </>
   );
 };
 

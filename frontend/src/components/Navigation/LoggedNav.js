@@ -59,12 +59,10 @@ const LoggedNav = () => {
             </a>
           </div>
         </div>
-        <div className="right-icon-holder">
+        <div className="right-initial-icon-holder">
           <div className="initial-holder">{displayInitial}</div>
         </div>
-        <div className="right-icon-holder">
-          <ProfileButton displayInitial={displayInitial} displayName={displayName}/>
-        </div>
+        <ProfileButton displayInitial={displayInitial} displayName={displayName}/>
       </div>
     </div>
   )

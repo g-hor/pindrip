@@ -13,18 +13,23 @@ const DropdownMenu = ({ displayInitial, displayName }) => {
 
   return (
     <div className="dropdown-content" >
-      <div>Currently logged in as:</div>
-      <div>
-        <div>
-          <div>{displayInitial}</div>
-          <div>
-            <div>{displayName}</div>
-            <div>{currentUser.email}</div>
+      <div id="currently-logged">Currently logged in as:</div>
+      <div id="profile-display-container">
+        <div id="profile-display">
+          <div id="profile-initial-holder">
+            <div id="profile-initial">{displayInitial}</div>
+            </div>
+          <div id="profile-details-holder">
+            <div id="profile-details-name">{displayName}</div>
+            <div id="profile-details-email">{currentUser.email}</div>
+          </div>
+          <div id="check-mark">
+            <i className="fa-solid fa-check"></i>
           </div>
         </div>
       </div>
-      <div>More options</div>
-      <div onClick={clickLogout}>Log out</div>
+      <div id="profile-options">More options</div>
+      <div id="logout-button" onClick={clickLogout}>Log out</div>
     </div>
   );
 };
