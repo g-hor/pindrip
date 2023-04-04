@@ -9,18 +9,24 @@
   flex-direction: row;
 }
 
-.logged-logo-container {
+.logged-logo-holder {
   display: flex;
   align-items: center;
   flex-direction: row;
-  margin: 0;
+  padding: 13px;
   cursor: pointer;
+  border-radius: 100%;
+  margin-right: 20px;
+}
+
+.logged-logo-holder:hover {
+  background-color: rgb(238, 238, 238);
 }
 
 .logged-pindrip-icon {
-  width: 22px;
-  height: 22px;
-  margin: 10px;
+  width: 24px;
+  height: 24px;
+  /* margin: 10px; */
 }
 
 .loggednav-left {

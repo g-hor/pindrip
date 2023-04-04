@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
+import SignupForm from '../SignupFormModal/SignupForm';
 
 const LoginForm = () => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
+  const [showLogin, setShowLogin] = useState(true);
+  const [showSignup, setShowSignup] = useState(false);
 
   const clickLogin = async (e) => {
     e.preventDefault();
@@ -30,79 +33,91 @@ const LoginForm = () => {
     dispatch(sessionActions.loginUser({ email: 'demo@pin.drip', password: 'pindrip' }));
   }
 
+  const replaceSignUp = async (e) => {
+    setShowLogin(false);
+    setShowSignup(true);
+  }
+
   return (
-    <div className="form-container">
-      <form onSubmit={clickLogin}>
-        <div className="form-icon-container">
-          <img className="unauth-pindrip-icon" src="https://cdn3.iconfinder.com/data/icons/2018-social-media-black-and-white-logos/1000/2018_social_media_popular_app_logo_pinterest-512.png" alt="pindrip logo" />
-        </div>
-        <div className='form-welcome-msg'>Welcome to Pindrip</div>
-        <ul className="errors-container">
-          {errors.map(error => <li key={error}>{error}</li>)}
-        </ul>
-        <div className="field-label">
-          <div>
-            Email
-          </div>
-        </div>
-        <div className='input-field'>
-          <input
-            className="login-input"
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder='Email'
-            required
-          />
-        </div>
-          <div className="field-label">
-            <div>
-              Password
+    <>
+      {showLogin && (
+        <div className="form-container">
+          <form onSubmit={clickLogin}>
+            <div className="form-icon-container">
+              <img className="unauth-pindrip-icon" src="https://cdn3.iconfinder.com/data/icons/2018-social-media-black-and-white-logos/1000/2018_social_media_popular_app_logo_pinterest-512.png" alt="pindrip logo" />
             </div>
-          </div>
-          <div className='input-field'>
-          <input
-            className="login-input"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder='Password'
-            required
-          />
-          </div>
-        <div className='btn-holder'>
-          <input 
-            className="login-form-btn" 
-            type="submit" 
-            value="Log In" 
-          />
+            <div className='form-welcome-msg'>Welcome to Pindrip</div>
+            <ul className="errors-container">
+              {errors.map(error => <li key={error}>{error}</li>)}
+            </ul>
+            <div className="field-label">
+              <div>
+                Email
+              </div>
+            </div>
+            <div className='input-field'>
+              <input
+                className="login-input"
+                type="text"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder='Email'
+                required
+              />
+            </div>
+              <div className="field-label">
+                <div>
+                  Password
+                </div>
+              </div>
+              <div className='input-field'>
+              <input
+                className="login-input"
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                placeholder='Password'
+                required
+              />
+              </div>
+            <div className='btn-holder'>
+              <input 
+                className="login-form-btn" 
+                type="submit" 
+                value="Log In" 
+              />
+            </div>
+            <div id="form-or-text">OR</div>
+            <div className='btn-holder'>
+              <input 
+                className="demo-btn" 
+                type="submit" 
+                value="Log In as Demo User"
+                onClick={clickDemo}
+              />
+            </div>
+            <div id="form-terms-holder">
+              <div id="form-terms-text">
+                By continuing, you agree to Pindrip's <a href="https://unsplash.com/images/animals/cat" id="terms-of-service"> Terms of Service </a> and acknowledge that your drip is absolutely immaculate.
+              </div>
+            </div>
+            <div id="form-linebreak">
+              <div>
+                _________________________
+              </div>
+            </div>
+            <div id="not-member">
+              <div>
+              Not on Pindrip yet? Sign up <span onClick={replaceSignUp} id="here-text">here</span>!
+              </div>
+            </div>
+          </form>
         </div>
-        <div id="form-or-text">OR</div>
-        <div className='btn-holder'>
-          <input 
-            className="demo-btn" 
-            type="submit" 
-            value="Log In as Demo User"
-            onClick={clickDemo}
-          />
-        </div>
-        <div id="form-terms-holder">
-          <div id="form-terms-text">
-            By continuing, you agree to Pindrip's <a href="https://unsplash.com/images/animals/cat" id="terms-of-service"> Terms of Service </a> and acknowledge that your drip is absolutely immaculate.
-          </div>
-        </div>
-        <div id="form-linebreak">
-          <div>
-            _________________________
-          </div>
-        </div>
-        <div id="not-member">
-          <div>
-          Not on Pindrip yet? Sign up <span id="here-text">here</span>!
-          </div>
-        </div>
-      </form>
-    </div>
+      )}
+      {showSignup && (
+        <SignupForm />
+      )}
+    </>
   );
 };
 
