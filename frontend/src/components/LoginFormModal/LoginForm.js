@@ -10,7 +10,7 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
 
-  if (sessionUser) return <Redirect to="/" />;
+  // if (sessionUser) return <Redirect to="/" />;
 
   const clickLogin = async (e) => {
     e.preventDefault();
@@ -44,7 +44,11 @@ const LoginForm = () => {
         <ul className="errors-container">
           {errors.map(error => <li key={error}>{error}</li>)}
         </ul>
-        <div className="field-label">Email</div>
+        <div className="field-label">
+          <div>
+            Email
+          </div>
+        </div>
         <div className='input-field'>
           <input
             className="login-input"
@@ -55,7 +59,11 @@ const LoginForm = () => {
             required
           />
         </div>
-          <div className="field-label">Password</div>
+          <div className="field-label">
+            <div>
+              Password
+            </div>
+          </div>
           <div className='input-field'>
           <input
             className="login-input"
@@ -81,6 +89,21 @@ const LoginForm = () => {
             value="Log In as Demo User"
             onClick={clickDemo}
           />
+        </div>
+        <div id="form-terms-holder">
+          <div id="form-terms-text">
+            By continuing, you agree to Pindrip's <a href="https://unsplash.com/images/animals/cat" id="terms-of-service"> Terms of Service </a> and acknowledge that your drip is absolutely immaculate.
+          </div>
+        </div>
+        <div id="form-linebreak">
+          <div>
+            _________________________
+          </div>
+        </div>
+        <div id="not-member">
+          <div>
+          Not on Pindrip yet? Sign up <span id="here-text">here</span>!
+          </div>
         </div>
       </form>
     </div>

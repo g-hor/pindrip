@@ -10,7 +10,7 @@ const SignupForm = () => {
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
 
-  if (sessionUser) return <Redirect to="/" />;
+  // if (sessionUser) return <Redirect to="/" />;
 
   const clickSignup = async(e) => {
     e.preventDefault();
@@ -40,7 +40,11 @@ const SignupForm = () => {
         <ul className="errors-container">
           {errors.map(error => <li key={error}>{error}</li>)}
         </ul>
-        <div className="field-label">Email</div>
+        <div className="field-label">
+          <div>
+            Email
+          </div>
+        </div>
         <div className='input-field'>
           <input
             className="login-input"
@@ -51,7 +55,11 @@ const SignupForm = () => {
             required
           />
         </div>
-          <div className="field-label">Password</div>
+          <div className="field-label">
+            <div>
+              Password
+            </div>
+          </div>
           <div className='input-field'>
           <input
             className="login-input"
@@ -66,13 +74,27 @@ const SignupForm = () => {
           <input 
             className="login-form-btn" 
             type="submit" 
-            value="Continue" 
+            value="Log In" 
           />
+        </div>
+        <div id="form-terms-holder">
+          <div id="form-terms-text">
+            By continuing, you agree to Pindrip's <a href="https://unsplash.com/images/animals/cat" id="terms-of-service"> Terms of Service </a> and acknowledge that your drip is absolutely immaculate.
+          </div>
+        </div>
+        <div id="form-linebreak">
+          <div>
+            _________________________
+          </div>
+        </div>
+        <div id="not-member">
+          <div>
+          Already a member? Log in <span id="here-text">here</span>!
+          </div>
         </div>
       </form>
     </div>
   );
-
 };
 
 export default SignupForm;
