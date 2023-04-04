@@ -1,16 +1,12 @@
 import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
-import { useDispatch, useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 
 const SignupForm = () => {
   const dispatch = useDispatch();
-  const sessionUser = useSelector(state => state.session.user);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState([]);
-
-  // if (sessionUser) return <Redirect to="/" />;
 
   const clickSignup = async(e) => {
     e.preventDefault();
@@ -24,6 +20,7 @@ const SignupForm = () => {
         } catch {
           data = await res.text();
         }
+        debugger
         if (data?.errors) setErrors(data.errors);
         else if (data) setErrors([data]);
         else setErrors([res.statusText]);
@@ -74,7 +71,7 @@ const SignupForm = () => {
           <input 
             className="login-form-btn" 
             type="submit" 
-            value="Log In" 
+            value="Continue" 
           />
         </div>
         <div id="form-terms-holder">

@@ -35,7 +35,8 @@
   min-height: 40px;
   box-sizing: border-box;
   background-color: transparent;
-  color: rgb(0, 0, 0);
+  /* background-color: black; */
+  color: black;
   cursor: pointer;
   border-radius: 24px;
   padding: 16px 16px 16px 16px;
@@ -47,10 +48,10 @@
   justify-content: center;
 }
 
-.active {
+.loggednav-btn.active {
   background-color: black;
   color: white;
-  min-width: 60px;
+  /* min-width: 60px;
   min-height: 40px;
   box-sizing: border-box;
   cursor: pointer;
@@ -61,8 +62,19 @@
   font-weight: 400;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: center; */
+  outline: 2px solid black;
 }
+
+.active.initial-holder {
+  color: black;
+  outline: 2px solid black;
+}
+
+/* .active:hover {
+  color: white;
+  background-color: rgb(85, 85, 85);
+} */
 
 .loggednav-right {
   display: flex;
@@ -111,7 +123,7 @@
 }
 
 .right-initial-icon-holder {
-  padding: 4px;
+  padding: 4.5px;
 }
 
 .right-initial-icon-holder:hover {
@@ -121,7 +133,7 @@
 
 .right-drop-icon-holder {
   border-radius: 100%;
-  padding: 6px;
+  padding: 4.5px;
   margin-left: 8px;
 }
 

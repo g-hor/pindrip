@@ -34,9 +34,9 @@ const LoggedNav = () => {
             <img className="logged-pindrip-icon" src="https://cdn3.iconfinder.com/data/icons/2018-social-media-black-and-white-logos/1000/2018_social_media_popular_app_logo_pinterest-512.png" alt="pindrip logo" />
           </div>
         </Link>
-        <div className="loggednav-btn">
-          <NavLink to='/'>Home</NavLink>
-        </div>
+          <NavLink className="loggednav-btn" to='/' exact>
+            Home
+          </NavLink>
         <div className="loggednav-btn">
           Create
         </div>
@@ -60,7 +60,12 @@ const LoggedNav = () => {
           </div>
         </div>
         <div className="right-initial-icon-holder">
-          <div className="initial-holder">{displayInitial}</div>
+          <NavLink 
+            to={`/${currentUser.username || displayName}`}
+            className="initial-holder"
+            >
+            {displayInitial}
+          </NavLink>
         </div>
         <ProfileButton displayInitial={displayInitial} displayName={displayName}/>
       </div>

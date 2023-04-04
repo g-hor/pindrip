@@ -1,9 +1,23 @@
 import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 import * as sessionActions from '../../store/session';
 
 const DropdownMenu = ({ displayInitial, displayName }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector(state => state.session.user);
+  const [loggedName, setLoggedName] = useState(displayName)
+  const [displayEmail, setDisplayEmail] = useState(currentUser.email);
+
+  useEffect(() => {
+
+    if (displayEmail.length > 23) {
+      setDisplayEmail(prev => currentUser.email.slice(0, 23) + '...')
+    };
+
+    if (displayName.length > 20) {
+      setLoggedName(displayName.slice(0, 20) + '...');
+    }
+  }, [currentUser.email, displayEmail.length, displayName])
 
   const clickLogout = (e) => {
     e.preventDefault();
@@ -20,8 +34,8 @@ const DropdownMenu = ({ displayInitial, displayName }) => {
             <div id="profile-initial">{displayInitial}</div>
             </div>
           <div id="profile-details-holder">
-            <div id="profile-details-name">{displayName}</div>
-            <div id="profile-details-email">{currentUser.email}</div>
+            <div id="profile-details-name">{loggedName}</div>
+            <div id="profile-details-email">{displayEmail}</div>
           </div>
           <div id="check-mark">
             <i className="fa-solid fa-check"></i>
