@@ -1,14 +1,12 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import './ProfileButton.css';
 import DropdownMenu from "./DropdownMenu";
-import { useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
 
 const ProfileButton = ({ displayInitial, displayName }) => {
   const [showDrop, setShowDrop] = useState(false);
-  const currentUser = useSelector(state => state.session.user);
+  const dropdown = useRef();
 
-  const clickShow = (e) => {
+  const clickShow = () => {
     if (showDrop) return;
     setShowDrop(true);
   }
@@ -16,7 +14,8 @@ const ProfileButton = ({ displayInitial, displayName }) => {
   useEffect(() => {
     if (!showDrop) return;
 
-    const clickHide = () => {
+    const clickHide = (e) => {
+      if (dropdown.current.contains(e.target)) return;
       setShowDrop(false);
     };
 
@@ -31,11 +30,12 @@ const ProfileButton = ({ displayInitial, displayName }) => {
       <i className="fa-solid fa-chevron-down dropbtn" />
     </div>
       {showDrop && (
-        <DropdownMenu 
-          onClick={(e) => e.stopPropagation()} 
-          displayName={displayName} 
-          displayInitial={displayInitial}
-          />
+        <div ref={dropdown}>
+          <DropdownMenu 
+            displayName={displayName} 
+            displayInitial={displayInitial}
+            />
+        </div>
       )}
     </>
   );
