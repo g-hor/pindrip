@@ -1,17 +1,21 @@
 import React from 'react';
-// import { Route, Switch } from 'react-router-dom';
-// import SignupFormModal from './components/SignupFormModal';
+import { Redirect, Route, Switch } from 'react-router-dom';
 import Navbar from './components/Navigation';
+import Profile from './components/Profile';
 
 function App() {
+
   return (
     <>
       <Navbar />
-      {/* <Switch> */}
+      <Switch>
         {/* <Route path="/signup">
           <SignupFormModal />
         </Route> */}
-      {/* </Switch> */}
+        <Route exact path="/:username">
+          <Profile />
+        </Route>
+      </Switch>
     </>
   );
 }
