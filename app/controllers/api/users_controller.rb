@@ -7,9 +7,12 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    if current_user
-      @user = current_user
+    @user = User.find_by(id: params[:id])
+
+    if @user
       render 'api/users/show'
+    else
+      render json: {errors: ["I'm a teapot xd"]}
     end
   end
 

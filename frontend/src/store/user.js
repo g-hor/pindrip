@@ -23,8 +23,11 @@ export const getUser = (user) => {
 
 // THUNK ACTION CREATORS
 export const fetchAllUsers = () => async dispatch => {
-  const res = await csrfFetch('/api/users');
+  const res = await csrfFetch('/api/users', {
+    method: "GET"
+  });
   let data = await res.json();
+  debugger;
   dispatch(getAllUsers(data));
   return res;
 };
@@ -39,11 +42,12 @@ export const fetchUser = (userId) => async dispatch => {
 
 // REDUCER
 const usersReducer = (state = {}, action) => {
+  const nextState = { ...state };
   switch (action.type) {
     case GET_ALL_USERS:
-      return { ...state, ...action.payload };
+      return { ...nextState, ...action.payload };
     case GET_USER:
-      return { ...state, [action.payload.id]: action.payload };
+      return nextState[action.payload.id] = action.payload ;
     default:
       return state;
   }

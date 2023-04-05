@@ -5,9 +5,10 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import configureStore from './store/index';
 import csrfFetch from './store/csrf';
-import * as sessionActions from './store/session';
-import './index.css';
 import { ModalProvider } from './context/modal';
+import * as sessionActions from './store/session';
+import * as userActions from './store/user';
+import './index.css';
 
 
 
@@ -17,6 +18,7 @@ if (process.env.NODE_ENV !== 'production') {
   window.store = store;
   window.csrfFetch = csrfFetch;
   window.sessionActions = sessionActions;
+  window.userActions = userActions;
 }
 
 function Root() {
