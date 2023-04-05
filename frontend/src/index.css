@@ -26,6 +26,7 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 	text-decoration: none;
+	color: #111111;
 }
 
 a, a:hover, a:focus, a:active {

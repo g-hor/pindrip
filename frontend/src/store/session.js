@@ -21,6 +21,12 @@ export const removeSession = () => {
 };
 
 
+// SELECTOR METHOD
+export const getCurrentUser = (state) => {
+  return state?.session?.user ? state.session.user : null;
+};
+
+
 // THUNK ACTION CREATORS
 export const loginUser = ({ email, password }) => async dispatch => {
   const res = await csrfFetch('/api/session', {

@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
+import { getCurrentUser } from "../../store/session";
 import * as sessionActions from '../../store/session';
 
 const DropdownMenu = ({ displayInitial, displayName }) => {
   const dispatch = useDispatch();
-  const currentUser = useSelector(state => state.session.user);
+  const currentUser = useSelector(getCurrentUser);
   const [loggedName, setLoggedName] = useState(displayName)
   const [displayEmail, setDisplayEmail] = useState(currentUser.email);
 
@@ -27,21 +28,25 @@ const DropdownMenu = ({ displayInitial, displayName }) => {
 
   return (
     <div className="dropdown-content" >
+
       <div id="currently-logged">Currently logged in as:</div>
-      <div id="profile-display-container">
-        <div id="profile-display">
-          <div id="profile-initial-holder">
-            <div id="profile-initial">{displayInitial}</div>
+
+      <a href={`/${currentUser.username}`}>
+        <div id="profile-display-container">
+          <div id="profile-display">
+            <div id="profile-initial-holder">
+              <div id="profile-initial">{displayInitial}</div>
+              </div>
+            <div id="profile-details-holder">
+              <div id="profile-details-name">{loggedName}</div>
+              <div id="profile-details-email">{displayEmail}</div>
             </div>
-          <div id="profile-details-holder">
-            <div id="profile-details-name">{loggedName}</div>
-            <div id="profile-details-email">{displayEmail}</div>
-          </div>
-          <div id="check-mark">
-            <i className="fa-solid fa-check"></i>
+            <div id="check-mark">
+              <i className="fa-solid fa-check"></i>
+            </div>
           </div>
         </div>
-      </div>
+      </a>
       <div id="profile-options">More options</div>
       <div id="logout-button" onClick={clickLogout}>Log out</div>
     </div>

@@ -23,7 +23,12 @@ ApplicationRecord.transaction do
   User.create!(
     username: 'demo', 
     email: 'demo@pin.drip', 
-    password: 'pindrip'
+    password: 'pindrip',
+    first_name: 'drip master',
+    last_name: '5000',
+    about: 'im all about the drip xddd',
+    pronouns: 'he/him',
+    website: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley'
   )
 
   # Creating users with minimum information
@@ -35,7 +40,7 @@ ApplicationRecord.transaction do
     }) 
   end
 
-  # Creating users with more information (no website info)
+  # Creating users with complete information
   10.times do
     User.create!({
       username: Faker::Creature::Cat.unique.name,

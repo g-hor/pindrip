@@ -25,7 +25,7 @@
 .form-welcome-msg {
   font-size: 34px;
   font-weight: 500;
-  color: rgb(29, 29, 29);
+  color: #111111;
   margin: 15px;
   text-align: center;
   letter-spacing: 0.5px;
@@ -40,7 +40,7 @@
   font-size: 14px;
   padding: 8px 50px 5px 50px;
   font-weight: 400;
-  color: rgb(58, 58, 58);
+  color: #111111;
   /* display: flex;
   align-items: center;
   justify-content: center; */
@@ -99,7 +99,7 @@ input[type=password] {
   padding: 5px;
   font-size: 14px;
   font-weight: 700;
-  color:rgb(58, 58, 58)
+  color: #111111;
 }
 
 .btn-holder {
@@ -147,6 +147,11 @@ input[type=password] {
   line-height: 2em;
 }
 
+#terms-of-service:hover {
+  text-decoration: underline;
+  color: #111111;
+}
+
 #form-linebreak {
   display: flex;
   align-items: center;
@@ -173,5 +178,6 @@ input[type=password] {
 
 #here-text:hover {
   cursor: pointer;
-  color:rgb(58, 58, 58);
+  color: #111111;
+  text-decoration: underline;
 }

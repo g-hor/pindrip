@@ -1,20 +1,12 @@
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { getCurrentUser } from "../../store/session";
+import { capitalizeFirstLetter, formatEmail } from "../../store/user";
 import MenuButton from "../MenuButton";
 
 const LoggedNav = () => {
-  const currentUser = useSelector(state => state.session.user);
-
-  const capitalizeFirstLetter = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-  }
-
-  const formatEmail = (emailAddress) => {
-    const email = emailAddress.split("@")[0];
-    return capitalizeFirstLetter(email);
-  };
-
+  const currentUser = useSelector(getCurrentUser);
   const [displayName, setDisplayName] = useState(formatEmail(currentUser.email));
   const [displayInitial, setDisplayInitial] = useState(displayName[0]);
 
