@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
-import ProfileButton from "../ProfileButton";
+import MenuButton from "../MenuButton";
 
 const LoggedNav = () => {
   const currentUser = useSelector(state => state.session.user);
@@ -67,7 +67,7 @@ const LoggedNav = () => {
             {displayInitial}
           </NavLink>
         </div>
-        <ProfileButton displayInitial={displayInitial} displayName={displayName}/>
+        <MenuButton displayInitial={displayInitial} displayName={displayName}/>
       </div>
     </div>
   )

@@ -1,8 +1,8 @@
 import { useEffect, useState, useRef } from "react";
-import './ProfileButton.css';
+import './MenuButton.css';
 import DropdownMenu from "./DropdownMenu";
 
-const ProfileButton = ({ displayInitial, displayName }) => {
+const MenuButton = ({ displayInitial, displayName }) => {
   const [showDrop, setShowDrop] = useState(false);
   const dropdown = useRef();
 
@@ -41,4 +41,4 @@ const ProfileButton = ({ displayInitial, displayName }) => {
   );
 };
 
-export default ProfileButton;
+export default MenuButton;

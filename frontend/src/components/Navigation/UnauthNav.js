@@ -19,7 +19,7 @@ const UnauthNav = () => {
         <div className="unauth-links">
           <div className="link">
             <a href="https://github.com/g-hor">
-            GitHub
+              GitHub
             </a>
           </div>
           <div className="link">

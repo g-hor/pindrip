@@ -1,10 +1,17 @@
 class Api::UsersController < ApplicationController
-  # def show
-  #   if current_user
-  #     @user = current_user
-  #     render 'api/users/show'
-  #   end
-  # end
+
+
+  def index
+    @users = User.all
+    render 'api/users/index'
+  end
+
+  def show
+    if current_user
+      @user = current_user
+      render 'api/users/show'
+    end
+  end
 
   def create
     @user = User.new(user_params)
