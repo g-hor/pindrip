@@ -31,6 +31,12 @@ export const Modal = ({ onClose, children }) => {
     <div id="modal">
       <div id="modal-background" onClick={onClose} />
       <div id="modal-content">
+        <div id="x-button-holder">
+          <i 
+            className="fa-solid fa-xmark close-x-button"
+            onClick={onClose}
+            />
+        </div>
         {children}
       </div>
     </div>,
