@@ -21,17 +21,17 @@ class User < ApplicationRecord
   PRONOUNS = ['ey/em', 'he/him', 'ne/nem', 'she/her', 'they/them', 've/ver', 'xe/xem', 'xie,xem', 'ze/zir']
 
   validates :username,
-    uniqueness: { message: "That username is already taken." },
-    length: { in: 3..30, message: "That username is too long! Try for under 30 characters." },
-    format: { without: URI::MailTo::EMAIL_REGEXP, message: "A username must contain only numbers and letters." },
+    uniqueness: true,
+    length: { in: 3..30 },
+    format: { without: URI::MailTo::EMAIL_REGEXP },
     allow_nil: true
   validates :email,
-    uniqueness: { message: "Deja vu! That email's taken."},
+    uniqueness: true,
     length: { in: 8..100 },
-    format: { with: URI::MailTo::EMAIL_REGEXP, message: "Hmm... That doesn't look like an email address." }
+    format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :session_token, presence: true, uniqueness: true
   validates :password, 
-    length: { in: 6..50, message: "Your password is too short! You need 6+ characters." }, 
+    length: { in: 6..50 }, 
     allow_nil: true
   validates_inclusion_of :pronouns, :in => PRONOUNS, allow_nil: true
 

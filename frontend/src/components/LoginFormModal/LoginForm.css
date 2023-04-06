@@ -1,13 +1,19 @@
 .errors-container {
-  /* display: flex; */
-  /* align-items: center; */
-  /* justify-content: center; */
   font-size: 12px;
-  color: rgb(85, 15, 159);
+  width: 280px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 8px 35px 8px 35px;
+}
+
+.error {
+  margin: 5px;
+  color: #CC0000;
 }
 
 .form-container {
-  min-width: 420px;
+  min-width: 485px;
   min-height: 450px;
   border-radius: 24px;
   display: flex;
@@ -41,15 +47,12 @@
   padding: 8px 50px 5px 50px;
   font-weight: 400;
   color: #111111;
-  /* display: flex;
-  align-items: center;
-  justify-content: center; */
 }
 
 .login-input {
   box-sizing: border-box;
   min-height: 42px;
-  min-width: 240px;
+  min-width: 280px;
   border-radius: 14px;
   border: 2px solid lightgray;
   padding: 10px 10px 10px 15px;
@@ -57,7 +60,7 @@
 }
 
 .login-input:focus {
-  outline: 4px solid rgb(115, 155, 223);
+  outline: 4px solid #93c1f6;
 }
 
 .input-field {
@@ -73,7 +76,7 @@ form {
 }
 
 .login-form-btn {
-  width: 240px;
+  width: 280px;
   min-height: 40px;
   box-sizing: border-box;
   display: inline-block;
@@ -110,7 +113,7 @@ input[type=password] {
 }
 
 .demo-btn {
-  width: 240px;
+  width: 280px;
   min-height: 40px;
   box-sizing: border-box;
   display: inline-block;
@@ -178,6 +181,6 @@ input[type=password] {
 
 #here-text:hover {
   cursor: pointer;
-  color: #111111;
+  color:#111111;
   text-decoration: underline;
 }

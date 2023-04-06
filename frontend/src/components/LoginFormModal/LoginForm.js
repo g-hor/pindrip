@@ -47,9 +47,11 @@ const LoginForm = () => {
               <img className="unauth-pindrip-icon" src="https://cdn3.iconfinder.com/data/icons/2018-social-media-black-and-white-logos/1000/2018_social_media_popular_app_logo_pinterest-512.png" alt="pindrip logo" />
             </div>
             <div className='form-welcome-msg'>Welcome to Pindrip</div>
-            <ul className="errors-container">
-              {errors.map(error => <li key={error}>{error}</li>)}
-            </ul>
+            <div className="errors-container">
+              <ul className="errors-list">
+                {errors.map(error => <li className='error' key={error}>{error}</li>)}
+              </ul>
+            </div>
             <div className="field-label">
               <div>
                 Email

@@ -6,20 +6,36 @@ import { useEffect, useState } from "react";
 const UserInfo = () => {
   const currentUser = useSelector(getCurrentUser);
   // CHANGE LOGIC FROM CURRENT USER TO SHOWINGUSER
-  // displayName is set to default of empty string to prevent stutter rerender of name
-  const [displayName, setDisplayName] = useState('');
-
+  const [displayName, setDisplayName] = useState(currentUser.firstName);
+  const [usernamePronouns, setUsernamePronouns] = useState(currentUser.username);
+  const [url, setUrl] = useState(currentUser.website);
+  const [blurb, setBlurb] = useState(currentUser.about);
+  const [urlAbout, setUrlAbout] = useState(null);
   
   useEffect(() => {
 
     if (currentUser.lastName) {
-      setDisplayName(prev => currentUser.firstName + ' ' + currentUser.lastName)
+      setDisplayName(currentUser.firstName + ' ' + currentUser.lastName);
     } else {
-      setDisplayName(prev => currentUser.firstName)
+      setDisplayName(currentUser.firstName);
     }
 
-  }, [currentUser.lastName])
-  
+    if (currentUser.pronouns) {
+      setUsernamePronouns('@' + currentUser.username + ' · ' + currentUser.pronouns);
+    }
+
+    if (url && blurb) {
+      setUrlAbout(url + ' · ' + blurb);
+    } else {
+      setUrlAbout(url || blurb);
+    }
+
+    if (urlAbout?.length > 300) {
+      setUrlAbout(prev => prev.slice(0, 300) + '...more')
+    }
+    // debugger;
+  }, [currentUser])
+
   return (
     <div id="user-info-container">
 
@@ -37,8 +53,12 @@ const UserInfo = () => {
 
       <div id="user-info-username-container">
         <div id="user-info-username">
-          {"@" + currentUser.username}
+          {usernamePronouns}
         </div>
+      </div>
+
+      <div id="user-info-urlabout-container">
+        {urlAbout}
       </div>
 
       <div id="user-info-follow-container">
@@ -48,9 +68,11 @@ const UserInfo = () => {
       </div>
 
       <div id="edit-profile-btn-container">
-        <div id="edit-profile-btn">
-          Edit Profile
-        </div>
+        <a href='/editprofile'>
+          <div id="edit-profile-btn">
+            Edit Profile
+          </div>
+        </a>
       </div>
 
     </div>
