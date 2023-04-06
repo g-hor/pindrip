@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
 
 const SelectorBar = () => {
   const [showUnderline, setShowUnderline] = useState("saved");

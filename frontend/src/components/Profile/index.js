@@ -14,7 +14,7 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(userActions.fetchUser(username));
-  }, [username])
+  }, [username, dispatch])
 
   return (
     <div id="profile-user-container">
