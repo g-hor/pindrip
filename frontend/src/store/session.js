@@ -34,8 +34,8 @@ export const loginUser = ({ email, password }) => async dispatch => {
     body: JSON.stringify({email, password})
   });
   let data = await res.json();
-  storeCurrentUser(data.user);
-  dispatch(receiveSession(data.user));
+  storeCurrentUser(data);
+  dispatch(receiveSession(data));
   return res;
 };
 
@@ -54,8 +54,8 @@ export const signupUser = ({ email, password }) => async dispatch => {
     body: JSON.stringify({ user: { email, password }})
   });
   const data = await res.json();
-  dispatch(receiveSession(data.user));
-  storeCurrentUser(data.user);
+  dispatch(receiveSession(data));
+  storeCurrentUser(data);
   return res;
 };
 
@@ -63,8 +63,8 @@ export const restoreSession = () => async dispatch => {
   const res = await csrfFetch('/api/session');
   storeCSRFToken(res);
   const data = await res.json();
-  storeCurrentUser(data.user);
-  dispatch(receiveSession(data.user));
+  storeCurrentUser(data);
+  dispatch(receiveSession(data));
   return res;
 };
 

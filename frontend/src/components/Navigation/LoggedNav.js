@@ -9,7 +9,6 @@ const LoggedNav = () => {
   const currentUser = useSelector(getCurrentUser);
   const [displayName, setDisplayName] = useState(formatEmail(currentUser.email));
   const [displayInitial, setDisplayInitial] = useState(displayName[0]);
-
   useEffect(() => {
     if (currentUser.firstName) {
       setDisplayName(prevName => capitalizeFirstLetter(currentUser.firstName));

@@ -17,9 +17,10 @@
 #
 class User < ApplicationRecord
   has_secure_password
+  before_validation :ensure_session_token, :provide_defaults
 
   PRONOUNS = ['ey/em', 'he/him', 'ne/nem', 'she/her', 'they/them', 've/ver', 'xe/xem', 'xie,xem', 'ze/zir']
-
+  
   validates :username,
     uniqueness: true,
     length: { in: 3..30 },
@@ -35,7 +36,8 @@ class User < ApplicationRecord
     allow_nil: true
   validates_inclusion_of :pronouns, :in => PRONOUNS, allow_nil: true
 
-  before_validation :ensure_session_token
+
+  has_one_attached :avatar
 
 
   def self.find_by_credentials(email, password)
@@ -67,5 +69,18 @@ class User < ApplicationRecord
     end
     return token
   end
-
+  
+  def parse_email
+    punctuation = ['.', '-', '_']
+    first_part = self.email.split("@")
+    letters = first_part.split('')
+    parsed_letters = letters.select {|char| !punctuation.include?(char) }
+    parsed_letters.join('')
+  end
+  
+  def provide_defaults
+    self.username ||= self.parse_email
+    self.first_name ||= self.parse_email
+  end
+  
 end

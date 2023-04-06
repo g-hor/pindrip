@@ -14,9 +14,9 @@ const Profile = () => {
   const currentUser = useSelector(getCurrentUser);
   const user = useSelector(state => state.users[1]);
 
-  useEffect(() => {
-    dispatch(userActions.fetchUser(1));
-  }, [])
+  // useEffect(() => {
+  //   dispatch(userActions.fetchUser(1));
+  // }, [])
 
   return (
     <div id="profile-user-container">

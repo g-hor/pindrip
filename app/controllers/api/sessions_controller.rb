@@ -5,7 +5,7 @@ class Api::SessionsController < ApplicationController
   def show
     if current_user
       @user = current_user
-      render 'api/users/show'
+      render 'api/sessions/show'
     else
       render json: { user: nil }
     end
@@ -16,7 +16,7 @@ class Api::SessionsController < ApplicationController
 
     if @user
       login!(@user)
-      render 'api/users/show'
+      render 'api/sessions/show'
     else
       render json: { errors: ["Hmm... We weren't able to find a match."] }, status: :unauthorized
     end

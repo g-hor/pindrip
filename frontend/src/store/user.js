@@ -43,7 +43,6 @@ export const receiveUser = (user) => {
 export const fetchAllUsers = () => async dispatch => {
   const res = await csrfFetch('/api/users');
   let data = await res.json();
-  debugger;
   dispatch(receiveAllUsers(data));
   return res;
 };
