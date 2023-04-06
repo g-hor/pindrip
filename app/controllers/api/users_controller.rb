@@ -27,9 +27,15 @@ class Api::UsersController < ApplicationController
     end
   end
 
-  # def update
+  def update
+    @user = User.find_by(username: params[:username])
 
-  # end
+    if @user.update(user_params)
+      render 'api/sessions/show'
+    else
+      render json: { errors: @user.errors.full_messages }, status: 422
+    end
+  end
 
   private
 

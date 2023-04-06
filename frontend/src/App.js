@@ -14,7 +14,7 @@ function App() {
       <Navbar />
       <Switch>
         {(!currentUser) && <Redirect to="/" />}
-        <Route path="/editprofile">
+        <Route exact path="/editprofile">
           <EditProfile />
         </Route>
         <Route exact path="/:username">
