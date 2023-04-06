@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import './Profile.css';
 import { useDispatch, useSelector } from "react-redux";
 import * as userActions from '../../store/user';
@@ -13,7 +13,6 @@ const Profile = () => {
   const showUser = useSelector(state => state.users[username])
 
   useEffect(() => {
-    debugger
     dispatch(userActions.fetchUser(username));
   }, [username])
 
@@ -21,7 +20,7 @@ const Profile = () => {
     <div id="profile-user-container">
       <UserInfo showUser={showUser} />
       <SelectorBar />
-      <a href="/demo">demo</a>
+      <Link to="/demo">demo profile</Link>
     </div>
   );
 };

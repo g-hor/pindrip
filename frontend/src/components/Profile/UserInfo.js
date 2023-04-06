@@ -1,14 +1,12 @@
-import { useSelector } from "react-redux";
-import { getCurrentUser } from "../../store/session";
+import { Link } from "react-router-dom";
 import { getInitial } from "../../store/user";
 import { useEffect, useState } from "react";
 
 const UserInfo = ({ showUser }) => {
   const [displayName, setDisplayName] = useState(showUser?.firstName);
-  const [usernamePronouns, setUsernamePronouns] = useState('@' + showUser?.username);
+  const [usernamePronouns, setUsernamePronouns] = useState();
   const [blurb, setBlurb] = useState(showUser?.about);
-  const [urlAbout, setUrlAbout] = useState(null);
-  debugger
+  const [urlAbout, setUrlAbout] = useState();
   
   useEffect(() => {
     
@@ -19,7 +17,9 @@ const UserInfo = ({ showUser }) => {
     }
     
     if (showUser?.pronouns) {
-      setUsernamePronouns(showUser?.username + ' · ' + showUser?.pronouns);
+      setUsernamePronouns('@' + showUser?.username + ' · ' + showUser?.pronouns);
+    } else {
+      setUsernamePronouns('@' + showUser?.username);
     }
     
     if (blurb?.length > 300) {
@@ -29,9 +29,11 @@ const UserInfo = ({ showUser }) => {
     if (showUser?.website && blurb) setUrlAbout(showUser?.website + ' · ' + blurb);
     
   }, [showUser])
-  
+
+  // UserInfo will rerender a few times, sometimes without a predefined showUser
   if (!showUser) return null;
   
+
   return (
     <div id="user-info-container">
 
@@ -64,11 +66,11 @@ const UserInfo = ({ showUser }) => {
       </div>
 
       <div id="edit-profile-btn-container">
-        <a href='/editprofile'>
+        <Link to='/editprofile'>
           <div id="edit-profile-btn">
             Edit Profile
           </div>
-        </a>
+        </Link>
       </div>
 
     </div>

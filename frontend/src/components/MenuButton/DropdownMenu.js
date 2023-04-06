@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { getCurrentUser } from "../../store/session";
+import { Link } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 
 const DropdownMenu = ({ displayInitial, displayName }) => {
@@ -31,7 +32,7 @@ const DropdownMenu = ({ displayInitial, displayName }) => {
 
       <div id="currently-logged">Currently logged in as:</div>
 
-      <a href={`/${currentUser.username}`}>
+      <Link to={`/${currentUser.username}`}>
         <div id="profile-display-container">
           <div id="profile-display">
             <div id="profile-initial-holder">
@@ -46,7 +47,7 @@ const DropdownMenu = ({ displayInitial, displayName }) => {
             </div>
           </div>
         </div>
-      </a>
+      </Link>
       <div id="profile-options">More options</div>
       <div id="logout-button" onClick={clickLogout}>Log out</div>
     </div>

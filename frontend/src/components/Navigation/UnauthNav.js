@@ -18,14 +18,14 @@ const UnauthNav = () => {
       <div className="unauth-links-container">
         <div className="unauth-links">
           <div className="link">
-            <a href="https://github.com/g-hor">
+            <Link to="https://github.com/g-hor">
               GitHub
-            </a>
+            </Link>
           </div>
           <div className="link">
-            <a href="https://www.linkedin.com/in/garyhor65/">
+            <Link to="https://www.linkedin.com/in/garyhor65/">
               LinkedIn
-            </a>
+            </Link>
           </div>
         </div>
           <div className="btn-container">
