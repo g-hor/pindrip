@@ -28,7 +28,7 @@ class User < ApplicationRecord
     allow_nil: true
   validates :email,
     uniqueness: true,
-    length: { in: 8..100 },
+    length: { in: 10..100 },
     format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :session_token, presence: true, uniqueness: true
   validates :password, 
@@ -70,16 +70,27 @@ class User < ApplicationRecord
     return token
   end
   
+  # users are not asked to provide a username or first name upon signing up
+  # these methods ensure that users have both a username and first name. The username is used for routing/identifying purposes.
   def parse_email
     punctuation = ['.', '-', '_']
-    first_part = self.email.split("@")
+    first_part = self.email.split("@")[0]
     letters = first_part.split('')
     parsed_letters = letters.select {|char| !punctuation.include?(char) }
-    parsed_letters.join('')
+    username = parsed_letters.join('')
+    username.length < 3 ? nil : username
+  end
+
+  def generate_unique_username
+    parsed_email = self.parse_email
+    while User.exists?(username: parsed_email)
+      parsed_email += rand(999).to_s
+    end
+    parsed_email
   end
   
   def provide_defaults
-    self.username ||= self.parse_email
+    self.username ||= self.generate_unique_username
     self.first_name ||= self.parse_email
   end
   

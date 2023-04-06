@@ -8,6 +8,7 @@ export const getInitial = (user) => {
     return formatEmail(user.email)[0]
   }
 }
+
 export const capitalizeFirstLetter = (string) => {
   return string[0].toUpperCase() + string.slice(1);
 }
@@ -47,8 +48,8 @@ export const fetchAllUsers = () => async dispatch => {
   return res;
 };
 
-export const fetchUser = (userId) => async dispatch => {
-  const res = await csrfFetch(`/api/users/${userId}`);
+export const fetchUser = (username) => async dispatch => {
+  const res = await csrfFetch(`/api/users/${username}`);
   let data = await res.json();
   dispatch(receiveUser(data));
   return res;
@@ -62,7 +63,7 @@ const usersReducer = (state = {}, action) => {
     case RECEIVE_ALL_USERS:
       return { ...nextState, ...action.payload };
     case RECEIVE_USER:
-      return nextState[action.payload.id] = action.payload ;
+      return { ...nextState, [action.payload.username]: action.payload };
     default:
       return state;
   }

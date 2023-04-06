@@ -34,7 +34,6 @@ ApplicationRecord.transaction do
   # Creating users with minimum information
   5.times do 
     User.create!({
-      username: Faker::Internet.unique.username(specifier: 3),
       email: Faker::Internet.unique.email,
       password: 'pindrip'
     }) 
@@ -43,12 +42,11 @@ ApplicationRecord.transaction do
   # Creating users with complete information
   10.times do
     User.create!({
-      username: Faker::Creature::Cat.unique.name,
       email: Faker::Internet.unique.safe_email,
       password: 'pindrip',
-      first_name: Faker::Music::Hiphop.artist,
-      last_name: Faker::JapaneseMedia::Naruto.demon,
-      about: Faker::Quotes::Shakespeare.hamlet_quote,
+      first_name: Faker::Emotion.adjective,
+      last_name: Faker::JapaneseMedia::Naruto.character,
+      about: "Believe it! I am from #{Faker::JapaneseMedia::Naruto.village}, and my goal is to someday slay as much as #{Faker::JapaneseMedia::Naruto.demon}",
       pronouns: PRONOUNS[rand(9)],
       website: Faker::Internet.domain_name
     })

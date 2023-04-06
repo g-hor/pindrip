@@ -1,18 +1,25 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "../../store/session";
 import LoggedNav from "./LoggedNav";
 import UnauthNav from "./UnauthNav";
 import './UnauthNav.css';
 import './LoggedNav.css';
 import './Navbar.css';
+import { useEffect } from "react";
+import { fetchAllUsers } from "../../store/user";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser); 
+
+  useEffect(() => {
+    dispatch(fetchAllUsers())
+  }, [dispatch])
 
   return (
     <div className="nav-container">
-      {currentUser && <LoggedNav />}
       {!currentUser && <UnauthNav />}
+      {currentUser && <LoggedNav />}
     </div>
   );
 }; 

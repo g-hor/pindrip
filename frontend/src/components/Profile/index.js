@@ -3,7 +3,6 @@ import './Profile.css';
 import { useDispatch, useSelector } from "react-redux";
 import * as userActions from '../../store/user';
 import { useEffect } from "react";
-import { getCurrentUser } from "../../store/session";
 import UserInfo from "./UserInfo";
 import SelectorBar from "./SelectorBar";
 
@@ -11,17 +10,18 @@ import SelectorBar from "./SelectorBar";
 const Profile = () => {
   const dispatch = useDispatch();
   const { username } = useParams()
-  const currentUser = useSelector(getCurrentUser);
-  const user = useSelector(state => state.users[1]);
+  const showUser = useSelector(state => state.users[username])
 
-  // useEffect(() => {
-  //   dispatch(userActions.fetchUser(1));
-  // }, [])
+  useEffect(() => {
+    debugger
+    dispatch(userActions.fetchUser(username));
+  }, [username])
 
   return (
     <div id="profile-user-container">
-      <UserInfo />
+      <UserInfo showUser={showUser} />
       <SelectorBar />
+      <a href="/demo">demo</a>
     </div>
   );
 };

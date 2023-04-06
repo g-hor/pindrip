@@ -3,45 +3,41 @@ import { getCurrentUser } from "../../store/session";
 import { getInitial } from "../../store/user";
 import { useEffect, useState } from "react";
 
-const UserInfo = () => {
-  const currentUser = useSelector(getCurrentUser);
-  // CHANGE LOGIC FROM CURRENT USER TO SHOWINGUSER
-  const [displayName, setDisplayName] = useState(currentUser.firstName);
-  const [usernamePronouns, setUsernamePronouns] = useState(currentUser.username);
-  const [url, setUrl] = useState(currentUser.website);
-  const [blurb, setBlurb] = useState(currentUser.about);
+const UserInfo = ({ showUser }) => {
+  const [displayName, setDisplayName] = useState(showUser?.firstName);
+  const [usernamePronouns, setUsernamePronouns] = useState('@' + showUser?.username);
+  const [blurb, setBlurb] = useState(showUser?.about);
   const [urlAbout, setUrlAbout] = useState(null);
+  debugger
   
   useEffect(() => {
-
-    if (currentUser.lastName) {
-      setDisplayName(currentUser.firstName + ' ' + currentUser.lastName);
+    
+    if (showUser?.lastName) {
+      setDisplayName(showUser?.firstName + ' ' + showUser?.lastName);
     } else {
-      setDisplayName(currentUser.firstName);
-    }
-
-    if (currentUser.pronouns) {
-      setUsernamePronouns('@' + currentUser.username + ' · ' + currentUser.pronouns);
-    }
-
-    if (url && blurb) {
-      setUrlAbout(url + ' · ' + blurb);
-    } else {
-      setUrlAbout(url || blurb);
-    }
-
-    if (urlAbout?.length > 300) {
-      setUrlAbout(prev => prev.slice(0, 300) + '...more')
+      setDisplayName(showUser?.firstName);
     }
     
-  }, [currentUser])
+    if (showUser?.pronouns) {
+      setUsernamePronouns(showUser?.username + ' · ' + showUser?.pronouns);
+    }
+    
+    if (blurb?.length > 300) {
+      setBlurb(prev => prev.slice(0, 300) + '...more')
+    }
 
+    if (showUser?.website && blurb) setUrlAbout(showUser?.website + ' · ' + blurb);
+    
+  }, [showUser])
+  
+  if (!showUser) return null;
+  
   return (
     <div id="user-info-container">
 
       <div id="user-info-initial-holder">
         <div id="user-info-initial">
-          {getInitial(currentUser)}
+          {getInitial(showUser)}
         </div>
       </div>
 
@@ -58,7 +54,7 @@ const UserInfo = () => {
       </div>
 
       <div id="user-info-urlabout-container">
-        {urlAbout}
+        {urlAbout || showUser?.website || blurb}
       </div>
 
       <div id="user-info-follow-container">
