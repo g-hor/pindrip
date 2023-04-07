@@ -93,7 +93,7 @@ form {
   background-color: rgb(56, 10, 106);
 }
 
-input[type=password] {
+.password-input {
   margin-bottom: 20px;
 }
 

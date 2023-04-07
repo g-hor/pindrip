@@ -37,7 +37,7 @@ const DropdownMenu = ({ displayInitial, displayName }) => {
           <div id="profile-display">
             <div id="profile-initial-holder">
               <div id="profile-initial">{displayInitial}</div>
-              </div>
+            </div>
             <div id="profile-details-holder">
               <div id="profile-details-name">{loggedName}</div>
               <div id="profile-details-email">{displayEmail}</div>

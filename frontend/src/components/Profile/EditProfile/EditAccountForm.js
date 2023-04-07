@@ -6,8 +6,14 @@ const EditAccountForm = () => {
 
   return (
     <div id="edit-profile-main-container">
-      <Sidebar />
-      <div>edit account</div>
+      <div id="edit-profile-side-plus-form-holder">
+
+        <Sidebar />
+
+        <div>edit account</div>
+
+      </div>
+
     </div>
   )
 };

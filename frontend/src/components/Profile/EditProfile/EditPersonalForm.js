@@ -5,8 +5,14 @@ const EditPersonalForm = () => {
 
   return (
     <div id="edit-profile-main-container">
-      <Sidebar />
-      <div>edit personal</div>
+      <div id="edit-profile-side-plus-form-holder">
+
+        <Sidebar />
+        
+        <div>edit personal</div>
+
+      </div>
+
     </div>
   )
 };
