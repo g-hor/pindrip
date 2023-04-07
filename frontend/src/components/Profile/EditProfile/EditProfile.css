@@ -26,6 +26,10 @@
 .edit-profile-sidebar-options {
   padding: 8px;
   color: #262626;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 27px;
 }
 
 #edit-underline {
