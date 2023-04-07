@@ -16,13 +16,13 @@ function App() {
       <Navbar />
       <Switch>
         {(!currentUser) && <Redirect to="/" />}
-        <Route exact path="/edit/profile">
+        <Route exact path="/editprofile">
           <EditProfile />
         </Route>
-        <Route exact path="/edit/personal">
+        <Route exact path="/editpersonal">
           <EditPersonalForm />
         </Route>
-        <Route exact path="/edit/account">
+        <Route exact path="/editaccount">
           <EditAccountForm />
         </Route>
         <Route exact path="/:username">

@@ -123,11 +123,11 @@ const EditProfileForm = () => {
                   className="edit-text-input-field textarea"
                   value={about}
                   onChange={(e) => setAbout(e.target.value)}
+                  placeholder="Tell your story"
                   />
               </div>
             </div>
           </div>
-
 
           <div className="edit-form-field-row-holder">
             <div className="edit-form-field-holder">
@@ -137,9 +137,12 @@ const EditProfileForm = () => {
 
               <div className="edit-form-input">
                 <div
-                  className="edit-text-input-field pronouns"
+                  className={
+                    showPronouns ? "edit-text-input-field clicked-pronouns" : "edit-text-input-field pronouns"
+                  }
                   onClick={showPronounsList}
                   >
+                  {pronouns && (
                   <div id="selected-pronouns">
                     <div>{pronouns}</div>
                     <div id="remove-pronouns">
@@ -148,7 +151,7 @@ const EditProfileForm = () => {
                         onClick={removePronouns}
                         />
                     </div>
-                  </div>
+                  </div>)}
                 </div>
 
                 <div ref={pronounsList}>
@@ -180,17 +183,39 @@ const EditProfileForm = () => {
 
               <div className="edit-form-input">
                 <input
-                  className="edit-text-input-field"
+                  className="edit-text-input-field website"
                   type="text"
                   value={website}
                   onChange={(e) => setWebsite(e.target.value)}
+                  placeholder="Add a link to drive traffic to your site"
                   />
               </div>
             </div>
           </div>
 
+          <div className="edit-form-field-row-holder">
+            <div className="edit-form-field-holder">
+              <div className="edit-form-label">
+                Username
+              </div>
 
+              <div className="edit-form-input">
+              <input
+                className="edit-text-input-field website"
+                type="text"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                placeholder="Add a link to drive traffic to your site"
+                />
 
+                <div className="edit-form-field-row-holder field-description">
+                  {`www.pindrip.onrender.com/${username}`}
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          
 
 
 

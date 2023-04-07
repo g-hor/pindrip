@@ -6,16 +6,17 @@ import { capitalizeFirstLetter, formatEmail } from "../../store/user";
 import MenuButton from "../MenuButton";
 
 const LoggedNav = () => {
+  debugger
   const currentUser = useSelector(getCurrentUser);
-  const [displayName, setDisplayName] = useState(formatEmail(currentUser.email));
+  const [displayName, setDisplayName] = useState(formatEmail(currentUser?.email));
   const [displayInitial, setDisplayInitial] = useState(displayName[0]);
   
   useEffect(() => {
-    if (currentUser.firstName) {
-      setDisplayName(prevName => capitalizeFirstLetter(currentUser.firstName));
+    if (currentUser?.firstName) {
+      setDisplayName(prevName => capitalizeFirstLetter(currentUser?.firstName));
       setDisplayInitial(prevInitial => displayName[0]);
     } 
-  }, [displayName, currentUser.firstName]);
+  }, [displayName, currentUser?.firstName]);
 
 
   return (
@@ -53,7 +54,7 @@ const LoggedNav = () => {
         </div>
         <div className="right-initial-icon-holder">
           <NavLink 
-            to={`/${currentUser.username || displayName}`}
+            to={`/${currentUser?.username || displayName}`}
             className="initial-holder"
             >
             {displayInitial}

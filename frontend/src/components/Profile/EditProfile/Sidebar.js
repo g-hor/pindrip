@@ -7,7 +7,7 @@ const Sidebar = () => {
     <div id="edit-profile-sidebar-container">
       <ul id="edit-profile-list">
         <div className="edit-profile-sidebar-link-container">
-          <NavLink to="/edit/profile" >
+          <NavLink to="/editprofile" >
             <li className="edit-profile-sidebar-options">
               Public profile
               <div id="edit-underline" />
@@ -15,7 +15,7 @@ const Sidebar = () => {
           </NavLink>
         </div>
         <div className="edit-profile-sidebar-link-container">
-          <NavLink to="/edit/personal" >
+          <NavLink to="/editpersonal" >
             <li className="edit-profile-sidebar-options">
               <div>Personal information</div>
               <div id="edit-underline" />
@@ -23,7 +23,7 @@ const Sidebar = () => {
           </NavLink>
         </div>
         <div className="edit-profile-sidebar-link-container">
-          <NavLink to="/edit/account" >
+          <NavLink to="/editaccount" >
             <li className="edit-profile-sidebar-options">
               Account management
               <div id="edit-underline" />

@@ -3,4 +3,5 @@
   width: 100%;
   position: fixed;
   box-sizing: border-box;
+  overflow: hidden;
 }

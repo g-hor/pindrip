@@ -15,7 +15,7 @@ const MenuButton = ({ displayInitial, displayName }) => {
     if (!showDrop) return;
 
     const clickHide = (e) => {
-      if (dropdown.current.contains(e.target)) return;
+      if (dropdown?.current?.contains(e.target)) return;
       setShowDrop(false);
     };
 

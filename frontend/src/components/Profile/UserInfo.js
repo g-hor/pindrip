@@ -71,7 +71,7 @@ const UserInfo = ({ showUser }) => {
 
         {(currentUser.username === showUser.username) && 
           <div id="edit-profile-btn-container">
-          <Link to='/edit/profile'>
+          <Link to='/editprofile'>
             <div id="edit-profile-btn">
               Edit Profile
             </div>
