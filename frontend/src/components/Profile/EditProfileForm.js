@@ -1,0 +1,31 @@
+import { useSelector } from "react-redux";
+import { getCurrentUser } from "../../store/session";
+
+
+const EditProfileForm = () => {
+  const currentUser = useSelector(getCurrentUser);
+
+  return (
+    <div id="edit-form-container">
+
+      <div>
+        Public profile
+      </div>
+
+      <div>
+        People visiting your profile will see the following info
+      </div>
+
+      <div>
+        Photo
+      </div>
+
+      <div>
+        
+      </div>
+
+    </div>
+  )
+};
+
+export default EditProfileForm;

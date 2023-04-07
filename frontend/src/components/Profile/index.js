@@ -20,7 +20,6 @@ const Profile = () => {
     <div id="profile-user-container">
       <UserInfo showUser={showUser} />
       <SelectorBar />
-      <Link to="/demo">demo profile</Link>
     </div>
   );
 };
