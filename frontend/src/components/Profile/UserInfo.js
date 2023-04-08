@@ -4,6 +4,9 @@ import { Link } from "react-router-dom";
 import { getInitial } from "../../store/user";
 import { useEffect, useState } from "react";
 import SelectorBar from "./SelectorBar";
+import { useDispatch } from "react-redux";
+import { fetchUser } from "../../store/user";
+import { useParams } from "react-router-dom";
 
 const UserInfo = ({ showUser }) => {
   const currentUser = useSelector(getCurrentUser);
@@ -11,7 +14,16 @@ const UserInfo = ({ showUser }) => {
   const [usernamePronouns, setUsernamePronouns] = useState();
   const [blurb, setBlurb] = useState(showUser?.about);
   const [urlAbout, setUrlAbout] = useState();
-  
+  const dispatch = useDispatch();
+  const { username } = useParams()
+
+
+
+  useEffect(() => {
+    dispatch(fetchUser(username));
+  }, [username, showUser, dispatch])
+
+
   useEffect(() => {
     
     if (showUser?.lastName) {
