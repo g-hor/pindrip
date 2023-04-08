@@ -19,7 +19,7 @@ const DropdownMenu = ({ displayInitial, displayName }) => {
     if (displayName.length > 20) {
       setLoggedName(displayName.slice(0, 20) + '...');
     }
-  }, [currentUser.email, displayEmail.length, displayName])
+  }, [currentUser.email, displayEmail.length, displayName, currentUser])
 
   const clickLogout = (e) => {
     e.preventDefault();

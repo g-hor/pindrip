@@ -11,11 +11,12 @@ const EditProfileForm = () => {
   const dispatch = useDispatch();
   let currentUser = useSelector(getCurrentUser);
   const displayInitial = getInitial(currentUser);
+  const id = currentUser.id;
   const [first, setFirst] = useState(currentUser?.firstName);
-  const [last, setLast] = useState(currentUser?.lastName);
-  const [about, setAbout] = useState(currentUser?.about);
-  const [pronouns, setPronouns] = useState(currentUser?.pronouns);
-  const [website, setWebsite] = useState(currentUser?.website);
+  const [last, setLast] = useState(currentUser?.lastName || '');
+  const [about, setAbout] = useState(currentUser?.about || '');
+  const [pronouns, setPronouns] = useState(currentUser?.pronouns || '');
+  const [website, setWebsite] = useState(currentUser?.website || '');
   const [username, setUsername] = useState(currentUser?.username);
   const [showPronouns, setShowPronouns] = useState(false);
   // const [errors, setErrors] = useState([]);
@@ -39,22 +40,25 @@ const EditProfileForm = () => {
 
   const resetChanges = (e) => {
     setFirst(currentUser?.firstName);
-    setLast(currentUser?.lastName);
-    setAbout(currentUser?.about);
-    setPronouns(currentUser?.pronouns);
-    setWebsite(currentUser?.website);
+    setLast(currentUser?.lastName || '');
+    setAbout(currentUser?.about || '');
+    setPronouns(currentUser?.pronouns || '');
+    setWebsite(currentUser?.website || '');
     setUsername(currentUser?.username);
   };
 
   const saveChanges = async () => {
     dispatch(updateUser({
-      first, last, about, pronouns, website, username
+      id, first, last, about, pronouns, website, username
       }));
-      debugger;
-    dispatch(receiveSession({ ...currentUser,
-      first, last, about, pronouns, website, username
-      }));
+    // dispatch(receiveSession({ ...currentUser,
+    //   first, last, about, pronouns, website, username
+    //   }));
   };
+
+  useEffect(() => {
+    dispatch(fetchUser(username));
+  }, [dispatch, username])
   
   useEffect(() => {
     if (!showPronouns) return;
@@ -68,7 +72,6 @@ const EditProfileForm = () => {
 
     return () => document.removeEventListener('click', hidePronouns);
   }, [
-    dispatch,
     showPronouns,
     first,
     last,

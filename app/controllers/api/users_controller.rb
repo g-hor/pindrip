@@ -7,7 +7,7 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    @user = User.find_by(username: params[:username])
+    @user = User.find_by(username: params[:username].downcase)
 
     if @user
       render 'api/users/show'
@@ -28,7 +28,7 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    @user = User.find_by(username: params[:username])
+    @user = User.find_by(id: params[:id])
 
     if @user.update(user_params)
       render 'api/sessions/show'

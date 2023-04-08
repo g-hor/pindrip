@@ -15,7 +15,7 @@ const LoggedNav = () => {
       setDisplayName(prevName => capitalizeFirstLetter(currentUser.firstName));
       setDisplayInitial(prevInitial => displayName[0]);
     } 
-  }, [displayName, currentUser.firstName]);
+  }, [displayName, currentUser]);
 
 
   return (

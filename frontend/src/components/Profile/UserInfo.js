@@ -1,50 +1,52 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getCurrentUser } from "../../store/session";
 import { Link } from "react-router-dom";
 import { getInitial } from "../../store/user";
-import { useEffect, useState } from "react";
-import SelectorBar from "./SelectorBar";
-import { useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { fetchUser } from "../../store/user";
-import { useParams } from "react-router-dom";
+import SelectorBar from "./SelectorBar";
 
-const UserInfo = ({ showUser }) => {
-  const currentUser = useSelector(getCurrentUser);
-  const [displayName, setDisplayName] = useState(showUser?.firstName);
-  const [usernamePronouns, setUsernamePronouns] = useState();
-  const [blurb, setBlurb] = useState(showUser?.about);
-  const [urlAbout, setUrlAbout] = useState();
+const UserInfo = ({ username }) => {
   const dispatch = useDispatch();
-  const { username } = useParams()
-
-
+  const currentUser = useSelector(getCurrentUser);
+  const showUser = useSelector(state => state?.users[username])
+  // const [displayName, setDisplayName] = useState(showUser?.firstName);
+  // const [usernamePronouns, setUsernamePronouns] = useState(showUser?.pronouns);
+  // const [blurb, setBlurb] = useState(showUser?.about);
+  // const [urlAbout, setUrlAbout] = useState(showUser?.website);
+  let displayName;
+  let usernamePronouns;
+  let about;
+  let urlAbout;
 
   useEffect(() => {
     dispatch(fetchUser(username));
-  }, [username, showUser, dispatch])
+  }, [dispatch, username])
 
+  if (showUser?.lastName) {
+    displayName = showUser?.firstName + ' ' + showUser?.lastName;
+  } else {
+    displayName = showUser?.firstName;
+  }
+  
+  if (showUser?.pronouns) {
+    usernamePronouns = '@' + showUser?.username + ' · ' + showUser?.pronouns;
+  } else {
+    usernamePronouns = '@' + showUser?.username;
+  }
+  
+  if (showUser?.about?.length > 300) {
+    about = showUser?.about.slice(0, 300) + '...more';
+  } else {
+    about = showUser?.about;
+  }
 
-  useEffect(() => {
-    
-    if (showUser?.lastName) {
-      setDisplayName(showUser?.firstName + ' ' + showUser?.lastName);
-    } else {
-      setDisplayName(showUser?.firstName);
-    }
-    
-    if (showUser?.pronouns) {
-      setUsernamePronouns('@' + showUser?.username + ' · ' + showUser?.pronouns);
-    } else {
-      setUsernamePronouns('@' + showUser?.username);
-    }
-    
-    if (blurb?.length > 300) {
-      setBlurb(prev => prev.slice(0, 300) + '...more')
-    }
+  if (showUser?.website && about) urlAbout = (showUser?.website + ' · ' + about);
 
-    if (showUser?.website && blurb) setUrlAbout(showUser?.website + ' · ' + blurb);
-    
-  }, [showUser, blurb])
+  // hahaha this doesn't work. michael helped me fix this uwu
+  // useEffect(() => {
+    // this used to contain all those messy if statements
+  // }, [dispatch, showUser, username, displayName, usernamePronouns, urlAbout])
 
   // UserInfo will rerender a few times, sometimes without a predefined showUser
   if (!showUser) return null;
@@ -72,7 +74,7 @@ const UserInfo = ({ showUser }) => {
         </div>
 
         <div id="user-info-urlabout-container">
-          {urlAbout || showUser?.website || blurb}
+          {urlAbout || showUser?.website || about}
         </div>
 
         <div id="user-info-follow-container">
