@@ -51,9 +51,9 @@ const EditProfileForm = () => {
     dispatch(updateUser({
       id, first, last, about, pronouns, website, username
       }));
-    // dispatch(receiveSession({ ...currentUser,
-    //   first, last, about, pronouns, website, username
-    //   }));
+    dispatch(receiveSession({ ...currentUser,
+      first, last, about, pronouns, website, username
+      }));
   };
 
   useEffect(() => {
@@ -251,12 +251,6 @@ const EditProfileForm = () => {
           </div>
           
           <BottomBar 
-            first={first}
-            last={last}
-            about={about}
-            pronouns={pronouns}
-            website={website}
-            username={username}
             resetChanges={resetChanges}
             saveChanges={saveChanges}
             />

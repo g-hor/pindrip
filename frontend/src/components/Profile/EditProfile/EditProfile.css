@@ -2,9 +2,7 @@
 #edit-profile-main-container {
   width: 100vw;
   height: 900px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-top: 110px;
+  padding: 110px 20px 0 20px;
   z-index: -1;
 }
 
@@ -20,7 +18,8 @@
   flex-wrap: wrap;
   justify-content: space-between;
   min-width: 300px; 
-  max-width: 750px;
+  max-width: 900px;
+  width: 95vw;
 }
 
 .edit-profile-sidebar-link-container {
@@ -137,7 +136,8 @@
 .edit-text-input-field {
   box-sizing: border-box;
   min-height: 48px;
-  min-width: 230px;
+  min-width: 100px;
+  width: 230px;
   border-radius: 14px;
   border: 2px solid lightgray;
   padding: 13px;
@@ -151,6 +151,7 @@
 textarea.edit-text-input-field {
   padding-top: 10px;
   width: 468px;
+  min-width: 208;
   height: 93px;
   line-height: 1.5em;
   resize: none;
@@ -238,24 +239,41 @@ textarea.edit-text-input-field {
 /* BOTTOM BAR */
 #edit-page-bottom-bar {
   position: fixed;
+  display: flex;
+  align-items: center;
   height: 75px;
   left: 0;
   bottom: 0;
   width: 100vw;
   background-color: white;
   box-shadow: 0 -1px 8px 0px #EEEEEE;
+  z-index: 5;
+}
+
+#bottom-bar-align-holder {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   align-items: center;
-  z-index: 999;
+  min-width: 300px; 
+  max-width: 900px;
+  width: 95vw;
+}
+
+#bottom-bar-placeholder {
+  height: 0.1px;
+  width: 190px;
 }
 
 #edit-bottom-btn-holder {
-  position: fixed;
-  right: 220px;
+  /* position: fixed;
+  right: 220px; */
+  min-width: 300px;
+  width: 500px;
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
 }
 
 .bottom-profile-btn {
