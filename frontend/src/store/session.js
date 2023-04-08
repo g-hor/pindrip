@@ -6,7 +6,7 @@ const LOGOUT = 'session/LOGOUT';
 
 
 // ACTIONS
-export const receiveSession = user => {
+export const receiveSession = (user) => {
   return {
     type: LOGIN,
     payload: user

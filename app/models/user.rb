@@ -19,7 +19,7 @@ class User < ApplicationRecord
   has_secure_password
   before_validation :ensure_session_token, :provide_defaults
 
-  PRONOUNS = ['ey/em', 'he/him', 'ne/nem', 'she/her', 'they/them', 've/ver', 'xe/xem', 'xie,xem', 'ze/zir']
+  PRONOUNS = ['ey/em', 'he/him', 'ne/nem', 'she/her', 'they/them', 've/ver', 'xe/xem', 'xie,xem', 'ze/zir', '']
   
   validates :username,
     uniqueness: true,

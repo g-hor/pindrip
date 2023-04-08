@@ -1,13 +1,15 @@
-import { useSelector } from "react-redux";
-import { getCurrentUser } from "../../../store/session";
-import { getInitial } from "../../../store/user";
-import Sidebar from "./Sidebar";
-import './EditProfile.css';
+import { useDispatch, useSelector } from "react-redux";
+import { getCurrentUser, receiveSession } from "../../../store/session";
+import { getInitial, updateUser, fetchUser } from "../../../store/user";
 import { useState, useEffect, useRef } from "react";
+import Sidebar from "./Sidebar";
+import BottomBar from "./BottomBar";
+import './EditProfile.css';
 
 
 const EditProfileForm = () => {
-  const currentUser = useSelector(getCurrentUser);
+  const dispatch = useDispatch();
+  let currentUser = useSelector(getCurrentUser);
   const displayInitial = getInitial(currentUser);
   const [first, setFirst] = useState(currentUser?.firstName);
   const [last, setLast] = useState(currentUser?.lastName);
@@ -16,6 +18,8 @@ const EditProfileForm = () => {
   const [website, setWebsite] = useState(currentUser?.website);
   const [username, setUsername] = useState(currentUser?.username);
   const [showPronouns, setShowPronouns] = useState(false);
+  // const [errors, setErrors] = useState([]);
+
 
   const pronounsList = useRef()
 
@@ -33,6 +37,25 @@ const EditProfileForm = () => {
     setShowPronouns(false);
   };
 
+  const resetChanges = (e) => {
+    setFirst(currentUser?.firstName);
+    setLast(currentUser?.lastName);
+    setAbout(currentUser?.about);
+    setPronouns(currentUser?.pronouns);
+    setWebsite(currentUser?.website);
+    setUsername(currentUser?.username);
+  };
+
+  const saveChanges = async () => {
+    dispatch(updateUser({
+      first, last, about, pronouns, website, username
+      }));
+      debugger;
+    dispatch(receiveSession({ ...currentUser,
+      first, last, about, pronouns, website, username
+      }));
+  };
+  
   useEffect(() => {
     if (!showPronouns) return;
 
@@ -44,7 +67,16 @@ const EditProfileForm = () => {
     document.addEventListener('click', hidePronouns)
 
     return () => document.removeEventListener('click', hidePronouns);
-  }, [showPronouns])
+  }, [
+    dispatch,
+    showPronouns,
+    first,
+    last,
+    about,
+    pronouns,
+    website,
+    username
+  ])
 
   return (
     <div id="edit-profile-main-container">
@@ -105,7 +137,7 @@ const EditProfileForm = () => {
                   className="edit-text-input-field"
                   type="text"
                   value={last}
-                  onClick={(e) => setLast(e.target.value)}
+                  onChange={(e) => setLast(e.target.value)}
                   />
               </div>
             </div>
@@ -205,7 +237,7 @@ const EditProfileForm = () => {
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Add a link to drive traffic to your site"
+                placeholder="Choose wisely so others can find you"
                 />
 
                 <div className="edit-form-field-row-holder field-description">
@@ -215,12 +247,16 @@ const EditProfileForm = () => {
             </div>
           </div>
           
-          
-
-
-
-
-
+          <BottomBar 
+            first={first}
+            last={last}
+            about={about}
+            pronouns={pronouns}
+            website={website}
+            username={username}
+            resetChanges={resetChanges}
+            saveChanges={saveChanges}
+            />
 
         </div>
 

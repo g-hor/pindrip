@@ -12,7 +12,7 @@ function App() {
   let currentUser = useSelector(getCurrentUser);
 
   return (
-    <>
+    <div id="entire-page">
       <Navbar />
       <Switch>
         {(!currentUser) && <Redirect to="/" />}
@@ -29,7 +29,7 @@ function App() {
           <Profile />
         </Route>
       </Switch>
-    </>
+    </div>
   );
 }
 
