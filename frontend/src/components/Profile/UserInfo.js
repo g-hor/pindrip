@@ -58,7 +58,7 @@ const UserInfo = ({ username }) => {
         {showUser.avatar && (
           <div id="user-info-initial-holder">
             <div id="user-info-intial">
-              <Avatar user={showUser} />
+              <Avatar avatar={showUser.avatar} />
             </div>
           </div>)}
 

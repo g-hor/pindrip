@@ -20,6 +20,7 @@ const EditProfileForm = () => {
   const [pronouns, setPronouns] = useState(currentUser?.pronouns || '');
   const [website, setWebsite] = useState(currentUser?.website || '');
   const [username, setUsername] = useState(currentUser?.username);
+  const [avatar, setAvatar] = useState(currentUser?.avatar);
   const [photoFile, setPhotoFile] = useState();
   const [photoUrl, setPhotoUrl] = useState();
   const [showPronouns, setShowPronouns] = useState(false);
@@ -31,27 +32,28 @@ const EditProfileForm = () => {
 
 
   const handlePhoto = async ({ currentTarget }) => {
-    setPhotoFile(currentTarget.files[0]);
-    // const formData = new FormData();
-    // if (photoFile) formData.append('user[avatar]', photoFile);
-    // const res = await csrfFetch(`/api/users/${currentUser.id}`, {
-    //   method: "PATCH",
-    //   body: JSON.stringify({user: formData})
-    // })
-    // if (res.ok) {
-    //   currentUser = await res.json();
-    //   setPhotoFile(null);
-    // }
-
+    setPhotoFile(await currentTarget.files[0]);
+    const formData = new FormData();
+    debugger
     if (photoFile) {
+      formData.append('user[avatar]', photoFile);
+      formData.append('user[username]', currentUser?.username);
       const fileReader = new FileReader();
       fileReader.readAsDataURL(photoFile);
       fileReader.onload = () => setPhotoUrl(fileReader.result);
-    } else {
-      setPhotoUrl(null);
-    };
+    }
 
-    if (photoUrl) preview = <img src={photoUrl} alt="" />;
+    const res = await csrfFetch(`/api/users/${currentUser?.username}`, {
+      method: "PATCH",
+      body: formData
+    })
+    
+    if (res.ok) {
+      currentUser = await res.json();
+      setAvatar(currentUser.avatar);
+      setPhotoFile(null);
+      setShowUpload(false);
+    }
   };
 
   const removePronouns = () => {
@@ -108,9 +110,11 @@ const EditProfileForm = () => {
     about,
     pronouns,
     website,
-    username
+    username,
+    photoUrl
   ])
 
+  if (photoUrl) preview = <img src={photoUrl} alt="chosen avatar" id="chosen-avatar" />;
 
   return (
     <div id="edit-profile-main-container">
@@ -139,12 +143,12 @@ const EditProfileForm = () => {
           </div>
 
           <div className="edit-form-field-row-holder">
-            {currentUser.avatar && (
+            {avatar && (
               <div 
                 id="edit-form-initial" 
                 className="avatar-holder"
                 >
-                <Avatar user={currentUser} />
+                <Avatar avatar={avatar} />
               </div>
               )}
             
@@ -169,17 +173,19 @@ const EditProfileForm = () => {
                   </h1>
                 </div>
 
+                {preview}
+
                 <div 
                   id="upload-img-btn"
                   onClick={() => imgBtn.current.click()}
                   >
                   Choose photo
-                {preview}
                 </div>
                 <input
                   ref={imgBtn}
                   type="file"
                   onChange={handlePhoto}
+                  style={{display: 'none'}}
                   />
               </div>
             </Modal>

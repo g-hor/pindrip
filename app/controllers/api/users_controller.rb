@@ -29,6 +29,7 @@ class Api::UsersController < ApplicationController
 
   def update
     # FOR UPDATING PASSWORD
+    debugger
     if user_params[:old_pw] && user_params[:new_pw]
       @user = User.find_by_credentials(user_params[:email], user_params[:old_pw])
       
@@ -38,7 +39,7 @@ class Api::UsersController < ApplicationController
         render json: { errors: @user.errors.full_messages }, status: 422
       end
     else
-      @user = User.find_by(username: params[:username])
+      @user = User.find_by(username: user_params[:username])
       
       if @user.update(user_params)
         render 'api/sessions/show'

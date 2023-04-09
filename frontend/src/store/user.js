@@ -67,7 +67,7 @@ export const fetchUser = (username) => async dispatch => {
 export const updateUser = (user) => async dispatch => {
   const res = await csrfFetch(`/api/users/${user.id}`, {
     method: "PATCH",
-    body: JSON.stringify({user: { ...user }, username: user.username})
+    body: JSON.stringify({user: { ...user }})
   });
   const data = await res.json();
   dispatch(receiveUser(data));

@@ -1,11 +1,11 @@
 
 
-const Avatar = ({ user }) => {
+const Avatar = ({ avatar }) => {
 
   return (
     <img 
-      src={user.avatar} 
-      alt={user.firstName + `'s avatar`}
+      src={avatar} 
+      alt="This avatar is full of drip!"
       className="avatar"
       />
   )

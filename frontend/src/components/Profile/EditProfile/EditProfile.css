@@ -322,7 +322,6 @@ textarea.edit-text-input-field {
 /* UPLOAD AVATAR MODAL */
 #upload-avatar-container {
   padding: 35px;
-  height: 100px;
   width: 400px;
   display: flex;
   flex-direction: column;
@@ -350,5 +349,11 @@ textarea.edit-text-input-field {
 
 #upload-img-btn > img {
   height: 100px;
-  width: 100px;
+}
+
+#chosen-avatar {
+  height: 120px;
+  width: 120px;
+  border-radius: 100%;
+  margin-bottom: 36px;
 }
