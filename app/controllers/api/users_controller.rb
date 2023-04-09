@@ -28,12 +28,32 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    @user = User.find_by(username: params[:username])
-    
-    if @user.update(user_params)
-      render 'api/sessions/show'
+    # FOR UPDATING PASSWORD
+    if user_params[:old_pw] && user_params[:new_pw]
+      @user = User.find_by_credentials(user_params[:email], user_params[:old_pw])
+      
+      if @user.update(password: user_params[:new_pw])
+        render 'api/sessions/show'
+      else
+        render json: { errors: @user.errors.full_messages }, status: 422
+      end
     else
-      render json: { errors: @user.errors.full_messages }, status: 422
+      @user = User.find_by(username: params[:username])
+      
+      if @user.update(user_params)
+        render 'api/sessions/show'
+      else
+        render json: { errors: @user.errors.full_messages }, status: 422
+      end
+    end
+  end
+
+  def destroy
+    @user = User.find_by_credentials(user_params[:email], user_params[:new_pw])
+    if @user
+      @user.destroy!
+    else
+      render json: { errors: ['Your password was incorrect'] }, status: 422
     end
   end
 
@@ -45,6 +65,8 @@ class Api::UsersController < ApplicationController
       :email, 
       :username, 
       :password, 
+      :old_pw,
+      :new_pw,
       :first_name, 
       :last_name, 
       :about, 

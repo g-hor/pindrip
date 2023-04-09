@@ -7,7 +7,6 @@ const LOGOUT = 'session/LOGOUT';
 
 // ACTIONS
 export const receiveSession = (user) => {
-  debugger
   return {
     type: LOGIN,
     payload: user

@@ -1,4 +1,5 @@
 import csrfFetch from "./csrf";
+import { logoutUser } from "./session";
 
 // FORMATTING HELPER METHODS
 export const getInitial = (user) => {
@@ -22,6 +23,7 @@ export const formatEmail = (emailAddress) => {
 // ACTION TYPES
 const RECEIVE_ALL_USERS = 'users/RECEIVE_USERS';
 const RECEIVE_USER = 'users/RECEIVE_USER';
+const REMOVE_USER = 'users/REMOVE_USER';
 
 
 // ACTIONS
@@ -38,6 +40,13 @@ export const receiveUser = (user) => {
     payload: user
   };
 };
+
+export const removeUser = (username) => {
+  return {
+    type: REMOVE_USER,
+    payload: username
+  }
+}
 
 
 // THUNK ACTION CREATORS
@@ -65,6 +74,26 @@ export const updateUser = (user) => async dispatch => {
   return res;
 };
 
+export const updatePassword = ({ id, email, oldPw, newPw }) => async dispatch => {
+  const res = await csrfFetch(`/api/users/${id}`, {
+    method: "PATCH",
+    body: JSON.stringify({user: { email, oldPw, newPw }})
+  });
+  const data = await res.json();
+  dispatch(receiveUser(data));
+  return res;
+};
+
+export const deleteUser = ({ id, username, email, newPw }) => async dispatch => {
+  const res = await csrfFetch(`/api/users/${id}`, {
+    method: "DELETE",
+    body: JSON.stringify({user: { email, newPw }})
+  });
+  if (res.ok) dispatch(logoutUser());
+  dispatch(removeUser(username));
+  return res;
+}
+
 
 // REDUCER
 const usersReducer = (state = {}, action) => {
@@ -74,6 +103,9 @@ const usersReducer = (state = {}, action) => {
       return { ...nextState, ...action.payload };
     case RECEIVE_USER:
       return { ...nextState, [action.payload.username]: action.payload };
+    case REMOVE_USER:
+      delete nextState[action.payload];
+      return nextState;
     default:
       return state;
   }
