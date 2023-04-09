@@ -32,7 +32,7 @@ const EditProfileForm = () => {
 
 
   const handlePhoto = async ({ currentTarget }) => {
-    setPhotoFile(await currentTarget.files[0]);
+    setPhotoFile(currentTarget.files[0]);
     const formData = new FormData();
     debugger
     if (photoFile) {
@@ -90,7 +90,7 @@ const EditProfileForm = () => {
 
   useEffect(() => {
     dispatch(fetchUser(username));
-  }, [dispatch, username]);
+  }, [dispatch, username, avatar]);
   
   useEffect(() => {
     if (!showPronouns) return;
@@ -145,7 +145,6 @@ const EditProfileForm = () => {
           <div className="edit-form-field-row-holder">
             {avatar && (
               <div 
-                id="edit-form-initial" 
                 className="avatar-holder"
                 >
                 <Avatar avatar={avatar} />
@@ -248,7 +247,7 @@ const EditProfileForm = () => {
                 Pronouns
               </div>
 
-              <div className="edit-form-input">
+              <div>
                 <div
                   className={
                     showPronouns ? "edit-text-input-field clicked-pronouns" : "edit-text-input-field pronouns"
@@ -265,6 +264,8 @@ const EditProfileForm = () => {
                         />
                     </div>
                   </div>)}
+
+                  <i className="fa-solid fa-chevron-down pronoun-dropbtn" />
                 </div>
 
                 <div ref={pronounsList}>
@@ -281,9 +282,9 @@ const EditProfileForm = () => {
                       <div className="pronoun-option" onClick={selectPronoun}>ze/zir</div>
                     </div>)}
                 </div>
-                <div className="edit-form-field-row-holder field-description">
-                  Choose a set of pronouns to appear on your profile so others know how to refer to you. You can edit or remove these any time.
-                </div>
+              </div>
+              <div className="edit-form-field-row-holder field-description">
+                Choose a set of pronouns to appear on your profile so others know how to refer to you. You can edit or remove these any time.
               </div>
             </div>
           </div>

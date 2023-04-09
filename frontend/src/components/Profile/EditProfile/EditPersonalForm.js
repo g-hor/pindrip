@@ -117,18 +117,22 @@ const EditPersonalForm = () => {
                 Country/Region
               </div>
               
-              <select 
-                onChange={selectCountry} 
-                name="country" 
-                value={country}
-                className="edit-text-input-field country-field"
-                >
-                {countryList.map(countryItem => (
-                  <option value={countryItem} key={countryItem}>
-                    {countryItem}
-                  </option>
-                ))}
-              </select>
+              <div id="country-select-holder">
+                <select 
+                  onChange={selectCountry} 
+                  name="country" 
+                  value={country}
+                  className="edit-text-input-field country-field"
+                  >
+                  {countryList.map(countryItem => (
+                    <option value={countryItem} key={countryItem}>
+                      {countryItem}
+                    </option>
+                  ))}
+                </select>
+                
+                <i className="fa-solid fa-chevron-down country-dropbtn" />
+              </div>
             </div>
           </div>
 

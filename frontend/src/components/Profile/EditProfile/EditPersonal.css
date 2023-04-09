@@ -49,3 +49,17 @@
 .country-field:hover {
   cursor: pointer;
 }
+
+#country-select-holder {
+  position: relative;
+}
+
+.country-dropbtn {
+  position: absolute;
+  right: 12px;
+  top: 14px;
+}
+
+.country-dropbtn:hover {
+  cursor: pointer;
+}

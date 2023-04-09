@@ -179,6 +179,12 @@ textarea.edit-text-input-field {
   align-items: center;
   cursor: pointer;
   position: relative;
+  justify-content: space-between;
+}
+
+.pronoun-dropbtn {
+  position: absolute;
+  right: 12px;
 }
 
 .edit-text-input-field.clicked-pronouns {
@@ -356,4 +362,9 @@ textarea.edit-text-input-field {
   width: 120px;
   border-radius: 100%;
   margin-bottom: 36px;
+}
+
+.avatar-holder {
+  font-size: 10px;
+  font-weight: 300;
 }
