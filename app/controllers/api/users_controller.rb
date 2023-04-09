@@ -29,7 +29,6 @@ class Api::UsersController < ApplicationController
 
   def update
     # FOR UPDATING PASSWORD
-    debugger
     if user_params[:old_pw] && user_params[:new_pw]
       @user = User.find_by_credentials(user_params[:email], user_params[:old_pw])
       

@@ -21,26 +21,18 @@ const EditProfileForm = () => {
   const [website, setWebsite] = useState(currentUser?.website || '');
   const [username, setUsername] = useState(currentUser?.username);
   const [avatar, setAvatar] = useState(currentUser?.avatar);
-  const [photoFile, setPhotoFile] = useState();
-  const [photoUrl, setPhotoUrl] = useState();
   const [showPronouns, setShowPronouns] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
-  let preview;
+  const formData = new FormData();
 
   const imgBtn = useRef();
   const pronounsList = useRef()
 
 
   const handlePhoto = async ({ currentTarget }) => {
-    setPhotoFile(currentTarget.files[0]);
-    const formData = new FormData();
-    debugger
-    if (photoFile) {
-      formData.append('user[avatar]', photoFile);
+    if (currentTarget.files[0]) {
+      formData.append('user[avatar]', currentTarget.files[0]);
       formData.append('user[username]', currentUser?.username);
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(photoFile);
-      fileReader.onload = () => setPhotoUrl(fileReader.result);
     }
 
     const res = await csrfFetch(`/api/users/${currentUser?.username}`, {
@@ -51,7 +43,6 @@ const EditProfileForm = () => {
     if (res.ok) {
       currentUser = await res.json();
       setAvatar(currentUser.avatar);
-      setPhotoFile(null);
       setShowUpload(false);
     }
   };
@@ -110,11 +101,9 @@ const EditProfileForm = () => {
     about,
     pronouns,
     website,
-    username,
-    photoUrl
+    username
   ])
 
-  if (photoUrl) preview = <img src={photoUrl} alt="chosen avatar" id="chosen-avatar" />;
 
   return (
     <div id="edit-profile-main-container">
@@ -168,11 +157,9 @@ const EditProfileForm = () => {
               <div id="upload-avatar-container">
                 <div className="edit-form-header-container">
                   <h1 className="edit-form-title">
-                    Change your avatar
+                    Change your picture
                   </h1>
                 </div>
-
-                {preview}
 
                 <div 
                   id="upload-img-btn"

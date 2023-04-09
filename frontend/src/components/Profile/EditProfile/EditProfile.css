@@ -368,3 +368,7 @@ textarea.edit-text-input-field {
   font-size: 10px;
   font-weight: 300;
 }
+
+.avatar-holder > img {
+  font-size: 0;
+}
