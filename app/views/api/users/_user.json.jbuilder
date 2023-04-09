@@ -20,4 +20,7 @@ json.set! user.username do
     :website,
     :gender,
     :country
+  json.set! :avatar, url_for(user.avatar) if user.avatar.attached?
 end
+
+# json.avatar_url url_for(user.avatar) if user.avatar.attached?

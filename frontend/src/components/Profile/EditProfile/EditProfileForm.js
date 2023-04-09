@@ -4,7 +4,10 @@ import { getInitial, updateUser, fetchUser } from "../../../store/user";
 import { useState, useEffect, useRef } from "react";
 import Sidebar from "./Sidebar";
 import BottomBar from "./BottomBar";
+import Avatar from "../Avatar";
+import { Modal } from "../../../context/modal";
 import './EditProfile.css';
+import csrfFetch from "../../../store/csrf";
 
 
 const EditProfileForm = () => {
@@ -17,11 +20,28 @@ const EditProfileForm = () => {
   const [pronouns, setPronouns] = useState(currentUser?.pronouns || '');
   const [website, setWebsite] = useState(currentUser?.website || '');
   const [username, setUsername] = useState(currentUser?.username);
+  const [photoFile, setPhotoFile] = useState();
+  const [photoUrl, setPhotoUrl] = useState();
   const [showPronouns, setShowPronouns] = useState(false);
-  // const [errors, setErrors] = useState([]);
+  const [showUpload, setShowUpload] = useState(false);
 
-
+  const imgBtn = useRef();
   const pronounsList = useRef()
+
+
+  const handlePhoto = async ({ currentTarget }) => {
+    setPhotoFile(currentTarget.files[0]);
+    const formData = new FormData();
+    if (photoFile) formData.append('user[avatar]', photoFile);
+    const res = await csrfFetch(`/api/users/${currentUser.id}`, {
+      method: "PATCH",
+      body: JSON.stringify({user: formData})
+    })
+    if (res.ok) {
+      currentUser = await res.json();
+      setPhotoFile(null);
+    }
+  }
 
   const removePronouns = () => {
     setPronouns('');
@@ -80,6 +100,7 @@ const EditProfileForm = () => {
     username
   ])
 
+
   return (
     <div id="edit-profile-main-container">
       <div id="edit-profile-side-plus-form-holder">
@@ -107,10 +128,50 @@ const EditProfileForm = () => {
           </div>
 
           <div className="edit-form-field-row-holder">
-            <div id="edit-form-initial">{displayInitial}</div>
+            {currentUser.avatar && (
+              <div 
+                id="edit-form-initial" 
+                className="avatar-holder"
+                >
+                <Avatar user={currentUser} />
+              </div>
+              )}
+            
+            {!currentUser.avatar && (
+              <div id="edit-form-initial">{displayInitial}</div>
+              )}
 
-            <div id="change-avatar-btn">Change</div>
+            <div 
+              id="change-avatar-btn" 
+              onClick={() => setShowUpload(true)}
+              >
+              Change
+            </div>
           </div>
+
+          {showUpload && (
+            <Modal onClose={() => setShowUpload(false)}>
+              <div id="upload-avatar-container">
+                <div className="edit-form-header-container">
+                  <h1 className="edit-form-title">
+                    Change your avatar
+                  </h1>
+                </div>
+
+                <div 
+                  id="upload-img-btn"
+                  onClick={() => imgBtn.current.click()}
+                  >
+                  Choose photo
+                </div>
+                <input
+                  ref={imgBtn}
+                  type="file"
+                  onChange={handlePhoto}
+                  />
+              </div>
+            </Modal>
+          )}
 
           <div className="edit-form-field-row-holder">
 

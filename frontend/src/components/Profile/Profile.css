@@ -40,6 +40,12 @@
   border-radius: 100%;
 }
 
+.avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 100%;
+}
+
 #user-info-name-container {
   max-width: 490px;
   margin-bottom: 10px;

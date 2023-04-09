@@ -9,3 +9,7 @@ json.extract! @user,
   :website,
   :gender,
   :country
+
+json.avatar @user.avatar.attached? ? @user.avatar.url : nil
+
+  

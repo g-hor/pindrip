@@ -5,6 +5,7 @@ import { getInitial } from "../../store/user";
 import { useEffect } from "react";
 import { fetchUser } from "../../store/user";
 import SelectorBar from "./SelectorBar";
+import Avatar from "./Avatar";
 
 const UserInfo = ({ username }) => {
   const dispatch = useDispatch();
@@ -54,12 +55,19 @@ const UserInfo = ({ username }) => {
   return (
     <>
       <div id="user-info-container">
+        {showUser.avatar && (
+          <div id="user-info-initial-holder">
+            <div id="user-info-intial">
+              <Avatar user={showUser} />
+            </div>
+          </div>)}
 
-        <div id="user-info-initial-holder">
-          <div id="user-info-initial">
-            {getInitial(showUser)}
-          </div>
-        </div>
+        {!showUser.avatar && (
+          <div id="user-info-initial-holder">
+            <div id="user-info-initial">
+              {getInitial(showUser)}
+            </div>
+          </div>)}
 
         <div id="user-info-name-container">
           <div id="user-info-name">

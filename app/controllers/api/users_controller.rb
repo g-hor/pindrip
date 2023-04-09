@@ -1,5 +1,5 @@
 class Api::UsersController < ApplicationController
-  wrap_parameters include: User.attribute_names + ['password']
+  wrap_parameters include: User.attribute_names + ['password'] + ['avatar']
 
   def index
     @users = User.all
@@ -29,6 +29,7 @@ class Api::UsersController < ApplicationController
 
   def update
     # FOR UPDATING PASSWORD
+    debugger
     if user_params[:old_pw] && user_params[:new_pw]
       @user = User.find_by_credentials(user_params[:email], user_params[:old_pw])
       
@@ -73,7 +74,8 @@ class Api::UsersController < ApplicationController
       :pronouns,
       :website,
       :country,
-      :gender
+      :gender,
+      :avatar
       )
   end
 

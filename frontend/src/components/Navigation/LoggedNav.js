@@ -7,13 +7,13 @@ import MenuButton from "../MenuButton";
 
 const LoggedNav = () => {
   const currentUser = useSelector(getCurrentUser);
-  const [displayName, setDisplayName] = useState(formatEmail(currentUser.email));
-  const [displayInitial, setDisplayInitial] = useState(displayName[0]);
+  const [displayName, setDisplayName] = useState('');
+  const [displayInitial, setDisplayInitial] = useState('');
   
   useEffect(() => {
-    if (currentUser.firstName) {
-      setDisplayName(prevName => capitalizeFirstLetter(currentUser.firstName));
-      setDisplayInitial(prevInitial => displayName[0]);
+    if (currentUser) {
+      setDisplayName(capitalizeFirstLetter(formatEmail(currentUser?.email)));
+      setDisplayInitial(displayName[0]);
     } 
   }, [displayName, currentUser]);
 
@@ -53,7 +53,7 @@ const LoggedNav = () => {
         </div>
         <div className="right-initial-icon-holder">
           <NavLink 
-            to={`/${currentUser.username || displayName}`}
+            to={`/${currentUser?.username || displayName}`}
             className="initial-holder"
             >
             {displayInitial}
