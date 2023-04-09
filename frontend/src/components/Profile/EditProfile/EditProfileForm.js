@@ -24,6 +24,7 @@ const EditProfileForm = () => {
   const [photoUrl, setPhotoUrl] = useState();
   const [showPronouns, setShowPronouns] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
+  let preview;
 
   const imgBtn = useRef();
   const pronounsList = useRef()
@@ -31,17 +32,27 @@ const EditProfileForm = () => {
 
   const handlePhoto = async ({ currentTarget }) => {
     setPhotoFile(currentTarget.files[0]);
-    const formData = new FormData();
-    if (photoFile) formData.append('user[avatar]', photoFile);
-    const res = await csrfFetch(`/api/users/${currentUser.id}`, {
-      method: "PATCH",
-      body: JSON.stringify({user: formData})
-    })
-    if (res.ok) {
-      currentUser = await res.json();
-      setPhotoFile(null);
-    }
-  }
+    // const formData = new FormData();
+    // if (photoFile) formData.append('user[avatar]', photoFile);
+    // const res = await csrfFetch(`/api/users/${currentUser.id}`, {
+    //   method: "PATCH",
+    //   body: JSON.stringify({user: formData})
+    // })
+    // if (res.ok) {
+    //   currentUser = await res.json();
+    //   setPhotoFile(null);
+    // }
+
+    if (photoFile) {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(photoFile);
+      fileReader.onload = () => setPhotoUrl(fileReader.result);
+    } else {
+      setPhotoUrl(null);
+    };
+
+    if (photoUrl) preview = <img src={photoUrl} alt="" />;
+  };
 
   const removePronouns = () => {
     setPronouns('');
@@ -163,6 +174,7 @@ const EditProfileForm = () => {
                   onClick={() => imgBtn.current.click()}
                   >
                   Choose photo
+                {preview}
                 </div>
                 <input
                   ref={imgBtn}

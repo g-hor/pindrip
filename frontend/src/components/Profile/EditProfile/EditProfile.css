@@ -347,3 +347,8 @@ textarea.edit-text-input-field {
 #upload-img-btn:hover {
   background-color: rgb(56, 10, 106);
 }
+
+#upload-img-btn > img {
+  height: 100px;
+  width: 100px;
+}
