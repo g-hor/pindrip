@@ -6,4 +6,6 @@ json.extract! @user,
   :last_name,
   :about,
   :pronouns,
-  :website
+  :website,
+  :gender,
+  :country

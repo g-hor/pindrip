@@ -14,7 +14,7 @@ const EditPersonalForm = () => {
   const username = currentUser?.username;
   const [gender, setGender] = useState(currentUser?.gender || '');
   const [country, setCountry] = useState(currentUser?.country || '');
-  const [nonBinary, setNonBinary] = useState(['Male', 'Female'].includes(gender));
+  const [nonBinary, setNonBinary] = useState(!['Male', 'Female'].includes(gender));
 
   const selectCountry = (e) => {
     setCountry(e.target.value);

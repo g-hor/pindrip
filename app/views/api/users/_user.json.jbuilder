@@ -17,5 +17,7 @@ json.set! user.username do
     :last_name,
     :about,
     :pronouns,
-    :website
+    :website,
+    :gender,
+    :country
 end

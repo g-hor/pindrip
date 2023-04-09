@@ -29,7 +29,7 @@ class Api::UsersController < ApplicationController
 
   def update
     @user = User.find_by(username: params[:username])
-    debugger
+    
     if @user.update(user_params)
       render 'api/sessions/show'
     else
