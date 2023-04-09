@@ -1,3 +1,6 @@
+// LIST TAKEN FROM INCREDIMIKE'S GITHUB: https://gist.github.com/incredimike/1469814
+// list modified slightly to remove '(the)' and other prefixes
+
 export const countryList = [
 	"Afghanistan",
 	"Albania",
@@ -48,7 +51,6 @@ export const countryList = [
 	"Cocos (Keeling) Islands",
 	"Colombia",
 	"Comoros",
-	"Congo",
 	"Congo",
 	"Cook Islands",
 	"Costa Rica",

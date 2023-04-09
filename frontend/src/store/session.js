@@ -7,6 +7,7 @@ const LOGOUT = 'session/LOGOUT';
 
 // ACTIONS
 export const receiveSession = (user) => {
+  debugger
   return {
     type: LOGIN,
     payload: user
@@ -84,13 +85,12 @@ function storeCSRFToken(response) {
 const currentUser = JSON.parse(sessionStorage.getItem('currentUser'));
 const initialState = { user: currentUser }
 const sessionReducer = (state = initialState, action) => {
-  const nextState = { ...state };
 
   switch (action.type) {
     case LOGIN:
-      return { ...nextState, user: action.payload};
+      return { user: action.payload};
     case LOGOUT:
-      return { ...nextState, user: action.payload};
+      return { user: action.payload};
     default:
       return state;
   }

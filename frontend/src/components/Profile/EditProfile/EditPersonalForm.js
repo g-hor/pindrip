@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser, receiveSession } from "../../../store/session";
-import { updateUser } from "../../../store/user";
+import { updateUser, fetchUser } from "../../../store/user";
 import { countryList } from "./CountryList";
 import BottomBar from "./BottomBar";
 import Sidebar from "./Sidebar";
@@ -11,6 +11,7 @@ import './EditPersonal.css';
 const EditPersonalForm = () => {
   const dispatch = useDispatch();
   let currentUser = useSelector(getCurrentUser);
+  const username = currentUser?.username;
   const [gender, setGender] = useState(currentUser?.gender || '');
   const [country, setCountry] = useState(currentUser?.country || '');
   const [nonBinary, setNonBinary] = useState(['Male', 'Female'].includes(gender));
@@ -29,6 +30,9 @@ const EditPersonalForm = () => {
     dispatch(receiveSession({ ...currentUser, gender, country }));
   }
 
+  useEffect(() => {
+    dispatch(fetchUser(username));
+  }, [dispatch, username, currentUser]);
 
   return (
     <div id="edit-profile-main-container">
@@ -63,8 +67,9 @@ const EditPersonalForm = () => {
                 <div className="gender-option">
                   <input
                     type="radio"
-                    name="gender"
-                    onClick={() => {setGender("Male"); setNonBinary(false)}}
+                    // name="gender"
+                    checked={gender === 'Male'}
+                    onChange={() => {setGender("Male"); setNonBinary(false)}}
                   />
                   <div className="gender-option-text">Male</div>
                 </div>
@@ -72,8 +77,9 @@ const EditPersonalForm = () => {
                 <div className="gender-option">
                   <input
                     type="radio"
-                    name="gender"
-                    onClick={() => {setGender("Female"); setNonBinary(false)}}
+                    // name="gender"
+                    checked={gender === 'Female'}
+                    onChange={() => {setGender("Female"); setNonBinary(false)}}
                   />
                   <div className="gender-option-text">Female</div>
                 </div>
@@ -81,8 +87,9 @@ const EditPersonalForm = () => {
                 <div className="gender-option">
                   <input
                     type="radio"
-                    name="gender"
-                    onClick={() => {setNonBinary(true); setGender('')}}
+                    // name="gender"
+                    checked={nonBinary}
+                    onChange={() => {setNonBinary(true); setGender('')}}
                   />
                   <div className="gender-option-text">Non-binary</div>
                 </div>
@@ -117,7 +124,7 @@ const EditPersonalForm = () => {
                 className="edit-text-input-field country-field"
                 >
                 {countryList.map(countryItem => (
-                  <option value={countryItem}>
+                  <option value={countryItem} key={countryItem}>
                     {countryItem}
                   </option>
                 ))}

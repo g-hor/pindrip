@@ -57,7 +57,7 @@ const EditProfileForm = () => {
 
   useEffect(() => {
     dispatch(fetchUser(username));
-  }, [dispatch, username])
+  }, [dispatch, username]);
   
   useEffect(() => {
     if (!showPronouns) return;
