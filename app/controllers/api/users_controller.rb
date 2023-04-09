@@ -1,5 +1,5 @@
 class Api::UsersController < ApplicationController
-
+  wrap_parameters include: User.attribute_names + ['password']
 
   def index
     @users = User.all
@@ -28,8 +28,8 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    @user = User.find_by(id: params[:id])
-
+    @user = User.find_by(username: params[:username])
+    debugger
     if @user.update(user_params)
       render 'api/sessions/show'
     else
@@ -41,6 +41,7 @@ class Api::UsersController < ApplicationController
 
   def user_params
     params.require(:user).permit(
+      :id,
       :email, 
       :username, 
       :password, 
@@ -48,7 +49,9 @@ class Api::UsersController < ApplicationController
       :last_name, 
       :about, 
       :pronouns,
-      :website
+      :website,
+      :country,
+      :gender
       )
   end
 

@@ -22,7 +22,7 @@
 }
 
 .gender-option > input[type=radio] {
-  transform: scale(2);
+  transform: scale(1.9);
   cursor: pointer;
 }
 
@@ -36,10 +36,6 @@
   width: 468px;
   min-width: 208px;
   margin-top: 14px;
-}
-
-.country-holder {
-  /* margin-top: 20px; */
 }
 
 .country-field {
