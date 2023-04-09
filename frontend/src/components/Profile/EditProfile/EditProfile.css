@@ -75,7 +75,7 @@
 
 .edit-form-description {
   font-size: 16px;
-  font-weight: 400;
+  font-weight: 300;
 }
 
 .edit-form-field-row-holder {
@@ -88,6 +88,7 @@
 .edit-form-field-holder {
   display: flex;
   flex-direction: column;
+  margin-right: 8px;
 }
 
 .edit-form-label {
@@ -129,10 +130,6 @@
   background-color: rgb(215, 215, 215);
 }
 
-.edit-form-field-holder {
-  margin-right: 8px;
-}
-
 .edit-text-input-field {
   box-sizing: border-box;
   min-height: 48px;
@@ -142,6 +139,10 @@
   border: 2px solid lightgray;
   padding: 13px;
   font-size: 16px;
+}
+
+.edit-text-input-field:hover {
+  border: 2px solid #777777;
 }
 
 .edit-text-input-field:focus {
@@ -277,7 +278,7 @@ textarea.edit-text-input-field {
 }
 
 .bottom-profile-btn {
-  width: 85px;
+  width: 70px;
   height: 40px;
   box-sizing: border-box;
   background-color: rgb(238, 238, 238);
@@ -287,11 +288,19 @@ textarea.edit-text-input-field {
   padding: 22px 12px;
   border: 0;
   font-size: 100%;
-  font-weight: 600;
+  font-weight: 400;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-left: 20px;
+}
+
+.bottom-profile-btn.save-btn {
+  background-color: rgb(85, 15, 159);
+  color: white;
+}
+.bottom-profile-btn.save-btn:hover {
+  background-color: rgb(56, 10, 106);
 }
 
 .bottom-profile-btn:hover {

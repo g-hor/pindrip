@@ -4,16 +4,18 @@
 #
 #  id              :bigint           not null, primary key
 #  email           :string           not null
-#  username        :string
+#  username        :string           not null
 #  password_digest :string           not null
 #  session_token   :string           not null
-#  first_name      :string
+#  first_name      :string           not null
 #  last_name       :string
 #  about           :text
 #  pronouns        :string
 #  website         :string
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
+#  gender          :string
+#  country         :string
 #
 class User < ApplicationRecord
   has_secure_password

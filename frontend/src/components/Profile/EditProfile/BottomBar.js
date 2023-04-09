@@ -17,7 +17,7 @@ const BottomBar = ({ resetChanges, saveChanges }) => {
           </div>
 
           <div
-            className="bottom-profile-btn"
+            className="bottom-profile-btn save-btn"
             onClick={saveChanges}
             >
             Save

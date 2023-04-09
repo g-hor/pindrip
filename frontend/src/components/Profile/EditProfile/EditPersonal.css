@@ -1,0 +1,55 @@
+.personal {
+  padding-bottom: 20px;
+}
+
+#gender-options-holder {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 468px;
+  min-width: 208px;
+  padding-top: 4px;
+}
+
+.gender-row {
+  padding-bottom: 20px;
+}
+
+.gender-option {
+  display: flex;
+  flex-direction: row;
+  margin-right: 35px;
+}
+
+.gender-option > input[type=radio] {
+  transform: scale(2);
+  cursor: pointer;
+}
+
+.gender-option-text {
+  margin-left: 10px;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.gender-input {
+  width: 468px;
+  min-width: 208px;
+  margin-top: 14px;
+}
+
+.country-holder {
+  /* margin-top: 20px; */
+}
+
+.country-field {
+  width: 468px;
+  -moz-appearance: none; /* Firefox */
+  -webkit-appearance: none; /* Safari and Chrome */
+  -webkit-font-smoothing: antialiased;
+  appearance: none;
+}
+
+.country-field:hover {
+  cursor: pointer;
+}
