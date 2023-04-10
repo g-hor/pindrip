@@ -29,9 +29,9 @@ const LoggedNav = () => {
           <NavLink className="loggednav-btn" to='/' exact>
             Home
           </NavLink>
-        <div className="loggednav-btn">
+        <NavLink className="loggednav-btn" to='/pin-builder' exact>
           Create
-        </div>
+        </NavLink>
       </div>
       <div className="search-bar">
         Search

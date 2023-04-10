@@ -1,0 +1,80 @@
+#create-pin-main-bg {
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(238, 238, 238);
+  display: flex;
+  justify-content: center;
+}
+
+#create-pin-content-bg {
+  width: 900px;
+  height: 700px;
+  background-color: #fff;
+  margin-top: 130px;
+  border-radius: 16px;
+  box-sizing: border-box;
+  padding: 30px;
+  box-shadow: 0 0 10px 0 rgba(210, 210, 210, 0.591);
+  display: flex;
+  flex-direction: column;
+}
+
+#create-pin-top-btn-holder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#ellipsis-btn {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+  padding: 12px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#ellipsis-btn:hover {
+  cursor: pointer;
+  background-color: rgb(238, 238, 238);
+}
+
+#board-drop-save-btn-holder {
+  width: 240px;
+  height: 40px;
+  display: flex;
+}
+
+#create-pin-board-dropdown-btn {
+  width: 160px;
+  height: 40px;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+  background-color: rgb(238, 238, 238);
+}
+
+#create-pin-save-btn {
+  width: 70px;
+  height: 40px;
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  background-color: rgb(85, 15, 159);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#create-pin-bottom-content-holder {
+  display: flex;
+  flex-direction: row;
+}
+
+#create-pin-left-container {
+  width: 270px;
+  height: 540px;
+  border-radius: 8px;
+  background-color: rgb(238, 238, 238);
+}
