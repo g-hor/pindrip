@@ -13,8 +13,36 @@ const CreatePinForm = () => {
   const [altText, setAltText] = useState('');
   const [website, setWebsite] = useState('');
   const [showAlt, setShowAlt] = useState(false);
+  const [photo, setPhoto] = useState();
+  const [photoUrl, setPhotoUrl] = useState();
+  const uploadInput = useRef();
+  const formData = new FormData();
 
-  const dropBox = useRef();
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    const files = { ...e.dataTransfer.files };
+    console.log(files);
+  };
+
+  const handleClick = async ({ currentTarget }) => {
+    if (currentTarget.files[0]) {
+      formData.append('pin[photo]', currentTarget.files[0]);
+    }
+
+    if (currentTarget.files[0]) {
+      const fileReader = new FileReader();
+      fileReader.readAsDataURL(currentTarget.files[0]);
+      fileReader.onload = () => setPhotoUrl(fileReader.result);
+    }
+  };
+
+
+  let preview = null;
+  if (photoUrl) preview = <img src={photoUrl} alt="" />;
+
 
   return (
     <div id="create-pin-main-bg">
@@ -41,24 +69,35 @@ const CreatePinForm = () => {
 
           <div id="create-pin-left-container">
             <div 
-              ref={dropBox}
               id="create-pin-upload-box"
+              onDragOver={(e) => {e.preventDefault(); e.stopPropagation()}}
+              onDragEnter={(e) => {e.preventDefault(); e.stopPropagation()}}
+              onDrop={handleDrop}
+              onClick={() => uploadInput.current.click()}
               >
-              <div id="dropbox-text">
-                <i class="fa-solid fa-cloud-arrow-up"></i>
-                <div>Drag and drop or click to upload</div>
-              </div>
-            </div>
+            <input
+              ref={uploadInput}
+              type="file"
+              onChange={handlePhoto}
+              style={{display: 'none'}}
+              />
+            {preview || <div id="dropbox-text">
+              <i class="fa-solid fa-cloud-arrow-up"></i>
+              <div>Drag and drop or click to upload</div>
+            </div>}
+          </div>
           </div>
 
           <div id="create-pin-right-container">
             <div id="cowboy">🤠</div>
-            <textarea
-              type="text"
-              id="create-pin-title"
-              placeholder='Add your title'
-              onChange={(e) => setTitle(e.target.value)}
-              />
+            <div id="relative-text-aligner">
+              <textarea
+                type="text"
+                id="create-pin-title"
+                placeholder='Add your title'
+                onChange={(e) => setTitle(e.target.value)}
+                />
+            </div>
 
             <div id="create-pin-user-info">
               <Avatar avatar={currentUser.avatar} />
