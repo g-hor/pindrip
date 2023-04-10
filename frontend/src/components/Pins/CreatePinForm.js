@@ -9,6 +9,9 @@ const CreatePinForm = () => {
   const currentUser = useSelector(getCurrentUser);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
+  const [altText, setAltText] = useState('');
+  const [website, setWebsite] = useState('');
+  const [showAlt, setShowAlt] = useState(false);
 
   return (
     <div id="create-pin-main-bg">
@@ -40,10 +43,12 @@ const CreatePinForm = () => {
           </div>
 
           <div id="create-pin-right-container">
+            <div id="cowboy">🤠</div>
             <textarea
               type="text"
               id="create-pin-title"
               placeholder='Add your title'
+              onChange={(e) => setTitle(e.target.value)}
               />
 
             <div id="create-pin-user-info">
@@ -55,17 +60,38 @@ const CreatePinForm = () => {
               contentEditable
               role="textbox"
               id="create-pin-description"
-              placeholder="Tell everyone what your Pin is about"
+              placeholder="Tell everyone what your Pin is about" // This line is a no-op, see corresponding CSS file for 'content'
+              onChange={(e) => setDescription(e.target.value)}
               />
-            <div id="cowboy">🤠</div>
 
-            <div id="add-alt-text-btn">
-              Add alt text
+            <div id="alt-btn-or-text">
+
+              {!showAlt && (
+                <div 
+                  id="add-alt-text-btn"
+                  onClick={() => setShowAlt(true)}
+                  >
+                  Add alt text
+                </div>
+                )}
+
+              {showAlt && (
+                <span
+                  contentEditable
+                  role="textbox"
+                  id="alt-text-textbox"
+                  placeholder="Explain what people can see in the Pin" // This line is a no-op, see corresponding CSS file for 'content'
+                  onChange={(e) => {if (altText.length < 500) setAltText(e.target.value)}}
+                  />
+                )}
+
             </div>
 
-            <input
+            <textarea
               type="text"
+              id="pin-website"
               placeholder="Add a destination link"
+              onChange={(e) => setWebsite(e.target.value)}
               />
           </div>
 
