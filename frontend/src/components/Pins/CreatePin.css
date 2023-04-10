@@ -7,7 +7,7 @@
 }
 
 #create-pin-content-bg {
-  width: 900px;
+  width: 850px;
   height: 700px;
   background-color: #fff;
   margin-top: 130px;
@@ -74,7 +74,52 @@
 
 #create-pin-left-container {
   width: 270px;
-  height: 540px;
+  height: 580px;
   border-radius: 8px;
   background-color: rgb(238, 238, 238);
+}
+
+#create-pin-right-container {
+  display: flex;
+  flex-direction: column;
+  width: 450px;
+  padding: 50px 30px;
+}
+
+#create-pin-title {
+  font-weight: 700;
+  font-size: 36px;
+  border: 0;
+  height: 48px;
+  box-sizing: border-box;
+  box-shadow: rgba(142, 142, 142, 0.5) 0px 1px 0px 0px;
+}
+
+#create-pin-title:focus {
+  outline: none;
+  border-bottom: 2px solid #93c1f6;
+  box-shadow: none;
+}
+
+#create-pin-user-info {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  padding: 30px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+#create-pin-user-info> img {
+  width: 48px;
+  height: 48px;
+  margin-right: 8px
+}
+
+#create-pin-description {
+  color: #333333;
+  font-weight: 400;
+  font-size: 16px;
+  border: 0;
+  box-sizing: border-box;
 }
