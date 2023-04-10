@@ -2,10 +2,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { getCurrentUser } from "../../store/session";
 import Avatar from '../Profile/Avatar';
 import './CreatePin.css';
+import { useState } from "react";
 
 
 const CreatePinForm = () => {
   const currentUser = useSelector(getCurrentUser);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
 
   return (
     <div id="create-pin-main-bg">
@@ -14,7 +17,7 @@ const CreatePinForm = () => {
         <div id="create-pin-top-btn-holder">
 
           <div id="ellipsis-btn">
-            <i class="fa-solid fa-ellipsis" />
+            <i className="fa-solid fa-ellipsis" />
           </div>
 
           <div id="board-drop-save-btn-holder">
@@ -48,12 +51,13 @@ const CreatePinForm = () => {
               <div>{currentUser.firstName + ' ' + (currentUser.lastName || '')}</div>
             </div>
 
-            <textarea
+            <span
+              contentEditable
+              role="textbox"
               id="create-pin-description"
               placeholder="Tell everyone what your Pin is about"
-              >
-              
-            </textarea>
+              />
+            <div id="cowboy">🤠</div>
 
             <div id="add-alt-text-btn">
               Add alt text

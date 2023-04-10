@@ -1,22 +1,28 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { getCurrentUser } from "../../store/session";
-import { capitalizeFirstLetter, formatEmail } from "../../store/user";
+import { capitalizeFirstLetter, fetchUser, formatEmail } from "../../store/user";
 import Avatar from "../Profile/Avatar";
 import MenuButton from "../MenuButton";
 
 const LoggedNav = () => {
+  const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser);
+  const username = currentUser?.username;
   const [displayName, setDisplayName] = useState('');
   const [displayInitial, setDisplayInitial] = useState('');
+
+  useEffect(() => {
+    dispatch(fetchUser(username));
+  }, [dispatch, username, currentUser.avatar]);
   
   useEffect(() => {
     if (currentUser) {
       setDisplayName(capitalizeFirstLetter(formatEmail(currentUser?.email)));
       setDisplayInitial(displayName[0]);
     } 
-  }, [displayName, currentUser]);
+  }, [displayName, currentUser, currentUser.avatar]);
 
 
   return (

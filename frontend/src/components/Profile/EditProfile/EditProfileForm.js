@@ -13,8 +13,9 @@ import csrfFetch from "../../../store/csrf";
 const EditProfileForm = () => {
   const dispatch = useDispatch();
   let currentUser = useSelector(getCurrentUser);
+  const id = currentUser?.id;
   const [username, setUsername] = useState(currentUser?.username);
-  const showUser = useSelector(state => state?.users[username])
+  const showUser = useSelector(state => state?.users[username]);
   const displayInitial = getInitial(currentUser);
   const [first, setFirst] = useState(currentUser?.firstName);
   const [last, setLast] = useState(currentUser?.lastName || '');
@@ -33,17 +34,18 @@ const EditProfileForm = () => {
   const handlePhoto = async ({ currentTarget }) => {
     if (currentTarget.files[0]) {
       formData.append('user[avatar]', currentTarget.files[0]);
-      formData.append('user[username]', currentUser?.username);
+      formData.append('user[id]', currentUser?.id);
     }
 
-    const res = await csrfFetch(`/api/users/${currentUser?.username}`, {
+    const res = await csrfFetch(`/api/users/${currentUser?.id}`, {
       method: "PATCH",
       body: formData
     })
     
     if (res.ok) {
       currentUser = await res.json();
-      dispatch(receiveSession({ ...currentTarget, avatar }))
+      currentUser[avatar] = avatar;
+      dispatch(receiveSession(currentUser))
       setAvatar(currentUser.avatar);
       setShowUpload(false);
     }
@@ -74,7 +76,7 @@ const EditProfileForm = () => {
 
   const saveChanges = async () => {
     dispatch(updateUser({
-      firstName: first, lastName: last, about, pronouns, website, username
+      id, firstName: first, lastName: last, about, pronouns, website, username
       }));
     dispatch(receiveSession({ ...currentUser,
       first, last, about, pronouns, website, username
@@ -134,17 +136,17 @@ const EditProfileForm = () => {
           </div>
 
           <div className="edit-form-field-row-holder">
-            {avatar && (
+            {(avatar && (
               <div 
                 className="avatar-holder"
                 >
                 <Avatar avatar={avatar} />
               </div>
-              )}
+              )) ||
             
-            {!currentUser.avatar && (
+            (!currentUser.avatar && (
               <div id="edit-form-initial">{displayInitial}</div>
-              )}
+              ))}
 
             <div 
               id="change-avatar-btn" 
