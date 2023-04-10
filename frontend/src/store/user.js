@@ -45,8 +45,8 @@ export const removeUser = (username) => {
   return {
     type: REMOVE_USER,
     payload: username
-  }
-}
+  };
+};
 
 
 // THUNK ACTION CREATORS

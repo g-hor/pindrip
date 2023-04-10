@@ -12,7 +12,7 @@ class Api::UsersController < ApplicationController
     if @user
       render 'api/users/show'
     else
-      render json: {errors: ["I'm a teapot xd"]}
+      render json: {errors: ["I'm a teapot"]}
     end
   end
 

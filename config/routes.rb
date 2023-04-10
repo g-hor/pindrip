@@ -7,7 +7,13 @@ Rails.application.routes.draw do
   post 'api/test', to: 'application#test'
   namespace :api, defaults: { format: :json } do
     # resources :users, only: [:create, :show, :index, :update]
-    resources :users, only: [:create, :index, :update, :destroy]
+    resources :users, only: [:create, :index, :update, :destroy] do
+      resources :pins, only: [:create]
+    end
+
+    resources :pins, only: [:show]
+
+    # custom route to find user by username instead of id
     get 'users/:username', to: 'users#show', as: 'profile'
 
     resource :session, only: [:show, :create, :destroy]

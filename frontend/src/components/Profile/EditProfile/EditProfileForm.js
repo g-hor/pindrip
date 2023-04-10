@@ -13,14 +13,15 @@ import csrfFetch from "../../../store/csrf";
 const EditProfileForm = () => {
   const dispatch = useDispatch();
   let currentUser = useSelector(getCurrentUser);
+  const [username, setUsername] = useState(currentUser?.username);
+  const showUser = useSelector(state => state?.users[username])
   const displayInitial = getInitial(currentUser);
   const [first, setFirst] = useState(currentUser?.firstName);
   const [last, setLast] = useState(currentUser?.lastName || '');
   const [about, setAbout] = useState(currentUser?.about || '');
   const [pronouns, setPronouns] = useState(currentUser?.pronouns || '');
   const [website, setWebsite] = useState(currentUser?.website || '');
-  const [username, setUsername] = useState(currentUser?.username);
-  const [avatar, setAvatar] = useState(currentUser?.avatar);
+  const [avatar, setAvatar] = useState(showUser?.avatar);
   const [showPronouns, setShowPronouns] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
   const formData = new FormData();
@@ -42,6 +43,7 @@ const EditProfileForm = () => {
     
     if (res.ok) {
       currentUser = await res.json();
+      dispatch(receiveSession({ ...currentTarget, avatar }))
       setAvatar(currentUser.avatar);
       setShowUpload(false);
     }
@@ -167,6 +169,7 @@ const EditProfileForm = () => {
                   >
                   Choose photo
                 </div>
+
                 <input
                   ref={imgBtn}
                   type="file"
