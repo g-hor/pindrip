@@ -7,11 +7,11 @@
 }
 
 #create-pin-content-bg {
-  width: 850px;
+  width: 890px;
   height: 100%;
   max-height: 900px;
   background-color: #fff;
-  margin-top: 130px;
+  margin-top: 120px;
   border-radius: 16px;
   box-sizing: border-box;
   padding: 35px;
@@ -31,11 +31,15 @@
   font-size: 20px;
   width: 20px;
   height: 20px;
-  padding: 12px;
+  padding: 8px;
   border-radius: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.fa-ellipsis {
+  color: #696969;
 }
 
 #ellipsis-btn:hover {
@@ -79,8 +83,43 @@
   height: 550px;
   border-radius: 8px;
   background-color: rgb(238, 238, 238);
-  margin-left: 30px;
+  margin-left: 10px;
   margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#create-pin-upload-box {
+  width: 235px;
+  height: 515px;
+  border-radius: 8px;
+  border: 2px dashed #dddddd;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#dropbox-text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#dropbox-text i {
+ font-size: 22px;
+ color: #444444;
+}
+
+#dropbox-text div {
+  font-weight: 600;
+  font-size: 14px;
+  color: #444444;
+  width: 150px;
+  line-height: 1.2em;
+  text-align: center;
+  padding-top: 30px;
 }
 
 #create-pin-right-container {
@@ -147,14 +186,14 @@
 
 #cowboy {
   position: absolute;
-  top: 180px;
+  top: 186px;
   right: 28px;
   font-size: 28px;
 }
 
 #alt-btn-or-text {
-  padding: 30px 0;
-  min-height: 223px;
+  padding: 20px 0;
+  min-height: 243px;
 }
 
 #add-alt-text-btn {
@@ -204,7 +243,18 @@
   font-weight: 300;
   font-size: 18px;
   border: 0;
+  outline: none;
   height: 30px;
   box-sizing: border-box;
   box-shadow: rgba(142, 142, 142, 0.5) 0px 1px 0px 0px;
+}
+
+#pin-website:focus {
+  outline: none;
+  border-bottom: 2px solid #93c1f6;
+  box-shadow: none;
+}
+
+#relative-text-aligner {
+  position: relative;
 }

@@ -3,6 +3,7 @@ import { getCurrentUser } from "../../store/session";
 import Avatar from '../Profile/Avatar';
 import './CreatePin.css';
 import { useState } from "react";
+import { useRef } from "react";
 
 
 const CreatePinForm = () => {
@@ -12,6 +13,8 @@ const CreatePinForm = () => {
   const [altText, setAltText] = useState('');
   const [website, setWebsite] = useState('');
   const [showAlt, setShowAlt] = useState(false);
+
+  const dropBox = useRef();
 
   return (
     <div id="create-pin-main-bg">
@@ -37,8 +40,14 @@ const CreatePinForm = () => {
         <div id="create-pin-bottom-content-holder">
 
           <div id="create-pin-left-container">
-            <div id="create-pin-upload-box">
-
+            <div 
+              ref={dropBox}
+              id="create-pin-upload-box"
+              >
+              <div id="dropbox-text">
+                <i class="fa-solid fa-cloud-arrow-up"></i>
+                <div>Drag and drop or click to upload</div>
+              </div>
             </div>
           </div>
 
