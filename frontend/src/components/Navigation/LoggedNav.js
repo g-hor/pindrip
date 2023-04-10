@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { getCurrentUser } from "../../store/session";
 import { capitalizeFirstLetter, formatEmail } from "../../store/user";
+import Avatar from "../Profile/Avatar";
 import MenuButton from "../MenuButton";
 
 const LoggedNav = () => {
@@ -52,12 +53,23 @@ const LoggedNav = () => {
           </div>
         </div>
         <div className="right-initial-icon-holder">
-          <NavLink 
-            to={`/${currentUser?.username || displayName}`}
-            className="initial-holder"
-            >
-            {displayInitial}
-          </NavLink>
+          {currentUser.avatar && (
+            <NavLink 
+              to={`/${currentUser?.username || displayName}`}
+              className="initial-holder"
+              >
+              <Avatar avatar={currentUser.avatar} />
+            </NavLink>
+            )}
+
+          {!currentUser.avatar && (
+            <NavLink 
+              to={`/${currentUser?.username || displayName}`}
+              className="initial-holder"
+              >
+              {displayInitial}
+            </NavLink>
+            )}
         </div>
         <MenuButton displayInitial={displayInitial} displayName={displayName}/>
       </div>

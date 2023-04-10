@@ -33,8 +33,11 @@ const CreatePinForm = () => {
           </div>
 
           <div id="create-pin-right-container">
-            
-
+            <input
+              type="text"
+              id="create-pin-title"
+              placeholder='Add your title'
+              />
           </div>
 
         </div>
