@@ -8,6 +8,7 @@ import EditProfile from './components/Profile/EditProfile/EditProfileForm';
 import EditAccountForm from './components/Profile/EditProfile/EditAccountForm';
 import EditPersonalForm from './components/Profile/EditProfile/EditPersonalForm';
 import CreatePinForm from './components/Pins/CreatePinForm';
+import PinShow from './components/Pins/PinShow';
 
 function App() {
   let currentUser = useSelector(getCurrentUser);
@@ -28,6 +29,9 @@ function App() {
         </Route>
         <Route exact path="/pin-builder">
           <CreatePinForm />
+        </Route>
+        <Route exact path="/pins/:pinId">
+          <PinShow />
         </Route>
         <Route exact path="/:username">
           <Profile />

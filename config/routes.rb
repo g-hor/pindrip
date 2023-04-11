@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     # resources :users, only: [:create, :show, :index, :update]
     resources :users, only: [:create, :index, :update, :destroy]
 
-    resources :pins, only: [:show, :create]
+    resources :pins, only: [:show, :create, :index]
 
     # custom route to find user by username instead of id
     get 'users/:username', to: 'users#show', as: 'profile'

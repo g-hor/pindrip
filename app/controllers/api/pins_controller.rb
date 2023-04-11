@@ -1,6 +1,11 @@
 class Api::PinsController < ApplicationController
   wrap_parameters include: Pin.attribute_names + ['photo']
 
+  def index
+    @pins = Pin.all
+    render 'api/pins/index'
+  end
+
   def show
     @pin = Pin.find_by(id: params[:id])
 
