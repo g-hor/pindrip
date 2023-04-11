@@ -1,6 +1,7 @@
 #show-page {
   margin-top: min(90px);
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
   cursor: zoom-out;

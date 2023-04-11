@@ -38,12 +38,12 @@ function App() {
         </Route>
       </Switch> */}
       <Routes>
-        <Route exact path="/editprofile" element={<EditProfile />} />
-        <Route exact path="/editaccount" element={<EditPersonalForm />} />
-        <Route exact path="/editaccount" element={<EditAccountForm />} />
-        <Route exact path="/pin-builder" element={<CreatePinForm />} />
-        <Route exact path="/pins/:pinId" element={<PinShow />} />
-        <Route exact path="/:username" element={<Profile />} />
+        <Route path="/editprofile" element={<EditProfile />} />
+        <Route path="/editaccount" element={<EditPersonalForm />} />
+        <Route path="/editaccount" element={<EditAccountForm />} />
+        <Route path="/pin-builder" element={<CreatePinForm />} />
+        <Route path="/pins/:pinId" element={<PinShow />} />
+        <Route path="/:username" element={<Profile />} />
       </Routes>
     </div>
   );

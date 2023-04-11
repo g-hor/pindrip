@@ -12,19 +12,26 @@ const PinShow = () => {
   const { pinId } = useParams();
   const pin = useSelector(state => state.pins[parseInt(pinId)]);
   const creator = useSelector(state => state.users[pin?.creator]);
-  const background = useRef();
+  let background = useRef();
+  let children = background?.current?.children;
 
 
-
+  const goHome = (e) => {
+    debugger
+    e.stopPropagation();
+    if (e.currentTarget === background.current && !children?.includes(e.currentTarget)) navigate('/');
+  };
 
 
   return (
     <>
     {pin && (
-      <div id="show-page" 
+      <div 
         ref={background}
-        onClick={() => navigate('/')}
+        id="show-page" 
+        onClick={goHome}
         >
+
         <div id="pin-show-container" >
 
           <div id="pin-show-img-container" >
@@ -79,6 +86,7 @@ const PinShow = () => {
           </div>
 
         </div>
+
       </div>
       )}
     </>
