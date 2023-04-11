@@ -1,4 +1,5 @@
 import { useSelector, useDispatch } from "react-redux";
+import { Redirect } from 'react-router-dom';
 import { getCurrentUser } from "../../store/session";
 import { useState, useRef } from "react";
 import { createPin } from "../../store/pin";
@@ -31,6 +32,7 @@ const CreatePinForm = () => {
 
   const handleSubmit = () => {
     dispatch(createPin({ title, description, altText, website, photo }));
+    return <Redirect to={`/${currentUser.username}`} />
   };
 
 

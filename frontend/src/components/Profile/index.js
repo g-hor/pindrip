@@ -18,6 +18,7 @@ const Profile = () => {
   return (
     <div id="profile-user-container">
       <UserInfo username={username} />
+      
     </div>
   );
 };

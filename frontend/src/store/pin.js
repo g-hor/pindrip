@@ -1,7 +1,7 @@
 import csrfFetch from "./csrf";
 
 // ACTION TYPES
-const RECEIVE_PIN = 'pins/RECEIVE_PINS'
+const RECEIVE_PIN = 'pins/RECEIVE_PIN'
 
 
 // ACTIONS
