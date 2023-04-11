@@ -31,7 +31,6 @@ export const fetchPin = (pinId) => async dispatch => {
 };
 
 export const fetchAllPins = () => async dispatch => {
-  debugger
   const res = await csrfFetch('/api/pins')
   let data = await res.json();
   dispatch(receiveAllPins(data));

@@ -33,10 +33,8 @@ const EditProfileForm = () => {
 
   const handlePhoto = async ({ currentTarget }) => {
     if (currentTarget.files[0]) {
-      debugger;
       formData.append('user[avatar]', currentTarget.files[0]);
       formData.append('user[id]', currentUser?.id);
-      debugger;
     }
 
     const res = await csrfFetch(`/api/users/${currentUser?.id}`, {

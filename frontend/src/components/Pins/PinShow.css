@@ -2,6 +2,13 @@
   background-color: transparent;
 }
 
+#modal.pin-show-modal  #modal-content {
+  /* position: absolute;
+  top: 0;
+  right: 0; */
+  /* height: 100%; */
+}
+
 #x-button-holder.pin-show-modal {
   display: none;
 }
@@ -9,35 +16,34 @@
 #pin-show-container {
   box-sizing: border-box;
   display: flex;
-  /* flex-wrap: wrap; */
   flex-direction: row;
-  min-width: 300px;
-  max-width: 1000px;
-  min-height: 210px;
-  width: 100%;
-  height: 100%;
-  padding: 20px 20px 18px 20px;
+  flex-wrap: wrap;
+  min-height: 420px;
+  max-width: 90vw;
+  min-width: 70vw;
+  padding: 20px;
 }
 
 #pin-show-img-container {
-  width: 48%;
   min-width: 340px;
+  max-width: 40vw;
   height: 100%;
   margin-right: 2%;
 }
 
 
 #pin-show-img {
-  width: 100%;
-  height: 100%;
+  min-width: 300px;
+  max-width: 40vw;
   border-radius: 24px;
-  overflow: hidden;
+  margin: 20px;
 }
 
 #pin-info-container {
+  box-sizing: border-box;
   width: 48%;
   min-width: 340px;
-  height: 100%;
+  /* height: 100%; */
   margin-left: 2%;
   display: flex;
   flex-direction: column;
@@ -94,15 +100,15 @@
 }
 
 #pin-show-description {
-  /* margin-top: 12px; */
+  display: block;
+  height: 100%;
   font-weight: 300;
   font-size: 16px;
-  /* height: 300px; */
-  max-height: 300px;
-  /* max-height: 120px; */
   overflow-y: scroll;
 }
 
 #pin-show-creator-info {
   margin-top: 100px;
+  position: absolute;
+  bottom: 0;
 }

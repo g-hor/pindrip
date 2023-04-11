@@ -3,7 +3,8 @@ import { useParams } from "react-router-dom";
 import './PinShow.css';
 import { Modal } from "../../context/modal";
 import Avatar from "../Profile/Avatar";
-import { useState } from "react";
+import { useState, useRef } from "react";
+import { useEffect } from "react";
 
 
 const PinShow = () => {
@@ -17,15 +18,14 @@ const PinShow = () => {
     setShowModal(false);
   }
 
-  debugger
 
   return (
     <>
     {showModal && pin && (
       <Modal customClass={'pin-show-modal'} onClose={hidePin}>
-        <div id="pin-show-container">
+        <div id="pin-show-container" >
 
-          <div id="pin-show-img-container">
+          <div id="pin-show-img-container" >
             <img 
               src={pin?.photo} 
               alt={pin?.altText} 
@@ -33,7 +33,7 @@ const PinShow = () => {
               />
           </div>
 
-          <div id="pin-info-container">
+          <div id="pin-info-container" >
 
             <div id="pin-show-top-bar">
               <div id="ellipsis-btn">

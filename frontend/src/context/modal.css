@@ -1,8 +1,6 @@
 #modal {
   display: flex;
   justify-content: space-around;
-  align-items: center;
-  flex-direction: row;
   top: 0;
   left: 0;
   width: 100vw;
@@ -10,6 +8,7 @@
   background-color: rgba(0, 0, 0, 0.503);
   justify-content: center;
   position: fixed;
+  overflow-y: scroll;
 }
 
 #modal-background {
@@ -25,9 +24,10 @@
   position: relative;
   background-color:white;
   border-radius: 32px;
-  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.591);
-  width: auto;
-  height: auto;
+  box-shadow: 0 0 16px -6px rgba(0, 0, 0, 0.591);
+  margin-top: min(90px);
+  margin-left: min(2.5vw);
+  margin-right: min(2.5vw);
 }
 
 #x-button-holder {
