@@ -7,7 +7,6 @@ import './EditAccount.css';
 import { Modal } from "../../../context/modal";
 import { deleteUser, updatePassword, updateUser } from "../../../store/user";
 import { useEffect } from "react";
-import { Redirect } from "react-router-dom";
 
 
 const EditAccountForm = () => {
@@ -52,10 +51,6 @@ const EditAccountForm = () => {
         else setErrors([res.statusText]);
       });
   }
-
-  useEffect(() => {
-    if (!currentUser) <Redirect to="/" />;
-  }, [dispatch, currentUser])
 
 
   return (

@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import './PinShow.css';
 import { Modal } from "../../context/modal";
 import Avatar from "../Profile/Avatar";
@@ -8,21 +8,23 @@ import { useEffect } from "react";
 
 
 const PinShow = () => {
+  const navigate = useNavigate();
   const { pinId } = useParams();
   const pin = useSelector(state => state.pins[parseInt(pinId)]);
-  const [showModal, setShowModal] = useState(true);
   const creator = useSelector(state => state.users[pin?.creator]);
+  const background = useRef();
 
 
-  const hidePin = () => {
-    setShowModal(false);
-  }
+
 
 
   return (
     <>
-    {showModal && pin && (
-      <Modal customClass={'pin-show-modal'} onClose={hidePin}>
+    {pin && (
+      <div id="show-page" 
+        ref={background}
+        onClick={() => navigate('/')}
+        >
         <div id="pin-show-container" >
 
           <div id="pin-show-img-container" >
@@ -77,7 +79,8 @@ const PinShow = () => {
           </div>
 
         </div>
-      </Modal>)}
+      </div>
+      )}
     </>
   )
 };

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect, Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getCurrentUser } from './store/session';
 import Navbar from './components/Navigation';
@@ -16,7 +16,7 @@ function App() {
   return (
     <div id="entire-page">
       <Navbar />
-      <Switch>
+      {/* <Switch>
         {(!currentUser) && <Redirect to="/" />}
         <Route exact path="/editprofile">
           <EditProfile />
@@ -36,7 +36,15 @@ function App() {
         <Route exact path="/:username">
           <Profile />
         </Route>
-      </Switch>
+      </Switch> */}
+      <Routes>
+        <Route exact path="/editprofile" element={<EditProfile />} />
+        <Route exact path="/editaccount" element={<EditPersonalForm />} />
+        <Route exact path="/editaccount" element={<EditAccountForm />} />
+        <Route exact path="/pin-builder" element={<CreatePinForm />} />
+        <Route exact path="/pins/:pinId" element={<PinShow />} />
+        <Route exact path="/:username" element={<Profile />} />
+      </Routes>
     </div>
   );
 }
