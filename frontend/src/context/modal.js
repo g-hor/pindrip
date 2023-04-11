@@ -23,15 +23,15 @@ export const ModalProvider = ({ children }) => {
 };
 
 
-export const Modal = ({ onClose, children }) => {
+export const Modal = ({ onClose, children, customClass }) => {
   const modalNode = useContext(ModalContext);
   if (!modalNode) return null;
 
   return ReactDOM.createPortal(
-    <div id="modal">
+    <div id="modal" className={customClass}>
       <div id="modal-background" onClick={onClose} />
       <div id="modal-content">
-        <div id="x-button-holder">
+        <div id="x-button-holder" className={customClass}>
           <i 
             className="fa-solid fa-xmark close-x-button"
             onClick={onClose}

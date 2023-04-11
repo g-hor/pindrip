@@ -1,25 +1,40 @@
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import './PinShow.css';
+import { Modal } from "../../context/modal";
+import { useState } from "react";
 
 
 const PinShow = () => {
-  debugger
   const { pinId } = useParams();
   const pin = useSelector(state => state.pins[parseInt(pinId)]);
+  const [showModal, setShowModal] = useState(true);
+
+  const hidePin = () => {
+    setShowModal(false);
+  }
 
   return (
-    <div id="pin-show-container">
+    <>
+    {showModal && (
+      <Modal customClass={'pin-show-modal'} onClose={hidePin}>
+        <div id="pin-show-container">
 
-      <div id="pin-show-img">
-        <img src={pin?.photo} alt={pin?.altText} />
-      </div>
+          <div id="pin-show-img-container">
+            <img 
+              src={pin?.photo} 
+              alt={pin?.altText} 
+              id="pin-show-img"
+              />
+          </div>
 
-      <div id="pin-info-container">
+          <div id="pin-info-container">
+            holder
+          </div>
 
-      </div>
-
-    </div>
+        </div>
+      </Modal>)}
+    </>
   )
 };
 
