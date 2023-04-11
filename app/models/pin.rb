@@ -11,9 +11,6 @@
 #  updated_at  :datetime         not null
 #
 class Pin < ApplicationRecord
-  validates :website,
-    format: { with: URI:MailTo::EMAIL_REGEXP },
-    allow_nil: true
 
   has_one_attached :photo
   belongs_to :user

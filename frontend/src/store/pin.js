@@ -21,10 +21,16 @@ export const fetchPin = (pinId) => async dispatch => {
   return res;
 };
 
-export const createPin = (userId, pin) => async dispatch => {
-  const res = await csrfFetch(`/api/users/${userId}/pins`, {
+export const createPin = ({ title, description, altText, website, photo }) => async dispatch => {
+  const formData = new FormData();
+  formData.append('pin[title]', title);
+  formData.append('pin[description]', description);
+  formData.append('pin[altText]', altText);
+  formData.append('pin[website]', website);
+  formData.append('pin[photo]', photo);
+  const res = await csrfFetch(`/api/pins`, {
     method: "POST",
-    body: pin
+    body: formData
   });
   const data = await res.json();
   dispatch(receivePin(data));
@@ -34,9 +40,10 @@ export const createPin = (userId, pin) => async dispatch => {
 
 // REDUCER
 const pinsReducer = (state = {}, action) => {
+  const nextState = { ...state };
   switch (action.type) {
     case RECEIVE_PIN:
-      return { ...state, [action.payload.id]: action.payload}
+      return { ...nextState, ...action.payload}
     default:
       return state;
   };

@@ -71,6 +71,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+}
+
+#create-pin-save-btn:hover {
+  background-color: rgb(56, 10, 106);
 }
 
 #create-pin-bottom-content-holder {
@@ -80,24 +85,32 @@
 
 #create-pin-left-container {
   width: 270px;
-  height: 550px;
+  /* height: 550px; */
+  height: 100%;
   border-radius: 8px;
   background-color: rgb(238, 238, 238);
   margin-left: 10px;
   margin-right: 10px;
+  padding: 20px 15px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 #create-pin-upload-box {
-  width: 235px;
-  height: 515px;
+  width: 255px;
+  /* height: 515px; */
+  height: 100%;
   border-radius: 8px;
   border: 2px dashed #dddddd;
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+}
+
+#preview-pin-img {
+  width: 255px;
 }
 
 #dropbox-text {
@@ -105,6 +118,7 @@
   align-items: center;
   justify-content: center;
   flex-direction: column;
+  height: 515px;
 }
 
 #dropbox-text i {

@@ -13,7 +13,7 @@ class Api::PinsController < ApplicationController
 
   def create
     @pin = Pin.new(pin_params)
-    @pin.user_id = params[:user_id]
+    @pin.user_id = current_user.id
 
     if @pin.save
       render 'api/pins/show'
@@ -33,7 +33,7 @@ class Api::PinsController < ApplicationController
   private
 
   def pin_params
-    params.require(:pin).permit(:title, :description, :website, :photo)
+    params.require(:pin).permit(:title, :description, :website, :alt_text, :photo)
   end
 
 end

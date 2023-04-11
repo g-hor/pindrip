@@ -1,13 +1,3 @@
-# json.extract! user,
-#   :id,
-#   :email, 
-#   :username,
-#   :first_name,
-#   :last_name,
-#   :about,
-#   :pronouns,
-#   :website
-
 json.set! user.username do
   json.extract! user,
     :id,
@@ -22,5 +12,3 @@ json.set! user.username do
     :country
   json.set! :avatar, url_for(user.avatar) if user.avatar.attached?
 end
-
-# json.avatar_url url_for(user.avatar) if user.avatar.attached?

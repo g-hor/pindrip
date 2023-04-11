@@ -1,47 +1,41 @@
 import { useSelector, useDispatch } from "react-redux";
 import { getCurrentUser } from "../../store/session";
+import { useState, useRef } from "react";
+import { createPin } from "../../store/pin";
 import Avatar from '../Profile/Avatar';
 import './CreatePin.css';
-import { useState } from "react";
-import { useRef } from "react";
 
 
 const CreatePinForm = () => {
+  const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [altText, setAltText] = useState('');
   const [website, setWebsite] = useState('');
   const [showAlt, setShowAlt] = useState(false);
-  const [photo, setPhoto] = useState();
-  const [photoUrl, setPhotoUrl] = useState();
+  const [photo, setPhoto] = useState(null);
+  const [photoUrl, setPhotoUrl] = useState(null);
   const uploadInput = useRef();
-  const formData = new FormData();
 
 
-  const handleDrop = (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-
-    const files = { ...e.dataTransfer.files };
-    console.log(files);
-  };
-
-  const handleClick = async ({ currentTarget }) => {
-    if (currentTarget.files[0]) {
-      formData.append('pin[photo]', currentTarget.files[0]);
-    }
+  const handlePhoto = async ({ currentTarget }) => {
 
     if (currentTarget.files[0]) {
+      setPhoto(currentTarget.files[0]);
       const fileReader = new FileReader();
       fileReader.readAsDataURL(currentTarget.files[0]);
       fileReader.onload = () => setPhotoUrl(fileReader.result);
     }
   };
 
+  const handleSubmit = () => {
+    dispatch(createPin({ title, description, altText, website, photo }));
+  };
+
 
   let preview = null;
-  if (photoUrl) preview = <img src={photoUrl} alt="" />;
+  if (photoUrl) preview = <img src={photoUrl} id="preview-pin-img" alt="" />;
 
 
   return (
@@ -58,7 +52,10 @@ const CreatePinForm = () => {
             <div id="create-pin-board-dropdown-btn">
 
             </div>
-            <div id="create-pin-save-btn">
+            <div 
+              id="create-pin-save-btn"
+              onClick={handleSubmit}
+              >
               Save
             </div>
           </div>
@@ -70,22 +67,22 @@ const CreatePinForm = () => {
           <div id="create-pin-left-container">
             <div 
               id="create-pin-upload-box"
-              onDragOver={(e) => {e.preventDefault(); e.stopPropagation()}}
-              onDragEnter={(e) => {e.preventDefault(); e.stopPropagation()}}
-              onDrop={handleDrop}
               onClick={() => uploadInput.current.click()}
               >
-            <input
-              ref={uploadInput}
-              type="file"
-              onChange={handlePhoto}
-              style={{display: 'none'}}
-              />
-            {preview || <div id="dropbox-text">
-              <i class="fa-solid fa-cloud-arrow-up"></i>
-              <div>Drag and drop or click to upload</div>
-            </div>}
-          </div>
+              <input
+                ref={uploadInput}
+                type="file"
+                onChange={handlePhoto}
+                style={{display: 'none'}}
+                />
+              {preview || (
+                <div id="dropbox-text">
+                  <i className="fa-solid fa-cloud-arrow-up"></i>
+                  <div>Click here to upload an image</div>
+                </div>
+              )}
+            </div>
+
           </div>
 
           <div id="create-pin-right-container">
