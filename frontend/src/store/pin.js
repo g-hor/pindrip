@@ -50,7 +50,7 @@ export const createPin = ({ title, description, altText, website, photo }) => as
   });
   const data = await res.json();
   dispatch(receivePin(data));
-  return res;
+  return data;
 };
 
 

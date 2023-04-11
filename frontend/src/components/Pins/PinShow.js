@@ -13,13 +13,10 @@ const PinShow = () => {
   const pin = useSelector(state => state.pins[parseInt(pinId)]);
   const creator = useSelector(state => state.users[pin?.creator]);
   let background = useRef();
-  let children = background?.current?.children;
 
 
   const goHome = (e) => {
-    debugger
-    e.stopPropagation();
-    if (e.currentTarget === background.current && !children?.includes(e.currentTarget)) navigate('/');
+    if (!background?.current?.contains(e.target)) navigate('/');
   };
 
 

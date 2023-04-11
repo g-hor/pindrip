@@ -2,11 +2,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { getCurrentUser } from "../../store/session";
 import { useState, useRef } from "react";
 import { createPin } from "../../store/pin";
+import { useNavigate } from "react-router-dom";
 import Avatar from '../Profile/Avatar';
 import './CreatePin.css';
 
 
 const CreatePinForm = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser);
   const [title, setTitle] = useState('');
@@ -29,9 +31,10 @@ const CreatePinForm = () => {
     }
   };
 
-  const handleSubmit = () => {
-    dispatch(createPin({ title, description, altText, website, photo }));
-    // REDIRECT TO PIN SHOW
+  const handleSubmit = async () => {
+    const pin = await dispatch(createPin({ title, description, altText, website, photo }));
+    const pinId = Object.keys(pin)[0];
+    navigate(`/pins/${pinId}`);
   };
 
 
