@@ -17,7 +17,8 @@ const EditPinForm = ({ pin }) => {
               Board
             </div>
             <div className='edit-pin-row-field'>
-              
+              {/* NEED TO IMPLEMENT AFTER BOARDS */}
+              Boards
             </div>
           </div>
 
@@ -98,7 +99,18 @@ const EditPinForm = ({ pin }) => {
 
 
       <div id="edit-pin-form-bottom-bar">
+        <div className='edit-pin-btn delete'>
+          Delete
+        </div>
 
+        <div id="edit-pin-bottom-btn-container">
+          <div className='edit-pin-btn cancel'>
+            Cancel
+          </div>
+          <div className='edit-pin-btn save'>
+            Save
+          </div>
+        </div>
       </div>
 
     </div>
