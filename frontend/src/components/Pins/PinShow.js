@@ -21,7 +21,6 @@ const PinShow = () => {
   const [showEdit, setShowEdit] = useState(false);
   let background = useRef();
   let dropdown = useRef();
-  let modalRef = useRef();
   let dropMenu;
 
 
@@ -32,8 +31,7 @@ const PinShow = () => {
     setShowDrop(false);
   }
   const goHome = (e) => {
-    if (e.target !== background?.current && background?.current?.contains(e.target)) return;
-    if (modalRef?.current?.contains(e.target)) return;
+    if (e.target !== background?.current) return;
     navigate('/home');
   };
   
@@ -47,7 +45,7 @@ const PinShow = () => {
       document.removeEventListener('click', goHome)
       document.removeEventListener('click', hideDrop)
     };
-  }, [modalRef]);
+  });
   
   if (currentUser?.username === creator?.username) {
     dropMenu = 
@@ -112,16 +110,14 @@ const PinShow = () => {
                 )}
               </div>
               
-              <div ref={modalRef}>
-                {showEdit && (
-                  <Modal 
-                    onClose={() => setShowEdit(false)} 
-                    customClass="edit-pin"
-                    >
-                    <EditPinForm pin={pin} />
-                  </Modal>
-                )}
-              </div>
+              {showEdit && (
+                <Modal 
+                  onClose={() => setShowEdit(false)} 
+                  customClass="edit-pin"
+                  >
+                  <EditPinForm pin={pin} />
+                </Modal>
+              )}
 
               <div id="show-board-drop-save-btn-holder">
                 <div id="show-pin-board-dropdown-btn">

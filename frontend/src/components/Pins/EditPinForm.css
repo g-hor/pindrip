@@ -62,6 +62,7 @@
   border: 2px solid lightgray;
   padding: 13px;
   font-size: 16px;
+  color: #444444;
 }
 
 .edit-pin-text-input:hover {
