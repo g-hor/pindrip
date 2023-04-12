@@ -49,7 +49,7 @@ ApplicationRecord.transaction do
   puts "Creating pins..."
   10.times do
     Pin.create!({
-      title: Faker::Hacker.say_something_smart,
+      title: Faker::JapaneseMedia::StudioGhibli.quote,
       description: Faker::Hipster.paragraph,
       website: Faker::Internet.url,
       alt_text: Faker::Hipster.sentence,
@@ -59,7 +59,7 @@ ApplicationRecord.transaction do
 
   18.times do 
     Pin.create!({
-      title: Faker::Hacker.say_something_smart,
+      title: Faker::JapaneseMedia::StudioGhibli.quote,
       description: Faker::Hipster.paragraph,
       website: Faker::Internet.url,
       alt_text: Faker::Hipster.sentence,

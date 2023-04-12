@@ -12,7 +12,7 @@
   display: flex;
   flex: 1 1;
   flex-direction: row;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 20px 0px;
+  box-shadow: 0px 1px 20px 0px rgba(0, 0, 0, 0.1);
   border-radius: 32px;
   margin-bottom: 30px;
   padding: 24px;
@@ -47,9 +47,29 @@
 
 #pin-show-drop {
   position: absolute;
-  width: 100px;
-  height: 100px;
-  background-color: red;
+  box-sizing: border-box;
+  overflow: auto;
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  top: 48px;
+  min-width: 180px;
+  background-color: white;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+  padding: 10px;
+  border-radius: 16px;
+}
+
+.show-pin-drop-option {
+  display: block;
+  font-weight: 600;
+  font-size: 16px;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.show-pin-drop-option:hover {
+  background-color: rgb(238, 238, 238);
 }
 
 #show-board-drop-save-btn-holder {

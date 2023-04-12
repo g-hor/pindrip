@@ -5,6 +5,7 @@ import { getCurrentUser } from "../../store/session";
 import { capitalizeFirstLetter, fetchUser, formatEmail } from "../../store/user";
 import Avatar from "../Profile/Avatar";
 import MenuButton from "../MenuButton";
+import { fetchAllPins } from "../../store/pin";
 
 const LoggedNav = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const LoggedNav = () => {
 
   useEffect(() => {
     dispatch(fetchUser(username));
+    dispatch(fetchAllPins());
   }, [dispatch, username, currentUser.avatar]);
   
   useEffect(() => {

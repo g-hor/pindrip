@@ -1,8 +1,9 @@
 import csrfFetch from "./csrf";
 
 // ACTION TYPES
-const RECEIVE_PIN = 'pins/RECEIVE_PIN'
+const RECEIVE_PIN = 'pins/RECEIVE_PIN';
 const RECEIVE_ALL_PINS = 'pins/RECEIVE_ALL_PINS';
+const REMOVE_PIN = 'pins/REMOVE_PIN';
 
 
 // ACTIONS
@@ -20,6 +21,12 @@ export const receiveAllPins = (pins) => {
   };
 };
 
+export const removePin = (pinId) => {
+  return {
+    type: REMOVE_PIN,
+    payload: pinId
+  }
+}
 
 
 // THUNK ACTION CREATORS
@@ -53,15 +60,26 @@ export const createPin = ({ title, description, altText, website, photo }) => as
   return data;
 };
 
+export const deletePin = (pinId) => async dispatch => {
+  const res = await csrfFetch(`/api/pins/${pinId}`, {
+    method: "DELETE"
+  })
+  dispatch(removePin(pinId));
+  return res;
+};
+
 
 // REDUCER
 const pinsReducer = (state = {}, action) => {
   const nextState = { ...state };
   switch (action.type) {
     case RECEIVE_PIN:
-      return { ...nextState, ...action.payload}
+      return { ...nextState, ...action.payload};
     case RECEIVE_ALL_PINS:
-      return { ...nextState, ...action.payload}
+      return { ...nextState, ...action.payload};
+    case REMOVE_PIN:
+      delete nextState[action.payload]
+      return { ...nextState };
     default:
       return state;
   };

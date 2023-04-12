@@ -28,11 +28,22 @@ class Api::PinsController < ApplicationController
   end
 
   def update
+    @pin = Pin.find_by(id: params[:id])
 
+    if @pin.update(pin_params)
+      render 'api/pins/show'
+    else
+      render json: { errors: @user.errors.full_messages }, status: 422
+    end
   end
 
   def destroy
-
+    @pin = Pin.find_by(id: params[:id])
+    if @pin
+      @pin.destroy!
+    else
+      render json: { errors: ['This pin does not exist!'] }, status: 422
+    end
   end
 
   private
