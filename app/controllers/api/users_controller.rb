@@ -50,7 +50,9 @@ class Api::UsersController < ApplicationController
 
   def destroy
     @user = User.find_by_credentials(user_params[:email], user_params[:new_pw])
-    if @user
+    if @user && @user.id == 1
+      render json: { errors: ['Sorry, the demo user cannot be deleted'] }, status: 422
+    elsif @user
       @user.destroy!
     else
       render json: { errors: ['Your password was incorrect'] }, status: 422

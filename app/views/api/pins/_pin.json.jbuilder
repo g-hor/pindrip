@@ -1,5 +1,5 @@
-creator = User.find_by(id: pin.user_id)
-creator = creator.username
+maker = User.find_by(id: pin.user_id)
+creator = maker.username
 
 json.set! pin.id do
   json.extract! pin, :id, :title, :description, :alt_text, :website

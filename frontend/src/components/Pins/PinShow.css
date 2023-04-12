@@ -22,6 +22,7 @@
 
 #pin-show-img {
   border-radius: 16px 0 0 16px;
+  max-width: 512px;
 }
 
 #pin-info-container {
@@ -36,10 +37,19 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
 }
 
-#pin-show-top-bar > #ellipsis-btn {
-  padding: 16px;
+#pin-show-top-bar #ellipsis-btn {
+  padding: 12px;
+  position: relative;
+}
+
+#pin-show-drop {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background-color: red;
 }
 
 #show-board-drop-save-btn-holder {
@@ -92,6 +102,13 @@
   align-items: center;
   justify-content: center;
   margin-top: 32px;
+}
+
+#pin-show-creator-info a .avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+  margin-right: 8px;
 }
 
 #pin-show-creator-initial {

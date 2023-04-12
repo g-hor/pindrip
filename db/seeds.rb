@@ -16,9 +16,9 @@ ApplicationRecord.transaction do
     username: 'demo', 
     email: 'demo@pin.drip', 
     password: 'pindrip',
-    first_name: 'drip master',
-    last_name: '5000',
-    about: 'im all about the drip xddd',
+    first_name: 'drippy',
+    last_name: 'bara',
+    about: 'i was here on pindrip first! long live the demo user :)',
     pronouns: 'he/him',
     website: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley',
     gender: 'capybara',
@@ -47,14 +47,23 @@ ApplicationRecord.transaction do
   ApplicationRecord.connection.reset_pk_sequence!('pins')
 
   puts "Creating pins..."
-  28.times do 
-    debugger
+  10.times do
     Pin.create!({
       title: Faker::Hacker.say_something_smart,
       description: Faker::Hipster.paragraph,
       website: Faker::Internet.url,
       alt_text: Faker::Hipster.sentence,
       user_id: 1
+    })
+  end
+
+  18.times do 
+    Pin.create!({
+      title: Faker::Hacker.say_something_smart,
+      description: Faker::Hipster.paragraph,
+      website: Faker::Internet.url,
+      alt_text: Faker::Hipster.sentence,
+      user_id: rand(2..16)
     })
   end
 

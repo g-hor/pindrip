@@ -1,9 +1,11 @@
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { getInitial } from "../../store/user";
 import Avatar from "../Profile/Avatar";
 import './PinShow.css';
+import { Link } from "react-router-dom";
+import { getCurrentUser } from "../../store/session";
 
 
 const PinShow = () => {
@@ -11,12 +13,35 @@ const PinShow = () => {
   const { pinId } = useParams();
   const pin = useSelector(state => state.pins[parseInt(pinId)]);
   const creator = useSelector(state => state.users[pin?.creator]);
+  const currentUser = useSelector(getCurrentUser);
+  const [showDrop, setShowDrop] = useState();
   let background = useRef();
+  let dropMenu;
 
+
+  if (currentUser?.username === creator?.username) {
+    dropMenu = 
+      <div>
+
+      </div>
+  } else {
+    dropMenu = 
+      <div>
+        
+      </div>
+  }
 
   const goHome = (e) => {
-    if (!background?.current?.contains(e.target)) navigate('/');
+    if (e.target !== background?.current && background?.current?.contains(e.target)) return;
+    navigate('/home');
   };
+  
+  useEffect(() => {
+
+    document.addEventListener('click', goHome);
+
+    return () => document.removeEventListener('click', goHome);
+  });
 
 
   return (
@@ -41,8 +66,16 @@ const PinShow = () => {
           <div id="pin-info-container" >
 
             <div id="pin-show-top-bar">
-              <div id="ellipsis-btn">
+              <div 
+                id="ellipsis-btn"
+                onClick={() => setShowDrop(true)}
+                >
                 <i className="fa-solid fa-ellipsis" />
+                {showDrop && (
+                  <div id="pin-show-drop">
+                    {dropMenu}
+                  </div>
+                )}
               </div>
 
               <div id="show-board-drop-save-btn-holder">
@@ -72,15 +105,19 @@ const PinShow = () => {
 
             <div id="pin-show-creator-info">
               <div id="create-pin-user-info">
-                {creator?.avatar && (
-                    <Avatar avatar={creator?.avatar} />
-                  )}
+                <Link to={`/${creator?.username}`}>
+                  {creator?.avatar && (
+                      <Avatar avatar={creator?.avatar} />
+                    )}
 
-                {!creator?.avatar && (
-                    <div id="pin-show-creator-initial">{getInitial(creator)}</div>
-                  )}
+                  {!creator?.avatar && (
+                      <div id="pin-show-creator-initial">{getInitial(creator)}</div>
+                    )}
+                </Link>
                 
-                <div>{creator?.firstName + ' ' + (creator?.lastName || '')}</div>
+                <Link to={`/${creator?.username}`}>
+                  <div>{creator?.firstName + ' ' + (creator?.lastName || '')}</div>
+                </Link>
               </div>
             </div>
 
