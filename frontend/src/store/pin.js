@@ -68,6 +68,16 @@ export const deletePin = (pinId) => async dispatch => {
   return res;
 };
 
+export const updatePin = (pin) => async dispatch => {
+  const res = await csrfFetch(`/api/pins/${pin.id}`, {
+    method: "PATCH",
+    body: JSON.stringify({ pin: pin})
+  });
+  const data = res.json();
+  dispatch(receivePin(data));
+  return res;
+};
+
 
 // REDUCER
 const pinsReducer = (state = {}, action) => {

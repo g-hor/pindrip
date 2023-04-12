@@ -8,13 +8,13 @@ Rails.application.routes.draw do
   namespace :api, defaults: { format: :json } do
     # resources :users, only: [:create, :show, :index, :update]
     resources :users, only: [:create, :index, :update, :destroy]
-
-    resources :pins, only: [:show, :create, :index, :destroy]
-
     # custom route to find user by username instead of id
     get 'users/:username', to: 'users#show', as: 'profile'
 
     resource :session, only: [:show, :create, :destroy]
+    
+    resources :pins, only: [:show, :create, :index, :destroy, :update]
+
   end
 
   # this is the catch all route:

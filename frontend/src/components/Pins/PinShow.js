@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { getCurrentUser } from "../../store/session";
-import { deletePin, removePin } from "../../store/pin";
+import { deletePin, fetchPin, removePin } from "../../store/pin";
 import { getInitial } from "../../store/user";
 import Avatar from "../Profile/Avatar";
 import { Modal } from "../../context/modal";
@@ -23,8 +23,6 @@ const PinShow = () => {
   let dropdown = useRef();
   let dropMenu;
 
-
-
   
   const hideDrop = (e) => {
     if (dropdown?.current?.contains(e.target)) return;
@@ -34,6 +32,12 @@ const PinShow = () => {
     if (e.target !== background?.current) return;
     navigate('/home');
   };
+
+  
+  useEffect(() => {
+    dispatch(fetchPin(pin?.id));
+  }, [dispatch, showEdit, pin?.id]);
+  
   
   useEffect(() => {
     if (!showDrop) return;
@@ -46,6 +50,8 @@ const PinShow = () => {
       document.removeEventListener('click', hideDrop)
     };
   });
+
+
   
   if (currentUser?.username === creator?.username) {
     dropMenu = 
@@ -115,7 +121,10 @@ const PinShow = () => {
                   onClose={() => setShowEdit(false)} 
                   customClass="edit-pin"
                   >
-                  <EditPinForm pin={pin} />
+                  <EditPinForm 
+                    pin={pin} 
+                    onClose={() => setShowEdit(false)}
+                    />
                 </Modal>
               )}
 

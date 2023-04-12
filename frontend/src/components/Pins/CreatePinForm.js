@@ -32,7 +32,7 @@ const CreatePinForm = () => {
   };
 
   const handleSubmit = async () => {
-    const pin = dispatch(createPin({ title, description, altText, website, photo }));
+    const pin = await dispatch(createPin({ title, description, altText, website, photo }));
     const pinId = Object.keys(pin)[0];
     navigate(`/pins/${pinId}`);
   };

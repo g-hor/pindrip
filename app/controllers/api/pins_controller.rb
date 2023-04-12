@@ -12,7 +12,7 @@ class Api::PinsController < ApplicationController
     if @pin
       render 'api/pins/show'
     else
-      render json: { errors: ["Sorry, it looks like this pin doesn't exist yet."]}
+      render json: { errors: ["Sorry, it looks like this pin doesn't exist yet."] }, status: 422
     end
   end
 

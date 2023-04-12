@@ -1,6 +1,34 @@
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import './EditPinForm.css';
+import { deletePin, fetchPin, updatePin } from '../../store/pin';
 
-const EditPinForm = ({ pin }) => {
+const EditPinForm = ({ pin, onClose }) => {
+  const dispatch = useDispatch();
+  const [title, setTitle] = useState(pin?.title);
+  const [description, setDescription] = useState(pin?.description);
+  const [website, setWebsite] = useState(pin?.website);
+  const [altText, setAltText] = useState(pin?.altText);
+  const cancelBtn = useRef();
+
+
+  const savePin = async (pin) => {
+    const updatedPin = { 
+      id: pin.id,
+      title: title, 
+      description: description, 
+      website: website, 
+      altText: altText 
+    };
+    const res = await dispatch(updatePin(updatedPin));
+    if (res.ok) {
+      cancelBtn?.current?.click()
+    };
+  };
+
+  useEffect(() => {
+    dispatch(fetchPin(pin?.id));
+  }, [dispatch]);
 
   return (
     <div id="edit-pin-form">
@@ -31,8 +59,9 @@ const EditPinForm = ({ pin }) => {
             <div className='edit-pin-row-field'>
               <input
                 type="text"
-                value={pin?.title}
+                value={title}
                 className='edit-pin-text-input'
+                onChange={(e) => setTitle(e.target.value)}
                 />
             </div>
           </div>
@@ -47,7 +76,8 @@ const EditPinForm = ({ pin }) => {
               <textarea
                 placeholder='Tell us about this Pin...'
                 className='edit-pin-text-input'
-                value={pin?.description}
+                onChange={(e) => setDescription(e.target.value)}
+                value={description}
                 />
             </div>
           </div>
@@ -61,8 +91,9 @@ const EditPinForm = ({ pin }) => {
             <div className='edit-pin-row-field'>
               <input
                 type="text"
-                value={pin?.website}
+                value={website}
                 className='edit-pin-text-input'
+                onChange={(e) => setWebsite(e.target.value)}
                 />
             </div>
           </div>
@@ -76,8 +107,9 @@ const EditPinForm = ({ pin }) => {
             <div className='edit-pin-row-field'>
               <input
                 type="text"
-                value={pin?.altText}
+                value={altText}
                 className='edit-pin-text-input'
+                onChange={(e) => setAltText(e.target.value)}
                 />
             </div>
           </div>
@@ -88,7 +120,7 @@ const EditPinForm = ({ pin }) => {
         <div id="edit-pin-form-right">
           <img 
             src={pin?.photo}
-            alt={pin?.altText}
+            alt={altText}
             id="edit-pin-img"
             />
         </div>
@@ -99,15 +131,25 @@ const EditPinForm = ({ pin }) => {
 
 
       <div id="edit-pin-form-bottom-bar">
-        <div className='edit-pin-btn delete'>
+        <div 
+          className='edit-pin-btn delete'
+          onClick={() => dispatch(deletePin(pin?.id))}
+          >
           Delete
         </div>
 
         <div id="edit-pin-bottom-btn-container">
-          <div className='edit-pin-btn cancel'>
+          <div 
+            ref={cancelBtn}
+            className='edit-pin-btn cancel'
+            onClick={() => onClose()}
+            >
             Cancel
           </div>
-          <div className='edit-pin-btn save'>
+          <div 
+            className='edit-pin-btn save'
+            onClick={() => savePin(pin)}
+            >
             Save
           </div>
         </div>
