@@ -11,10 +11,6 @@ const UserInfo = ({ username }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser);
   const showUser = useSelector(state => state?.users[username])
-  // const [displayName, setDisplayName] = useState(showUser?.firstName);
-  // const [usernamePronouns, setUsernamePronouns] = useState(showUser?.pronouns);
-  // const [blurb, setBlurb] = useState(showUser?.about);
-  // const [urlAbout, setUrlAbout] = useState(showUser?.website);
   let displayName;
   let usernamePronouns;
   let about;
@@ -91,7 +87,7 @@ const UserInfo = ({ username }) => {
           </div>
         </div>
 
-        {(currentUser.username === showUser.username) && 
+        {(currentUser?.username === showUser?.username) && 
           <div id="edit-profile-btn-container">
           <Link to='/editprofile'>
             <div id="edit-profile-btn">

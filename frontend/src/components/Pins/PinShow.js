@@ -1,10 +1,9 @@
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import './PinShow.css';
-import { Modal } from "../../context/modal";
+import { useRef } from "react";
+import { getInitial } from "../../store/user";
 import Avatar from "../Profile/Avatar";
-import { useState, useRef } from "react";
-import { useEffect } from "react";
+import './PinShow.css';
 
 
 const PinShow = () => {
@@ -60,8 +59,7 @@ const PinShow = () => {
             </div>
 
             <div id="pin-show-website">
-              {/* {pin?.website} */}
-              <a href="google.com">google.com</a>
+              <a href={pin?.website}>{pin?.website}</a>
             </div>
 
             <div id="pin-show-title">
@@ -69,13 +67,19 @@ const PinShow = () => {
             </div>
 
             <div id="pin-show-description">
-              {/* {pin?.description} */}
-              this is a description Más de 500 Novedades Diarias✓Autodevoluciones✓Envío gratis a partir de 29€✓Pulsa para ver los detalles de Jersey con patrón de rayas de hombros caídos. Compra tus favoritos y entérate de toda la infromación.Más de 500 Novedades Diarias✓Autodevoluciones✓Envío gratis a partir de 29€✓Pulsa para ver los detalles de Jersey con patrón de rayas de hombros caídos. Compra tus favoritos y entérate de toda la infromación.Más de 500 Novedades Diarias✓Autodevoluciones✓Envío gratis a partir de 29€✓Pulsa para ver los detalles de Jersey con patrón de rayas de hombros caídos. Compra tus favoritos y entérate de toda la infromación.Novedades Diarias✓Autodevoluciones✓Envío gratis a partir de 29€✓Pulsa para ver los detalles de Jersey con patrón de rayas de hombros caídos. Compra tus favoritos y entérate de toda la infromación.Más de 500 Novedades Diarias✓Autodevoluciones✓Envío gratis a partir de 29€✓Pulsa para ver los detalles de Jersey con patrón de rayas de hombros caídos. Compra tus favoritos y entérate de toda la infromación.Más de 500 Novedades Diarias✓Autodevoluciones✓Envío gratis a partir de 29€✓Pulsa para ver los detalles de Jersey con patrón de rayas de hombros caídos. Compra tus favoritos y entérate de toda la infromación
+              {pin?.description}
             </div>
 
             <div id="pin-show-creator-info">
               <div id="create-pin-user-info">
-                <Avatar avatar={creator?.avatar} />
+                {creator?.avatar && (
+                    <Avatar avatar={creator?.avatar} />
+                  )}
+
+                {!creator?.avatar && (
+                    <div id="pin-show-creator-initial">{getInitial(creator)}</div>
+                  )}
+                
                 <div>{creator?.firstName + ' ' + (creator?.lastName || '')}</div>
               </div>
             </div>

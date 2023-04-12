@@ -15,13 +15,9 @@
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 20px 0px;
   border-radius: 32px;
   margin-bottom: 30px;
-  padding: 16px;
+  padding: 24px;
   position: relative;
   cursor: auto;
-}
-
-#pin-show-img-container {
-  /* overflow: hidden; */
 }
 
 #pin-show-img {
@@ -29,6 +25,7 @@
 }
 
 #pin-info-container {
+  width: 100%;
   margin: 16px 24px;
   display: flex;
   flex-direction: column;
@@ -91,4 +88,19 @@
 #pin-show-creator-info {
   position: absolute;
   bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 32px;
+}
+
+#pin-show-creator-initial {
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+  background-color: rgb(238, 238, 238);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 8px;
 }
