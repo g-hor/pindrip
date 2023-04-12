@@ -9,6 +9,7 @@
 #  user_id     :bigint           not null
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#  alt_text    :text
 #
 class Pin < ApplicationRecord
 

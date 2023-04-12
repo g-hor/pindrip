@@ -190,6 +190,7 @@
   content: "Tell everyone what your Pin is about";
   color: #696969;
   font-weight: 300;
+  cursor: text;
 }
 
 #create-pin-description:focus {

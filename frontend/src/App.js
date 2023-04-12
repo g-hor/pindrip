@@ -17,7 +17,7 @@ function App() {
 
   useEffect(() => {
     if (!currentUser) navigate('/');
-  }, [currentUser]);
+  }, [navigate, currentUser]);
 
   return (
     <div id="entire-page">
