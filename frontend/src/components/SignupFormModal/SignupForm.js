@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
 import LoginForm from '../LoginFormModal/LoginForm';
+import { useNavigate } from 'react-router-dom';
 
 const SignupForm = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -15,7 +17,7 @@ const SignupForm = () => {
     e.preventDefault();
     setErrors([]);
 
-    return dispatch(sessionActions.signupUser({ email, password }))
+    const res = await dispatch(sessionActions.signupUser({ email, password }))
       .catch(async (res) => {
         let data;
         try {
@@ -27,6 +29,7 @@ const SignupForm = () => {
         else if (data) setErrors([data]);
         else setErrors([res.statusText]);
       });
+    if (res.ok) navigate('/home');
   };
 
   const replaceLogin = async (e) => {

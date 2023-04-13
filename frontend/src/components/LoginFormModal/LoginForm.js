@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch } from 'react-redux';
 import SignupForm from '../SignupFormModal/SignupForm';
+import { useNavigate } from 'react-router-dom';
 
 const LoginForm = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -14,8 +16,8 @@ const LoginForm = () => {
   const clickLogin = async (e) => {
     e.preventDefault();
     setErrors([]);
-    return dispatch(sessionActions.loginUser({ email, password }))
-      .catch(async (res) => {
+    const res = await dispatch(sessionActions.loginUser({ email, password }))
+       .catch(async (res) => {
         let data;
         try {
           data = await res.clone().json();
@@ -26,17 +28,19 @@ const LoginForm = () => {
         else if (data) setErrors([data]);
         else setErrors([res.statusText]);
       });
+    if (res.ok) navigate('/home');
   };
 
   const clickDemo = async (e) => {
     e.preventDefault();
-    dispatch(sessionActions.loginUser({ email: 'demo@pin.drip', password: 'pindrip' }));
-  }
+    const res = await dispatch(sessionActions.loginUser({ email: 'demo@pin.drip', password: 'pindrip' }));
+    if (res.ok) navigate('/home');
+  };
 
   const replaceSignUp = async (e) => {
     setShowLogin(false);
     setShowSignup(true);
-  }
+  };
 
   return (
     <>

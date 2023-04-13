@@ -19,7 +19,7 @@ ApplicationRecord.transaction do
     first_name: 'drippy',
     last_name: 'bara',
     about: 'i was here on pindrip first! long live the demo user :)',
-    pronouns: 'he/him',
+    pronouns: 'they/them',
     website: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley',
     gender: 'capybara',
     country: 'Antarctica'

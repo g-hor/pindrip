@@ -11,6 +11,7 @@ import CreatePinForm from './components/Pins/CreatePinForm';
 import PinShow from './components/Pins/PinShow';
 import { useEffect } from 'react';
 import PinIndex from './components/Pins/PinIndex';
+import SplashPage from './components/Splash';
 
 function App() {
   const navigate = useNavigate();
@@ -31,6 +32,7 @@ function App() {
         <Route exact path="/pins/:pinId" element={<PinShow />} />
         <Route exact path="/:username" element={<Profile />} />
         <Route exact path="/home" element={<PinIndex />} />
+        <Route exact path="/" element={<SplashPage />} />
       </Routes>
     </div>
   );
