@@ -2,6 +2,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-bottom: 70px;
+  position: relative;
+  padding: 0 2.5vw;
 }
 
 #boards-container {
@@ -12,9 +15,47 @@
 
 #plus-sign-holder {
   position: absolute;
-  top: -30px;
-  right: 5vw;
-  right: 0
+  top: -72px;
+  right: 10px;
+  font-size: 24px;
+  padding: 12px;
+  border-radius: 100%;
+}
+
+#plus-sign-holder:hover {
+  cursor: pointer;
+  background-color: rgb(238, 238, 238);
+}
+
+#profile-create-dropdown {
+  position: absolute;
+  border-radius: 12px;
+  right: 10px;
+  top: -22px;
+  width: 180px;
+  height: 86px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: 0px 2px 5px 5px rgba(114, 114, 114, 0.1);
+}
+
+#create-text {
+  font-size: 12px;
+  font-weight: 300;
+  padding: 4px 8px 8px 8px;
+  border-radius: 8px;
+}
+
+.create-option {
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.create-option:hover {
+  background-color: rgb(238, 238, 238);
+  cursor: pointer;
 }
 
 .board-item {
@@ -28,6 +69,15 @@
 .board-img-holder {
   display: flex;
   flex-direction: row;
+  overflow: hidden;
+}
+
+.board-img-holder img {
+  display: block;
+  max-width: 157px;
+  object-fit: cover;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
 }
 
 .first-img {
@@ -37,11 +87,13 @@
   border-top-left-radius: 16px;
   border-bottom-left-radius: 16px;
   margin-right: 2px;
+  overflow: hidden;
 }
 
 .second-img-holder {
   display: flex;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .secondary-img {
@@ -50,6 +102,14 @@
   background-color: rgb(238, 238, 238);
   border-top-right-radius: 16px;
   margin-bottom: 2px;
+  overflow: hidden;
+}
+
+.secondary-img img {
+  display: block;
+  min-width: 77px;
+  object-fit: cover;
+  border-radius: 0 16px 0 0;
 }
 
 .tertiary-img {
@@ -57,6 +117,14 @@
   height: 77.5px;
   background-color: rgb(238, 238, 238);
   border-bottom-right-radius: 16px;
+  overflow: hidden;
+}
+
+.tertiary-img img {
+  display: block;
+  min-width: 77px;
+  object-fit: cover;
+  border-radius: 0 0 16px 0;
 }
 
 .board-info {
