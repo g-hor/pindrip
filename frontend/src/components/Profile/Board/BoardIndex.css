@@ -1,0 +1,75 @@
+#boards-index-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#boards-container {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
+
+#plus-sign-holder {
+  position: absolute;
+  top: -30px;
+  right: 5vw;
+  right: 0
+}
+
+.board-item {
+  min-width: 247px;
+  min-height: 231px;
+  margin: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.board-img-holder {
+  display: flex;
+  flex-direction: row;
+}
+
+.first-img {
+  width: 157px;
+  height: 157px;
+  background-color: rgb(238, 238, 238);
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+  margin-right: 2px;
+}
+
+.second-img-holder {
+  display: flex;
+  flex-direction: column;
+}
+
+.secondary-img {
+  width: 77px;
+  height: 77.5px;
+  background-color: rgb(238, 238, 238);
+  border-top-right-radius: 16px;
+  margin-bottom: 2px;
+}
+
+.tertiary-img {
+  width: 77px;
+  height: 77.5px;
+  background-color: rgb(238, 238, 238);
+  border-bottom-right-radius: 16px;
+}
+
+.board-info {
+  margin: 8px;
+}
+
+.board-name {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.board-pin-count {
+  padding-top: 2px;
+  font-size: 12px;
+  font-weight: 300;
+}

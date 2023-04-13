@@ -5,8 +5,8 @@ import { fetchUser } from "../../store/user";
 import UserInfo from "./UserInfo";
 import PinIndexItem from "../Pins/PinIndexItem";
 import SelectorBar from "./SelectorBar";
-import './Profile.css';
 import BoardIndex from "./Board/BoardIndex";
+import './Profile.css';
 
 
 const Profile = () => {
