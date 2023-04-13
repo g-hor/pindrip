@@ -38,6 +38,9 @@ class User < ApplicationRecord
     allow_nil: true
   validates_inclusion_of :pronouns, :in => PRONOUNS, allow_nil: true
 
+  # all users have a default board called "All Pins" in which every saved pin lives
+  # after_save :ensure_default_board 
+
 
   has_one_attached :avatar
   has_many :pins,
@@ -103,4 +106,7 @@ class User < ApplicationRecord
     self.first_name ||= self.parse_email
   end
   
+  # def ensure_default_board
+  #   Board.create!(name: "All Pins", user_id: this.id)
+  # end
 end

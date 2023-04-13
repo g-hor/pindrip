@@ -15,7 +15,6 @@ const Navbar = () => {
 
   useEffect(() => {
     dispatch(fetchAllUsers());
-    dispatch(fetchAllPins());
   }, [dispatch])
 
   return (

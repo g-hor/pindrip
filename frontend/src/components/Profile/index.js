@@ -6,16 +6,17 @@ import UserInfo from "./UserInfo";
 import PinIndexItem from "../Pins/PinIndexItem";
 import SelectorBar from "./SelectorBar";
 import './Profile.css';
+import BoardIndex from "./Board/BoardIndex";
 
 
 const Profile = () => {
   const dispatch = useDispatch();
   const { username } = useParams();
-  const showUser = useSelector(state => state.users[username]);
-  const pins = useSelector(state => state.pins);
+  const showUser = useSelector(state => state?.users[username]);
+  const pins = useSelector(state => state?.pins);
   const createdPins = showUser?.createdPins.map(pinId => pins[pinId]);
-  const [showCreated, setShowCreated] = useState(true);
-  const [showSaved, setShowSaved] = useState(false);
+  const [showCreated, setShowCreated] = useState(false);
+  const [showSaved, setShowSaved] = useState(true);
 
   useEffect(() => {
     dispatch(fetchUser(username));
@@ -42,7 +43,8 @@ const Profile = () => {
         )}
       
       {showSaved && (
-        <div>
+        <div id="boards-index-container">
+          <BoardIndex showUser={showUser} />
         </div>
         )}
 

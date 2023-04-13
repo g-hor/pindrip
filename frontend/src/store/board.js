@@ -37,10 +37,20 @@ export const fetchBoard = (boardId) => async dispatch => {
   return res;
 };
 
-export const fetchAllBoards = () => async dispatch => {
-  const res = await csrfFetch('/api/boards');
+export const fetchAllBoards = (userId) => async dispatch => {
+  const res = await csrfFetch(`/api/users/${userId}/boards`);
   const data = await res.json();
   dispatch(receiveAllBoards(data));
+  return res;
+}
+
+export const createBoard = (board) => async dispatch => {
+  const res = await csrfFetch('/api/boards', {
+    method: "POST",
+    body: JSON.stringify(board)
+  });
+  const data = await res.json();
+  dispatch(receiveBoard(data));
   return res;
 }
 

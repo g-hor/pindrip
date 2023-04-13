@@ -1,10 +1,9 @@
-class Api::PinsController < ApplicationController
+class Api::BoardsController < ApplicationController
   wrap_parameters include: Board.attribute_names
-  before_action :ensure_creator
 
   def index
     @boards = Board.where(user_id: params[:user_id])
-    render "api/boards/index"
+    render 'api/boards/index'
   end
 
   def show
@@ -34,9 +33,5 @@ class Api::PinsController < ApplicationController
 
   def board_params
     params.require(:board).permit(:name, :description)
-  end
-
-  def ensure_creator
-    current_user.id == @board.user_id
   end
 end

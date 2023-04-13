@@ -2,8 +2,8 @@ class Api::BoardPinsController < ApplicationController
 
   def create
     new_pin_save = BoardPin.new(board_pins_params)
-    @board = Board.find_by(id: params[:board_id])
-    @pin = Pin.find_by(id: params[:pin_id])
+    @board = Board.find_by(id: board_params[:board_id])
+    @pin = Pin.find_by(id: board_params[:pin_id])
 
     if @board && @pin && new_pin_save.save
       render 'api/boards/show'
