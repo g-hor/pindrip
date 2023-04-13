@@ -112,17 +112,17 @@
 }
 
 .col-3 {
-  height: 66vh;
+  height: 64vh;
   animation: slideInTop3 1.4s ease-out 1.3s;
 }
 
 .col-4 {
-  height: 60vh;
+  height: 58vh;
   animation: slideInTop4 1.5s ease-out 1.5s;
 }
 
 .col-5 {
-  height: 66vh;
+  height: 64vh;
   animation: slideInTop3 1.6s ease-out 1.7s;
 }
 

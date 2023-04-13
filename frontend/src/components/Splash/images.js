@@ -16,5 +16,10 @@ export const splashImages = [
   "https://pindrip-seeds.s3.amazonaws.com/splash/14.jpeg",
   "https://pindrip-seeds.s3.amazonaws.com/splash/15.jpeg",
   "https://pindrip-seeds.s3.amazonaws.com/splash/16.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/24.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/25.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/26.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/27.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/28.jpeg",
   "https://pindrip-seeds.s3.amazonaws.com/splash/17.jpeg",
 ]

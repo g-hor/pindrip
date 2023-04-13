@@ -1,10 +1,14 @@
-
-import { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { splashImages } from './images';
+import { getCurrentUser } from '../../store/session';
 import './Splash.css';
 
 const SplashPage = () => {
+  const navigate = useNavigate();
+  const currentUser = useSelector(getCurrentUser);
 
+  if (currentUser) navigate('/home');
 
   return (
     <div id="splash-bg-container">
@@ -20,38 +24,38 @@ const SplashPage = () => {
 
       <div id="splash-grid-container">
         <div className='splash-grid-col col-1'>
-          {splashImages.slice(0, 3).map(img => 
-            <img src={img} alt=""></img>
+          {splashImages.slice(0, 3).map((img, i) => 
+            <img src={img} alt="" key={i} />
             )}
         </div>
         <div className='splash-grid-col col-2'>
-          {splashImages.slice(3, 6).map(img => 
-            <img src={img} alt=""></img>
+          {splashImages.slice(3, 6).map((img, i) => 
+            <img src={img} alt="" key={i} />
             )}
         </div>
         <div className='splash-grid-col col-3'>
-          {splashImages.slice(6, 9).map(img => 
-            <img src={img} alt=""></img>
+          {splashImages.slice(6, 9).map((img, i) => 
+            <img src={img} alt="" key={i} />
             )}
         </div>
         <div className='splash-grid-col col-4'>
-          {splashImages.slice(8, 12).map(img => 
-            <img src={img} alt=""></img>
+          {splashImages.slice(8, 12).map((img, i) => 
+            <img src={img} alt="" key={i} />
             )}
         </div>
         <div className='splash-grid-col col-5'>
-          {splashImages.slice(10, 13).map(img => 
-            <img src={img} alt=""></img>
+          {splashImages.slice(12, 15).map((img, i) => 
+            <img src={img} alt="" key={i} />
             )}
         </div>
         <div className='splash-grid-col col-6'>
-          {splashImages.slice(12, 15).map(img => 
-            <img src={img} alt=""></img>
+          {splashImages.slice(16, 19).map((img, i) => 
+            <img src={img} alt="" key={i} />
             )}
         </div>
         <div className='splash-grid-col col-7'>
-          {splashImages.slice(14, 18).map(img => 
-            <img src={img} alt=""></img>
+          {splashImages.slice(19, 22).map((img, i) => 
+            <img src={img} alt="" key={i} />
             )}
         </div>
       </div>

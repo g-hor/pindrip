@@ -18,7 +18,7 @@ function App() {
   let currentUser = useSelector(getCurrentUser);
 
   useEffect(() => {
-    if (!currentUser) navigate('/');
+    if (!currentUser) navigate('/home');
   }, [navigate, currentUser]);
 
   return (

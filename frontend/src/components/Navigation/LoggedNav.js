@@ -48,14 +48,14 @@ const LoggedNav = () => {
       <div className="loggednav-right">
         <div className="right-icon-holder">
           <div className="icon-holder">
-            <a href="https://github.com/g-hor">
+            <a href="https://github.com/g-hor" target="_blank">
               <i className="fa-brands fa-github social-icon"></i>
             </a>
           </div>
         </div>
         <div className="right-icon-holder">
           <div className="icon-holder">
-            <a href="https://www.linkedin.com/in/garyhor65/">
+            <a href="https://www.linkedin.com/in/garyhor65/" target="_blank">
               <i className="fa-brands fa-linkedin social-icon"></i>
             </a>
           </div>

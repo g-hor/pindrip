@@ -40,7 +40,13 @@ class User < ApplicationRecord
 
 
   has_one_attached :avatar
-  has_many :pins
+  has_many :pins,
+    dependent: :destroy
+  has_many :boards,
+    dependent: :destroy
+  has_many :saved_pins,
+    through: :boards,
+    source: :pins
 
 
   def self.find_by_credentials(email, password)
