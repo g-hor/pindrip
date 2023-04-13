@@ -42,9 +42,9 @@ const LoggedNav = () => {
           Create
         </NavLink>
       </div>
-      <div className="search-bar">
+      {/* <div className="search-bar">
         Search
-      </div>
+      </div> */}
       <div className="loggednav-right">
         <div className="right-icon-holder">
           <div className="icon-holder">

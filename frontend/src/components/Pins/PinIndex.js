@@ -10,15 +10,19 @@ const PinIndex = () => {
 
 
   return (
-    <div id="pins-index-page">
-      <div id="pins-index-container">
-        {pins.map((pin, i) => 
-          <div className="pin-index-item" key={i}>
-            <PinIndexItem pin={pin} />
-          </div> 
-          )}
+    <>
+      <div id="pins-index-page">
+        <div id="pins-index-container">
+          {pins.map((pin, i) => 
+            <div className="pin-index-item" key={i}>
+              <PinIndexItem pin={pin} />
+            </div> 
+            )}
+        </div>
+
       </div>
-    </div>
+      <div id="pins-index-bar" />
+    </>
   )
 };
 

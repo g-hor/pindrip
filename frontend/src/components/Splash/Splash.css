@@ -41,6 +41,17 @@
 #splash-bg-container {
   display: flex;
   justify-content: center;
+  scroll-margin: 0;
+}
+
+#splash-page-gradient {
+  position: absolute;
+  top: 80px;
+  left: 0;
+  height: 200px;
+  width: 100%;
+  z-index: 1;
+  background: linear-gradient(rgb(255, 255, 255) 0%, rgba(255, 255, 255, 0) 70%);
 }
 
 #splash-text-container {
@@ -91,36 +102,36 @@
 }
 
 .col-1 {
-  height: 80vh;
+  height: 84vh;
   animation: slideInTop1 1.2s ease-out 0.9s;
 }
 
 .col-2 {
-  height: 70vh;
+  height: 76vh;
   animation: slideInTop2 1.3s ease-out 1.1s;
 }
 
 .col-3 {
-  height: 60vh;
+  height: 66vh;
   animation: slideInTop3 1.4s ease-out 1.3s;
 }
 
 .col-4 {
-  height: 50vh;
+  height: 60vh;
   animation: slideInTop4 1.5s ease-out 1.5s;
 }
 
 .col-5 {
-  height: 60vh;
+  height: 66vh;
   animation: slideInTop3 1.6s ease-out 1.7s;
 }
 
 .col-6 {
-  height: 70vh;
+  height: 76vh;
   animation: slideInTop2 1.7s ease-out 1.9s;
 }
 
 .col-7 {
-  height: 80vh;
+  height: 84vh;
   animation: slideInTop1 1.8s ease-out 2.1s;
 }
