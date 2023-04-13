@@ -103,7 +103,7 @@
 
 .col-1 {
   height: 84vh;
-  animation: slideInTop1 1.2s ease-out 0.9s;
+  animation: slideInTop1 2.1s ease-out 0.9s;
 }
 
 .col-2 {
@@ -113,17 +113,17 @@
 
 .col-3 {
   height: 64vh;
-  animation: slideInTop3 1.4s ease-out 1.3s;
+  animation: slideInTop3 1.9s ease-out 1.3s;
 }
 
 .col-4 {
   height: 58vh;
-  animation: slideInTop4 1.5s ease-out 1.5s;
+  animation: slideInTop4 2.4s ease-out 1.5s;
 }
 
 .col-5 {
   height: 64vh;
-  animation: slideInTop3 1.6s ease-out 1.7s;
+  animation: slideInTop3 2.7s ease-out 1.7s;
 }
 
 .col-6 {
@@ -133,5 +133,5 @@
 
 .col-7 {
   height: 84vh;
-  animation: slideInTop1 1.8s ease-out 2.1s;
+  animation: slideInTop1 2.1s ease-out 2.1s;
 }

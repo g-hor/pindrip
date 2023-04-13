@@ -39,7 +39,7 @@ const SplashPage = () => {
             )}
         </div>
         <div className='splash-grid-col col-4'>
-          {splashImages.slice(8, 12).map((img, i) => 
+          {splashImages.slice(8, 11).map((img, i) => 
             <img src={img} alt="" key={i} />
             )}
         </div>

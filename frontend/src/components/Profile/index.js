@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 import { fetchUser } from "../../store/user";
 import { useEffect } from "react";
 import UserInfo from "./UserInfo";
-import PinIndex from "../Pins/PinIndex";
 import './Profile.css';
 
 
