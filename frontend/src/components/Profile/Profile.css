@@ -3,13 +3,13 @@
   position: fixed;
   top: 80px;
   display: flex;
-  justify-content: center;
-  padding-bottom: 20px;
   box-sizing: border-box;
   align-items: center;
   flex-direction: column;
   width: 100vw;
+  height: 100%;
   z-index: -1;
+  overflow-y: scroll;
 }
 
 /* USERINFO COMPONENT */
@@ -112,8 +112,8 @@
   height: 60px;
   display: flex;
   align-items: center;
-  justify-content: center;
   flex-direction: column;
+  margin-bottom: 30px;
 }
 
 #selector-bar {
@@ -129,8 +129,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* padding-top: 15px;
-  padding-bottom: 15px; */
 }
 
 #profile-created-tab-container:hover, 
@@ -142,6 +140,10 @@
   position: relative;
   padding: 8px;
   border-radius: 9px;
+}
+
+#profile-created-tab.unselected:hover, #profile-saved-tab.unselected:hover {
+  background-color: rgb(238, 238, 238);
 }
 
 #profile-created-underline {
@@ -157,3 +159,13 @@
   background-color: black;
 }
 
+
+
+/* CREATED/SAVED */
+#profile-user-container #pins-index-container {
+  margin-bottom: 100px;
+}
+
+#profile-user-container #pins-index-bar {
+  height: 3vh;
+}

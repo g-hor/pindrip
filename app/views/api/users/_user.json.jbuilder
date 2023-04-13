@@ -1,6 +1,6 @@
 created_pins = []
 user.pins.each do |pin|
-  created_pins << pin["id"]
+  created_pins << pin.id
 end
 
 
@@ -16,6 +16,6 @@ json.set! user.username do
     :website,
     :gender,
     :country
-  json.set! :avatar, url_for(user.avatar) if user.avatar.attached?
+  json.set! :avatar, user.avatar.attached? ? user.avatar.url : nil
   json.set! :created_pins, created_pins
 end

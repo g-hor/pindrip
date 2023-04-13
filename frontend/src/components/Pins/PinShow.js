@@ -142,7 +142,7 @@ const PinShow = () => {
             </div>
 
             <div id="pin-show-website">
-              <a href="https://github.com/g-hor/pindrip" target="_blank">{pin?.website}</a>
+              <a href="https://github.com/g-hor/pindrip" target="_blank" rel="noreferrer">{pin?.website}</a>
             </div>
 
             <div id="pin-show-title">

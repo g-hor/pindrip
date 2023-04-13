@@ -18,9 +18,9 @@ ApplicationRecord.transaction do
     password: 'pindrip',
     first_name: 'drippy',
     last_name: 'bara',
-    about: 'i was here on pindrip first! long live the demo user :)',
+    about: 'welcome! check out my demo drip. long live the demo user :)',
     pronouns: 'they/them',
-    website: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley',
+    website: 'github.com/g-hor/pindrip',
     gender: 'capybara',
     country: 'Antarctica'
   )

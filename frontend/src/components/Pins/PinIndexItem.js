@@ -4,11 +4,11 @@ const PinIndexItem = ({ pin }) => {
 
   return (
     <Link 
-      to={`/pins/${pin.id}`}
+      to={`/pins/${pin?.id}`}
       >
       <img 
-        src={pin.photo} 
-        alt={pin.altText} 
+        src={pin?.photo} 
+        alt={pin?.altText} 
         className="pin-index-img"
         />
     </Link>

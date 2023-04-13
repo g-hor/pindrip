@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { getInitial } from "../../store/user";
 import { useEffect } from "react";
 import { fetchUser } from "../../store/user";
-import SelectorBar from "./SelectorBar";
 import Avatar from "./Avatar";
 
 const UserInfo = ({ username }) => {
@@ -38,8 +37,6 @@ const UserInfo = ({ username }) => {
     about = showUser?.about;
   }
 
-  if (showUser?.website && about) urlAbout = (showUser?.website + ' · ' + about);
-
   // hahaha this doesn't work. michael helped me fix this uwu
   // useEffect(() => {
     // this used to contain all those messy if statements
@@ -49,58 +46,75 @@ const UserInfo = ({ username }) => {
   if (!showUser) return null;
 
   return (
-    <>
-      <div id="user-info-container">
-        {showUser.avatar && (
-          <div id="user-info-initial-holder">
-            <div id="user-info-intial">
-              <Avatar avatar={showUser.avatar} />
-            </div>
-          </div>)}
-
-        {!showUser.avatar && (
-          <div id="user-info-initial-holder">
-            <div id="user-info-initial">
-              {getInitial(showUser)}
-            </div>
-          </div>)}
-
-        <div id="user-info-name-container">
-          <div id="user-info-name">
-            {displayName}
+    <div id="user-info-container">
+      {showUser.avatar && (
+        <div id="user-info-initial-holder">
+          <div id="user-info-intial">
+            <Avatar avatar={showUser.avatar} />
           </div>
-        </div>
+        </div>)}
 
-        <div id="user-info-username-container">
-          <div id="user-info-username">
-            {usernamePronouns}
+      {!showUser.avatar && (
+        <div id="user-info-initial-holder">
+          <div id="user-info-initial">
+            {getInitial(showUser)}
           </div>
-        </div>
+        </div>)}
 
-        <div id="user-info-urlabout-container">
-          {urlAbout || showUser?.website || about}
+      <div id="user-info-name-container">
+        <div id="user-info-name">
+          {displayName}
         </div>
-
-        <div id="user-info-follow-container">
-          <div id="user-info-follow">
-            0 following
-          </div>
-        </div>
-
-        {(currentUser?.username === showUser?.username) && 
-          <div id="edit-profile-btn-container">
-          <Link to='/editprofile'>
-            <div id="edit-profile-btn">
-              Edit Profile
-            </div>
-          </Link>
-        </div>
-        }
-
       </div>
 
-      <SelectorBar />
-    </>
+      <div id="user-info-username-container">
+        <div id="user-info-username">
+          {usernamePronouns}
+        </div>
+      </div>
+
+      <div id="user-info-urlabout-container">
+        {showUser?.website && about && (
+          <>
+            <a 
+              href="https://github.com/g-hor/pindrip"
+              target="_blank"
+              >
+              {showUser?.website}
+            </a>
+            {' · ' + about}
+          </>
+        )}
+        {(showUser?.website && !about) && (
+          <a 
+            href="https://github.com/g-hor/pindrip"
+            target="_blank"
+            >
+            {showUser?.website}
+          </a>
+          )}
+        {(!showUser?.website && about) && {
+          about
+        }}
+      </div>
+
+      <div id="user-info-follow-container">
+        <div id="user-info-follow">
+          0 following
+        </div>
+      </div>
+
+      {(currentUser?.username === showUser?.username) && 
+        <div id="edit-profile-btn-container">
+        <Link to='/editprofile'>
+          <div id="edit-profile-btn">
+            Edit Profile
+          </div>
+        </Link>
+      </div>
+      }
+
+    </div>
   );
 };
 

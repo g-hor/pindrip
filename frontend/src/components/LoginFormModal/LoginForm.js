@@ -104,7 +104,7 @@ const LoginForm = () => {
             </div>
             <div id="form-terms-holder">
               <div id="form-terms-text">
-                By continuing, you agree to Pindrip's <a href="https://unsplash.com/images/animals/cat" id="terms-of-service" target="_blank"> Terms of Service </a> and acknowledge that your drip is absolutely immaculate.
+                By continuing, you agree to Pindrip's <a href="https://unsplash.com/images/animals/cat" id="terms-of-service" target="_blank" rel="noreferrer" > Terms of Service </a> and acknowledge that your drip is absolutely immaculate.
               </div>
             </div>
             <div id="form-linebreak">

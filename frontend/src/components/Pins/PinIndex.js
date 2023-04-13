@@ -1,13 +1,10 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchAllPins } from "../../store/pin";
+import { useSelector } from "react-redux";
 import PinIndexItem from "./PinIndexItem";
 import './PinIndex.css';
 
 
 const PinIndex = () => {
   const pins = useSelector(state => Object.values(state.pins));
-
 
   return (
     <>

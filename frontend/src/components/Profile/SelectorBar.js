@@ -1,14 +1,18 @@
 import { useState } from "react";
 
-const SelectorBar = () => {
+const SelectorBar = ({ setShowCreated, setShowSaved }) => {
   const [showUnderline, setShowUnderline] = useState("saved");
 
   const selectCreated = () => {
     if (showUnderline === "saved") setShowUnderline("created");
+    setShowCreated(true);
+    setShowSaved(false);
   };
 
   const selectSaved = () => {
     if (showUnderline === "created") setShowUnderline("saved");
+    setShowSaved(true);
+    setShowCreated(false);
   }
 
   return (
@@ -17,7 +21,10 @@ const SelectorBar = () => {
       <div id="selector-bar">
 
         <div onClick={selectCreated} id="profile-created-tab-container">
-            <div id="profile-created-tab">
+            <div 
+              id="profile-created-tab"
+              className={showUnderline === "saved" && "unselected"}
+              >
               Created
             </div>
           {(showUnderline === "created") && 
@@ -25,7 +32,10 @@ const SelectorBar = () => {
         </div>
 
         <div onClick={selectSaved} id="profile-saved-tab-container">
-            <div id="profile-created-tab">
+            <div 
+              id="profile-created-tab"
+              className={showUnderline === "created" && "unselected"}
+              >
               Saved
             </div>
           {(showUnderline === "saved") && 
