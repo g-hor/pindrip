@@ -1,9 +1,10 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchAllBoards } from "../../../store/board";
-import BoardIndexItem from "./BoardIndexItem";
-import './BoardIndex.css';
 import { useNavigate } from "react-router-dom";
+import BoardIndexItem from "./BoardIndexItem";
+import { Modal } from "../../../context/modal";
+import './BoardIndex.css';
 
 
 
@@ -64,6 +65,35 @@ const BoardIndex = ({ showUser }) => {
       {boards.map((board, i) => (
         <BoardIndexItem board={board} key={i} />
       ))}
+
+
+      {showModal && (
+        <Modal onClose={() => setShowModal(false)} customClass={"create-board-modal"}>
+          <div id="create-board-form">
+            <div id="create-board-title">
+              Create board
+            </div>
+            <div id="create-board-row-holder">
+              <div id="create-board-name-label">
+                Name
+              </div>
+              <div>
+                <input
+                  type="text"
+                  placeholder='Like "Edgy drip!" or "Future Outfits"'
+                  className="edit-pin-text-input board-input"
+                  />
+              </div>
+
+              <div id="create-board-bottom-bar">
+                <div id="create-board-modal-btn">
+                  Create
+                </div>
+              </div>
+            </div>
+          </div>
+        </Modal>
+      )}
     </div>
   );
 };
