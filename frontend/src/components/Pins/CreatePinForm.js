@@ -68,37 +68,6 @@ const CreatePinForm = () => {
     <div id="create-pin-main-bg">
 
       <div id="create-pin-content-bg">
-        <div id="create-pin-top-btn-holder">
-          <div id="show-pin-board-dropdown-btn" onClick={() => setShowBoards(true)}>
-            <i className="fa-solid fa-chevron-down dropbtn board-drop" />
-            <div id="board-first-option">
-              {selectedBoard}
-            </div>
-
-            {showBoards && (
-              <div id="board-options-menu" ref={boardMenu}>
-                {boards?.map((board, i) => (
-                  <div 
-                    className="board-dropdown-option" 
-                    key={i}
-                    onClick={() => {setSelectedBoard(board.name); setShowBoards(false)}}
-                    >
-                    {board.name}
-                  </div>
-                ))}
-              </div>
-              )}
-          </div>
-
-          <div 
-            id="show-pin-save-btn"
-            onClick={handleSubmit}
-            >
-            Save
-          </div>
-
-        </div>
-
         <div id="create-pin-bottom-content-holder">
 
           <div id="create-pin-left-container">
@@ -123,6 +92,37 @@ const CreatePinForm = () => {
           </div>
 
           <div id="create-pin-right-container">
+            <div id="create-pin-top-btn-holder">
+              <div id="show-pin-board-dropdown-btn" onClick={() => setShowBoards(true)}>
+                <i className="fa-solid fa-chevron-down dropbtn board-drop" />
+                <div id="board-first-option">
+                  {selectedBoard}
+                </div>
+
+                {showBoards && (
+                  <div id="board-options-menu" className="create-pin-drop-bg" ref={boardMenu}>
+                    {boards?.map((board, i) => (
+                      <div 
+                        className="board-dropdown-option" 
+                        key={i}
+                        onClick={() => {setSelectedBoard(board.name); setShowBoards(false)}}
+                        >
+                        {board.name}
+                      </div>
+                    ))}
+                  </div>
+                  )}
+              </div>
+
+              <div 
+                id="show-pin-save-btn"
+                onClick={handleSubmit}
+                >
+                Save
+              </div>
+
+            </div>
+
             <div id="cowboy">🤠</div>
             <div id="relative-text-aligner">
               <textarea

@@ -84,18 +84,10 @@ ApplicationRecord.transaction do
     })
   end
 
-  10.times do
-    Board.create!({
-      name: Faker::Emotion.unique.adjective,
-      description: Faker::JapaneseMedia::StudioGhibli.character,
-      user_id: rand(2..16)
-    })
-  end
-
   puts "Seeding boards with saved pins..."
   100.times do
     BoardPin.create!({
-      board_id: rand(1..38),
+      board_id: 1,
       pin_id: rand(1..28)
     })
   end

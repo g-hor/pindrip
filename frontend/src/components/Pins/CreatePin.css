@@ -22,15 +22,17 @@
 }
 
 #create-pin-top-btn-holder {
-  width: 100px;
+  width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   margin-bottom: 20px;
-  position: absolute;
-  right: 86px;
-  top: 20px;
-  z-index: 10;
+  position: relative;
+}
+
+.create-pin-drop-bg#board-options-menu {
+  width: 200px;
+  left: 245px;
 }
 
 #ellipsis-btn {

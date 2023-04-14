@@ -111,6 +111,7 @@
   top: 55px;
   left: 0;
   box-shadow: 0px 1px 20px 0px rgba(0, 0, 0, 0.1);
+  z-index: 1;
 }
 
 .board-dropdown-option {
