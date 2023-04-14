@@ -47,7 +47,7 @@ export const fetchAllBoards = (userId) => async dispatch => {
 export const createBoard = (board) => async dispatch => {
   const res = await csrfFetch('/api/boards', {
     method: "POST",
-    body: JSON.stringify(board)
+    body: JSON.stringify({board: { ...board }})
   });
   const data = await res.json();
   dispatch(receiveBoard(data));
@@ -70,7 +70,7 @@ const boardsReducer = (state = {}, action) => {
     case RECEIVE_BOARD:
       return { ...nextState, ...action.payload };
     case RECEIVE_ALL_BOARDS:
-      return { ...nextState, ...action.payload };
+      return { ...action.payload };
     case REMOVE_BOARD:
       delete nextState[action.payload]
       return { ...nextState };

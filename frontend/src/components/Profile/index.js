@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchUser } from "../../store/user";
+import { fetchAllBoards } from "../../store/board";
 import UserInfo from "./UserInfo";
 import PinIndexItem from "../Pins/PinIndexItem";
 import SelectorBar from "./SelectorBar";
@@ -20,7 +21,8 @@ const Profile = () => {
 
   useEffect(() => {
     dispatch(fetchUser(username));
-  }, [username, dispatch])
+    dispatch(fetchAllBoards(showUser?.id));
+  }, [username, dispatch, showUser?.id])
 
 
   return (

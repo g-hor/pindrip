@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllBoards } from "../../../store/board";
 import { useNavigate } from "react-router-dom";
+import { createBoard, fetchAllBoards } from "../../../store/board";
 import BoardIndexItem from "./BoardIndexItem";
 import { Modal } from "../../../context/modal";
 import './BoardIndex.css';
@@ -14,8 +14,13 @@ const BoardIndex = ({ showUser }) => {
   const boards = useSelector(state => Object.values(state?.boards))
   const [showDrop, setShowDrop] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [name, setName] = useState('');
   const dropdown = useRef();
 
+
+  const handleCreate = () => {
+    dispatch(createBoard({name}));
+  };
 
   useEffect(() => {
     dispatch(fetchAllBoards(showUser?.id));
@@ -63,7 +68,7 @@ const BoardIndex = ({ showUser }) => {
         </div>
         )}
       {boards.map((board, i) => (
-        <BoardIndexItem board={board} key={i} />
+        <BoardIndexItem board={board} showUser={showUser} key={i} />
       ))}
 
 
@@ -80,13 +85,17 @@ const BoardIndex = ({ showUser }) => {
               <div>
                 <input
                   type="text"
-                  placeholder='Like "Edgy drip!" or "Future Outfits"'
                   className="edit-pin-text-input board-input"
+                  placeholder='Like "Outfit Ideas" or "Drip Goals"'
+                  onChange={(e) => setName(e.target.value)}
                   />
               </div>
 
               <div id="create-board-bottom-bar">
-                <div id="create-board-modal-btn">
+                <div 
+                  id="create-board-modal-btn"
+                  onClick={handleCreate}
+                  >
                   Create
                 </div>
               </div>

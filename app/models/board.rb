@@ -1,4 +1,9 @@
 class Board < ApplicationRecord
+  # symbols = [' ', "'", '"', '.', ',', ';', ':', '/', '?', '!', '@', '#', '$', '%', '%', '&', '(', ')', '-']
+  # lower_letters = *("a".."z")
+  # upper_letters = *("A".."Z")
+  # nums = *("0".."9")
+  # accepted_chars = symbols + lower_letters + upper_letters + nums
 
   belongs_to :user
 

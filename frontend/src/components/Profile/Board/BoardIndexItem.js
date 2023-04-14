@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
-const BoardIndexItem = ({ board }) => {
+const BoardIndexItem = ({ board, showUser }) => {
   const allPinPhotos = useSelector(state => Object.values(state?.pins).map(pin => pin?.photo))
 
   return (
-    <Link to="#">
+    <Link to={`/${showUser?.username}/${board?.boardUrl}`}>
       <div className="board-item">
         <div className="board-img-holder">
           <div className="first-img">
@@ -27,7 +27,7 @@ const BoardIndexItem = ({ board }) => {
           </div>
           
           <div className="board-pin-count">
-            {board?.count || 0} Pins
+            {board?.count || '0'} Pins
           </div>
         </div>
       </div>

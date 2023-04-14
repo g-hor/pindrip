@@ -30,7 +30,7 @@ const PinShow = () => {
   }
   const goHome = (e) => {
     if (e.target !== background?.current) return;
-    navigate('/home');
+    navigate(-1);
   };
 
   
