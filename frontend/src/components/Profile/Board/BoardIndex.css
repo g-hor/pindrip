@@ -69,6 +69,7 @@
 
 .board-item:hover {
   opacity: 0.8;
+  cursor: zoom-in;
 }
 
 .board-img-holder {
