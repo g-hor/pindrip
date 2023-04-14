@@ -42,7 +42,7 @@ export const fetchAllBoards = (userId) => async dispatch => {
   const data = await res.json();
   dispatch(receiveAllBoards(data));
   return res;
-}
+};
 
 export const createBoard = (board) => async dispatch => {
   const res = await csrfFetch('/api/boards', {
@@ -52,7 +52,17 @@ export const createBoard = (board) => async dispatch => {
   const data = await res.json();
   dispatch(receiveBoard(data));
   return res;
-}
+};
+
+export const updateBoard = (board) => async dispatch => {
+  const res = await csrfFetch(`/api/boards/${board.id}`, {
+    method: "PATCH",
+    body: JSON.stringify({board: { ...board }})
+  });
+  const data = await res.json();
+  dispatch(receiveBoard(data));
+  return res;
+};
 
 export const deleteBoard = (boardId) => async dispatch => {
   const res = await csrfFetch(`/api/boards/${boardId}`, {

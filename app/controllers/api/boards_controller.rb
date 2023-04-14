@@ -7,7 +7,7 @@ class Api::BoardsController < ApplicationController
   end
 
   def show
-    @board = Board.find(params[:id])
+    @board = Board.find_by(id: params[:id])
     render "api/boards/show"
   end
 
@@ -23,11 +23,18 @@ class Api::BoardsController < ApplicationController
   end
 
   def update
+    @board = Board.find_by(id: params[:id])
     
+    if @board.update(board_params)
+      render 'api/boards/show'
+    else
+      render json: { errors: ['Please enter a name'] }, status: 422
+    end
   end
 
   def destroy
-
+    @board = Board.find_by(id: params[:id])
+    @board.destroy!
   end
 
   private

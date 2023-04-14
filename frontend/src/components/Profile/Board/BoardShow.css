@@ -16,6 +16,12 @@
   justify-content: space-between;
 }
 
+#board-show-description {
+  font-size: 18px;
+  font-weight: 300;
+  padding-bottom: 15px;
+}
+
 #board-show-count-bar {
   width: 88vw;
   height: 30px;
@@ -76,6 +82,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 }
 
 #edit-board-form-title {
@@ -88,13 +95,13 @@
 
 .edit-board-form-label {
   font-weight: 300;
-  font-size: 14px;
+  font-size: 12px;
   padding-left: 10px;
   padding-bottom: 10px;
 }
 
 .edit-board-form-row {
-  padding-bottom: 30px;
+  margin-bottom: 30px;
 }
 
 .edit-board-form-field {
@@ -114,4 +121,43 @@
 
 .edit-board-form-field:focus {
   outline: 4px solid #93c1f6;
+}
+
+.edit-board-form-row.delete-board:hover {
+  cursor: pointer;
+}
+
+#delete-board-label {
+  font-weight: 600;
+  font-size: 20px;
+  margin-top: 30px;
+  padding: 8px 0;
+}
+
+#delete-board-description {
+  font-weight: 300;
+  font-size: 16px;
+  color: #777777;
+  margin-bottom: 60px;
+  line-height: 1.1em;
+}
+
+#edit-board-bottom-bar {
+  position: absolute;
+  right: 30px;
+  bottom: 30px;
+}
+
+#edit-board-done-btn {
+  padding: 16px;
+  border-radius: 24px;
+  font-size: 16px;
+  font-weight: 500;
+  color: white;
+  background-color: rgb(85, 15, 159);
+}
+
+#edit-board-done-btn:hover {
+  background-color: rgb(56, 10, 106);
+  cursor: pointer;
 }

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchAllBoards } from "../../../store/board";
+import { deleteBoard, fetchAllBoards, updateBoard } from "../../../store/board";
 import Avatar from "../Avatar";
 import PinIndexItem from "../../Pins/PinIndexItem";
 import { Modal } from "../../../context/modal";
@@ -9,13 +9,14 @@ import './BoardShow.css';
 
 const BoardShow = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { username, boardUrl } = useParams();
   const showUser = useSelector(state => state?.users[username]);
   const currentBoard = useSelector(state => state?.boards[boardUrl]);
   const pins = useSelector(state => state?.pins);
   const boardPins = currentBoard?.savedPins.map(pinId => pins[pinId])
   const [name, setName] = useState(currentBoard?.name);
-  const [description, setDescription] = useState(currentBoard?.description)
+  const [description, setDescription] = useState(currentBoard?.description);
   const [showDrop, setShowDrop] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const dropdown = useRef();
@@ -23,6 +24,16 @@ const BoardShow = () => {
   const hideDrop = (e) => {
     if (dropdown?.current?.contains(e.target)) return;
     setShowDrop(false);
+  };
+
+  const saveEdits = async () => {
+    const res = await dispatch(updateBoard({ id: currentBoard?.id, name, description }));
+    if (res.ok) setShowModal(false);
+  };
+
+  const handleDelete = async () => {
+    const res = await dispatch(deleteBoard(currentBoard?.id));
+    if (res.ok) navigate(-1);
   };
 
   useEffect(() => {
@@ -79,6 +90,8 @@ const BoardShow = () => {
                 <input
                   type="text"
                   className="edit-board-form-field"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
                   />
               </div>
             </div>
@@ -90,8 +103,30 @@ const BoardShow = () => {
                 <input
                   type="text"
                   className="edit-board-form-field"
-                  value={currentBoard?.description}
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  placeholder="What's your board about?"
                   />
+              </div>
+              <div 
+                className="edit-board-form-row delete-board"
+                onClick={handleDelete}
+                >
+                <div id="delete-board-label">
+                  Delete board
+                </div>
+                <div id="delete-board-description">
+                  Delete this board and all its Pins forever. <br />
+                  You can't undo this!
+                </div>
+              </div>
+              <div id="edit-board-bottom-bar">
+                <div 
+                  id="edit-board-done-btn"
+                  onClick={saveEdits}
+                  >
+                  Done
+                </div>
               </div>
             </div>
           </div>
