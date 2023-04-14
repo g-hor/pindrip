@@ -8,6 +8,7 @@ import './CreatePin.css';
 import { useEffect } from "react";
 import { fetchAllBoards } from "../../store/board";
 import { savePin } from "../../store/boardPin";
+import { getInitial } from "../../store/user";
 
 
 const CreatePinForm = () => {
@@ -27,7 +28,7 @@ const CreatePinForm = () => {
   const boardId = boards?.filter(board => board?.name === selectedBoard)[0]?.id;
   const uploadInput = useRef();
   const boardMenu = useRef();
-
+  let displayInitial;
 
   const handlePhoto = async ({ currentTarget }) => {
 
@@ -65,7 +66,7 @@ const CreatePinForm = () => {
 
   let preview = null;
   if (photoUrl) preview = <img src={photoUrl} id="preview-pin-img" alt="" />;
-
+  if (currentUser) displayInitial = getInitial(currentUser);
 
   return (
     <div id="create-pin-main-bg">
@@ -137,7 +138,8 @@ const CreatePinForm = () => {
             </div>
 
             <div id="create-pin-user-info">
-              <Avatar avatar={currentUser?.avatar} />
+              {(displayInitial && !currentUser?.avatar) && <div id="create-pin-initial">{displayInitial}</div>}
+              {currentUser?.avatar && <Avatar avatar={currentUser?.avatar} />}
               <div>{currentUser?.firstName + ' ' + (currentUser?.lastName || '')}</div>
             </div>
 

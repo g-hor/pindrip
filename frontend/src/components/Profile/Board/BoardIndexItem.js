@@ -5,25 +5,30 @@ const BoardIndexItem = ({ board, showUser }) => {
   const allPinPhotos = useSelector(state => Object.values(state?.pins).map(pin => pin?.photo))
 
   return (
-    <Link to={`/${showUser?.username}/${board?.boardUrl}`}>
       <div className="board-item">
         <div className="board-img-holder">
-          <div className="first-img">
-            <img src={allPinPhotos[board?.savedPins[0] - 1] || ''} alt="" />
-          </div>
-          <div className="second-img-holder">
-            <div className="secondary-img">
-              <img src={allPinPhotos[board?.savedPins[1] - 1] || ''} alt="" />
+          <Link to={`/${showUser?.username}/${board?.boardUrl}`}>
+            <div className="first-img">
+              <img src={allPinPhotos[board?.savedPins[0] - 1] || ''} alt="" />
             </div>
-            <div className="tertiary-img">
-              <img src={allPinPhotos[board?.savedPins[2] - 1] || ''} alt="" />
+          </Link>
+          <Link to={`/${showUser?.username}/${board?.boardUrl}`}>
+            <div className="second-img-holder">
+              <div className="secondary-img">
+                <img src={allPinPhotos[board?.savedPins[1] - 1] || ''} alt="" />
+              </div>
+              <div className="tertiary-img">
+                <img src={allPinPhotos[board?.savedPins[2] - 1] || ''} alt="" />
+              </div>
             </div>
-          </div>
+          </Link>
         </div>
 
         <div className="board-info">
           <div className="board-name">
-            {board?.name}
+            <Link to={`/${showUser?.username}/${board?.boardUrl}`}>
+              {board?.name}
+            </Link>
           </div>
           
           <div className="board-pin-count">
@@ -31,7 +36,6 @@ const BoardIndexItem = ({ board, showUser }) => {
           </div>
         </div>
       </div>
-    </Link>
   );
 };
 

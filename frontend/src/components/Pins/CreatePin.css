@@ -183,6 +183,14 @@
   margin-right: 8px
 }
 
+#create-pin-initial > div {
+  width: 48px;
+  height: 48px;
+  border-radius: 100%;
+  background-color: rgb(238, 238, 238);
+  text-align: center;
+}
+
 #create-pin-description {
   color: #333333;
   font-weight: 400;
