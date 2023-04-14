@@ -26,7 +26,7 @@ end
 board_url = board_name_split.join("")
 
 json.set! board_url do
-  json.extract! board, :id, :name, :description
+  json.extract! board, :id, :name, :description, :user_id
   json.set! :saved_pins, saved_pins
   json.set! :count, saved_pins.count
   json.set! :board_url, board_url

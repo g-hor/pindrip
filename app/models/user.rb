@@ -107,6 +107,8 @@ class User < ApplicationRecord
   end
   
   def ensure_default_board
-    Board.create!(name: "All Pins", user_id: self.id)
+    unless Board.exists?(name: "All Pins", user_id: self.id)
+      Board.create!(name: "All Pins", user_id: self.id)
+    end
   end
 end

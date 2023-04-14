@@ -5,16 +5,19 @@ import { createBoard, fetchAllBoards } from "../../../store/board";
 import BoardIndexItem from "./BoardIndexItem";
 import { Modal } from "../../../context/modal";
 import './BoardIndex.css';
+import { getCurrentUser } from "../../../store/session";
 
 
 
 const BoardIndex = ({ showUser }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const currentUser = useSelector(getCurrentUser);
   const boards = useSelector(state => Object.values(state?.boards))
   const [showDrop, setShowDrop] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState('');
+  let canEdit = (showUser?.id === currentUser?.id);
   const dropdown = useRef();
 
 
@@ -44,9 +47,11 @@ const BoardIndex = ({ showUser }) => {
 
   return (
     <div id="boards-container">
-      <div id="plus-sign-holder" onClick={() => setShowDrop(true)} >
-        <i className="fa-solid fa-plus" />
-      </div>
+      {canEdit && (
+        <div id="plus-sign-holder" onClick={() => setShowDrop(true)} >
+          <i className="fa-solid fa-plus" />
+        </div> 
+        )}
       {showDrop && (
         <div id="profile-create-dropdown" ref={dropdown} >
           <div id="create-text">

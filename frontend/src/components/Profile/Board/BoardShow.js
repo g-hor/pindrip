@@ -6,11 +6,14 @@ import Avatar from "../Avatar";
 import PinIndexItem from "../../Pins/PinIndexItem";
 import { Modal } from "../../../context/modal";
 import './BoardShow.css';
+import { getCurrentUser } from "../../../store/session";
+import { Link } from "react-router-dom";
 
 const BoardShow = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { username, boardUrl } = useParams();
+  const currentUser = useSelector(getCurrentUser);
   const showUser = useSelector(state => state?.users[username]);
   const currentBoard = useSelector(state => state?.boards[boardUrl]);
   const pins = useSelector(state => state?.pins);
@@ -19,6 +22,7 @@ const BoardShow = () => {
   const [description, setDescription] = useState(currentBoard?.description);
   const [showDrop, setShowDrop] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  let canEdit = (showUser?.id === currentUser?.id);
   const dropdown = useRef();
 
   const hideDrop = (e) => {
@@ -54,26 +58,28 @@ const BoardShow = () => {
         <div>
           {currentBoard?.name}
         </div>
-        <div 
-          id="ellipsis-btn" 
-          className="board-drop-ellipsis"
-          onClick={() => setShowDrop(true)}
-          >
-          <i className="fa-solid fa-ellipsis" />
-          {showDrop && (
-            <div id="edit-board-drop-menu">
-              <div id="board-options">
-                Board options
+        {canEdit && (
+          <div 
+            id="ellipsis-btn" 
+            className="board-drop-ellipsis"
+            onClick={() => setShowDrop(true)}
+            >
+            <i className="fa-solid fa-ellipsis" />
+            {showDrop && (
+              <div id="edit-board-drop-menu">
+                <div id="board-options">
+                  Board options
+                </div>
+                <div 
+                  className="edit-board-menu-option"
+                  onClick={() => setShowModal(true)}
+                  >
+                  Edit board
+                </div>
               </div>
-              <div 
-                className="edit-board-menu-option"
-                onClick={() => setShowModal(true)}
-                >
-                Edit board
-              </div>
-            </div>
-            )}
-        </div>
+              )}
+          </div>
+          )}
       </div>
 
       {showModal && (
@@ -138,8 +144,10 @@ const BoardShow = () => {
           {currentBoard?.description}
         </div>
         }
-
-      <Avatar avatar={showUser?.avatar} />
+      
+      <Link to={`/${username}`} >
+        <Avatar avatar={showUser?.avatar} />
+      </Link>
 
       <div id="board-show-count-bar">
         {currentBoard?.count} Pins
