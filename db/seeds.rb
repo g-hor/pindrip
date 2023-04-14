@@ -18,7 +18,7 @@ ApplicationRecord.transaction do
     password: 'pindrip',
     first_name: 'drippy',
     last_name: 'bara',
-    about: 'welcome! check out my demo drip. long live the demo user :)',
+    about: 'welcome! check out my demo drip :)',
     pronouns: 'they/them',
     website: 'github.com/g-hor/pindrip',
     gender: 'capybara',
@@ -64,6 +64,39 @@ ApplicationRecord.transaction do
       website: Faker::Internet.url,
       alt_text: Faker::Hipster.sentence,
       user_id: rand(2..16)
+    })
+  end
+
+  puts "Creating boards..."
+  8.times do
+    Board.create!({
+      name: Faker::Emotion.unique.adjective,
+      description: Faker::JapaneseMedia::StudioGhibli.character,
+      user_id: 1
+    })
+  end
+
+  20.times do
+    Board.create!({
+      name: Faker::Emotion.unique.adjective,
+      description: Faker::JapaneseMedia::StudioGhibli.character,
+      user_id: rand(2..16)
+    })
+  end
+
+  10.times do
+    Board.create!({
+      name: Faker::Emotion.unique.adjective,
+      description: Faker::JapaneseMedia::StudioGhibli.character,
+      user_id: rand(2..16)
+    })
+  end
+
+  puts "Seeding boards with saved pins..."
+  100.times do
+    BoardPin.create!({
+      board_id: rand(1..38),
+      pin_id: rand(1..28)
     })
   end
 
