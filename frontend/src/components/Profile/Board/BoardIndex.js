@@ -18,8 +18,9 @@ const BoardIndex = ({ showUser }) => {
   const dropdown = useRef();
 
 
-  const handleCreate = () => {
-    dispatch(createBoard({name}));
+  const handleCreate = async () => {
+    const res = await dispatch(createBoard({name}));
+    if (res.ok) setShowModal(false);
   };
 
   useEffect(() => {

@@ -75,13 +75,52 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  position: relative;
 }
 
 #show-pin-board-dropdown-btn {
   width: 100px;
+  padding: 16px;
+  border-radius: 24px;
   font-weight: 500;
-  font-size: 14px;
+  font-size: 15px;
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: space-between;
 } 
+
+#show-pin-board-dropdown-btn:hover {
+  cursor: pointer;
+}
+
+#board-first-option:hover {
+  cursor: pointer;
+  border-color: rgb(238, 238, 238);
+}
+
+.dropbtn.board-drop {
+  margin-left: 8px;
+}
+
+#board-options-menu {
+  position: absolute;
+  width: 100%;
+  padding: 12px;
+  border-radius: 16px;
+  background-color: white;
+  top: 55px;
+  left: 0;
+  box-shadow: 0px 1px 20px 0px rgba(0, 0, 0, 0.1);
+}
+
+.board-dropdown-option {
+  padding: 12px;
+  border-radius: 12px;
+}
+
+.board-dropdown-option:hover {
+  background-color:rgb(238, 238, 238);
+}
 
 #show-pin-save-btn {
   padding: 16px 14px;

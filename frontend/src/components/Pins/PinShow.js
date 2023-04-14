@@ -4,10 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import { getCurrentUser } from "../../store/session";
 import { deletePin, fetchPin, removePin } from "../../store/pin";
 import { getInitial } from "../../store/user";
-import Avatar from "../Profile/Avatar";
+import { fetchAllBoards } from "../../store/board";
+import { savePin } from "../../store/boardPin";
 import { Modal } from "../../context/modal";
-import './PinShow.css';
+import Avatar from "../Profile/Avatar";
 import EditPinForm from "./EditPinForm";
+import './PinShow.css';
+
 
 
 const PinShow = () => {
@@ -17,39 +20,61 @@ const PinShow = () => {
   const pin = useSelector(state => state.pins[parseInt(pinId)]);
   const creator = useSelector(state => state.users[pin?.creator]);
   const currentUser = useSelector(getCurrentUser);
+  const boards = useSelector(state => Object.values(state?.boards))
   const [showDrop, setShowDrop] = useState(false);
+  const [showBoards, setShowBoards] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
+  const [selectedBoard, setSelectedBoard] = useState(boards[1]?.name || 'All Pins');
+  let boardId = boards?.filter(board => board?.name === selectedBoard)[0]?.id;
   let background = useRef();
   let dropdown = useRef();
+  let boardMenu = useRef();
+  let initial;
   let dropMenu;
 
   
   const hideDrop = (e) => {
     if (dropdown?.current?.contains(e.target)) return;
     setShowDrop(false);
-  }
+  };
+  const hideBoards = (e) => {
+    if (e.target === boardMenu?.current) return;
+    setShowBoards(false); 
+  };
   const goHome = (e) => {
     if (e.target !== background?.current) return;
     navigate(-1);
   };
-
+  const submitSave = async () => {
+    return savePin({ boardId, pinId });
+  };
   
+
   useEffect(() => {
-    dispatch(fetchPin(pin?.id));
-  }, [dispatch, showEdit, pin?.id]);
+    if (pin?.id) dispatch(fetchPin(pin?.id));
+    dispatch(fetchAllBoards(currentUser?.id));
+  }, [dispatch, showEdit, pin?.id, currentUser?.id]);
   
   
   useEffect(() => {
     if (!showDrop) return;
     
-    document.addEventListener('click', hideDrop)
+    document.addEventListener('click', hideDrop);
     document.addEventListener('click', goHome);
 
     return () => {
-      document.removeEventListener('click', goHome)
-      document.removeEventListener('click', hideDrop)
+      document.removeEventListener('click', goHome);
+      document.removeEventListener('click', hideDrop);
     };
   });
+
+  useEffect(() => {
+    if (!showBoards) return;
+
+    document.addEventListener('click', hideBoards)
+
+    return () => (document.removeEventListener('click', hideBoards))
+  })
 
 
   
@@ -80,6 +105,8 @@ const PinShow = () => {
         </li>
       </ul>
   }
+
+  if (creator) { initial =  getInitial(creator) };
 
 
   return (
@@ -129,12 +156,30 @@ const PinShow = () => {
               )}
 
               <div id="show-board-drop-save-btn-holder">
-                <div id="show-pin-board-dropdown-btn">
-                  Board name
+                <div id="show-pin-board-dropdown-btn" onClick={() => setShowBoards(true)}>
+                  <i className="fa-solid fa-chevron-down dropbtn board-drop" />
+                  <div id="board-first-option">
+                    {selectedBoard}
+                  </div>
+
+                  {showBoards && (
+                    <div id="board-options-menu" ref={boardMenu}>
+                      {boards?.map((board, i) => (
+                        <div 
+                          className="board-dropdown-option" 
+                          key={i}
+                          onClick={() => {setSelectedBoard(board.name); setShowBoards(false)}}
+                          >
+                          {board.name}
+                        </div>
+                      ))}
+                    </div>
+                    )}
                 </div>
+
                 <div 
                   id="show-pin-save-btn"
-                  // onClick={}
+                  onClick={submitSave}
                   >
                   Save
                 </div>
@@ -161,7 +206,7 @@ const PinShow = () => {
                     )}
 
                   {!creator?.avatar && (
-                      <div id="pin-show-creator-initial">{getInitial(creator)}</div>
+                      <div id="pin-show-creator-initial">{initial}</div>
                     )}
                 </Link>
                 

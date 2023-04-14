@@ -9,14 +9,14 @@ const BoardIndexItem = ({ board, showUser }) => {
       <div className="board-item">
         <div className="board-img-holder">
           <div className="first-img">
-            <img src={allPinPhotos[board?.savedPins[0]] || ''} alt="" />
+            <img src={allPinPhotos[board?.savedPins[0] - 1] || ''} alt="" />
           </div>
           <div className="second-img-holder">
             <div className="secondary-img">
-              <img src={allPinPhotos[board?.savedPins[1]] || ''} alt="" />
+              <img src={allPinPhotos[board?.savedPins[1] - 1] || ''} alt="" />
             </div>
             <div className="tertiary-img">
-              <img src={allPinPhotos[board?.savedPins[2]] || ''} alt="" />
+              <img src={allPinPhotos[board?.savedPins[2] - 1] || ''} alt="" />
             </div>
           </div>
         </div>

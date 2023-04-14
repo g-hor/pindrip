@@ -1,14 +1,7 @@
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 import { splashImages } from './images';
-import { getCurrentUser } from '../../store/session';
 import './Splash.css';
 
 const SplashPage = () => {
-  const navigate = useNavigate();
-  const currentUser = useSelector(getCurrentUser);
-
-  if (currentUser) navigate('/home');
 
   return (
     <div id="splash-bg-container">

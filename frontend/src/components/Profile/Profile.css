@@ -75,6 +75,15 @@
   text-align: center;
 }
 
+#user-info-urlabout-container a {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+#user-info-urlabout-container a:hover {
+  text-decoration: underline;
+}
+
 #user-info-follow-container {
   margin-bottom: 20px;
 }

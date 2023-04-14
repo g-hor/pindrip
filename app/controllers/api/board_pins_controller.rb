@@ -1,9 +1,9 @@
 class Api::BoardPinsController < ApplicationController
 
   def create
-    new_pin_save = BoardPin.new(board_pins_params)
-    @board = Board.find_by(id: board_params[:board_id])
-    @pin = Pin.find_by(id: board_params[:pin_id])
+    new_pin_save = BoardPin.new(board_pin_params)
+    @board = Board.find_by(id: board_pin_params[:board_id])
+    @pin = Pin.find_by(id: board_pin_params[:pin_id])
 
     if @board && @pin && new_pin_save.save
       render 'api/boards/show'
@@ -23,7 +23,7 @@ class Api::BoardPinsController < ApplicationController
 
   private
 
-  def board_pins_params
+  def board_pin_params
     params.require(:board_pin).permit(:pin_id, :board_id)
   end
 end

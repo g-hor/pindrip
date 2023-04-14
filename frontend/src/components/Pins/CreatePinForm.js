@@ -110,7 +110,7 @@ const CreatePinForm = () => {
               role="textbox"
               id="create-pin-description"
               placeholder="Tell everyone what your Pin is about" // This line is a no-op, see corresponding CSS file for 'content'
-              onChange={(e) => setDescription(e.target.value)}
+              onInput={(e) => setDescription(e.currentTarget.textContent)}
               />
 
             <div id="alt-btn-or-text">

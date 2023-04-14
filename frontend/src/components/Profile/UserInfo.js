@@ -13,7 +13,7 @@ const UserInfo = ({ username }) => {
   let displayName;
   let usernamePronouns;
   let about;
-  let urlAbout;
+
 
   useEffect(() => {
     dispatch(fetchUser(username));
@@ -79,6 +79,7 @@ const UserInfo = ({ username }) => {
             <a 
               href="https://github.com/g-hor/pindrip"
               target="_blank"
+              rel="noreferrer"
               >
               {showUser?.website}
             </a>
@@ -89,6 +90,7 @@ const UserInfo = ({ username }) => {
           <a 
             href="https://github.com/g-hor/pindrip"
             target="_blank"
+            rel="noreferrer"
             >
             {showUser?.website}
           </a>

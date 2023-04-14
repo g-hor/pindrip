@@ -1,0 +1,117 @@
+#board-show-page {
+  margin-top: 80px;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#board-show-title {
+  font-size: 36px;
+  font-weight: 600;
+  padding: 15px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+#board-show-count-bar {
+  width: 88vw;
+  height: 30px;
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+#board-show-page .avatar {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 50px;
+}
+
+.board-drop-ellipsis#ellipsis-btn {
+  margin-left: 16px;
+  color: black;
+  background-color: rgb(238, 238, 238);
+  position: relative;
+}
+
+.board-drop-ellipsis#ellipsis-btn:hover {
+  background-color: rgb(208, 208, 208);
+}
+
+#edit-board-drop-menu {
+  position: absolute;
+  top: 48px;
+  width: 185px;
+  padding: 8px;
+  border-radius: 16px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+#board-options {
+  font-size: 12px;
+  font-weight: 300;
+  padding: 8px 12px;
+  border-radius: 16px;
+}
+
+.edit-board-menu-option {
+  padding: 8px 12px;
+  border-radius: 16px;
+  font-size: 18px;
+}
+
+.edit-board-menu-option:hover {
+  background-color: rgb(238, 238, 238);
+}
+
+#edit-board-form {
+  width: 500px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#edit-board-form-title {
+  font-size: 28px;
+  font-weight: 600;
+  text-align: center;
+  letter-spacing: 0.05rem;
+  margin-bottom: 30px;
+}
+
+.edit-board-form-label {
+  font-weight: 300;
+  font-size: 14px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+}
+
+.edit-board-form-row {
+  padding-bottom: 30px;
+}
+
+.edit-board-form-field {
+  width: 480px;
+  box-sizing: border-box;
+  min-height: 48px;
+  border-radius: 14px;
+  border: 2px solid lightgray;
+  padding: 13px;
+  font-size: 16px;
+  color: #444444;
+}
+
+.edit-board-form-field:hover {
+  border: 2px solid #777777;
+}
+
+.edit-board-form-field:focus {
+  outline: 4px solid #93c1f6;
+}

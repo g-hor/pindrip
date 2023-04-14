@@ -3,7 +3,6 @@ class Api::SessionsController < ApplicationController
   # before_action :ensure_logged_out, only: [:create, :destroy]
 
   def show
-    debugger
     if current_user
       @user = current_user
       render 'api/sessions/show'
