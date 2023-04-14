@@ -6,8 +6,8 @@ class Api::BoardPinsController < ApplicationController
     @pin = Pin.find_by(id: board_pin_params[:pin_id])
 
     # rework this to add all saved pins to "All Pins"
-    # all_pins = Board.find_by(name: "All Pins", user_id: @board.user_id)
-    # BoardPin.create!(board_id: all_pins.id, pin_id: @pin.id)
+    all_pins = Board.find_by(name: "All Pins", user_id: @board.user_id)
+    BoardPin.create!(board_id: all_pins.id, pin_id: @pin.id)
 
     if @board && @pin && new_pin_save.save
       render 'api/boards/show'
