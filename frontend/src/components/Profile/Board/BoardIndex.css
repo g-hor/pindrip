@@ -67,6 +67,10 @@
   flex-direction: column;
 }
 
+.board-item:hover {
+  opacity: 0.8;
+}
+
 .board-img-holder {
   display: flex;
   flex-direction: row;
