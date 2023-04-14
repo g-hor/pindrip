@@ -12,6 +12,9 @@ ApplicationRecord.transaction do
 
   puts "Resetting primary keys..."
   ApplicationRecord.connection.reset_pk_sequence!('users')
+  ApplicationRecord.connection.reset_pk_sequence!('pins')
+  ApplicationRecord.connection.reset_pk_sequence!('boards')
+  ApplicationRecord.connection.reset_pk_sequence!('board_pins')
 
   puts "Creating users..."
   # Creating demo user:

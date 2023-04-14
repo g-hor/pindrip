@@ -72,6 +72,10 @@
   cursor: zoom-in;
 }
 
+.board-item a:hover {
+  cursor: zoom-in;
+}
+
 .board-img-holder {
   display: flex;
   flex-direction: row;
