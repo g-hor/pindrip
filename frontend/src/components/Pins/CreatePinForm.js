@@ -7,6 +7,7 @@ import Avatar from '../Profile/Avatar';
 import './CreatePin.css';
 import { useEffect } from "react";
 import { fetchAllBoards } from "../../store/board";
+import { savePin } from "../../store/boardPin";
 
 
 const CreatePinForm = () => {
@@ -23,8 +24,9 @@ const CreatePinForm = () => {
   const [photoUrl, setPhotoUrl] = useState(null);
   const [showBoards, setShowBoards] = useState(false);
   const [selectedBoard, setSelectedBoard] = useState(boards[1]?.name || 'All Pins');
+  const boardId = boards?.filter(board => board?.name === selectedBoard)[0]?.id;
   const uploadInput = useRef();
-  let boardMenu = useRef();
+  const boardMenu = useRef();
 
 
   const handlePhoto = async ({ currentTarget }) => {
@@ -40,6 +42,7 @@ const CreatePinForm = () => {
   const handleSubmit = async () => {
     const pin = await dispatch(createPin({ title, description, altText, website, photo }));
     const pinId = Object.keys(pin)[0];
+    savePin({ boardId, pinId });
     navigate(`/pins/${pinId}`);
   };
 
@@ -134,8 +137,8 @@ const CreatePinForm = () => {
             </div>
 
             <div id="create-pin-user-info">
-              <Avatar avatar={currentUser.avatar} />
-              <div>{currentUser.firstName + ' ' + (currentUser.lastName || '')}</div>
+              <Avatar avatar={currentUser?.avatar} />
+              <div>{currentUser?.firstName + ' ' + (currentUser?.lastName || '')}</div>
             </div>
 
             <span
