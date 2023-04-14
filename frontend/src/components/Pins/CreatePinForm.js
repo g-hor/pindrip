@@ -5,12 +5,15 @@ import { createPin } from "../../store/pin";
 import { useNavigate } from "react-router-dom";
 import Avatar from '../Profile/Avatar';
 import './CreatePin.css';
+import { useEffect } from "react";
+import { fetchAllBoards } from "../../store/board";
 
 
 const CreatePinForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser);
+  const boards = useSelector(state => Object.values(state?.boards));
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [altText, setAltText] = useState('');
@@ -18,7 +21,10 @@ const CreatePinForm = () => {
   const [showAlt, setShowAlt] = useState(false);
   const [photo, setPhoto] = useState(null);
   const [photoUrl, setPhotoUrl] = useState(null);
+  const [showBoards, setShowBoards] = useState(false);
+  const [selectedBoard, setSelectedBoard] = useState(boards[1]?.name || 'All Pins');
   const uploadInput = useRef();
+  let boardMenu = useRef();
 
 
   const handlePhoto = async ({ currentTarget }) => {
@@ -37,6 +43,22 @@ const CreatePinForm = () => {
     navigate(`/pins/${pinId}`);
   };
 
+  const hideBoards = (e) => {
+    if (e.target === boardMenu?.current) return;
+    setShowBoards(false); 
+  };
+
+  useEffect(() => {
+    dispatch(fetchAllBoards(currentUser?.id));
+  }, [dispatch, currentUser?.id]);
+
+  useEffect(() => {
+    if (!showBoards) return;
+
+    document.addEventListener('click', hideBoards)
+
+    return () => (document.removeEventListener('click', hideBoards))
+  })
 
   let preview = null;
   if (photoUrl) preview = <img src={photoUrl} id="preview-pin-img" alt="" />;
@@ -47,21 +69,32 @@ const CreatePinForm = () => {
 
       <div id="create-pin-content-bg">
         <div id="create-pin-top-btn-holder">
+          <div id="show-pin-board-dropdown-btn" onClick={() => setShowBoards(true)}>
+            <i className="fa-solid fa-chevron-down dropbtn board-drop" />
+            <div id="board-first-option">
+              {selectedBoard}
+            </div>
 
-          <div id="ellipsis-btn">
-            <i className="fa-solid fa-ellipsis" />
+            {showBoards && (
+              <div id="board-options-menu" ref={boardMenu}>
+                {boards?.map((board, i) => (
+                  <div 
+                    className="board-dropdown-option" 
+                    key={i}
+                    onClick={() => {setSelectedBoard(board.name); setShowBoards(false)}}
+                    >
+                    {board.name}
+                  </div>
+                ))}
+              </div>
+              )}
           </div>
 
-          <div id="board-drop-save-btn-holder">
-            <div id="create-pin-board-dropdown-btn">
-
-            </div>
-            <div 
-              id="create-pin-save-btn"
-              onClick={handleSubmit}
-              >
-              Save
-            </div>
+          <div 
+            id="show-pin-save-btn"
+            onClick={handleSubmit}
+            >
+            Save
           </div>
 
         </div>

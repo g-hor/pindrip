@@ -89,7 +89,7 @@ const PinShow = () => {
         </li>
         <li 
           className="show-pin-drop-option"
-          onClick={() => {dispatch(deletePin(pin.id)); navigate('/home')}}
+          onClick={() => {dispatch(deletePin(pin.id)); navigate(-1)}}
           >
           Delete Pin
         </li>
@@ -99,7 +99,7 @@ const PinShow = () => {
       <ul>
         <li 
           className="show-pin-drop-option"
-          onClick={() => {dispatch(removePin(pin.id)); navigate('/home')}}
+          onClick={() => {dispatch(removePin(pin.id)); navigate(-1)}}
           >
           Hide Pin
         </li>

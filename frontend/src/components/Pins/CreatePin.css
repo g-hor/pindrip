@@ -18,13 +18,19 @@
   box-shadow: 0 0 10px 0 rgba(210, 210, 210, 0.591);
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 #create-pin-top-btn-holder {
+  width: 100px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+  position: absolute;
+  right: 86px;
+  top: 20px;
+  z-index: 10;
 }
 
 #ellipsis-btn {
@@ -149,6 +155,7 @@
   font-size: 36px;
   border: 0;
   height: 48px;
+  margin-top: 30px;
   box-sizing: border-box;
   box-shadow: rgba(142, 142, 142, 0.5) 0px 1px 0px 0px;
 }
