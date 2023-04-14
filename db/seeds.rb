@@ -90,7 +90,7 @@ ApplicationRecord.transaction do
   puts "Seeding boards with saved pins..."
   100.times do
     BoardPin.create!({
-      board_id: 1,
+      board_id: rand(1..28),
       pin_id: rand(1..28)
     })
   end
