@@ -52,7 +52,7 @@ ApplicationRecord.transaction do
   puts "Creating pins..."
   10.times do
     Pin.create!({
-      title: Faker::JapaneseMedia::StudioGhibli.quote,
+      title: Faker::Quote.famous_last_words,
       description: Faker::Hipster.paragraph,
       website: Faker::Internet.url,
       alt_text: Faker::Hipster.sentence,
@@ -60,7 +60,7 @@ ApplicationRecord.transaction do
     })
   end
 
-  34.times do 
+  24.times do 
     Pin.create!({
       title: Faker::Quote.famous_last_words,
       description: Faker::Hipster.paragraph,
@@ -91,7 +91,7 @@ ApplicationRecord.transaction do
   100.times do
     BoardPin.create!({
       board_id: rand(1..28),
-      pin_id: rand(1..28)
+      pin_id: rand(1..24)
     })
   end
 
@@ -109,7 +109,7 @@ end
 Pin.first(34).each_with_index do |pin, index|
   pin.photo.attach(
     io: URI.open("https://pindrip-seeds.s3.amazonaws.com/pins/lowqual/#{index + 1}.jpeg"),
-    filename: "pins/#{index + 1}.jpeg"
+    filename: "pins/lowqual/#{index + 1}.jpeg"
   )
 end
 
