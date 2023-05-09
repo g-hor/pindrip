@@ -22,8 +22,8 @@ ApplicationRecord.transaction do
     username: 'demo', 
     email: 'demo@pin.drip', 
     password: 'pindrip',
-    first_name: 'drippy',
-    last_name: 'bara',
+    first_name: 'demo',
+    last_name: 'user',
     about: 'welcome! check out my demo drip :)',
     pronouns: 'they/them',
     website: 'github.com/g-hor/pindrip',
@@ -108,7 +108,7 @@ end
 
 Pin.first(28).each_with_index do |pin, index|
   pin.photo.attach(
-    io: URI.open("https://pindrip-seeds.s3.amazonaws.com/pins/lowqual#{index + 1}.jpeg"),
+    io: URI.open("https://pindrip-seeds.s3.amazonaws.com/pins/lowqual/#{index + 1}.jpeg"),
     filename: "pins/#{index + 1}.jpeg"
   )
 end
