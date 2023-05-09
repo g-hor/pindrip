@@ -29,6 +29,7 @@
   margin: 16px 24px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 #pin-show-top-bar {
@@ -57,6 +58,7 @@
   box-shadow: 0 0 8px rgba(0,0,0,0.1);
   padding: 10px;
   border-radius: 16px;
+  z-index: 1;
 }
 
 .show-pin-drop-option {
@@ -155,12 +157,12 @@
 }
 
 #pin-show-creator-info {
-  position: absolute;
-  bottom: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-top: 32px;
+
+  #create-pin-user-info {
+    padding: 15px 0 0 0;
+  }
 }
 
 #pin-show-creator-info a .avatar {

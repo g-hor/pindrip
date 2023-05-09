@@ -18,7 +18,6 @@ const PinIndex = () => {
         </div>
 
       </div>
-      <div id="pins-index-bar" />
     </>
   )
 };

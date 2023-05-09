@@ -85,16 +85,13 @@ form {
   cursor: pointer;
   border-radius: 24px;
   border: 0;
+  margin: 15px 0;
   font-size: 15px;
   font-weight: 500;
 }
 
 .login-form-btn:hover {
   background-color: rgb(56, 10, 106);
-}
-
-.password-input {
-  margin-bottom: 20px;
 }
 
 #form-or-text {
@@ -109,7 +106,6 @@ form {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 8px 0 8px 0;
 }
 
 .demo-btn {

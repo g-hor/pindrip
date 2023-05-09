@@ -2,7 +2,7 @@ class Api::PinsController < ApplicationController
   wrap_parameters include: Pin.attribute_names + ['photo']
 
   def index
-    @pins = Pin.all
+    @pins = Pin.all.order(created_at: :asc)
     render 'api/pins/index'
   end
 

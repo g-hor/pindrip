@@ -129,73 +129,74 @@ const PinShow = () => {
           </div>
 
           <div id="pin-info-container" >
-
-            <div id="pin-show-top-bar">
-              <div 
-                id="ellipsis-btn"
-                onClick={() => setShowDrop(true)}
-                >
-                <i className="fa-solid fa-ellipsis" />
-                {showDrop && (
-                  <div id="pin-show-drop" ref={dropdown}>
-                    {dropMenu}
-                  </div>
-                )}
-              </div>
-              
-              {showEdit && (
-                <Modal 
-                  onClose={() => setShowEdit(false)} 
-                  customClass="edit-pin"
-                  >
-                  <EditPinForm 
-                    pin={pin} 
-                    onClose={() => setShowEdit(false)}
-                    />
-                </Modal>
-              )}
-
-              <div id="show-board-drop-save-btn-holder">
-                <div id="show-pin-board-dropdown-btn" onClick={() => setShowBoards(true)}>
-                  <i className="fa-solid fa-chevron-down dropbtn board-drop" />
-                  <div id="board-first-option">
-                    {selectedBoard}
-                  </div>
-
-                  {showBoards && (
-                    <div id="board-options-menu" ref={boardMenu}>
-                      {boards?.map((board, i) => (
-                        <div 
-                          className="board-dropdown-option" 
-                          key={i}
-                          onClick={() => {setSelectedBoard(board.name); setShowBoards(false)}}
-                          >
-                          {board.name}
-                        </div>
-                      ))}
-                    </div>
-                    )}
-                </div>
-
+            <div>
+              <div id="pin-show-top-bar">
                 <div 
-                  id="show-pin-save-btn"
-                  onClick={submitSave}
+                  id="ellipsis-btn"
+                  onClick={() => setShowDrop(true)}
                   >
-                  Save
+                  <i className="fa-solid fa-ellipsis" />
+                  {showDrop && (
+                    <div id="pin-show-drop" ref={dropdown}>
+                      {dropMenu}
+                    </div>
+                  )}
+                </div>
+                
+                {showEdit && (
+                  <Modal 
+                    onClose={() => setShowEdit(false)} 
+                    customClass="edit-pin"
+                    >
+                    <EditPinForm 
+                      pin={pin} 
+                      onClose={() => setShowEdit(false)}
+                      />
+                  </Modal>
+                )}
+
+                <div id="show-board-drop-save-btn-holder">
+                  <div id="show-pin-board-dropdown-btn" onClick={() => setShowBoards(true)}>
+                    <i className="fa-solid fa-chevron-down dropbtn board-drop" />
+                    <div id="board-first-option">
+                      {selectedBoard}
+                    </div>
+
+                    {showBoards && (
+                      <div id="board-options-menu" ref={boardMenu}>
+                        {boards?.map((board, i) => (
+                          <div 
+                            className="board-dropdown-option" 
+                            key={i}
+                            onClick={() => {setSelectedBoard(board.name); setShowBoards(false)}}
+                            >
+                            {board.name}
+                          </div>
+                        ))}
+                      </div>
+                      )}
+                  </div>
+
+                  <div 
+                    id="show-pin-save-btn"
+                    onClick={submitSave}
+                    >
+                    Save
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div id="pin-show-website">
-              <a href="https://github.com/g-hor/pindrip" target="_blank" rel="noreferrer">{pin?.website}</a>
-            </div>
+              <div id="pin-show-website">
+                <a href="https://github.com/g-hor/pindrip" target="_blank" rel="noreferrer">{pin?.website}</a>
+              </div>
 
-            <div id="pin-show-title">
-              {pin?.title}
-            </div>
+              <div id="pin-show-title">
+                {pin?.title}
+              </div>
 
-            <div id="pin-show-description">
-              {pin?.description}
+              <div id="pin-show-description">
+                {pin?.description}
+              </div>
             </div>
 
             <div id="pin-show-creator-info">

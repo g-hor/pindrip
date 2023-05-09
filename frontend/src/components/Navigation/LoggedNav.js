@@ -30,7 +30,7 @@ const LoggedNav = () => {
   return (
     <div className="loggednav-container">
       <div className="loggednav-left">
-        <Link to="/">
+        <Link to="/home">
           <div className="logged-logo-holder">
             <img className="logged-pindrip-icon" src="https://cdn3.iconfinder.com/data/icons/2018-social-media-black-and-white-logos/1000/2018_social_media_popular_app_logo_pinterest-512.png" alt="pindrip logo" />
           </div>

@@ -108,7 +108,7 @@ end
 
 Pin.first(28).each_with_index do |pin, index|
   pin.photo.attach(
-    io: URI.open("https://pindrip-seeds.s3.amazonaws.com/pins/#{index + 1}.jpeg"),
+    io: URI.open("https://pindrip-seeds.s3.amazonaws.com/pins/lowqual#{index + 1}.jpeg"),
     filename: "pins/#{index + 1}.jpeg"
   )
 end

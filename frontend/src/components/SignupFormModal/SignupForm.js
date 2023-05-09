@@ -32,6 +32,12 @@ const SignupForm = () => {
     if (res.ok) navigate('/home');
   };
 
+  const clickDemo = async (e) => {
+    e.preventDefault();
+    const res = await dispatch(sessionActions.loginUser({ email: 'demo@pin.drip', password: 'pindrip' }));
+    if (res.ok) navigate('/home');
+  };
+
   const replaceLogin = async (e) => {
     setShowSignup(false);
     setShowLogin(true);
@@ -86,6 +92,15 @@ const SignupForm = () => {
               className="login-form-btn" 
               type="submit" 
               value="Continue" 
+            />
+          </div>
+          <div id="form-or-text">OR</div>
+          <div className='btn-holder'>
+            <input 
+              className="demo-btn" 
+              type="submit" 
+              value="Log In as Demo User"
+              onClick={clickDemo}
             />
           </div>
           <div id="form-terms-holder">
