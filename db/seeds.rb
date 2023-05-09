@@ -60,9 +60,9 @@ ApplicationRecord.transaction do
     })
   end
 
-  18.times do 
+  34.times do 
     Pin.create!({
-      title: Faker::JapaneseMedia::StudioGhibli.quote,
+      title: Faker::Quote.famous_last_words,
       description: Faker::Hipster.paragraph,
       website: Faker::Internet.url,
       alt_text: Faker::Hipster.sentence,
@@ -106,7 +106,7 @@ User.first(16).each_with_index do |user, index|
   )
 end
 
-Pin.first(28).each_with_index do |pin, index|
+Pin.first(34).each_with_index do |pin, index|
   pin.photo.attach(
     io: URI.open("https://pindrip-seeds.s3.amazonaws.com/pins/lowqual/#{index + 1}.jpeg"),
     filename: "pins/#{index + 1}.jpeg"

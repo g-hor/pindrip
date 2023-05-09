@@ -99,6 +99,7 @@
   width: 234px;
   border-radius: 16px;
   margin-top: 16px;
+  position: relative;
 }
 
 .col-1 {
