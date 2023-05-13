@@ -49,6 +49,11 @@ const DropdownMenu = ({ displayInitial, displayName }) => {
         </div>
       </Link>
       <div id="profile-options">More options</div>
+      <Link to="/editprofile">
+        <div id="logout-button">
+          Edit Profile
+        </div>
+      </Link>
       <div id="logout-button" onClick={clickLogout}>Log out</div>
     </div>
   );
