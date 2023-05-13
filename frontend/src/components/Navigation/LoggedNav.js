@@ -10,6 +10,7 @@ import { fetchAllPins } from "../../store/pin";
 const LoggedNav = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser);
+  const avatar = useSelector(state => state?.users[currentUser.username]?.avatar);
   const username = currentUser?.username;
   const [displayName, setDisplayName] = useState('');
   const [displayInitial, setDisplayInitial] = useState('');
@@ -17,15 +18,16 @@ const LoggedNav = () => {
   useEffect(() => {
     dispatch(fetchUser(username));
     dispatch(fetchAllPins());
-  }, [dispatch, username, currentUser.avatar]);
+  }, [dispatch, username, currentUser?.avatar]);
   
   useEffect(() => {
     if (currentUser) {
       setDisplayName(capitalizeFirstLetter(formatEmail(currentUser?.email)));
       setDisplayInitial(displayName[0]);
     } 
-  }, [displayName, currentUser, currentUser.avatar]);
+  }, [displayName, currentUser, currentUser?.avatar]);
 
+  if (!currentUser.avatar) return null;
 
   return (
     <div className="loggednav-container">
@@ -61,16 +63,16 @@ const LoggedNav = () => {
           </div>
         </div>
         <div className="right-initial-icon-holder">
-          {currentUser.avatar && (
+          {currentUser?.avatar && (
             <NavLink 
               to={`/${currentUser?.username || displayName}`}
               className="initial-holder"
               >
-              <Avatar avatar={currentUser.avatar} />
+              <Avatar avatar={avatar} />
             </NavLink>
             )}
 
-          {!currentUser.avatar && (
+          {!currentUser?.avatar && (
             <NavLink 
               to={`/${currentUser?.username || displayName}`}
               className="initial-holder"
