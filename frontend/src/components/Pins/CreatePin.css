@@ -164,7 +164,7 @@
 
 #create-pin-title:focus {
   outline: none;
-  border-bottom: 2px solid #93c1f6;
+  border-bottom: 2px solid #968bc6;
   box-shadow: none;
 }
 
@@ -212,7 +212,7 @@
 
 #create-pin-description:focus {
   outline: none;
-  border-bottom: 2px solid #93c1f6;
+  border-bottom: 2px solid #968bc6;
   box-shadow: none;
 }
 
@@ -267,7 +267,7 @@
 
 #alt-text-textbox:focus {
   outline: none;
-  border-bottom: 2px solid #93c1f6;
+  border-bottom: 2px solid #968bc6;
   box-shadow: none;
 }
 
@@ -283,7 +283,7 @@
 
 #pin-website:focus {
   outline: none;
-  border-bottom: 2px solid #93c1f6;
+  border-bottom: 2px solid #968bc6;
   box-shadow: none;
 }
 

@@ -120,7 +120,8 @@
 }
 
 .edit-board-form-field:focus {
-  outline: 4px solid #93c1f6;
+  outline: none;
+  border: 2px solid #968bc6;
 }
 
 .edit-board-form-row.delete-board:hover {

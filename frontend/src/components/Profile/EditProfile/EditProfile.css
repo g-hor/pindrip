@@ -157,7 +157,8 @@
 }
 
 .edit-text-input-field:focus {
-  outline: 4px solid #93c1f6;
+  outline: none;
+  border: 2px solid #968bc6;
 }
 
 textarea.edit-text-input-field {
@@ -188,7 +189,7 @@ textarea.edit-text-input-field {
 }
 
 .edit-text-input-field.clicked-pronouns {
-  padding: 5px 13px;
+  padding: 8px 13px;
   width: 468px;
   font-weight: 300;
   font-size: 14px;
@@ -196,7 +197,8 @@ textarea.edit-text-input-field {
   align-items: center;
   cursor: pointer;
   position: relative;
-  outline: 4px solid #93c1f6;
+  outline: none;
+  border: 2px solid #968bc6;
 }
 
 #selected-pronouns {

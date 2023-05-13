@@ -70,7 +70,8 @@
 }
 
 .edit-pin-text-input:focus {
-  outline: 4px solid #93c1f6;
+  outline: none;
+  border: 2px solid #968bc6;
 }
 
 textarea.edit-pin-text-input {

@@ -168,7 +168,7 @@ const CreatePinForm = () => {
                   role="textbox"
                   id="alt-text-textbox"
                   placeholder="Explain what people can see in the Pin" // This line is a no-op, see corresponding CSS file for 'content'
-                  onInput={(e) => {if (altText.length < 500) setAltText(e.target.value)}}
+                  onInput={(e) => {if (altText?.length < 500) setAltText(e.target.value)}}
                   />
                 )}
 

@@ -4,7 +4,7 @@ class Board < ApplicationRecord
   # upper_letters = *("A".."Z")
   # nums = *("0".."9")
   # accepted_chars = symbols + lower_letters + upper_letters + nums
-  validates :name, uniqueness: { scope: :user_id }
+  validates :name, uniqueness: { scope: :user_id }, length: { in: 3..50 }
 
   belongs_to :user
 

@@ -59,8 +59,13 @@
   font-size: 16px;
 }
 
+.login-input:hover {
+  border: 2px solid #777;
+}
+
 .login-input:focus {
-  outline: 4px solid #93c1f6;
+  outline: none;
+  border: 2px solid #968bc6;
 }
 
 .input-field {
