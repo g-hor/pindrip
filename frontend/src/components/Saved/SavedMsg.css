@@ -1,0 +1,9 @@
+#saved-msg-container {
+  position: -webkit-sticky;
+  position: sticky;
+  bottom: 0;
+  padding: 10px 20px;
+  border-radius: 8px;
+  background-color: black;
+  z-index: 10;
+}
