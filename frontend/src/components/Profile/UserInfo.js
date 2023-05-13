@@ -13,7 +13,7 @@ const UserInfo = ({ username }) => {
   let displayName;
   let usernamePronouns;
   let about;
-
+  
 
   useEffect(() => {
     dispatch(fetchUser(username));
@@ -50,7 +50,7 @@ const UserInfo = ({ username }) => {
       {showUser.avatar && (
         <div id="user-info-initial-holder">
           <div id="user-info-intial">
-            <Avatar avatar={showUser.avatar} />
+            <Avatar avatar={showUser?.avatar} />
           </div>
         </div>)}
 
