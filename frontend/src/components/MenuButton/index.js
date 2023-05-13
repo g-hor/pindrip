@@ -34,6 +34,7 @@ const MenuButton = ({ displayInitial, displayName }) => {
           <DropdownMenu 
             displayName={displayName} 
             displayInitial={displayInitial}
+            setShowDrop={setShowDrop}
             />
         </div>
       )}

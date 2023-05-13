@@ -4,7 +4,7 @@ import { getCurrentUser } from "../../store/session";
 import { Link } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 
-const DropdownMenu = ({ displayInitial, displayName }) => {
+const DropdownMenu = ({ displayInitial, displayName, setShowDrop }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser);
   const [loggedName, setLoggedName] = useState(displayName)
@@ -50,7 +50,7 @@ const DropdownMenu = ({ displayInitial, displayName }) => {
       </Link>
       <div id="profile-options">More options</div>
       <Link to="/editprofile">
-        <div id="logout-button">
+        <div id="logout-button" onClick={() => setShowDrop(false)}>
           Edit Profile
         </div>
       </Link>
