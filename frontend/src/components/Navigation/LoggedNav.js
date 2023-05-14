@@ -27,8 +27,6 @@ const LoggedNav = () => {
     } 
   }, [displayName, currentUser, currentUser?.avatar]);
 
-  if (!currentUser.avatar) return null;
-
   return (
     <div className="loggednav-container">
       <div className="loggednav-left">
