@@ -30,6 +30,7 @@
 
 #profile-display-container {
   border-radius: 8px;
+  padding: 5px;
 }
 
 #profile-display-container:hover {
@@ -45,6 +46,12 @@
   /* padding: 24px; */
   /* background-color: rgb(238, 238, 238); */
   border-radius: 100%;
+}
+
+#profile-initial-holder img {
+  width: 56px;
+  height: 56px;
+  margin-right: 10px;
 }
 
 #profile-initial {

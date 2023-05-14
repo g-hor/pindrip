@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import { getCurrentUser } from "../../store/session";
 import { Link, useNavigate } from "react-router-dom";
 import * as sessionActions from '../../store/session';
+import Avatar from "../Profile/Avatar";
 
 const DropdownMenu = ({ displayInitial, displayName, setShowDrop }) => {
   const navigate = useNavigate();
@@ -37,7 +38,12 @@ const DropdownMenu = ({ displayInitial, displayName, setShowDrop }) => {
         <div id="profile-display-container">
           <div id="profile-display">
             <div id="profile-initial-holder">
-              <div id="profile-initial">{displayInitial}</div>
+              {!currentUser && (
+                <div id='profile-initial'>
+                  {displayInitial}
+                </div>
+              )}
+              {currentUser.avatar && <Avatar avatar={currentUser?.avatar} />}
             </div>
             <div id="profile-details-holder">
               <div id="profile-details-name">{loggedName}</div>
