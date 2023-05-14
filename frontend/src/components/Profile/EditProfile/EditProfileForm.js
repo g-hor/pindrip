@@ -16,7 +16,7 @@ const EditProfileForm = () => {
   const id = currentUser?.id;
   const [username, setUsername] = useState(currentUser?.username);
   const showUser = useSelector(state => state?.users[username]);
-  const displayInitial = getInitial(currentUser);
+  // const displayInitial = getInitial(currentUser);
   const [first, setFirst] = useState(currentUser?.firstName);
   const [last, setLast] = useState(currentUser?.lastName || '');
   const [about, setAbout] = useState(currentUser?.about || '');
@@ -145,7 +145,7 @@ const EditProfileForm = () => {
               )) ||
             
             (!currentUser.avatar && (
-              <div id="edit-form-initial">{displayInitial}</div>
+              // <div id="edit-form-initial">{displayInitial}</div>
               ))}
 
             <div 
