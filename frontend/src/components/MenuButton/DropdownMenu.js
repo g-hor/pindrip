@@ -1,10 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { getCurrentUser } from "../../store/session";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as sessionActions from '../../store/session';
 
 const DropdownMenu = ({ displayInitial, displayName, setShowDrop }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser);
   const [loggedName, setLoggedName] = useState(displayName)
@@ -21,9 +22,9 @@ const DropdownMenu = ({ displayInitial, displayName, setShowDrop }) => {
     }
   }, [currentUser.email, displayEmail.length, displayName, currentUser])
 
-  const clickLogout = (e) => {
-    e.preventDefault();
+  const clickLogout = () => {
     dispatch(sessionActions.logoutUser());
+    navigate('/');
   };
 
 
@@ -54,7 +55,7 @@ const DropdownMenu = ({ displayInitial, displayName, setShowDrop }) => {
           Edit Profile
         </div>
       </Link>
-      <div id="logout-button" onClick={clickLogout}>Log out</div>
+      <div id="logout-button" onClick={() => {setShowDrop(false); clickLogout()}}>Log out</div>
     </div>
   );
 };
