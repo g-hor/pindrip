@@ -11,9 +11,10 @@
   font-size: 36px;
   font-weight: 600;
   padding: 15px;
-  display: flex;
+  position: relative;
+  /* display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  justify-content: space-between; */
 }
 
 #board-show-description {
@@ -40,7 +41,9 @@
   margin-left: 16px;
   color: black;
   background-color: rgb(238, 238, 238);
-  position: relative;
+  position: absolute;
+  top: 16px;
+  right: -30px;
 }
 
 .board-drop-ellipsis#ellipsis-btn:hover {
