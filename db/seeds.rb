@@ -1,6 +1,6 @@
 require 'open-uri'
 
-ApplicationRecord.transaction do 
+# ApplicationRecord.transaction do 
 
   PRONOUNS = ['ey/em', 'he/him', 'ne/nem', 'she/her', 'they/them', 've/ver', 'xe/xem', 'xie,xem', 'ze/zir']
 
@@ -95,7 +95,7 @@ ApplicationRecord.transaction do
     })
   end
 
-end
+# end
 
 puts "Seeding image files..."
 
