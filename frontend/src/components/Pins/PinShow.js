@@ -24,7 +24,7 @@ const PinShow = () => {
   const [showDrop, setShowDrop] = useState(false);
   const [showBoards, setShowBoards] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
-  const [selectedBoard, setSelectedBoard] = useState(boards[1]?.name || 'All Pins');
+  const [selectedBoard, setSelectedBoard] = useState(boards[0]?.name || 'All Pins');
   let boardId = boards?.filter(board => board?.name === selectedBoard)[0]?.id;
   let background = useRef();
   let dropdown = useRef();

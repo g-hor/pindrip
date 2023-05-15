@@ -12,7 +12,7 @@
 #  alt_text    :text
 #
 class Pin < ApplicationRecord
-  after_save :save_all_pins
+  # after_save :save_all_pins
 
   has_one_attached :photo
   belongs_to :user
@@ -26,10 +26,10 @@ class Pin < ApplicationRecord
     through: :board_pin_associations,
     source: :board
 
-  private
-  def save_all_pins
-    board = Board.where("user_id = ?", self.user_id).first
-    BoardPin.create!(pin_id: self.id, board_id: board.id)
-  end
+  # private
+  # def save_all_pins
+  #   board = Board.where("user_id = ?", self.user_id).first
+  #   BoardPin.create!(pin_id: self.id, board_id: board.id)
+  # end
 
 end

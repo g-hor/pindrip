@@ -43,9 +43,9 @@
 }
 
 #profile-initial-holder {
-  /* padding: 24px; */
-  /* background-color: rgb(238, 238, 238); */
   border-radius: 100%;
+  display: flex;
+  align-items: center;
 }
 
 #profile-initial-holder img {
