@@ -26,7 +26,7 @@ const EditPersonalForm = () => {
   }
 
   const saveChanges = () => {
-    dispatch(updateUser({gender, country, username: currentUser.username}));
+    dispatch(updateUser({ id: currentUser.id, username, gender, country }));
     dispatch(receiveSession({ ...currentUser, gender, country }));
   }
 

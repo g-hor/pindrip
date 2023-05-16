@@ -66,12 +66,12 @@ const EditProfileForm = () => {
   };
 
   const resetChanges = (e) => {
-    setFirst(currentUser?.firstName);
-    setLast(currentUser?.lastName || '');
-    setAbout(currentUser?.about || '');
-    setPronouns(currentUser?.pronouns || '');
-    setWebsite(currentUser?.website || '');
-    setUsername(currentUser?.username);
+    setFirst(showUser?.firstName);
+    setLast(showUser?.lastName || '');
+    setAbout(showUser?.about || '');
+    setPronouns(showUser?.pronouns || '');
+    setWebsite(showUser?.website || '');
+    setUsername(showUser?.username);
   };
 
   const saveChanges = async () => {

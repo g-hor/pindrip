@@ -4,6 +4,7 @@ class Api::SessionsController < ApplicationController
 
   def show
     if logged_in?
+      debugger
       @user = current_user
       render 'api/sessions/show'
     else
