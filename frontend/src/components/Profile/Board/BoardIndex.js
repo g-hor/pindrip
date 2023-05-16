@@ -28,7 +28,7 @@ const BoardIndex = ({ showUser }) => {
 
   useEffect(() => {
     dispatch(fetchAllBoards(showUser?.id));
-  }, [dispatch, showUser]);
+  }, [dispatch, showUser?.id]);
 
   useEffect(() => {
     if (!showDrop) return;

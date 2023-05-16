@@ -12,9 +12,6 @@
   font-weight: 600;
   padding: 15px;
   position: relative;
-  /* display: flex;
-  flex-direction: row;
-  justify-content: space-between; */
 }
 
 #board-show-description {

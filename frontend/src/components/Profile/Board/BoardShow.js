@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteBoard, fetchAllBoards, updateBoard } from "../../../store/board";
+import { getCurrentUser } from "../../../store/session";
+import { Modal } from "../../../context/modal";
 import Avatar from "../Avatar";
 import PinIndexItem from "../../Pins/PinIndexItem";
-import { Modal } from "../../../context/modal";
 import './BoardShow.css';
-import { getCurrentUser } from "../../../store/session";
-import { Link } from "react-router-dom";
+
 
 const BoardShow = () => {
   const dispatch = useDispatch();
@@ -18,8 +18,8 @@ const BoardShow = () => {
   const currentBoard = useSelector(state => state?.boards[boardUrl]);
   const pins = useSelector(state => state?.pins);
   const boardPins = currentBoard?.savedPins.map(pinId => pins[pinId])
-  const [name, setName] = useState(currentBoard?.name || '');
-  const [description, setDescription] = useState(currentBoard?.description || '');
+  const [name, setName] = useState(currentBoard?.name);
+  const [description, setDescription] = useState(currentBoard?.description);
   const [showDrop, setShowDrop] = useState(false);
   const [showModal, setShowModal] = useState(false);
   let canEdit = (showUser?.id === currentUser?.id && currentBoard?.name !== 'All Pins');

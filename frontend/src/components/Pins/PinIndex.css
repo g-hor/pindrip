@@ -7,11 +7,10 @@
 }
 
 #pins-index-container {
-  max-width: 90vw;
+  max-width: 90%;
   column-count: 7;
   column-gap: 5px;
   margin: 0 auto;
-  height: 100%;
 }
 
 .pin-index-item {
@@ -60,5 +59,11 @@
 @media (min-width: 1350px) and (max-width: 1600px) {
   #pins-index-container {
     column-count: 6;
+  }
+}
+
+@media (min-width: 1600px) {
+  #pins-index-container {
+    column-count: 7;
   }
 }
