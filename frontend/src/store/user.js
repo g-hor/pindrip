@@ -1,5 +1,5 @@
 import csrfFetch from "./csrf";
-import { logoutUser } from "./session";
+import { logoutUser, storeCurrentUser } from "./session";
 
 // FORMATTING HELPER METHODS
 export const getInitial = (user) => {
@@ -70,6 +70,7 @@ export const updateUser = (user) => async dispatch => {
     body: JSON.stringify({user: { ...user }})
   });
   const data = await res.json();
+  storeCurrentUser(data);
   dispatch(receiveUser(data));
   return res;
 };
@@ -102,7 +103,7 @@ const usersReducer = (state = {}, action) => {
     case RECEIVE_ALL_USERS:
       return { ...nextState, ...action.payload };
     case RECEIVE_USER:
-      return { ...nextState, [action.payload.username]: action.payload };
+      return { ...nextState, ...action.payload };
     case REMOVE_USER:
       delete nextState[action.payload];
       return nextState;

@@ -43,11 +43,12 @@ const UserInfo = ({ username }) => {
   // }, [dispatch, showUser, username, displayName, usernamePronouns, urlAbout])
 
   // UserInfo will rerender a few times, sometimes without a predefined showUser
+
   if (!showUser) return null;
 
   return (
     <div id="user-info-container">
-      {showUser.avatar && (
+      {showUser?.avatar && (
         <div id="user-info-initial-holder">
           <div id="user-info-intial">
             <Avatar avatar={showUser?.avatar} />
@@ -95,9 +96,9 @@ const UserInfo = ({ username }) => {
             {showUser?.website}
           </a>
           )}
-        {(!showUser?.website && about) && {
+        {(!showUser?.website && about) && (
           about
-        }}
+        )}
       </div>
 
       <div id="user-info-follow-container">

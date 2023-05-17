@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { getCurrentUser, receiveSession } from "../../../store/session";
-import { getInitial, updateUser, fetchUser } from "../../../store/user";
+import { getCurrentUser, receiveSession, storeCurrentUser } from "../../../store/session";
+import { getInitial, updateUser, fetchUser, receiveUser } from "../../../store/user";
 import { useState, useEffect, useRef } from "react";
 import Sidebar from "./Sidebar";
 import BottomBar from "./BottomBar";
@@ -45,7 +45,9 @@ const EditProfileForm = () => {
     if (res.ok) {
       currentUser = await res.json();
       currentUser[avatar] = avatar;
-      dispatch(receiveSession(currentUser))
+      dispatch(receiveSession(currentUser));
+      dispatch(receiveUser(currentUser));
+      dispatch(storeCurrentUser(currentUser));
       setAvatar(currentUser.avatar);
       setShowUpload(false);
     }
@@ -294,7 +296,7 @@ const EditProfileForm = () => {
                   type="text"
                   value={website}
                   onChange={(e) => setWebsite(e.target.value)}
-                  placeholder="Add a link to drive traffic to your site"
+                  placeholder="Add a link to drive traffic to my GitHub :)"
                   />
               </div>
             </div>

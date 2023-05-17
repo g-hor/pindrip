@@ -25,6 +25,7 @@ const Profile = () => {
   }, [username, dispatch, showUser?.id])
 
 
+
   return (
     <div id="profile-user-container">
       <UserInfo username={username} />

@@ -38,7 +38,7 @@ const DropdownMenu = ({ displayInitial, displayName, setShowDrop }) => {
         <div id="profile-display-container">
           <div id="profile-display">
             <div id="profile-initial-holder">
-              {!currentUser && (
+              {!currentUser.avatar && (
                 <div id='profile-initial'>
                   {displayInitial}
                 </div>
