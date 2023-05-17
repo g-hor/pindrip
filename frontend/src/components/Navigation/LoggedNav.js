@@ -24,7 +24,7 @@ const LoggedNav = () => {
     if (currentUser) {
       setDisplayName(capitalizeFirstLetter(formatEmail(currentUser?.email)));
       setDisplayInitial(displayName[0]);
-    } 
+    }
   }, [displayName, currentUser, currentUser?.avatar]);
 
   return (

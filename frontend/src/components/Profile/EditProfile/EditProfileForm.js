@@ -25,7 +25,7 @@ const EditProfileForm = () => {
   const [avatar, setAvatar] = useState(showUser?.avatar);
   const [showPronouns, setShowPronouns] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
-  const formData = new FormData();
+  let formData = new FormData();
 
   const imgBtn = useRef();
   const pronounsList = useRef()
@@ -41,13 +41,13 @@ const EditProfileForm = () => {
       method: "PATCH",
       body: formData
     })
-    
+
     if (res.ok) {
       currentUser = await res.json();
-      currentUser[avatar] = avatar;
-      dispatch(receiveSession(currentUser));
-      dispatch(receiveUser(currentUser));
-      dispatch(storeCurrentUser(currentUser));
+      currentUser.avatar = avatar;
+      await dispatch(receiveSession(currentUser));
+      await dispatch(receiveUser(currentUser));
+      storeCurrentUser(currentUser);
       setAvatar(currentUser.avatar);
       setShowUpload(false);
     }
@@ -87,7 +87,6 @@ const EditProfileForm = () => {
 
   useEffect(() => {
     dispatch(fetchUser(username));
-    if (currentUser.avatar) setAvatar(currentUser.avatar);
   }, [dispatch, username, currentUser.avatar]);
   
   useEffect(() => {

@@ -18,8 +18,6 @@ const Navbar = () => {
 
   return (
     <div className="nav-container">
-      {/* {!currentUser && <UnauthNav />}
-      {currentUser && <LoggedNav />} */}
       {currentUser ? <LoggedNav /> : <UnauthNav />}
     </div>
   );
