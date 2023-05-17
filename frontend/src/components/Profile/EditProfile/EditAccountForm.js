@@ -90,6 +90,10 @@ const EditAccountForm = () => {
             onChange={(e) => setEmail(e.target.value)}
             />
 
+          <div className="edit-form-field-row-holder field-description account">
+            {isDemo && "Sorry! The demo user's email cannot be changed."}
+          </div>
+
           <div className="edit-form-label">
             Password
           </div>
@@ -103,12 +107,17 @@ const EditAccountForm = () => {
               onChange={(e) => setNewPw(e.target.value)}
               onClick={() => setShowPw(true)}
               />
-              <div 
-                className={isDemo ? "change-pw-btn disabled" : "change-pw-btn"}
-                onClick={() => setShowPw(true)}
-                >
-                Change
-              </div>
+
+            <div 
+              className={isDemo ? "change-pw-btn disabled" : "change-pw-btn"}
+              onClick={() => setShowPw(true)}
+              >
+              Change
+            </div>
+          </div>
+
+          <div className="edit-form-field-row-holder field-description account">
+            {isDemo && "Sorry! The demo user's password cannot be changed."}
           </div>
 
           <div id="delete-acc-holder">

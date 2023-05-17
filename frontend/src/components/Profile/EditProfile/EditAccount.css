@@ -2,11 +2,14 @@
   width: 468px;
   font-weight: 300;
   color: #262626;
-  margin-bottom: 30px;
 }
 
 .email.disabled {
   cursor: not-allowed;
+}
+
+.email.disabled:hover {
+  border: 2px solid lightgray;
 }
 
 #password-field-holder {
@@ -14,7 +17,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 30px;
   position: relative;
 }
 
@@ -24,6 +26,14 @@
 
 .password.disabled {
   cursor: not-allowed;
+}
+
+.password.disabled:hover {
+  border: 2px solid lightgray;
+}
+
+.field-description.account {
+  margin-bottom: 30px;
 }
 
 #change-pw-form-container {
