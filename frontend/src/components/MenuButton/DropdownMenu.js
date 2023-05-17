@@ -21,7 +21,7 @@ const DropdownMenu = ({ displayInitial, displayName, setShowDrop }) => {
     if (displayName.length > 20) {
       setLoggedName(displayName.slice(0, 20) + '...');
     }
-  }, [currentUser.email, displayEmail.length, displayName, currentUser])
+  }, [currentUser.email, displayEmail.length, displayName, currentUser, currentUser.avatar])
 
   const clickLogout = () => {
     dispatch(sessionActions.logoutUser());

@@ -103,7 +103,11 @@ const usersReducer = (state = {}, action) => {
     case RECEIVE_ALL_USERS:
       return { ...nextState, ...action.payload };
     case RECEIVE_USER:
-      return { ...nextState, ...action.payload };
+      if (action.payload.username) {
+        return { ...nextState, [action.payload.username]: action.payload };
+      } else {
+        return { ...nextState, ...action.payload };
+      }
     case REMOVE_USER:
       delete nextState[action.payload];
       return nextState;

@@ -10,8 +10,8 @@ import { fetchAllPins } from "../../store/pin";
 const LoggedNav = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser);
-  const avatar = useSelector(state => state?.users[currentUser.username]?.avatar);
   const username = currentUser?.username;
+  const [avatar, setAvatar] = useState(currentUser?.avatar);
   const [displayName, setDisplayName] = useState('');
   const [displayInitial, setDisplayInitial] = useState('');
 
@@ -25,7 +25,11 @@ const LoggedNav = () => {
       setDisplayName(capitalizeFirstLetter(formatEmail(currentUser?.email)));
       setDisplayInitial(displayName[0]);
     }
-  }, [displayName, currentUser, currentUser?.avatar]);
+
+    if (currentUser.avatar) {
+      setAvatar(currentUser.avatar);
+    }
+  }, [displayName, currentUser, currentUser.avatar]);
 
   return (
     <div className="loggednav-container">

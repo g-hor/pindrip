@@ -44,9 +44,8 @@ const EditProfileForm = () => {
 
     if (res.ok) {
       currentUser = await res.json();
-      currentUser.avatar = avatar;
-      await dispatch(receiveSession(currentUser));
-      await dispatch(receiveUser(currentUser));
+      dispatch(receiveSession(currentUser));
+      dispatch(receiveUser(currentUser));
       storeCurrentUser(currentUser);
       setAvatar(currentUser.avatar);
       setShowUpload(false);
