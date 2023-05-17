@@ -256,6 +256,10 @@ textarea.edit-text-input-field {
   color: #2e2e2e;
 }
 
+.edit-text-input-field.website.disabled {
+  cursor: not-allowed;
+}
+
 /* BOTTOM BAR */
 #edit-page-bottom-bar {
   position: fixed;
@@ -312,6 +316,10 @@ textarea.edit-text-input-field {
   align-items: center;
   justify-content: center;
   margin-left: 20px;
+}
+
+.bottom-profile-btn.disabled {
+  cursor: not-allowed;
 }
 
 .bottom-profile-btn.save-btn {

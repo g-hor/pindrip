@@ -25,6 +25,7 @@ const EditProfileForm = () => {
   const [avatar, setAvatar] = useState(showUser?.avatar);
   const [showPronouns, setShowPronouns] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
+  const isDemo = (id === 1);
   let formData = new FormData();
 
   const imgBtn = useRef();
@@ -308,7 +309,8 @@ const EditProfileForm = () => {
 
               <div className="edit-form-input">
               <input
-                className="edit-text-input-field website"
+                className={isDemo ? "edit-text-input-field website disabled" : "edit-text-input-field website"}
+                disabled={isDemo ? true : false}
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
@@ -316,7 +318,9 @@ const EditProfileForm = () => {
                 />
 
                 <div className="edit-form-field-row-holder field-description">
-                  {`www.pindrip.onrender.com/${username}`}
+                  {isDemo ? "Sorry! The demo user's username cannot be changed." :
+                    `www.pindrip.onrender.com/${username}`
+                  }
                 </div>
               </div>
             </div>

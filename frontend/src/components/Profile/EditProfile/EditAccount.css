@@ -5,6 +5,10 @@
   margin-bottom: 30px;
 }
 
+.email.disabled {
+  cursor: not-allowed;
+}
+
 #password-field-holder {
   width: 468px;
   display: flex;
@@ -16,6 +20,10 @@
 
 .password {
   width: 363px;
+}
+
+.password.disabled {
+  cursor: not-allowed;
 }
 
 #change-pw-form-container {
@@ -64,6 +72,10 @@
   align-items: center;
   justify-content: center;
   margin-left: 20px;
+}
+
+.change-pw-btn.disabled {
+  cursor: not-allowed;
 }
 
 #delete-acc-holder {

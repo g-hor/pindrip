@@ -6,7 +6,6 @@ import { useState } from "react";
 import './EditAccount.css';
 import { Modal } from "../../../context/modal";
 import { deleteUser, updatePassword, updateUser } from "../../../store/user";
-import { useEffect } from "react";
 
 
 const EditAccountForm = () => {
@@ -21,6 +20,8 @@ const EditAccountForm = () => {
   const [showPw, setShowPw] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [errors, setErrors] = useState([]);
+  const isDemo = (id === 1);
+
 
   const handlePassword = () => {
     dispatch(updatePassword({ id, email, oldPw, newPw }))
@@ -31,9 +32,11 @@ const EditAccountForm = () => {
   };
 
   const saveChanges = () => {
-    dispatch(updateUser({
-      id, email, username
-    }))
+    if (!isDemo) {
+      dispatch(updateUser({
+        id, email, username
+      }))
+    };
   };
 
   const handleDelete = () => {
@@ -80,7 +83,8 @@ const EditAccountForm = () => {
           </div>
 
           <input
-            className="edit-text-input-field email"
+            className={isDemo ? "edit-text-input-field email disabled" : "edit-text-input-field email"}
+            disabled={isDemo ? true : false}
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -92,14 +96,15 @@ const EditAccountForm = () => {
 
           <div id="password-field-holder">
             <input
-              className="edit-text-input-field password"
+              className={isDemo ? "edit-text-input-field password disabled" : "edit-text-input-field password"}
+              disabled={isDemo ? true : false}
               type="password"
               value={newPw}
               onChange={(e) => setNewPw(e.target.value)}
               onClick={() => setShowPw(true)}
               />
               <div 
-                id="change-avatar-btn"
+                className={isDemo ? "change-pw-btn disabled" : "change-pw-btn"}
                 onClick={() => setShowPw(true)}
                 >
                 Change
@@ -117,14 +122,14 @@ const EditAccountForm = () => {
             </div>
 
             <div 
-              className="change-pw-btn"
+              className={isDemo ? "change-pw-btn disabled" : "change-pw-btn"}
               onClick={() => setShowConfirm(true)}
               >
               Delete account
             </div>
           </div>
 
-            {showPw && (
+            {(!isDemo && showPw) && (
               <Modal onClose={() => setShowPw(false)} >
                 <div id="change-pw-form-container">
                   <div className="edit-form-header-container">
@@ -187,7 +192,7 @@ const EditAccountForm = () => {
               </Modal>
             )}
 
-            {showConfirm && (
+            {(!isDemo && showConfirm) && (
               <Modal onClose={() => setShowConfirm(false)}>
                 <div id="confirm-delete-container">
                   <div className="edit-form-header-container">
@@ -247,6 +252,7 @@ const EditAccountForm = () => {
           <BottomBar 
             resetChanges={resetChanges}
             saveChanges={saveChanges}
+            isDemo={isDemo}
             />
 
         </div>
