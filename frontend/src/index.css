@@ -72,7 +72,7 @@ table {
 #saved-msg-container {
   position: absolute;
   bottom: -100px;
-	left: 50vw;
+	left: calc(50vw - 162px);
   padding: 10px 20px;
   border-radius: 8px;
   background-color: black;

@@ -4,6 +4,7 @@
   background-color: rgb(238, 238, 238);
   display: flex;
   justify-content: center;
+  position: relative;
 }
 
 #create-pin-content-bg {
@@ -301,4 +302,8 @@
 
 #relative-text-aligner {
   position: relative;
+}
+
+#saved-msg-container.save-pin {
+  bottom: 0;
 }

@@ -26,6 +26,7 @@ const CreatePinForm = () => {
   const [photoUrl, setPhotoUrl] = useState(null);
   const [showBoards, setShowBoards] = useState(false);
   const [selectedBoard, setSelectedBoard] = useState(boards[0]?.name || 'All Pins');
+  const [saved, setSaved] = useState(false);
   const boardId = boards?.filter(board => board?.name === selectedBoard)[0]?.id;
   const uploadInput = useRef();
   const boardMenu = useRef();
@@ -45,7 +46,9 @@ const CreatePinForm = () => {
     const pin = await dispatch(createPin({ title, description, altText, website, photo }));
     const pinId = Object.keys(pin)[0];
     savePin({ boardId, pinId });
-    navigate(`/pins/${pinId}`);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 3000);
+    setTimeout(() => navigate(`/pins/${pinId}`), 3000);
   };
 
   const hideBoards = (e) => {
@@ -197,6 +200,9 @@ const CreatePinForm = () => {
 
       </div>
 
+      <div id="saved-msg-container" className={saved ? "saved save-pin" : "save-pin"}>
+        Drip saved successfully!
+      </div>
     </div>
   );
 };
