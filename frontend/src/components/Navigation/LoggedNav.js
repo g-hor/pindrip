@@ -53,14 +53,14 @@ const LoggedNav = () => {
         <div className="right-icon-holder">
           <div className="icon-holder">
             <a href="https://github.com/g-hor" target="_blank" rel="noreferrer">
-              <i className="fa-brands fa-github social-icon"></i>
+              <i className="fa-brands fa-square-github social-icon" />
             </a>
           </div>
         </div>
         <div className="right-icon-holder">
           <div className="icon-holder">
             <a href="https://www.linkedin.com/in/garyhor65/" target="_blank" rel="noreferrer">
-              <i className="fa-brands fa-linkedin social-icon"></i>
+              <i className="fa-brands fa-linkedin social-icon" />
             </a>
           </div>
         </div>

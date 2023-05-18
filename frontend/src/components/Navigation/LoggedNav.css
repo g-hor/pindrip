@@ -26,7 +26,6 @@
 .logged-pindrip-icon {
   width: 24px;
   height: 24px;
-  /* margin: 10px; */
 }
 
 .loggednav-left {
@@ -115,7 +114,7 @@
 }
 
 .right-initial-icon-holder {
-  padding: 4.5px;
+  padding: 4px;
 }
 
 .right-initial-icon-holder:hover {

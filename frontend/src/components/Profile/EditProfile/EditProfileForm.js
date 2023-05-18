@@ -2,12 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser, receiveSession, storeCurrentUser } from "../../../store/session";
 import { getInitial, updateUser, fetchUser, receiveUser } from "../../../store/user";
 import { useState, useEffect, useRef } from "react";
+import csrfFetch from "../../../store/csrf";
 import Sidebar from "./Sidebar";
 import BottomBar from "./BottomBar";
 import Avatar from "../Avatar";
 import { Modal } from "../../../context/modal";
 import './EditProfile.css';
-import csrfFetch from "../../../store/csrf";
 
 
 const EditProfileForm = () => {
@@ -25,11 +25,12 @@ const EditProfileForm = () => {
   const [avatar, setAvatar] = useState(showUser?.avatar);
   const [showPronouns, setShowPronouns] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
+  const [saved, setSaved] = useState(false);
   const isDemo = (id === 1);
   let formData = new FormData();
 
   const imgBtn = useRef();
-  const pronounsList = useRef()
+  const pronounsList = useRef();
 
 
   const handlePhoto = async ({ currentTarget }) => {
@@ -77,12 +78,18 @@ const EditProfileForm = () => {
   };
 
   const saveChanges = async () => {
-    dispatch(updateUser({
+    const res = await dispatch(updateUser({
       id, firstName: first, lastName: last, about, pronouns, website, username
       }));
     dispatch(receiveSession({ ...currentUser,
       first, last, about, pronouns, website, username
       }));
+    
+    if (res.ok) {
+      setSaved(true);
+    }
+
+    setTimeout(() => setSaved(false), 3000);
   };
 
   useEffect(() => {
@@ -335,6 +342,9 @@ const EditProfileForm = () => {
 
       </div>
 
+      <div id="saved-msg-container" className={saved ? "saved profile-save" : "profile-save"}>
+        Drip saved successfully!
+      </div>
     </div>
   )
 };

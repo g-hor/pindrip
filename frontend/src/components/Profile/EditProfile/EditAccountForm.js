@@ -21,6 +21,7 @@ const EditAccountForm = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [errors, setErrors] = useState([]);
   const isDemo = (id === 1);
+  const [saved, setSaved] = useState(false);
 
 
   const handlePassword = () => {
@@ -31,11 +32,17 @@ const EditAccountForm = () => {
     setEmail(currentUser?.email);
   };
 
-  const saveChanges = () => {
+  const saveChanges = async () => {
     if (!isDemo) {
-      dispatch(updateUser({
+      const res = await dispatch(updateUser({
         id, email, username
-      }))
+      }));
+
+      if (res.ok) {
+        setSaved(true);
+      }
+
+      setTimeout(() => setSaved(false), 3000);
     };
   };
 
@@ -268,6 +275,9 @@ const EditAccountForm = () => {
 
       </div>
 
+      <div id="saved-msg-container" className={saved ? "saved profile-save" : "profile-save"}>
+        Drip saved successfully!
+      </div>
     </div>
   )
 };

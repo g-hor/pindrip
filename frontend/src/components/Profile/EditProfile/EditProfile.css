@@ -1,9 +1,11 @@
 /* PAGE LAYOUT & SIDEBAR */
 #edit-profile-main-container {
   width: 100vw;
-  height: 900px;
+  min-height: 900px;
+  height: calc(100vh - 210px);
   padding: 110px 20px 0 20px;
   z-index: -1;
+  position: relative;
 }
 
 #edit-profile-sidebar-container {

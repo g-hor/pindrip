@@ -15,6 +15,7 @@ const EditPersonalForm = () => {
   const [gender, setGender] = useState(currentUser?.gender || '');
   const [country, setCountry] = useState(currentUser?.country || '');
   const [nonBinary, setNonBinary] = useState(!['Male', 'Female'].includes(gender));
+  const [saved, setSaved] = useState(false);
 
   const selectCountry = (e) => {
     setCountry(e.target.value);
@@ -25,9 +26,15 @@ const EditPersonalForm = () => {
     setCountry(currentUser?.country || '');
   }
 
-  const saveChanges = () => {
-    dispatch(updateUser({ id: currentUser.id, username, gender, country }));
+  const saveChanges = async () => {
+    const res = await dispatch(updateUser({ id: currentUser.id, username, gender, country }));
     dispatch(receiveSession({ ...currentUser, gender, country }));
+
+    if (res.ok) {
+      setSaved(true);
+    }
+
+    setTimeout(() => setSaved(false), 3000);
   }
 
   useEffect(() => {
@@ -144,7 +151,10 @@ const EditPersonalForm = () => {
         </div>
 
       </div>
-
+      
+      <div id="saved-msg-container" className={saved ? "saved profile-save" : "profile-save"}>
+        Drip saved successfully!
+      </div>
     </div>
   );
 };
