@@ -19,13 +19,25 @@ const EditAccountForm = () => {
   const [confirmNewPw, setConfirmNewPw] = useState('');
   const [showPw, setShowPw] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [notMatch, setNotMatch] = useState(newPw !== confirmNewPw)
   const [errors, setErrors] = useState([]);
   const isDemo = (id === 1);
   const [saved, setSaved] = useState(false);
 
 
   const handlePassword = () => {
-    dispatch(updatePassword({ id, email, oldPw, newPw }))
+    return dispatch(updatePassword({ id, email, oldPw, newPw }))
+      .catch(async (res) => {
+        let data;
+        try {
+          data = await res.clone().json();
+        } catch {
+          data = await res.text();
+        }
+        if (data?.errors) setErrors(data.errors);
+        else if (data) setErrors([data]);
+        else setErrors([res.statusText]);
+      });
   };
 
   const resetChanges = () => {
@@ -181,10 +193,13 @@ const EditAccountForm = () => {
                     <input
                       className="edit-text-input-field pw-modal-text"
                       type="password"
-                      onChange={(e) => setConfirmNewPw(e.target.value)}
+                      onChange={(e) => {setConfirmNewPw(e.target.value); setNotMatch(newPw !== e.target.value)}}
                       />
                   </div>
-                  {newPw !== confirmNewPw && (
+                  <div className="edit-form-label match-pw">
+                    {errors.map(error => error)}
+                  </div>
+                  {notMatch && (
                     <div className="edit-form-label match-pw">
                       Passwords must match!
                     </div>
@@ -193,7 +208,7 @@ const EditAccountForm = () => {
                   <div id="pw-btn-holder">
                     <div 
                       className="change-pw-btn"
-                      onClick={() => setShowPw(false)}
+                      onClick={() => {setShowPw(false); setErrors([])}}
                       >
                       Cancel
                     </div>
@@ -209,7 +224,7 @@ const EditAccountForm = () => {
             )}
 
             {(!isDemo && showConfirm) && (
-              <Modal onClose={() => setShowConfirm(false)}>
+              <Modal onClose={() => {setShowConfirm(false); setErrors([])}}>
                 <div id="confirm-delete-container">
                   <div className="edit-form-header-container">
                     <h1 className="edit-form-title pw-header">
@@ -224,7 +239,7 @@ const EditAccountForm = () => {
                     <input
                       className="edit-text-input-field pw-modal-text"
                       type="password"
-                      onChange={(e) => setNewPw(e.target.value)}
+                      onChange={(e) => {setNewPw(e.target.value); setNotMatch(confirmNewPw !== e.target.value)}}
                       />
                   </div>
 
@@ -235,22 +250,24 @@ const EditAccountForm = () => {
                     <input
                       className="edit-text-input-field pw-modal-text"
                       type="password"
-                      onChange={(e) => setConfirmNewPw(e.target.value)}
+                      onChange={(e) => {setConfirmNewPw(e.target.value); setNotMatch(newPw !== e.target.value)}}
                       />
                   </div>
                   <div className="edit-form-label match-pw">
                     {errors.map(error => error)}
                   </div>
-                  {newPw !== confirmNewPw && (
+                  {notMatch ? 
                     <div className="edit-form-label match-pw">
                       Passwords must match!
                     </div>
-                    )}
+                    :
+                    <div className="edit-form-label match-pw" />
+                    }
 
                   <div id="pw-btn-holder">
                     <div 
                       className="change-pw-btn"
-                      onClick={() => setShowConfirm(false)}
+                      onClick={() => {setShowConfirm(false); setErrors([])}}
                       >
                       Cancel
                     </div>

@@ -19,8 +19,8 @@ const BoardShow = () => {
   const currentBoard = useSelector(state => state?.boards[boardUrl]);
   const pins = useSelector(state => state?.pins);
   const boardPins = currentBoard?.savedPins.map(pinId => pins[pinId])
-  const [name, setName] = useState(currentBoard?.name);
-  const [description, setDescription] = useState(currentBoard?.description);
+  const [name, setName] = useState(currentBoard?.name || '');
+  const [description, setDescription] = useState(currentBoard?.description || '');
   const [showDrop, setShowDrop] = useState(false);
   const [showModal, setShowModal] = useState(false);
   let canEdit = (showUser?.id === currentUser?.id && currentBoard?.name !== 'All Pins');
@@ -67,6 +67,7 @@ const BoardShow = () => {
 
 
   if (showUser) displayInitial = getInitial(showUser);
+  
 
   return (
     <div id="board-show-page">

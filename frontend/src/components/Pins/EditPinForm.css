@@ -4,6 +4,7 @@
   flex-direction: column;
   max-width: 1024px;
   width: 95vw;
+  height: 800px;
   padding: 20px;
   box-sizing: border-box;
   position: relative;
@@ -143,4 +144,9 @@ textarea.edit-pin-text-input {
 
 .edit-pin-btn.save:hover {
   background-color: rgb(56, 10, 106);
+}
+
+#saved-msg-container.edit-pin {
+  bottom: 0px;
+  left: calc(50% - 162px);
 }

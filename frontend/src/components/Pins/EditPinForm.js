@@ -9,6 +9,7 @@ const EditPinForm = ({ pin, onClose }) => {
   const [description, setDescription] = useState(pin?.description);
   const [website, setWebsite] = useState(pin?.website);
   const [altText, setAltText] = useState(pin?.altText);
+  const [saved, setSaved] = useState(false);
   const cancelBtn = useRef();
 
 
@@ -22,13 +23,15 @@ const EditPinForm = ({ pin, onClose }) => {
     };
     const res = await dispatch(updatePin(updatedPin));
     if (res.ok) {
-      cancelBtn?.current?.click()
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3000);
+      setTimeout(() => cancelBtn?.current?.click(), 3000);
     };
   };
 
   useEffect(() => {
     dispatch(fetchPin(pin?.id));
-  }, [dispatch]);
+  }, [dispatch, pin?.id]);
 
   return (
     <div id="edit-pin-form">
@@ -155,6 +158,9 @@ const EditPinForm = ({ pin, onClose }) => {
         </div>
       </div>
 
+      <div id="saved-msg-container" className={saved ? "saved edit-pin" : "edit-pin"}>
+        Drip saved successfully!
+      </div>
     </div>
   )
 };
