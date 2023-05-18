@@ -34,6 +34,10 @@
   margin-bottom: 50px;
 }
 
+#board-show-page #pin-show-creator-initial {
+  margin-bottom: 50px;
+}
+
 .board-drop-ellipsis#ellipsis-btn {
   margin-left: 16px;
   color: black;

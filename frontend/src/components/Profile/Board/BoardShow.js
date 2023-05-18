@@ -7,6 +7,7 @@ import { Modal } from "../../../context/modal";
 import Avatar from "../Avatar";
 import PinIndexItem from "../../Pins/PinIndexItem";
 import './BoardShow.css';
+import { getInitial } from "../../../store/user";
 
 
 const BoardShow = () => {
@@ -23,6 +24,7 @@ const BoardShow = () => {
   const [showDrop, setShowDrop] = useState(false);
   const [showModal, setShowModal] = useState(false);
   let canEdit = (showUser?.id === currentUser?.id && currentBoard?.name !== 'All Pins');
+  let displayInitial;
   const dropdown = useRef();
 
   const hideDrop = (e) => {
@@ -62,6 +64,9 @@ const BoardShow = () => {
       }
     }
   }, [currentBoard]);
+
+
+  if (showUser) displayInitial = getInitial(showUser);
 
   return (
     <div id="board-show-page">
@@ -157,7 +162,12 @@ const BoardShow = () => {
         }
       
       <Link to={`/${username}`} >
-        <Avatar avatar={showUser?.avatar} />
+        {showUser?.avatar && (
+          <Avatar avatar={showUser?.avatar} />
+        )}
+        {!showUser?.avatar && (
+          <div id="pin-show-creator-initial">{displayInitial}</div>
+        )}
       </Link>
 
       <div id="board-show-count-bar">
