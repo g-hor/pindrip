@@ -39,7 +39,7 @@ class Api::UsersController < ApplicationController
           render json: { errors: @user.errors.full_messages }, status: 422
         end
       else
-        render json: { errors: ["Wrong password bro"]}, status: 422
+        render json: { errors: ["The old password seems to be incorrect..."]}, status: 422
       end
     else
       @user = User.find_by(id: user_params[:id])

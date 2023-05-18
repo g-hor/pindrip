@@ -26,18 +26,21 @@ const EditAccountForm = () => {
 
 
   const handlePassword = () => {
-    return dispatch(updatePassword({ id, email, oldPw, newPw }))
-      .catch(async (res) => {
-        let data;
-        try {
-          data = await res.clone().json();
-        } catch {
-          data = await res.text();
-        }
-        if (data?.errors) setErrors(data.errors);
-        else if (data) setErrors([data]);
-        else setErrors([res.statusText]);
-      });
+    if (!notMatch) {
+      return dispatch(updatePassword({ id, email, oldPw, newPw }))
+        .catch(async (res) => {
+          let data;
+          try {
+            data = await res.clone().json();
+          } catch {
+            data = await res.text();
+          }
+          if (data?.errors) setErrors(data.errors);
+          else if (data) setErrors([data]);
+          else setErrors([res.statusText]);
+          if (res.ok) setShowPw(false);
+        });
+    };
   };
 
   const resetChanges = () => {
@@ -59,19 +62,30 @@ const EditAccountForm = () => {
   };
 
   const handleDelete = () => {
+    if (!notMatch) {
+      setErrors([]);
+      return dispatch(deleteUser({ id, username, email, newPw }))
+        .catch(async (res) => {
+          let data;
+          try {
+            data = await res.clone().json();
+          } catch {
+            data = await res.text();
+          }
+          if (data?.errors) setErrors(data.errors);
+          else if (data) setErrors([data]);
+          else setErrors([res.statusText]);
+        });
+    };
+  };
+
+  const closeReset = () => {
+    setShowPw(false); 
+    setNotMatch(false); 
+    setOldPw(''); 
+    setNewPw(''); 
+    setConfirmNewPw('');
     setErrors([]);
-    return dispatch(deleteUser({ id, username, email, newPw }))
-      .catch(async (res) => {
-        let data;
-        try {
-          data = await res.clone().json();
-        } catch {
-          data = await res.text();
-        }
-        if (data?.errors) setErrors(data.errors);
-        else if (data) setErrors([data]);
-        else setErrors([res.statusText]);
-      });
   }
 
 
@@ -158,7 +172,7 @@ const EditAccountForm = () => {
           </div>
 
             {(!isDemo && showPw) && (
-              <Modal onClose={() => setShowPw(false)} >
+              <Modal onClose={closeReset} >
                 <div id="change-pw-form-container">
                   <div className="edit-form-header-container">
                     <h1 className="edit-form-title pw-header">
@@ -224,7 +238,7 @@ const EditAccountForm = () => {
             )}
 
             {(!isDemo && showConfirm) && (
-              <Modal onClose={() => {setShowConfirm(false); setErrors([])}}>
+              <Modal onClose={closeReset}>
                 <div id="confirm-delete-container">
                   <div className="edit-form-header-container">
                     <h1 className="edit-form-title pw-header">

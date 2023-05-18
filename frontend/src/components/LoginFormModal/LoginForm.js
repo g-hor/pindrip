@@ -28,7 +28,7 @@ const LoginForm = () => {
         else if (data) setErrors([data]);
         else setErrors([res.statusText]);
       });
-    if (res.ok) navigate('/home');
+    if (res?.ok) navigate('/home');
   };
 
   const clickDemo = async (e) => {
