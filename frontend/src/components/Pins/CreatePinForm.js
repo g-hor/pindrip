@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { fetchAllBoards } from "../../store/board";
 import { savePin } from "../../store/boardPin";
 import { getInitial } from "../../store/user";
+import { Link } from "react-router-dom";
 
 
 const CreatePinForm = () => {
@@ -138,9 +139,19 @@ const CreatePinForm = () => {
             </div>
 
             <div id="create-pin-user-info">
-              {(displayInitial && !currentUser?.avatar) && <div id="create-pin-initial">{displayInitial}</div>}
-              {currentUser?.avatar && <Avatar avatar={currentUser?.avatar} />}
-              <div>{currentUser?.firstName + ' ' + (currentUser?.lastName || '')}</div>
+              <Link to={`/${currentUser?.username}`}>
+                {currentUser?.avatar && (
+                    <Avatar avatar={currentUser?.avatar} />
+                  )}
+
+                {!currentUser?.avatar && (
+                    <div id="pin-show-creator-initial">{displayInitial}</div>
+                  )}
+              </Link>
+              
+              <Link to={`/${currentUser?.username}`}>
+                <div>{currentUser?.firstName + ' ' + (currentUser?.lastName || '')}</div>
+              </Link>
             </div>
 
             <span

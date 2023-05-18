@@ -31,8 +31,9 @@ const BoardShow = () => {
   };
 
   const saveEdits = async () => {
-    const res = await dispatch(updateBoard({ id: currentBoard?.id, name, description }));
-    if (res.ok) setShowModal(false);
+    const editedBoard = await dispatch(updateBoard({ id: currentBoard?.id, name, description }));
+    setShowModal(false)
+    navigate(`/${username}/${Object.keys(editedBoard)[0]}`)
   };
 
   const handleDelete = async () => {
@@ -51,6 +52,16 @@ const BoardShow = () => {
     
     return () => document.removeEventListener('click', hideDrop);
   });
+
+  useEffect(() => {
+    if (currentBoard) {
+      setName(currentBoard.name);
+
+      if (currentBoard.description) {
+        setDescription(currentBoard.description);
+      }
+    }
+  }, [currentBoard]);
 
   return (
     <div id="board-show-page">

@@ -177,7 +177,20 @@
   font-weight: 600;
 }
 
-#create-pin-user-info> img {
+.pin-initial-holder {
+  font-size: 10px;
+  background-color: rgb(238, 238, 238);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  margin-right: 8px;
+  padding: 4px;
+}
+
+#create-pin-user-info > img {
   width: 48px;
   height: 48px;
   margin-right: 8px

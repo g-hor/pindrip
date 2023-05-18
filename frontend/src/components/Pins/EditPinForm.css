@@ -1,7 +1,5 @@
 #edit-pin-form {
-  height: 97vh;
   border-radius: 16px;
-  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   max-width: 1024px;
@@ -47,6 +45,7 @@
   font-size: 14px;
   width: 142px;
   padding-left: 10px;
+  margin-bottom: 10px;
 }
 
 .edit-pin-row-field {
@@ -75,7 +74,7 @@
 }
 
 textarea.edit-pin-text-input {
-  padding: 13px 30px;
+  padding: 13px;
   min-height: 100px; 
   line-height: 1.5em;
 }
@@ -84,6 +83,12 @@ textarea.edit-pin-text-input {
   height: 1px;
   width: 100%;
   background-color: rgb(208, 208, 208);
+}
+
+#edit-pin-form-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #edit-pin-img {
