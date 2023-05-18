@@ -71,13 +71,13 @@ table {
 
 #saved-msg-container {
   position: absolute;
-  bottom: -100px;
-	left: calc(50vw - 162px);
+  top: -30px;
+	left: calc(50vw - 132px);
   padding: 10px 20px;
   border-radius: 8px;
-  background-color: black;
+  background-color: rgb(56, 10, 106);
 	color: white;
-	font-size: 28px;
+	font-size: 22px;
 	font-weight: 300;
   z-index: 10;
 	opacity: 0;
@@ -85,10 +85,10 @@ table {
 }
 
 #saved-msg-container.profile-save {
-	left: min(300px, 900px);
+	left: min(50% - 132px);
 }
 
 #saved-msg-container.saved {
-  transform: translate(0, -15px);
+  transform: translate(0, 70px);
 	opacity: 0.9;
 }

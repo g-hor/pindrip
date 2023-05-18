@@ -305,5 +305,5 @@
 }
 
 #saved-msg-container.save-pin {
-  bottom: 0;
+  top: 120px;
 }

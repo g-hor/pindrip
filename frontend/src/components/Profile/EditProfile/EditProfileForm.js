@@ -338,13 +338,13 @@ const EditProfileForm = () => {
             saveChanges={saveChanges}
             />
 
+          <div id="saved-msg-container" className={saved ? "saved profile-save" : "profile-save"}>
+            Drip saved successfully!
+          </div>
         </div>
 
       </div>
 
-      <div id="saved-msg-container" className={saved ? "saved profile-save" : "profile-save"}>
-        Drip saved successfully!
-      </div>
     </div>
   )
 };

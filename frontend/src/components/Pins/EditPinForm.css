@@ -147,6 +147,6 @@ textarea.edit-pin-text-input {
 }
 
 #saved-msg-container.edit-pin {
-  bottom: 0px;
-  left: calc(50% - 162px);
+  top: 0px;
+  left: calc(50% - 132px);
 }
