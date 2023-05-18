@@ -25,7 +25,7 @@ const CreatePinForm = () => {
   const [photo, setPhoto] = useState(null);
   const [photoUrl, setPhotoUrl] = useState(null);
   const [showBoards, setShowBoards] = useState(false);
-  const [selectedBoard, setSelectedBoard] = useState(boards[1]?.name || 'All Pins');
+  const [selectedBoard, setSelectedBoard] = useState(boards[0]?.name || 'All Pins');
   const boardId = boards?.filter(board => board?.name === selectedBoard)[0]?.id;
   const uploadInput = useRef();
   const boardMenu = useRef();

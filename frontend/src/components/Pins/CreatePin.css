@@ -205,20 +205,19 @@
 }
 
 #create-pin-description {
-  color: #333333;
+  color: #333;
   font-weight: 400;
   font-size: 16px;
-  min-height: 40px;
+  min-height: 26px;
   border: 0;
   box-sizing: border-box;
   box-shadow: rgba(142, 142, 142, 0.5) 0px 1px 0px 0px;
-  padding: 0 26px 0 22px;
   outline: none;
 }
 
 #create-pin-description:empty::before {
   content: "Tell everyone what your Pin is about";
-  color: #696969;
+  color: #999;
   font-weight: 300;
   cursor: text;
 }
