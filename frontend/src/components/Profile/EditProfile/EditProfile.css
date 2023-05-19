@@ -320,7 +320,15 @@ textarea.edit-text-input-field {
   margin-left: 20px;
 }
 
-.bottom-profile-btn.disabled {
+.bottom-profile-btn.save-btn.disabled {
+  cursor: not-allowed;
+  background-color: rgb(238, 238, 238);
+  color: #666;
+}
+
+.bottom-profile-btn.bottom-profile-btn.save-btn.disabled:hover {
+  background-color: rgb(238, 238, 238);
+  color: #666;
   cursor: not-allowed;
 }
 

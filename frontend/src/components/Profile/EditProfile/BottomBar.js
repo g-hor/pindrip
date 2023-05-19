@@ -1,5 +1,5 @@
 
-const BottomBar = ({ resetChanges, saveChanges, isDemo }) => {
+const BottomBar = ({ resetChanges, saveChanges, isDemo, canSubmit }) => {
 
   return (
     <div id="edit-page-bottom-bar">
@@ -17,7 +17,7 @@ const BottomBar = ({ resetChanges, saveChanges, isDemo }) => {
           </div>
 
           <div
-            className={isDemo ? "bottom-profile-btn save-btn disabled" : "bottom-profile-btn save-btn"}
+            className={(isDemo || !canSubmit) ? "bottom-profile-btn save-btn disabled" : "bottom-profile-btn save-btn"}
             onClick={saveChanges}
             >
             Save

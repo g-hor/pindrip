@@ -58,6 +58,13 @@
   color: #CC0000;
 }
 
+.valid-email {
+  color: #CC0000;
+  height: 30px;
+  display: flex;
+  align-items: center;
+}
+
 #pw-btn-holder {
   position: absolute;
   bottom: 35px;

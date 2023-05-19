@@ -26,12 +26,77 @@ const EditProfileForm = () => {
   const [showPronouns, setShowPronouns] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [canSubmit, setCanSubmit] = useState(false);
   const isDemo = (id === 1);
   let formData = new FormData();
 
   const imgBtn = useRef();
   const pronounsList = useRef();
 
+
+  const handleChange = (setField, field, e) => {
+    if (field === first) {
+      setField(e.target.value);
+      setCanSubmit(
+        showUser.firstName !== e.target.value ||
+        showUser.lastName !== last ||
+        showUser.about !== about || 
+        showUser.pronouns !== pronouns ||
+        showUser.website !== website ||
+        showUser.username !== username
+        )
+    } else if (field === last) {
+      setField(e.target.value);
+      setCanSubmit(
+        showUser.lastName !== e.target.value ||
+        showUser.firstName !== first ||
+        showUser.about !== about || 
+        showUser.pronouns !== pronouns ||
+        showUser.website !== website ||
+        showUser.username !== username
+        )
+    } else if (field === about) {
+      setField(e.target.value);
+      setCanSubmit(
+        showUser.about !== e.target.value ||
+        showUser.lastName !== last ||
+        showUser.firstName !== first || 
+        showUser.pronouns !== pronouns ||
+        showUser.website !== website ||
+        showUser.username !== username
+        )
+    } else if (field === pronouns) {
+      setField(e.target.innerHTML);
+      setCanSubmit(
+        showUser.pronouns !== e.target.innerHTML ||
+        showUser.lastName !== last ||
+        showUser.about !== about || 
+        showUser.firstName !== first ||
+        showUser.website !== website ||
+        showUser.username !== username
+        )
+    } else if (field === website) {
+      setField(e.target.value);
+      setCanSubmit(
+        showUser.website !== e.target.value ||
+        showUser.lastName !== last ||
+        showUser.about !== about || 
+        showUser.pronouns !== pronouns ||
+        showUser.firstName !== first ||
+        showUser.username !== username
+        )
+    } else if (field === username) {
+      setField(e.target.value);
+      setCanSubmit(
+        showUser.username !== e.target.value ||
+        showUser.lastName !== last ||
+        showUser.about !== about || 
+        showUser.pronouns !== pronouns ||
+        showUser.website !== website ||
+        showUser.firstName !== first
+        )
+    }
+  };
 
   const handlePhoto = async ({ currentTarget }) => {
     if (currentTarget.files[0]) {
@@ -45,17 +110,27 @@ const EditProfileForm = () => {
     })
 
     if (res.ok) {
+      setSaved(true);
       currentUser = await res.json();
       dispatch(receiveSession(currentUser));
       dispatch(receiveUser(currentUser));
       storeCurrentUser(currentUser);
       setAvatar(currentUser.avatar);
       setShowUpload(false);
+      setTimeout(() => setSaved(false), 3000);
     }
   };
 
   const removePronouns = () => {
     setPronouns('');
+    setCanSubmit(
+      showUser.pronouns !== '' ||
+      showUser.lastName !== last ||
+      showUser.about !== about || 
+      showUser.firstName !== first ||
+      showUser.website !== website ||
+      showUser.username !== username
+    )
   };
   
   const showPronounsList = () => {
@@ -64,7 +139,7 @@ const EditProfileForm = () => {
   };
 
   const selectPronoun = (e) => {
-    setPronouns(e.target.innerHTML);
+    handleChange(setPronouns, pronouns, e);
     setShowPronouns(false);
   };
 
@@ -78,18 +153,20 @@ const EditProfileForm = () => {
   };
 
   const saveChanges = async () => {
-    const res = await dispatch(updateUser({
-      id, firstName: first, lastName: last, about, pronouns, website, username
-      }));
-    dispatch(receiveSession({ ...currentUser,
-      first, last, about, pronouns, website, username
-      }));
-    
-    if (res.ok) {
-      setSaved(true);
+    if (canSubmit) { 
+      const res = await dispatch(updateUser({
+        id, firstName: first, lastName: last, about, pronouns, website, username
+        }));
+      dispatch(receiveSession({ ...currentUser,
+        firstName: first, lastName: last, about, pronouns, website, username
+        }));
+      
+      if (res.ok) {
+        setSaved(true);
+      }
+  
+      setTimeout(() => setSaved(false), 3000);
     }
-
-    setTimeout(() => setSaved(false), 3000);
   };
 
   useEffect(() => {
@@ -203,7 +280,7 @@ const EditProfileForm = () => {
                   className="edit-text-input-field"
                   type="text"
                   value={first}
-                  onChange={(e) => setFirst(e.target.value)}
+                  onChange={(e) => handleChange(setFirst, first, e)}
                   />
               </div>
             </div>
@@ -218,7 +295,7 @@ const EditProfileForm = () => {
                   className="edit-text-input-field"
                   type="text"
                   value={last}
-                  onChange={(e) => setLast(e.target.value)}
+                  onChange={(e) => handleChange(setLast, last, e)}
                   />
               </div>
             </div>
@@ -235,7 +312,7 @@ const EditProfileForm = () => {
                 <textarea
                   className="edit-text-input-field textarea"
                   value={about}
-                  onChange={(e) => setAbout(e.target.value)}
+                  onChange={(e) => handleChange(setAbout, about, e)}
                   placeholder="Tell your story"
                   />
               </div>
@@ -301,7 +378,7 @@ const EditProfileForm = () => {
                   className="edit-text-input-field website"
                   type="text"
                   value={website}
-                  onChange={(e) => setWebsite(e.target.value)}
+                  onChange={(e) => handleChange(setWebsite, website, e)}
                   placeholder="Add a link to drive traffic to my GitHub :)"
                   />
               </div>
@@ -320,7 +397,7 @@ const EditProfileForm = () => {
                 disabled={isDemo ? true : false}
                 type="text"
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => handleChange(setUsername, username, e)}
                 placeholder="Choose wisely so others can find you"
                 />
 
@@ -336,6 +413,7 @@ const EditProfileForm = () => {
           <BottomBar 
             resetChanges={resetChanges}
             saveChanges={saveChanges}
+            canSubmit={canSubmit}
             />
 
           <div id="saved-msg-container" className={saved ? "saved profile-save" : "profile-save"}>

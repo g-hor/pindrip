@@ -47,17 +47,29 @@ const EditAccountForm = () => {
     setEmail(currentUser?.email);
   };
 
-  const saveChanges = async () => {
+  const saveChanges = () => {
     if (!isDemo) {
-      const res = await dispatch(updateUser({
+      return dispatch(updateUser({
         id, email, username
-      }));
-
-      if (res.ok) {
-        setSaved(true);
-      }
-
-      setTimeout(() => setSaved(false), 3000);
+      }))
+        .then(async (res) => {
+          if (res.ok) {
+            setErrors([]);
+            setSaved(true);
+            setTimeout(() => setSaved(false), 3000);
+          };
+        })
+        .catch(async (res) => {
+          let data;
+          try {
+            data = await res.clone().json();
+          } catch {
+            data = await res.text();
+          }
+          if (data?.errors) setErrors(data.errors);
+          else if (data) setErrors([data]);
+          else setErrors([res.statusText]);
+        })
     };
   };
 
@@ -122,6 +134,12 @@ const EditAccountForm = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             />
+
+          {errors.length !== 0 && 
+            <div className="edit-form-label valid-email">
+              {errors.map(error => error)}
+            </div>
+            }
 
           <div className="edit-form-field-row-holder field-description account">
             {isDemo && "Sorry! The demo user's email cannot be changed."}

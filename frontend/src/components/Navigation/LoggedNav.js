@@ -22,14 +22,18 @@ const LoggedNav = () => {
   
   useEffect(() => {
     if (currentUser) {
-      setDisplayName(capitalizeFirstLetter(formatEmail(currentUser?.email)));
+      if (currentUser.firstName) {
+        setDisplayName(capitalizeFirstLetter(currentUser.firstName));
+      } else {
+        setDisplayName(capitalizeFirstLetter(formatEmail(currentUser.email)));
+      }
       setDisplayInitial(displayName[0]);
     }
 
     if (currentUser.avatar) {
       setAvatar(currentUser.avatar);
     }
-  }, [displayName, currentUser, currentUser.avatar]);
+  }, [displayName, currentUser, currentUser.avatar, currentUser.email, currentUser.firstName]);
 
   return (
     <div className="loggednav-container">
