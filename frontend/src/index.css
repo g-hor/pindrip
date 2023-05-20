@@ -86,7 +86,7 @@ table {
 }
 
 #saved-msg-container.profile-save {
-	left: min(50% - 132px);
+	left: calc(50% - 132px);
 }
 
 #saved-msg-container.saved {

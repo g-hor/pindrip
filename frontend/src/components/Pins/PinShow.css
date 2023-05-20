@@ -178,3 +178,8 @@
   align-items: center;
   margin-right: 8px;
 }
+
+#saved-msg-container.save-pin-show {
+  top: 0;
+  left: calc(50% - 132px);
+}

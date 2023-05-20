@@ -24,6 +24,8 @@ const PinShow = () => {
   const [showDrop, setShowDrop] = useState(false);
   const [showBoards, setShowBoards] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
+  const [saved, setSaved] = useState(false);
+  const [clickedSave, setClickedSave] = useState(false);
   const [selectedBoard, setSelectedBoard] = useState(boards[0]?.name || 'All Pins');
   let boardId = boards?.filter(board => board?.name === selectedBoard)[0]?.id;
   let background = useRef();
@@ -37,16 +39,26 @@ const PinShow = () => {
     if (dropdown?.current?.contains(e.target)) return;
     setShowDrop(false);
   };
+
   const hideBoards = (e) => {
     if (e.target === boardMenu?.current) return;
     setShowBoards(false); 
   };
+
   const goHome = (e) => {
     if (e.target !== background?.current) return;
     navigate(-1);
   };
+
   const submitSave = async () => {
-    return savePin({ boardId, pinId });
+    if (!clickedSave) {
+      setClickedSave(true);
+      const res = await savePin({ boardId, pinId });
+      if (res?.ok) {
+        setSaved(true);
+        setTimeout(() => setSaved(false), 3000);
+      }
+    }
   };
   
 
@@ -181,7 +193,7 @@ const PinShow = () => {
                     id="show-pin-save-btn"
                     onClick={submitSave}
                     >
-                    Save
+                    {clickedSave ? "Saved" : "Save"}
                   </div>
                 </div>
               </div>
@@ -219,6 +231,9 @@ const PinShow = () => {
 
           </div>
 
+          <div id="saved-msg-container" className={saved ? "saved save-pin-show" : "save-pin-show"}>
+            Drip saved successfully!
+          </div>
         </div>
 
       </div>
