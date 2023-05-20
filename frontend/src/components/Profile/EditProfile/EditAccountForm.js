@@ -21,9 +21,29 @@ const EditAccountForm = () => {
   const [showConfirm, setShowConfirm] = useState(false);
   const [notMatch, setNotMatch] = useState(newPw !== confirmNewPw)
   const [errors, setErrors] = useState([]);
+  const [emailErrors, setEmailErrors] = useState("");
   const isDemo = (id === 1);
   const [saved, setSaved] = useState(false);
+  const [canSubmit, setCanSubmit] = useState(false);
 
+
+  const handleEmail = (e) => {
+    if (
+      e.target.value
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        ) // CREDIT FOR REGEXP GOES TO 'rnevius' ("https://stackoverflow.com/users/3518452/rnevius")
+    ) {
+      setEmail(e.target.value);
+      setEmailErrors('');
+      setCanSubmit(true);
+    } else {
+      setEmail(e.target.value);
+      setEmailErrors("Please enter a valid email");
+      setCanSubmit(false);
+    }
+  };
 
   const handlePassword = () => {
     if (!notMatch) {
@@ -38,13 +58,14 @@ const EditAccountForm = () => {
           if (data?.errors) setErrors(data.errors);
           else if (data) setErrors([data]);
           else setErrors([res.statusText]);
-          if (res.ok) setShowPw(false);
+          if (res?.ok) setShowPw(false);
         });
     };
   };
 
   const resetChanges = () => {
     setEmail(currentUser?.email);
+    setCanSubmit(false);
   };
 
   const saveChanges = () => {
@@ -53,7 +74,7 @@ const EditAccountForm = () => {
         id, email, username
       }))
         .then(async (res) => {
-          if (res.ok) {
+          if (res?.ok) {
             setErrors([]);
             setSaved(true);
             setTimeout(() => setSaved(false), 3000);
@@ -132,12 +153,12 @@ const EditAccountForm = () => {
             disabled={isDemo ? true : false}
             type="text"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={handleEmail}
             />
 
-          {errors.length !== 0 && 
+          {emailErrors.length !== 0 && 
             <div className="edit-form-label valid-email">
-              {errors.map(error => error)}
+              {emailErrors}
             </div>
             }
 
@@ -318,6 +339,7 @@ const EditAccountForm = () => {
             resetChanges={resetChanges}
             saveChanges={saveChanges}
             isDemo={isDemo}
+            canSubmit={canSubmit}
             />
 
           <div id="saved-msg-container" className={saved ? "saved profile-save" : "profile-save"}>

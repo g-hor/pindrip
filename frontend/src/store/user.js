@@ -90,7 +90,7 @@ export const deleteUser = ({ id, username, email, newPw }) => async dispatch => 
     method: "DELETE",
     body: JSON.stringify({user: { email, newPw }})
   });
-  if (res.ok) dispatch(logoutUser());
+  if (res?.ok) dispatch(logoutUser());
   dispatch(removeUser(username));
   return res;
 }

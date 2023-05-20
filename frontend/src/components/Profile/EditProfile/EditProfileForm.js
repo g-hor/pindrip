@@ -27,6 +27,7 @@ const EditProfileForm = () => {
   const [showUpload, setShowUpload] = useState(false);
   const [saved, setSaved] = useState(false);
   const [canSubmit, setCanSubmit] = useState(false);
+  const [errors, setErrors] = useState([]);
   const isDemo = (id === 1);
   let formData = new FormData();
 
@@ -35,67 +36,42 @@ const EditProfileForm = () => {
 
 
   const handleChange = (setField, field, e) => {
+    let currFirst = first;
+    let currLast = last;
+    let currAbout = about;
+    let currPronouns = pronouns;
+    let currWebsite = website;
+    let currUsername = username;
+
     if (field === first) {
       setField(e.target.value);
-      setCanSubmit(
-        showUser.firstName !== e.target.value ||
-        showUser.lastName !== last ||
-        showUser.about !== about || 
-        showUser.pronouns !== pronouns ||
-        showUser.website !== website ||
-        showUser.username !== username
-        )
+      currFirst = e.target.value;
     } else if (field === last) {
       setField(e.target.value);
-      setCanSubmit(
-        showUser.lastName !== e.target.value ||
-        showUser.firstName !== first ||
-        showUser.about !== about || 
-        showUser.pronouns !== pronouns ||
-        showUser.website !== website ||
-        showUser.username !== username
-        )
+      currLast = e.target.value;
     } else if (field === about) {
       setField(e.target.value);
-      setCanSubmit(
-        showUser.about !== e.target.value ||
-        showUser.lastName !== last ||
-        showUser.firstName !== first || 
-        showUser.pronouns !== pronouns ||
-        showUser.website !== website ||
-        showUser.username !== username
-        )
+      currAbout = e.target.value;
     } else if (field === pronouns) {
       setField(e.target.innerHTML);
-      setCanSubmit(
-        showUser.pronouns !== e.target.innerHTML ||
-        showUser.lastName !== last ||
-        showUser.about !== about || 
-        showUser.firstName !== first ||
-        showUser.website !== website ||
-        showUser.username !== username
-        )
+      currPronouns = e.target.innerHTML;
     } else if (field === website) {
       setField(e.target.value);
-      setCanSubmit(
-        showUser.website !== e.target.value ||
-        showUser.lastName !== last ||
-        showUser.about !== about || 
-        showUser.pronouns !== pronouns ||
-        showUser.firstName !== first ||
-        showUser.username !== username
-        )
+      currWebsite = e.target.value;
     } else if (field === username) {
       setField(e.target.value);
-      setCanSubmit(
-        showUser.username !== e.target.value ||
-        showUser.lastName !== last ||
-        showUser.about !== about || 
-        showUser.pronouns !== pronouns ||
-        showUser.website !== website ||
-        showUser.firstName !== first
-        )
+      currUsername = e.target.value;
     }
+
+    setCanSubmit(
+      showUser?.username !== currUsername ||
+      showUser?.lastName !== currLast ||
+      showUser?.about !== currAbout || 
+      showUser?.pronouns !== currPronouns ||
+      showUser?.website !== currWebsite ||
+      showUser?.firstName !== currFirst
+      )
+
   };
 
   const handlePhoto = async ({ currentTarget }) => {
@@ -109,7 +85,7 @@ const EditProfileForm = () => {
       body: formData
     })
 
-    if (res.ok) {
+    if (res?.ok) {
       setSaved(true);
       currentUser = await res.json();
       dispatch(receiveSession(currentUser));
@@ -119,17 +95,18 @@ const EditProfileForm = () => {
       setShowUpload(false);
       setTimeout(() => setSaved(false), 3000);
     }
+
   };
 
   const removePronouns = () => {
     setPronouns('');
     setCanSubmit(
-      showUser.pronouns !== '' ||
-      showUser.lastName !== last ||
-      showUser.about !== about || 
-      showUser.firstName !== first ||
-      showUser.website !== website ||
-      showUser.username !== username
+      showUser?.pronouns !== '' ||
+      showUser?.lastName !== last ||
+      showUser?.about !== about || 
+      showUser?.firstName !== first ||
+      showUser?.website !== website ||
+      showUser?.username !== username
     )
   };
   
@@ -150,22 +127,36 @@ const EditProfileForm = () => {
     setPronouns(showUser?.pronouns || '');
     setWebsite(showUser?.website || '');
     setUsername(showUser?.username);
+    setCanSubmit(false);
   };
 
   const saveChanges = async () => {
     if (canSubmit) { 
       const res = await dispatch(updateUser({
         id, firstName: first, lastName: last, about, pronouns, website, username
-        }));
+        }))
+        .catch(async (res) => {
+          let data;
+          try {
+            data = await res.clone().json();
+          } catch {
+            data = await res.text();
+          }
+          if (data?.errors) setErrors(data.errors);
+          else if (data) setErrors([data]);
+          else setErrors([res.statusText]);
+        });
+
       dispatch(receiveSession({ ...currentUser,
         firstName: first, lastName: last, about, pronouns, website, username
         }));
       
-      if (res.ok) {
+      if (res?.ok) {
+        setErrors([]);
         setSaved(true);
+        setTimeout(() => setSaved(false), 3000);
+        setCanSubmit(false);
       }
-  
-      setTimeout(() => setSaved(false), 3000);
     }
   };
 
@@ -216,6 +207,14 @@ const EditProfileForm = () => {
               </h3>
             </div>
           </div>
+
+          {errors.length !== 0 && (
+            <ul className="profile-errors">
+              {errors?.map((error, i) => (
+                <li key={i}>{error}</li>
+              ))}
+            </ul>
+          )}
 
           <div className="edit-form-label">
             Photo

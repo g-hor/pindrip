@@ -22,7 +22,7 @@ const EditPinForm = ({ pin, onClose }) => {
       altText: altText 
     };
     const res = await dispatch(updatePin(updatedPin));
-    if (res.ok) {
+    if (res?.ok) {
       setSaved(true);
       setTimeout(() => setSaved(false), 3000);
       setTimeout(() => cancelBtn?.current?.click(), 3000);

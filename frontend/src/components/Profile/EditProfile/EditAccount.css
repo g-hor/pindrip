@@ -63,6 +63,7 @@
   height: 30px;
   display: flex;
   align-items: center;
+  padding: 0;
 }
 
 #pw-btn-holder {

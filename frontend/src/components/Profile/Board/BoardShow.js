@@ -40,7 +40,7 @@ const BoardShow = () => {
 
   const handleDelete = async () => {
     const res = await dispatch(deleteBoard(currentBoard?.id));
-    if (res.ok) navigate(-1);
+    if (res?.ok) navigate(-1);
   };
 
   useEffect(() => {

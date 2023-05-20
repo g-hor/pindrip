@@ -80,6 +80,25 @@
   font-weight: 300;
 }
 
+.profile-errors {
+  padding: 10px;
+  background-color: #CC0000;
+  border-radius: 12px;
+  min-width: 300px;
+  max-width: 500px;
+  margin-bottom: 36px;
+}
+
+.profile-errors li {
+  margin-bottom: 5px;
+  color: white;
+}
+
+.profile-errors li:last-child {
+  color: white;
+  margin-bottom: 0;
+}
+
 .edit-form-field-row-holder {
   display: flex;
   flex-direction: row;
@@ -321,15 +340,15 @@ textarea.edit-text-input-field {
 }
 
 .bottom-profile-btn.save-btn.disabled {
-  cursor: not-allowed;
   background-color: rgb(238, 238, 238);
   color: #666;
+  cursor: default;
 }
 
 .bottom-profile-btn.bottom-profile-btn.save-btn.disabled:hover {
   background-color: rgb(238, 238, 238);
   color: #666;
-  cursor: not-allowed;
+  cursor: default;
 }
 
 .bottom-profile-btn.save-btn {

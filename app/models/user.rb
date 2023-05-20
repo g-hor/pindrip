@@ -22,13 +22,14 @@ class User < ApplicationRecord
   before_validation :ensure_session_token, :provide_defaults
 
   # CREDIT FOR REGEX GOES TO installero ("https://stackoverflow.com/users/435682/installero")
-  VALID_EMAIL_REGEX = VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+  VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i
+  VALID_USERNAME = /\A[a-zA-Z0-9]{3,}$\z/
   PRONOUNS = ['ey/em', 'he/him', 'ne/nem', 'she/her', 'they/them', 've/ver', 'xe/xem', 'xie,xem', 'ze/zir', '']
   
   validates :username,
     uniqueness: true,
     length: { in: 3..30 },
-    format: { without: URI::MailTo::EMAIL_REGEXP },
+    format: { with: VALID_USERNAME, message: " should only contain letters and numbers" },
     allow_nil: true
   validates :email,
     uniqueness: true,

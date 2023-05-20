@@ -34,7 +34,7 @@ const LoginForm = () => {
   const clickDemo = async (e) => {
     e.preventDefault();
     const res = await dispatch(sessionActions.loginUser({ email: 'demo@pin.drip', password: 'pindrip' }));
-    if (res.ok) navigate('/home');
+    if (res?.ok) navigate('/home');
   };
 
   const replaceSignUp = async (e) => {
