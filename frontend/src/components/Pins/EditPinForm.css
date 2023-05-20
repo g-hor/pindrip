@@ -21,6 +21,13 @@
   padding: 10px 0;
 }
 
+#show-pin-board-dropdown-btn.edit-pin-boards {
+  width: calc(100% - 33px);
+  border-radius: 14px;
+  border: 2px solid lightgray;
+  position: relative;
+}
+
 #edit-pin-form-bottom-container {
   display: flex;
 }

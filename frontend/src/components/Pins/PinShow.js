@@ -83,10 +83,10 @@ const PinShow = () => {
   useEffect(() => {
     if (!showBoards) return;
 
-    document.addEventListener('click', hideBoards)
+    document.addEventListener('click', hideBoards);
 
-    return () => (document.removeEventListener('click', hideBoards))
-  })
+    return () => (document.removeEventListener('click', hideBoards));
+  });
 
 
   
