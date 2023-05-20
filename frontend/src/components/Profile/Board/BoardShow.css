@@ -104,6 +104,14 @@
   padding-bottom: 10px;
 }
 
+.edit-board-error {
+  margin-top: 10px;
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: 300;
+  color: #CC0000;
+}
+
 .edit-board-form-row {
   margin-bottom: 30px;
 }

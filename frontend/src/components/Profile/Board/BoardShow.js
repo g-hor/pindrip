@@ -23,9 +23,20 @@ const BoardShow = () => {
   const [description, setDescription] = useState(currentBoard?.description || '');
   const [showDrop, setShowDrop] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [canSave, setCanSave] = useState(false);
+  const [error, setError] = useState('');
   let canEdit = (showUser?.id === currentUser?.id && currentBoard?.name !== 'All Pins');
   let displayInitial;
   const dropdown = useRef();
+
+  
+  const handleName = (e) => {
+    setName(e.target.value);
+    if (e.target.value.length === 0) {
+      setError("Your board name can't be empty!");
+      setCanSave(false);
+    }
+  }
 
   const hideDrop = (e) => {
     if (dropdown?.current?.contains(e.target)) return;
@@ -33,9 +44,11 @@ const BoardShow = () => {
   };
 
   const saveEdits = async () => {
-    const editedBoard = await dispatch(updateBoard({ id: currentBoard?.id, name, description }));
-    setShowModal(false)
-    navigate(`/${username}/${Object.keys(editedBoard)[0]}`)
+    if (canSave) {
+      const editedBoard = await dispatch(updateBoard({ id: currentBoard?.id, name, description }));
+      setShowModal(false)
+      navigate(`/${username}/${Object.keys(editedBoard)[0]}`)
+    }
   };
 
   const handleDelete = async () => {
@@ -114,9 +127,14 @@ const BoardShow = () => {
                   type="text"
                   className="edit-board-form-field"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={handleName}
                   />
               </div>
+              {error.length !== 0 && (
+                  <div className="edit-board-error">
+                  {error}
+                </div>
+                )}
             </div>
             <div className="edit-board-form-row">
               <div className="edit-board-form-label">
