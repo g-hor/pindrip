@@ -2,7 +2,14 @@
   width: 468px;
   font-weight: 300;
   color: #262626;
-  margin-bottom: 30px;
+}
+
+.email.disabled {
+  cursor: not-allowed;
+}
+
+.email.disabled:hover {
+  border: 2px solid lightgray;
 }
 
 #password-field-holder {
@@ -10,7 +17,6 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin-bottom: 30px;
   position: relative;
 }
 
@@ -18,9 +24,21 @@
   width: 363px;
 }
 
+.password.disabled {
+  cursor: not-allowed;
+}
+
+.password.disabled:hover {
+  border: 2px solid lightgray;
+}
+
+.field-description.account {
+  margin-bottom: 30px;
+}
+
 #change-pw-form-container {
   width: 428px;
-  height: 430px;
+  height: 445px;
   padding: 35px;
   display: flex;
   flex-direction: column;
@@ -38,6 +56,14 @@
 
 .match-pw {
   color: #CC0000;
+}
+
+.valid-email {
+  color: #CC0000;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  padding: 0;
 }
 
 #pw-btn-holder {
@@ -64,6 +90,10 @@
   align-items: center;
   justify-content: center;
   margin-left: 20px;
+}
+
+.change-pw-btn.disabled {
+  cursor: not-allowed;
 }
 
 #delete-acc-holder {

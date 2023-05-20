@@ -2,7 +2,7 @@ class Api::BoardsController < ApplicationController
   wrap_parameters include: Board.attribute_names
 
   def index
-    @boards = Board.where(user_id: params[:user_id])
+    @boards = Board.where(user_id: params[:user_id]).sort_by(&:created_at)
     render 'api/boards/index'
   end
 

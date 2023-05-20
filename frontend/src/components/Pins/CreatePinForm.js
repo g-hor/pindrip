@@ -9,6 +9,7 @@ import { useEffect } from "react";
 import { fetchAllBoards } from "../../store/board";
 import { savePin } from "../../store/boardPin";
 import { getInitial } from "../../store/user";
+import { Link } from "react-router-dom";
 
 
 const CreatePinForm = () => {
@@ -24,7 +25,8 @@ const CreatePinForm = () => {
   const [photo, setPhoto] = useState(null);
   const [photoUrl, setPhotoUrl] = useState(null);
   const [showBoards, setShowBoards] = useState(false);
-  const [selectedBoard, setSelectedBoard] = useState(boards[1]?.name || 'All Pins');
+  const [selectedBoard, setSelectedBoard] = useState(boards[0]?.name || 'All Pins');
+  const [saved, setSaved] = useState(false);
   const boardId = boards?.filter(board => board?.name === selectedBoard)[0]?.id;
   const uploadInput = useRef();
   const boardMenu = useRef();
@@ -44,7 +46,9 @@ const CreatePinForm = () => {
     const pin = await dispatch(createPin({ title, description, altText, website, photo }));
     const pinId = Object.keys(pin)[0];
     savePin({ boardId, pinId });
-    navigate(`/pins/${pinId}`);
+    setSaved(true);
+    setTimeout(() => setSaved(false), 3000);
+    setTimeout(() => navigate(`/pins/${pinId}`), 3000);
   };
 
   const hideBoards = (e) => {
@@ -138,9 +142,19 @@ const CreatePinForm = () => {
             </div>
 
             <div id="create-pin-user-info">
-              {(displayInitial && !currentUser?.avatar) && <div id="create-pin-initial">{displayInitial}</div>}
-              {currentUser?.avatar && <Avatar avatar={currentUser?.avatar} />}
-              <div>{currentUser?.firstName + ' ' + (currentUser?.lastName || '')}</div>
+              <Link to={`/${currentUser?.username}`}>
+                {currentUser?.avatar && (
+                    <Avatar avatar={currentUser?.avatar} />
+                  )}
+
+                {!currentUser?.avatar && (
+                    <div id="pin-show-creator-initial">{displayInitial}</div>
+                  )}
+              </Link>
+              
+              <Link to={`/${currentUser?.username}`}>
+                <div>{currentUser?.firstName + ' ' + (currentUser?.lastName || '')}</div>
+              </Link>
             </div>
 
             <span
@@ -186,6 +200,9 @@ const CreatePinForm = () => {
 
       </div>
 
+      <div id="saved-msg-container" className={saved ? "saved save-pin" : "save-pin"}>
+        Drip saved successfully!
+      </div>
     </div>
   );
 };

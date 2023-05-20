@@ -13,7 +13,7 @@ const SignupForm = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [showSignup, setShowSignup] = useState(true);
 
-  const clickSignup = async(e) => {
+  const clickSignup = async (e) => {
     e.preventDefault();
     setErrors([]);
 
@@ -29,13 +29,13 @@ const SignupForm = () => {
         else if (data) setErrors([data]);
         else setErrors([res.statusText]);
       });
-    if (res.ok) navigate('/home');
+    if (res?.ok) navigate('/home');
   };
 
   const clickDemo = async (e) => {
     e.preventDefault();
     const res = await dispatch(sessionActions.loginUser({ email: 'demo@pin.drip', password: 'pindrip' }));
-    if (res.ok) navigate('/home');
+    if (res?.ok) navigate('/home');
   };
 
   const replaceLogin = async (e) => {

@@ -4,6 +4,7 @@
   background-color: rgb(238, 238, 238);
   display: flex;
   justify-content: center;
+  position: relative;
 }
 
 #create-pin-content-bg {
@@ -177,7 +178,20 @@
   font-weight: 600;
 }
 
-#create-pin-user-info> img {
+.pin-initial-holder {
+  font-size: 10px;
+  background-color: rgb(238, 238, 238);
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+  margin-right: 8px;
+  padding: 4px;
+}
+
+#create-pin-user-info > img {
   width: 48px;
   height: 48px;
   margin-right: 8px
@@ -192,20 +206,19 @@
 }
 
 #create-pin-description {
-  color: #333333;
+  color: #333;
   font-weight: 400;
   font-size: 16px;
-  min-height: 40px;
+  min-height: 26px;
   border: 0;
   box-sizing: border-box;
   box-shadow: rgba(142, 142, 142, 0.5) 0px 1px 0px 0px;
-  padding: 0 26px 0 22px;
   outline: none;
 }
 
 #create-pin-description:empty::before {
   content: "Tell everyone what your Pin is about";
-  color: #696969;
+  color: #999;
   font-weight: 300;
   cursor: text;
 }
@@ -289,4 +302,8 @@
 
 #relative-text-aligner {
   position: relative;
+}
+
+#saved-msg-container.save-pin {
+  top: 120px;
 }

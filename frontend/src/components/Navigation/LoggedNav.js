@@ -10,8 +10,8 @@ import { fetchAllPins } from "../../store/pin";
 const LoggedNav = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser);
-  const avatar = useSelector(state => state?.users[currentUser.username]?.avatar);
   const username = currentUser?.username;
+  const [avatar, setAvatar] = useState(currentUser?.avatar);
   const [displayName, setDisplayName] = useState('');
   const [displayInitial, setDisplayInitial] = useState('');
 
@@ -22,12 +22,18 @@ const LoggedNav = () => {
   
   useEffect(() => {
     if (currentUser) {
-      setDisplayName(capitalizeFirstLetter(formatEmail(currentUser?.email)));
+      if (currentUser.firstName) {
+        setDisplayName(capitalizeFirstLetter(currentUser.firstName));
+      } else {
+        setDisplayName(capitalizeFirstLetter(formatEmail(currentUser.email)));
+      }
       setDisplayInitial(displayName[0]);
-    } 
-  }, [displayName, currentUser, currentUser?.avatar]);
+    }
 
-  if (!currentUser.avatar) return null;
+    if (currentUser.avatar) {
+      setAvatar(currentUser.avatar);
+    }
+  }, [displayName, currentUser, currentUser.avatar, currentUser.email, currentUser.firstName]);
 
   return (
     <div className="loggednav-container">
@@ -51,14 +57,14 @@ const LoggedNav = () => {
         <div className="right-icon-holder">
           <div className="icon-holder">
             <a href="https://github.com/g-hor" target="_blank" rel="noreferrer">
-              <i className="fa-brands fa-github social-icon"></i>
+              <i className="fa-brands fa-square-github social-icon" />
             </a>
           </div>
         </div>
         <div className="right-icon-holder">
           <div className="icon-holder">
             <a href="https://www.linkedin.com/in/garyhor65/" target="_blank" rel="noreferrer">
-              <i className="fa-brands fa-linkedin social-icon"></i>
+              <i className="fa-brands fa-linkedin social-icon" />
             </a>
           </div>
         </div>

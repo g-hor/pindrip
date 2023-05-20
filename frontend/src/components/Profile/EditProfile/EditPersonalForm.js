@@ -15,19 +15,51 @@ const EditPersonalForm = () => {
   const [gender, setGender] = useState(currentUser?.gender || '');
   const [country, setCountry] = useState(currentUser?.country || '');
   const [nonBinary, setNonBinary] = useState(!['Male', 'Female'].includes(gender));
+  const [saved, setSaved] = useState(false);
+  const [canSubmit, setCanSubmit] = useState(false);
+
+
+  const handleChange = (setField, field, e) => {
+    let currGender = gender;
+    let currCountry = country;
+
+    if (field === gender) {
+      setField(e.target.value);
+      currGender = e.target.value;
+    } else if (field === country) {
+      setField(e.target.value);
+      currCountry = e.target.value;
+    }
+
+    setCanSubmit(
+      currentUser.gender !== currGender ||
+      currentUser.country !== currCountry
+    )
+
+  };
 
   const selectCountry = (e) => {
-    setCountry(e.target.value);
+    handleChange(setCountry, country, e);
   };
 
   const resetChanges = () => {
     setGender(currentUser?.gender || '');
     setCountry(currentUser?.country || '');
+    setNonBinary(!['Male', 'Female'].includes(currentUser?.gender));
+    setCanSubmit(false);
   }
 
-  const saveChanges = () => {
-    dispatch(updateUser({gender, country, username: currentUser.username}));
-    dispatch(receiveSession({ ...currentUser, gender, country }));
+  const saveChanges = async () => {
+    if (canSubmit) {
+      const res = await dispatch(updateUser({ id: currentUser.id, username, gender, country }));
+      dispatch(receiveSession({ ...currentUser, gender, country }));
+  
+      if (res?.ok) {
+        setSaved(true);
+        setCanSubmit(false);
+        setTimeout(() => setSaved(false), 3000);
+      }
+    }
   }
 
   useEffect(() => {
@@ -67,9 +99,9 @@ const EditPersonalForm = () => {
                 <div className="gender-option">
                   <input
                     type="radio"
-                    // name="gender"
                     checked={gender === 'Male'}
-                    onChange={() => {setGender("Male"); setNonBinary(false)}}
+                    value="Male"
+                    onChange={(e) => {handleChange(setGender, gender, e); setNonBinary(false)}}
                   />
                   <div className="gender-option-text">Male</div>
                 </div>
@@ -77,9 +109,9 @@ const EditPersonalForm = () => {
                 <div className="gender-option">
                   <input
                     type="radio"
-                    // name="gender"
                     checked={gender === 'Female'}
-                    onChange={() => {setGender("Female"); setNonBinary(false)}}
+                    value="Female"
+                    onChange={(e) => {handleChange(setGender, gender, e); setNonBinary(false)}}
                   />
                   <div className="gender-option-text">Female</div>
                 </div>
@@ -87,7 +119,6 @@ const EditPersonalForm = () => {
                 <div className="gender-option">
                   <input
                     type="radio"
-                    // name="gender"
                     checked={nonBinary}
                     onChange={() => {setNonBinary(true); setGender('')}}
                   />
@@ -101,7 +132,7 @@ const EditPersonalForm = () => {
                     type="text"
                     className="edit-text-input-field gender-input"
                     value={gender}
-                    onChange={(e) => setGender(e.target.value)}
+                    onChange={(e) => handleChange(setGender, gender, e)}
                   />
                 </div>
               )}
@@ -139,12 +170,16 @@ const EditPersonalForm = () => {
           <BottomBar 
             saveChanges={saveChanges}
             resetChanges={resetChanges}
+            canSubmit={canSubmit}
           />
 
+          <div id="saved-msg-container" className={saved ? "saved profile-save" : "profile-save"}>
+            Drip saved successfully!
+          </div>
         </div>
 
       </div>
-
+      
     </div>
   );
 };

@@ -2,7 +2,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { getCurrentUser } from "../../store/session";
 import { useEffect } from "react";
 import { fetchAllUsers } from "../../store/user";
-import { fetchAllPins } from "../../store/pin";
 import LoggedNav from "./LoggedNav";
 import UnauthNav from "./UnauthNav";
 import './UnauthNav.css';
@@ -15,12 +14,11 @@ const Navbar = () => {
 
   useEffect(() => {
     dispatch(fetchAllUsers());
-  }, [dispatch])
+  }, [dispatch, currentUser])
 
   return (
     <div className="nav-container">
-      {!currentUser && <UnauthNav />}
-      {currentUser && <LoggedNav />}
+      {currentUser ? <LoggedNav /> : <UnauthNav />}
     </div>
   );
 }; 

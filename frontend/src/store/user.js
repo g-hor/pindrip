@@ -1,5 +1,5 @@
 import csrfFetch from "./csrf";
-import { logoutUser } from "./session";
+import { logoutUser, storeCurrentUser } from "./session";
 
 // FORMATTING HELPER METHODS
 export const getInitial = (user) => {
@@ -65,13 +65,12 @@ export const fetchUser = (username) => async dispatch => {
 };
 
 export const updateUser = (user) => async dispatch => {
-  debugger
   const res = await csrfFetch(`/api/users/${user.id}`, {
     method: "PATCH",
     body: JSON.stringify({user: { ...user }})
   });
   const data = await res.json();
-  debugger
+  storeCurrentUser(data);
   dispatch(receiveUser(data));
   return res;
 };
@@ -91,7 +90,7 @@ export const deleteUser = ({ id, username, email, newPw }) => async dispatch => 
     method: "DELETE",
     body: JSON.stringify({user: { email, newPw }})
   });
-  if (res.ok) dispatch(logoutUser());
+  if (res?.ok) dispatch(logoutUser());
   dispatch(removeUser(username));
   return res;
 }
@@ -104,7 +103,11 @@ const usersReducer = (state = {}, action) => {
     case RECEIVE_ALL_USERS:
       return { ...nextState, ...action.payload };
     case RECEIVE_USER:
-      return { ...nextState, [action.payload.username]: action.payload };
+      if (action.payload.username) {
+        return { ...nextState, [action.payload.username]: action.payload };
+      } else {
+        return { ...nextState, ...action.payload };
+      }
     case REMOVE_USER:
       delete nextState[action.payload];
       return nextState;

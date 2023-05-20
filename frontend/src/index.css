@@ -68,3 +68,28 @@ table {
 	position: absolute;
 	z-index: -1;
 }
+
+#saved-msg-container {
+  position: absolute;
+  top: -30px;
+	left: calc(50vw - 132px);
+  padding: 10px 20px;
+  border-radius: 12px;
+  box-shadow: 0 0 10px 0 rgba(210, 210, 210, 0.591);
+  background-color: rgb(56, 10, 106);
+	color: white;
+	font-size: 22px;
+	font-weight: 300;
+  z-index: 10;
+	opacity: 0;
+  transition: transform 1.5s, opacity 1.5s;
+}
+
+#saved-msg-container.profile-save {
+	left: calc(50% - 132px);
+}
+
+#saved-msg-container.saved {
+  transform: translate(0, 70px);
+	opacity: 0.9;
+}

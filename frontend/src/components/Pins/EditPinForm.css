@@ -1,11 +1,10 @@
 #edit-pin-form {
-  height: 97vh;
   border-radius: 16px;
-  overflow-y: scroll;
   display: flex;
   flex-direction: column;
   max-width: 1024px;
   width: 95vw;
+  height: 800px;
   padding: 20px;
   box-sizing: border-box;
   position: relative;
@@ -20,6 +19,13 @@
   font-size: 28px;
   text-align: center;
   padding: 10px 0;
+}
+
+#show-pin-board-dropdown-btn.edit-pin-boards {
+  width: calc(100% - 33px);
+  border-radius: 14px;
+  border: 2px solid lightgray;
+  position: relative;
 }
 
 #edit-pin-form-bottom-container {
@@ -47,6 +53,7 @@
   font-size: 14px;
   width: 142px;
   padding-left: 10px;
+  margin-bottom: 10px;
 }
 
 .edit-pin-row-field {
@@ -75,7 +82,7 @@
 }
 
 textarea.edit-pin-text-input {
-  padding: 13px 30px;
+  padding: 13px;
   min-height: 100px; 
   line-height: 1.5em;
 }
@@ -84,6 +91,12 @@ textarea.edit-pin-text-input {
   height: 1px;
   width: 100%;
   background-color: rgb(208, 208, 208);
+}
+
+#edit-pin-form-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #edit-pin-img {
@@ -138,4 +151,9 @@ textarea.edit-pin-text-input {
 
 .edit-pin-btn.save:hover {
   background-color: rgb(56, 10, 106);
+}
+
+#saved-msg-container.edit-pin {
+  top: 0px;
+  left: calc(50% - 132px);
 }

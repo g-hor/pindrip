@@ -41,6 +41,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 100%;
+  z-index: 1;
 }
 
 #x-button-holder:hover {

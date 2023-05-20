@@ -1,7 +1,8 @@
 /* PAGE LAYOUT & SIDEBAR */
 #edit-profile-main-container {
   width: 100vw;
-  height: 900px;
+  min-height: 900px;
+  height: calc(100vh - 210px);
   padding: 110px 20px 0 20px;
   z-index: -1;
 }
@@ -60,6 +61,7 @@
   display: flex;
   flex-direction: column;
   overflow: scroll;
+  position: relative;
 }
 
 .edit-form-header-container {
@@ -76,6 +78,25 @@
 .edit-form-description {
   font-size: 16px;
   font-weight: 300;
+}
+
+.profile-errors {
+  padding: 10px;
+  background-color: #CC0000;
+  border-radius: 12px;
+  min-width: 300px;
+  max-width: 500px;
+  margin-bottom: 36px;
+}
+
+.profile-errors li {
+  margin-bottom: 5px;
+  color: white;
+}
+
+.profile-errors li:last-child {
+  color: white;
+  margin-bottom: 0;
 }
 
 .edit-form-field-row-holder {
@@ -256,6 +277,10 @@ textarea.edit-text-input-field {
   color: #2e2e2e;
 }
 
+.edit-text-input-field.website.disabled {
+  cursor: not-allowed;
+}
+
 /* BOTTOM BAR */
 #edit-page-bottom-bar {
   position: fixed;
@@ -312,6 +337,18 @@ textarea.edit-text-input-field {
   align-items: center;
   justify-content: center;
   margin-left: 20px;
+}
+
+.bottom-profile-btn.save-btn.disabled {
+  background-color: rgb(238, 238, 238);
+  color: #666;
+  cursor: default;
+}
+
+.bottom-profile-btn.bottom-profile-btn.save-btn.disabled:hover {
+  background-color: rgb(238, 238, 238);
+  color: #666;
+  cursor: default;
 }
 
 .bottom-profile-btn.save-btn {

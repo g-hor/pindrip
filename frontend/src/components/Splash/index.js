@@ -1,7 +1,17 @@
+import { useNavigate } from 'react-router-dom';
 import { splashImages } from './images';
+import { useSelector } from 'react-redux';
+import { getCurrentUser } from '../../store/session';
 import './Splash.css';
+import { useEffect } from 'react';
 
 const SplashPage = () => {
+  const navigate = useNavigate();
+  const currentUser = useSelector(getCurrentUser);
+
+  useEffect(() => {
+    if (currentUser) navigate("/home");
+  }, [navigate, currentUser]);
 
   return (
     <div id="splash-bg-container">

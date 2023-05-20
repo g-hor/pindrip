@@ -159,13 +159,9 @@
 #pin-show-creator-info {
   display: flex;
   align-items: center;
-
-  #create-pin-user-info {
-    padding: 15px 0 0 0;
-  }
 }
 
-#pin-show-creator-info a .avatar {
+#create-pin-user-info .avatar {
   width: 48px;
   height: 48px;
   border-radius: 100%;
@@ -181,4 +177,9 @@
   justify-content: center;
   align-items: center;
   margin-right: 8px;
+}
+
+#saved-msg-container.save-pin-show {
+  top: 0;
+  left: calc(50% - 132px);
 }

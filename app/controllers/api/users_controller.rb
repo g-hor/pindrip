@@ -31,11 +31,15 @@ class Api::UsersController < ApplicationController
     # FOR UPDATING PASSWORD
     if user_params[:old_pw] && user_params[:new_pw]
       @user = User.find_by_credentials(user_params[:email], user_params[:old_pw])
-      
-      if @user.update(password: user_params[:new_pw])
-        render 'api/sessions/show'
+
+      if @user
+        if @user.update(password: user_params[:new_pw])
+          render 'api/sessions/show'
+        else
+          render json: { errors: @user.errors.full_messages }, status: 422
+        end
       else
-        render json: { errors: @user.errors.full_messages }, status: 422
+        render json: { errors: ["The old password seems to be incorrect..."]}, status: 422
       end
     else
       @user = User.find_by(id: user_params[:id])

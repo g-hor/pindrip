@@ -11,9 +11,7 @@
   font-size: 36px;
   font-weight: 600;
   padding: 15px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  position: relative;
 }
 
 #board-show-description {
@@ -36,11 +34,17 @@
   margin-bottom: 50px;
 }
 
+#board-show-page #pin-show-creator-initial {
+  margin-bottom: 50px;
+}
+
 .board-drop-ellipsis#ellipsis-btn {
   margin-left: 16px;
   color: black;
   background-color: rgb(238, 238, 238);
-  position: relative;
+  position: absolute;
+  top: 16px;
+  right: -30px;
 }
 
 .board-drop-ellipsis#ellipsis-btn:hover {
@@ -98,6 +102,14 @@
   font-size: 12px;
   padding-left: 10px;
   padding-bottom: 10px;
+}
+
+.edit-board-error {
+  margin-top: 10px;
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: 300;
+  color: #CC0000;
 }
 
 .edit-board-form-row {

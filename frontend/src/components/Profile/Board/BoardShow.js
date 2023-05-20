@@ -1,13 +1,14 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteBoard, fetchAllBoards, updateBoard } from "../../../store/board";
+import { getCurrentUser } from "../../../store/session";
+import { Modal } from "../../../context/modal";
 import Avatar from "../Avatar";
 import PinIndexItem from "../../Pins/PinIndexItem";
-import { Modal } from "../../../context/modal";
 import './BoardShow.css';
-import { getCurrentUser } from "../../../store/session";
-import { Link } from "react-router-dom";
+import { getInitial } from "../../../store/user";
+
 
 const BoardShow = () => {
   const dispatch = useDispatch();
@@ -18,12 +19,24 @@ const BoardShow = () => {
   const currentBoard = useSelector(state => state?.boards[boardUrl]);
   const pins = useSelector(state => state?.pins);
   const boardPins = currentBoard?.savedPins.map(pinId => pins[pinId])
-  const [name, setName] = useState(currentBoard?.name);
-  const [description, setDescription] = useState(currentBoard?.description);
+  const [name, setName] = useState(currentBoard?.name || '');
+  const [description, setDescription] = useState(currentBoard?.description || '');
   const [showDrop, setShowDrop] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  let canEdit = (showUser?.id === currentUser?.id);
+  const [canSave, setCanSave] = useState(false);
+  const [error, setError] = useState('');
+  let canEdit = (showUser?.id === currentUser?.id && currentBoard?.name !== 'All Pins');
+  let displayInitial;
   const dropdown = useRef();
+
+  
+  const handleName = (e) => {
+    setName(e.target.value);
+    if (e.target.value.length === 0) {
+      setError("Your board name can't be empty!");
+      setCanSave(false);
+    }
+  }
 
   const hideDrop = (e) => {
     if (dropdown?.current?.contains(e.target)) return;
@@ -31,13 +44,16 @@ const BoardShow = () => {
   };
 
   const saveEdits = async () => {
-    const res = await dispatch(updateBoard({ id: currentBoard?.id, name, description }));
-    if (res.ok) setShowModal(false);
+    if (canSave) {
+      const editedBoard = await dispatch(updateBoard({ id: currentBoard?.id, name, description }));
+      setShowModal(false)
+      navigate(`/${username}/${Object.keys(editedBoard)[0]}`)
+    }
   };
 
   const handleDelete = async () => {
     const res = await dispatch(deleteBoard(currentBoard?.id));
-    if (res.ok) navigate(-1);
+    if (res?.ok) navigate(-1);
   };
 
   useEffect(() => {
@@ -51,6 +67,20 @@ const BoardShow = () => {
     
     return () => document.removeEventListener('click', hideDrop);
   });
+
+  useEffect(() => {
+    if (currentBoard) {
+      setName(currentBoard.name);
+
+      if (currentBoard.description) {
+        setDescription(currentBoard.description);
+      }
+    }
+  }, [currentBoard]);
+
+
+  if (showUser) displayInitial = getInitial(showUser);
+  
 
   return (
     <div id="board-show-page">
@@ -97,9 +127,14 @@ const BoardShow = () => {
                   type="text"
                   className="edit-board-form-field"
                   value={name}
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={handleName}
                   />
               </div>
+              {error.length !== 0 && (
+                  <div className="edit-board-error">
+                  {error}
+                </div>
+                )}
             </div>
             <div className="edit-board-form-row">
               <div className="edit-board-form-label">
@@ -146,7 +181,12 @@ const BoardShow = () => {
         }
       
       <Link to={`/${username}`} >
-        <Avatar avatar={showUser?.avatar} />
+        {showUser?.avatar && (
+          <Avatar avatar={showUser?.avatar} />
+        )}
+        {!showUser?.avatar && (
+          <div id="pin-show-creator-initial">{displayInitial}</div>
+        )}
       </Link>
 
       <div id="board-show-count-bar">

@@ -23,12 +23,12 @@ const BoardIndex = ({ showUser }) => {
 
   const handleCreate = async () => {
     const res = await dispatch(createBoard({name}));
-    if (res.ok) setShowModal(false);
+    if (res?.ok) setShowModal(false);
   };
 
   useEffect(() => {
     dispatch(fetchAllBoards(showUser?.id));
-  }, [dispatch, showUser]);
+  }, [dispatch, showUser?.id]);
 
   useEffect(() => {
     if (!showDrop) return;

@@ -1,5 +1,5 @@
 // LIST TAKEN FROM INCREDIMIKE'S GITHUB: https://gist.github.com/incredimike/1469814
-// list modified slightly to remove '(the)' and other prefixes
+// list modified slightly to remove '(the)' and other modifiers
 
 export const countryList = [
 	"Afghanistan",
@@ -240,7 +240,7 @@ export const countryList = [
 	"Uzbekistan",
 	"Vanuatu",
 	"Venezuela",
-	"Viet Nam",
+	"Vietnam",
 	"Virgin Islands (British)",
 	"Virgin Islands (U.S.)",
 	"Wallis and Futuna",

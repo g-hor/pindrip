@@ -61,7 +61,7 @@ export const updateBoard = (board) => async dispatch => {
   });
   const data = await res.json();
   dispatch(receiveBoard(data));
-  return res;
+  return data;
 };
 
 export const deleteBoard = (boardId) => async dispatch => {
