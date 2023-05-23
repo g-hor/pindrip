@@ -17,6 +17,8 @@ class Api::FollowsController < ApplicationController
 
     if @follow
       @follow.destroy!
+      @user = current_user
+      render 'api/users/show'
     else
       render json: { errors: ['This follow does not exist'] }, status: 422
     end

@@ -5,8 +5,15 @@ end
 
 created_boards = user.boards.map{ |board| board.id } if user.boards
 
-followers = Follow.where(following_id: user.id)
-followed_users = Follow.where(follower_id: user.id)
+followers = [] 
+Follow.where(following_id: user.id).each do |follow|
+  followers << follow.follower_id
+end
+
+followed_users = []
+Follow.where(follower_id: user.id).each do |follow|
+  followed_users << follow.following_id
+end
 
 json.set! user.username do
   json.extract! user,
