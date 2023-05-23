@@ -20,8 +20,9 @@ class Api::FollowsController < ApplicationController
 
     if @follow
       @follow.destroy!
-      @user = current_user
-      render 'api/users/show'
+      followed_user = User.find_by(id: follow_params[:following_id])
+      @users = [ followed_user, current_user ]
+      render 'api/users/index'
     else
       render json: { errors: ['This follow does not exist'] }, status: 422
     end

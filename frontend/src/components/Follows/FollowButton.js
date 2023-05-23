@@ -1,30 +1,48 @@
 
 import { useDispatch } from 'react-redux';
-import { followUser } from '../../store/user';
+import { followUser, unfollowUser } from '../../store/user';
 import './FollowButton.css';
+import { useState } from 'react';
+import { receiveSession, storeCurrentUser } from '../../store/session';
 
 const FollowButton = ({ currentUser, showUser }) => {
   const dispatch = useDispatch();
-  let isFollowing;
+  const [isFollowing, setIsFollowing] = useState(showUser?.followers?.includes(currentUser?.id));
+  const [clickLimited, setClickLimited] = useState(false);
   
   const submitFollow = async () => {
-    const res = await dispatch(followUser({ followerId: currentUser.id, followingId: showUser.id }));
-    if (res?.ok) {
-      isFollowing = true;
+    setClickLimited(true);
+    if (!isFollowing && !clickLimited) {
+      const res = await dispatch(followUser({ followerId: currentUser.id, followingId: showUser.id }));
+      if (res?.ok) {
+        currentUser.followedUsers.push(showUser.id);
+        dispatch(receiveSession({ ...currentUser }));
+        storeCurrentUser({ ...currentUser });
+        setIsFollowing(true);
+        setClickLimited(false);
+      }
     }
   };
 
-  const submitUnfollow = () => {
-
+  const submitUnfollow = async () => {
+    setClickLimited(true);
+    if (isFollowing && !clickLimited) {
+      const res = await dispatch(unfollowUser({ followerId: currentUser.id, followingId: showUser.id }));
+      if (res?.ok) {
+        const showUserIdx = currentUser.followedUsers.indexOf(showUser.id);
+        currentUser.followedUsers.splice(showUserIdx, 1)
+        dispatch(receiveSession({ ...currentUser }));
+        storeCurrentUser({ ...currentUser });
+        setIsFollowing(false);
+        setClickLimited(false);
+      }
+    }
   };
 
-  if (currentUser?.followedUsers.includes(showUser?.id)) {
-    isFollowing = true;
-  };
 
   return (
     <div 
-      className="follow-btn"
+      className={isFollowing ? "follow-btn following" : "follow-btn"}
       onClick={isFollowing ? submitUnfollow : submitFollow}
       >
       {isFollowing ? "Following" : "Follow"}
