@@ -4,8 +4,11 @@ class Api::FollowsController < ApplicationController
     @follow = Follow.new(follow_params)
 
     if @follow.save
-      @user = current_user
-      render 'api/users/show'
+      followed_user = User.find_by(id: follow_params[:following_id])
+      @users = [ followed_user, current_user ]
+      render 'api/users/index'
+    else
+      render json: { errors: ['This follow cannot happen'] }, status: 422
     end
   end
 

@@ -5,11 +5,14 @@ import { getInitial } from "../../store/user";
 import { useEffect } from "react";
 import { fetchUser } from "../../store/user";
 import Avatar from "./Avatar";
+import FollowButton from "../Follows/FollowButton";
 
 const UserInfo = ({ username }) => {
   const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser);
-  const showUser = useSelector(state => state?.users[username])
+  const showUser = useSelector(state => state?.users[username]);
+  const followingCount = showUser?.followingCount;
+  const followerCount = showUser?.followerCount;
   let displayName;
   let usernamePronouns;
   let about;
@@ -102,19 +105,32 @@ const UserInfo = ({ username }) => {
       </div>
 
       <div id="user-info-follow-container">
-        <div id="user-info-follow">
-          0 following
-        </div>
+        <span 
+          id="user-info-follow"
+          className={followerCount > 0 ? "bold-follow" : "" }
+          >
+          {followerCount} followers 
+        </span>
+        <span>{' · '}</span>
+        <span 
+          id="user-info-follow"
+          className={followingCount > 0 ? "bold-follow" : "" }
+          >
+          {followingCount} following
+        </span>
       </div>
 
-      {(currentUser?.username === showUser?.username) && 
+      {(currentUser?.username === showUser?.username) ? (
         <div id="edit-profile-btn-container">
-        <Link to='/editprofile'>
-          <div id="edit-profile-btn">
-            Edit Profile
-          </div>
-        </Link>
-      </div>
+          <Link to='/editprofile'>
+            <div id="edit-profile-btn">
+              Edit Profile
+            </div>
+          </Link>
+        </div>
+        ) : (
+          <FollowButton currentUser={currentUser} showUser={showUser} />
+        )
       }
 
     </div>

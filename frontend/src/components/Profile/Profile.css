@@ -94,6 +94,10 @@
   font-weight: 300;
 }
 
+#user-info-follow.bold-follow {
+  font-weight: 600;
+}
+
 #edit-profile-btn {
   min-width: 60px;
   min-height: 40px;

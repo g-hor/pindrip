@@ -95,6 +95,18 @@ export const deleteUser = ({ id, username, email, newPw }) => async dispatch => 
   return res;
 }
 
+// FOLLOW THUNKS
+export const followUser = ({ followingId, followerId }) => async dispatch => {
+  const res = await csrfFetch('/api/follows', {
+    method: "POST",
+    body: JSON.stringify({follow: { followerId, followingId }})
+  });
+  debugger
+  const data = await res.json();
+  dispatch(receiveAllUsers(data));
+  return res;
+}
+
 
 // REDUCER
 const usersReducer = (state = {}, action) => {
