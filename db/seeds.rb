@@ -47,6 +47,25 @@ User.create!(
   })
 end
 
+puts "Creating follows..."
+# making the demo user very very popular
+15.times do |i|
+  Follow.create!({ follower_id: i + 2, following_id: 1 })
+end
+
+# making sure other seeded users also feel included
+50.times do
+  follower = rand(1..16)
+  following = rand(1..16)
+
+  while follower == following || Follow.exists?(follower_id: follower, following_id: following)
+    follower = rand(1..16)
+    following = rand(1..16)
+  end
+
+  Follow.create!({ follower_id: follower, following_id: following })
+end
+
 puts "Creating pins..."
 # creating pins for the demo user
 10.times do
@@ -98,28 +117,8 @@ puts "Seeding boards with saved pins..."
   })
 end
 
-puts "Creating follows..."
-# making the demo user very very popular
-User.all.each do |user|
-  unless user.id == 1
-    Follow.create!({ follower_id: user.id, following_id: 1 })
-  end
-end
-
-# making sure other seeded users also feel included
-50.times do
-  follower = rand(1..16)
-  following = rand(1..16)
-  
-  while follower != following || !Follow.exists?(follower_id: follower, following_id: following)
-    follower = rand(1..16)
-    following = rand(1..16)
-  end
-
-  Follow.create!({ follower_id: follower, following_id: following })
-end
-
 puts "Seeding image files..."
+# giving seeded users icons
 User.first(16).each_with_index do |user, index|
   user.avatar.attach(
     io: URI.open("https://pindrip-seeds.s3.amazonaws.com/icons/#{index}.jpeg"),
@@ -127,6 +126,7 @@ User.first(16).each_with_index do |user, index|
   )
 end
 
+# attaching photos to pins
 Pin.first(34).each_with_index do |pin, index|
   pin.photo.attach(
     io: URI.open("https://pindrip-seeds.s3.amazonaws.com/pins/lowqual/#{index + 1}.jpeg"),
