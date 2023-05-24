@@ -18,7 +18,7 @@ ApplicationRecord.connection.reset_pk_sequence!('board_pins')
 ApplicationRecord.connection.reset_pk_sequence!('follows')
 
 puts "Creating users..."
-# Creating demo user:
+# Creating demo user
 User.create!(
   username: 'demo', 
   email: 'demo@pin.drip', 
@@ -32,7 +32,7 @@ User.create!(
   country: 'Antarctica'
 )
 
-# Creating users with more information:
+# Creating users with more information
 15.times do
   User.create!({
     username: Faker::Emotion.unique.noun,
@@ -44,6 +44,14 @@ User.create!(
     pronouns: PRONOUNS[rand(9)],
     website: Faker::Internet.domain_name,
     gender: 'capybara'
+  })
+end
+
+# Creating users with minimal information
+10.times do
+  User.create!({
+    email: Faker::Internet.unique.safe_email,
+    password: 'pindrip'
   })
 end
 
