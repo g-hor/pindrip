@@ -1,9 +1,9 @@
-
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { followUser, unfollowUser } from '../../store/user';
-import './FollowButton.css';
-import { useState } from 'react';
 import { receiveSession, storeCurrentUser } from '../../store/session';
+import './Follow.css';
+
 
 const FollowButton = ({ currentUser, showUser }) => {
   const dispatch = useDispatch();

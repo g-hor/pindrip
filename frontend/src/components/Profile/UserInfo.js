@@ -143,6 +143,7 @@ const UserInfo = ({ username }) => {
         <FollowIndex 
           displayUsernames={followers} 
           count={followerCount}
+          title={"Followers"}
           onClose={() => setShowFollowers(false)}
           />
         }
@@ -150,6 +151,7 @@ const UserInfo = ({ username }) => {
         <FollowIndex 
           displayUsernames={followedUsers} 
           count={followingCount}
+          title={"Following"}
           onClose={() => setShowFollowings(false)}
           />
         }

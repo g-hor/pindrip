@@ -92,6 +92,7 @@
 #user-info-follow {
   font-size: 16px;
   font-weight: 300;
+  cursor: pointer;
 }
 
 #user-info-follow.bold-follow {

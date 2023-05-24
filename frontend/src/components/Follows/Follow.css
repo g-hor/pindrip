@@ -1,0 +1,101 @@
+/* FOLLOW BUTTON */
+.follow-btn {
+  min-width: 60px;
+  min-height: 40px;
+  box-sizing: border-box;
+  background-color: rgb(85, 15, 159);
+  color: white;
+  cursor: pointer;
+  border-radius: 24px;
+  padding: 16px 16px 16px 16px;
+  border: 0;
+  font-size: 100%;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.follow-btn:hover {
+  background-color: rgb(56, 10, 106);
+}
+
+.follow-btn.following {
+  background-color: #111;
+}
+
+
+/* FOLLOW INDEX */
+#follows-container {
+  height: 100%;
+  min-height: 50vh;
+  max-height: 70vh;
+  width: 550px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+#follows-container h3 {
+  margin: 50px 0;
+  font-weight: 500;
+  font-size: 1.5rem;
+}
+
+#follows-index {
+  width: 88%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: scroll;
+  padding: 0 6%;
+}
+
+.follow-index-item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 4px 0;
+}
+
+.follow-index-item-user {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.follow-index-item img {
+  width: 64px;
+  height: 64px;
+  margin-right: 10px;
+}
+
+.follow-index-item .follow-btn {
+  margin: 0;
+}
+
+.follow-index-initial-holder {
+  margin-right: 10px;
+  height: 64px;
+  width: 64px;
+  border-radius: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgb(238, 238, 238);
+}
+
+.follow-index-initial {
+  font-size: 24px;
+  font-weight: 600;
+  border-radius: 100%;
+}
+
+.follow-index-item-user a {
+  font-size: 16px;
+  font-weight: 600;
+}
