@@ -156,6 +156,7 @@
   align-items: center;
   justify-content: center;
   margin-left: 20px;
+  word-break: normal;
 }
 
 #change-avatar-btn:hover {

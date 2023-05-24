@@ -58,10 +58,22 @@
 .home-pins-info a {
   display: flex;
   align-items: center;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.home-pins-info span:hover {
+  text-decoration: underline;
 }
 
 .home-pins-info a .avatar {
   margin-right: 10px;
+}
+
+.home-pins-info #pin-show-creator-initial {
+  width: 32px;
+  height: 32px;
+  font-size: 12px;
 }
 
 
