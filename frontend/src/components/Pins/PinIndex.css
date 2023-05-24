@@ -19,9 +19,28 @@
   border-radius: 16px;
 }
 
-.pin-index-item a:hover {
-  cursor: zoom-in;
+.pin-index-item.home-pin {
+  display: inline-block;
+}
+
+.pin-index-item .pin-index-img:hover {
   opacity: 0.8;
+}
+
+.home-pin-title {
+  line-height: 1.5em;
+  font-weight: 500;
+  font-size: 14px;
+  padding: 0 8px;
+}
+
+.pin-index-item .home-pin-title:hover {
+  cursor: zoom-in;
+}
+
+.pin-index-item .avatar {
+  width: 32px;
+  height: 32px;
 }
 
 .pin-index-img {
@@ -29,6 +48,20 @@
   height: 100%;
   object-fit: contain;
   border-radius: 16px;
+  cursor: zoom-in;
+}
+
+.home-pins-info {
+  padding: 8px 6px 16px 6px;
+}
+
+.home-pins-info a {
+  display: flex;
+  align-items: center;
+}
+
+.home-pins-info a .avatar {
+  margin-right: 10px;
 }
 
 
