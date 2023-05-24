@@ -7,7 +7,7 @@ import { receiveSession, storeCurrentUser } from '../../store/session';
 
 const FollowButton = ({ currentUser, showUser }) => {
   const dispatch = useDispatch();
-  const [isFollowing, setIsFollowing] = useState(showUser?.followers?.includes(currentUser?.id));
+  const [isFollowing, setIsFollowing] = useState(showUser?.followers?.includes(currentUser?.username));
   const [clickLimited, setClickLimited] = useState(false);
   
   const submitFollow = async () => {
@@ -15,7 +15,7 @@ const FollowButton = ({ currentUser, showUser }) => {
     if (!isFollowing && !clickLimited) {
       const res = await dispatch(followUser({ followerId: currentUser.id, followingId: showUser.id }));
       if (res?.ok) {
-        currentUser.followedUsers.push(showUser.id);
+        currentUser.followedUsers.push(showUser.username);
         dispatch(receiveSession({ ...currentUser }));
         storeCurrentUser({ ...currentUser });
         setIsFollowing(true);
@@ -29,7 +29,7 @@ const FollowButton = ({ currentUser, showUser }) => {
     if (isFollowing && !clickLimited) {
       const res = await dispatch(unfollowUser({ followerId: currentUser.id, followingId: showUser.id }));
       if (res?.ok) {
-        const showUserIdx = currentUser.followedUsers.indexOf(showUser.id);
+        const showUserIdx = currentUser.followedUsers.indexOf(showUser.username);
         currentUser.followedUsers.splice(showUserIdx, 1)
         dispatch(receiveSession({ ...currentUser }));
         storeCurrentUser({ ...currentUser });

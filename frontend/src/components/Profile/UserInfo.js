@@ -1,11 +1,11 @@
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getCurrentUser } from "../../store/session";
 import { Link } from "react-router-dom";
-import { getInitial } from "../../store/user";
-import { useEffect } from "react";
-import { fetchUser } from "../../store/user";
+import { getCurrentUser } from "../../store/session";
+import { getInitial, fetchUser } from "../../store/user";
 import Avatar from "./Avatar";
 import FollowButton from "../Follows/FollowButton";
+import FollowIndex from "../Follows/FollowIndex";
 
 const UserInfo = ({ username }) => {
   const dispatch = useDispatch();
@@ -13,6 +13,10 @@ const UserInfo = ({ username }) => {
   const showUser = useSelector(state => state?.users[username]);
   const followingCount = showUser?.followingCount;
   const followerCount = showUser?.followerCount;
+  const [showFollowers, setShowFollowers] = useState(false);
+  const [showFollowings, setShowFollowings] = useState(false);
+  const followers = showUser?.followers;
+  const followedUsers = showUser?.followedUsers;
   let displayName;
   let usernamePronouns;
   let about;
@@ -108,6 +112,7 @@ const UserInfo = ({ username }) => {
         <span 
           id="user-info-follow"
           className={followerCount > 0 ? "bold-follow" : "" }
+          onClick={() => (followerCount > 0) && setShowFollowers(true)}
           >
           {followerCount} followers 
         </span>
@@ -115,6 +120,7 @@ const UserInfo = ({ username }) => {
         <span 
           id="user-info-follow"
           className={followingCount > 0 ? "bold-follow" : "" }
+          onClick={() => (followingCount > 0) && setShowFollowings(true)}
           >
           {followingCount} following
         </span>
@@ -133,6 +139,20 @@ const UserInfo = ({ username }) => {
         )
       }
 
+      {showFollowers && 
+        <FollowIndex 
+          displayUsernames={followers} 
+          count={followerCount}
+          onClose={() => setShowFollowers(false)}
+          />
+        }
+      {showFollowings && 
+        <FollowIndex 
+          displayUsernames={followedUsers} 
+          count={followingCount}
+          onClose={() => setShowFollowings(false)}
+          />
+        }
     </div>
   );
 };
