@@ -53,6 +53,16 @@ class User < ApplicationRecord
   has_many :saved_pins,
     through: :boards,
     source: :pins
+  has_many :follows,
+    primary_key: :id,
+    foreign_key: :following_id,
+    class_name: "Follow",
+    dependent: :destroy
+  has_many :followings,
+    primary_key: :id,
+    foreign_key: :follower_id,
+    class_name: "Follow",
+    dependent: :destroy
 
 
   def self.find_by_credentials(email, password)

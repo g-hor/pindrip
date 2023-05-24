@@ -93,6 +93,27 @@ export const deleteUser = ({ id, username, email, newPw }) => async dispatch => 
   if (res?.ok) dispatch(logoutUser());
   dispatch(removeUser(username));
   return res;
+};
+
+// FOLLOW THUNKS
+export const followUser = ({ followingId, followerId }) => async dispatch => {
+  const res = await csrfFetch('/api/follows', {
+    method: "POST",
+    body: JSON.stringify({follow: { followerId, followingId }})
+  });
+  const data = await res.json();
+  dispatch(receiveAllUsers(data));
+  return res;
+};
+
+export const unfollowUser = ({ followingId, followerId }) => async dispatch => {
+  const res = await csrfFetch('/api/follows/1', {
+    method: "DELETE",
+    body: JSON.stringify({follow: { followerId, followingId }})
+  });
+  const data = await res.json();
+  dispatch(receiveAllUsers(data));
+  return res;
 }
 
 
