@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { followUser, unfollowUser } from '../../store/user';
 import { receiveSession, storeCurrentUser } from '../../store/session';
@@ -18,7 +18,6 @@ const FollowButton = ({ currentUser, showUser }) => {
         currentUser.followedUsers.push(showUser.username);
         dispatch(receiveSession({ ...currentUser }));
         storeCurrentUser({ ...currentUser });
-        setIsFollowing(true);
         setClickLimited(false);
       }
     }
@@ -33,11 +32,16 @@ const FollowButton = ({ currentUser, showUser }) => {
         currentUser.followedUsers.splice(showUserIdx, 1)
         dispatch(receiveSession({ ...currentUser }));
         storeCurrentUser({ ...currentUser });
-        setIsFollowing(false);
         setClickLimited(false);
       }
     }
   };
+
+  useEffect(() => {
+    if (showUser?.followers?.includes(currentUser?.username)) {
+      setIsFollowing(true);
+    }
+  }, [currentUser?.username, showUser?.followers])
 
 
   return (

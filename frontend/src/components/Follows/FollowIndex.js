@@ -11,7 +11,7 @@ const FollowIndex = ({ displayUsernames, count, title, onClose }) => {
 
         <div id="follows-index">
           {displayUsernames.map((username, idx) => (
-            <FollowIndexItem username={username} key={idx} />
+            <FollowIndexItem username={username} onClose={onClose} key={idx} />
           ))}
         </div>
       </div>

@@ -6,7 +6,7 @@ import Avatar from "../Profile/Avatar";
 import FollowButton from "./FollowButton";
 
 
-const FollowIndexItem = ({ username }) => {
+const FollowIndexItem = ({ username, onClose }) => {
   const currentUser = useSelector(getCurrentUser);
   const showUser = useSelector(state => state?.users[username]);
   const avatar = showUser?.avatar;
@@ -14,7 +14,7 @@ const FollowIndexItem = ({ username }) => {
   return (
     <div className="follow-index-item">
       <div className="follow-index-item-user">
-        <Link to={`/${username}`}>
+        <Link to={`/${username}`} onClick={onClose}>
           {avatar ? 
             <Avatar avatar={avatar} /> : 
             <div className="follow-index-initial-holder">
@@ -25,7 +25,7 @@ const FollowIndexItem = ({ username }) => {
             }
         </Link>
         
-        <Link to={`/${username}`}>{username}</Link>
+        <Link to={`/${username}`} onClick={onClose}>{username}</Link>
       </div>
 
       <FollowButton currentUser={currentUser} showUser={showUser} />
