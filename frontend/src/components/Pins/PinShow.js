@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import { getCurrentUser } from "../../store/session";
-import { deletePin, fetchPin, removePin } from "../../store/pin";
+import { deletePin, fetchPin } from "../../store/pin";
 import { getInitial } from "../../store/user";
 import { fetchAllBoards } from "../../store/board";
 import { savePin } from "../../store/boardPin";
@@ -106,17 +106,7 @@ const PinShow = () => {
           Delete Pin
         </li>
       </ul>
-  } else {
-    dropMenu = 
-      <ul>
-        <li 
-          className="show-pin-drop-option"
-          onClick={() => {dispatch(removePin(pin.id)); navigate(-1)}}
-          >
-          Hide Pin
-        </li>
-      </ul>
-  }
+  } 
 
   if (creator) { initial =  getInitial(creator) };
 
@@ -143,17 +133,21 @@ const PinShow = () => {
           <div id="pin-info-container" >
             <div>
               <div id="pin-show-top-bar">
-                <div 
-                  id="ellipsis-btn"
-                  onClick={() => setShowDrop(true)}
-                  >
-                  <i className="fa-solid fa-ellipsis" />
-                  {showDrop && (
-                    <div id="pin-show-drop" ref={dropdown}>
-                      {dropMenu}
-                    </div>
-                  )}
-                </div>
+                {dropMenu ? (
+                  <div 
+                    id="ellipsis-btn"
+                    onClick={() => setShowDrop(true)}
+                    >
+                    <i className="fa-solid fa-ellipsis" />
+                    {showDrop && (
+                      <div id="pin-show-drop" ref={dropdown}>
+                        {dropMenu}
+                      </div>
+                    )}
+                  </div>
+                ) : (
+                  <div />
+                )}
                 
                 {showEdit && (
                   <Modal 
