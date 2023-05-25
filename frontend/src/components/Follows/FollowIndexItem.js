@@ -10,6 +10,7 @@ const FollowIndexItem = ({ username, onClose }) => {
   const currentUser = useSelector(getCurrentUser);
   const showUser = useSelector(state => state?.users[username]);
   const avatar = showUser?.avatar;
+  const isSelf = (username === currentUser?.username);
 
   return (
     <div className="follow-index-item">
@@ -28,7 +29,11 @@ const FollowIndexItem = ({ username, onClose }) => {
         <Link to={`/${username}`} onClick={onClose}>{username}</Link>
       </div>
 
-      <FollowButton currentUser={currentUser} showUser={showUser} />
+      {isSelf ? (
+        <div></div>
+      ) : (
+        <FollowButton currentUser={currentUser} showUser={showUser} />
+      )}
     </div>
   )
 };

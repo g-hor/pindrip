@@ -32,6 +32,7 @@ const FollowButton = ({ currentUser, showUser }) => {
         currentUser.followedUsers.splice(showUserIdx, 1)
         dispatch(receiveSession({ ...currentUser }));
         storeCurrentUser({ ...currentUser });
+        setIsFollowing(false);
         setClickLimited(false);
       }
     }
