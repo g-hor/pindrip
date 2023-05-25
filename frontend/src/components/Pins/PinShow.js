@@ -17,10 +17,11 @@ const PinShow = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { pinId } = useParams();
-  const pin = useSelector(state => state.pins[parseInt(pinId)]);
-  const creator = useSelector(state => state.users[pin?.creator]);
+  const pins = useSelector(state => state?.pins);
+  const pin = pins[parseInt(pinId)];
+  const creator = useSelector(state => state?.users[pin?.creator]);
   const currentUser = useSelector(getCurrentUser);
-  const boards = useSelector(state => Object.values(state?.boards))
+  const boards = useSelector(state => Object.values(state?.boards));
   const [showDrop, setShowDrop] = useState(false);
   const [showBoards, setShowBoards] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
@@ -45,22 +46,22 @@ const PinShow = () => {
     setShowBoards(false); 
   };
 
-  const clickBoard = (board) => {
-    defineDropMenu();
-    setClickedSave(false);
-    setSelectedBoard(board.name); 
-    setShowBoards(false);
-  };
-
   const goHome = (e) => {
     if (e.target !== background?.current) return;
     navigate(-1);
   };
 
-  const submitSave = async () => {
+  const clickBoard = (board) => {
+    setSelectedBoard(board.name); 
+    setClickedSave(false);
+    setShowBoards(false);
+    defineDropMenu();
+  };
+
+  const submitSave = async (boardId, pinId) => {
     if (!clickedSave) {
       setClickedSave(true);
-      const res = await savePin({ boardId, pinId });
+      const res = await dispatch(savePin({ boardId, pinId }));
       if (res?.ok) {
         setSaved(true);
         setTimeout(() => setSaved(false), 3000);
@@ -68,8 +69,17 @@ const PinShow = () => {
     }
   };
 
+  const submitRemoval = async () => {
+    const res = await dispatch(removeBoardPin({ boardId, pinId })); 
+    if (res?.ok) {
+      defineDropMenu();
+      setSaved(true);
+      setTimeout(() => setSaved(false), 3000);
+    }
+  };
+
   const defineDropMenu = () => {
-    if ((currentUser.username === creator.username) && (boards?.filter(board => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pinId)))) {
+    if ((currentUser?.username === creator?.username) && (boards?.filter(board => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pinId)))) {
       dropMenu = 
         <ul>
           <li 
@@ -80,7 +90,7 @@ const PinShow = () => {
           </li>
           <li
             className="show-pin-drop-option"
-            onClick={() => {dispatch(removeBoardPin({ boardId, pinId }))}}
+            onClick={() => submitRemoval()}
             >
             Remove Pin
           </li>
@@ -91,7 +101,7 @@ const PinShow = () => {
             Delete Pin
           </li>
         </ul>
-    } else if ((currentUser.username === creator.username) && !(boards?.filter(board => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pinId)))) {
+    } else if ((currentUser?.username === creator?.username) && !(boards?.filter(board => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pinId)))) {
       dropMenu = 
       <ul>
         <li 
@@ -107,12 +117,12 @@ const PinShow = () => {
           Delete Pin
         </li>
       </ul>
-    } else if ((currentUser.username !== creator.username) && (boards?.filter(board => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pinId)))) {
+    } else if ((currentUser?.username !== creator?.username) && (boards?.filter(board => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pinId)))) {
       dropMenu = 
       <ul>
         <li
           className="show-pin-drop-option"
-          onClick={() => removeBoardPin({ boardId, pinId })}
+          onClick={() => submitRemoval()}
           >
           Remove Pin
         </li>
@@ -148,6 +158,10 @@ const PinShow = () => {
 
     return () => (document.removeEventListener('click', hideBoards));
   });
+
+  useEffect(() => {
+    defineDropMenu();
+  })
 
 
   if (creator) { initial =  getInitial(creator) };
@@ -212,18 +226,17 @@ const PinShow = () => {
 
                     {showBoards && (
                       <div id="board-options-menu" ref={boardMenu}>
+                        <div id="board-options">All boards</div>
                         {boards?.map((board, i) => (
                           <div 
                             className="board-dropdown-option" 
                             key={i}
-                            onClick={() => {
-                              setSelectedBoard(board.name); 
-                              setClickedSave(false);
-                              setShowBoards(false);
-                              defineDropMenu();
-                            }}
+                            onClick={() => clickBoard(board)}
                             >
-                            {board.name}
+                            <img className="board-dropdown-thumbnail" src={pins[board.savedPins[0]].photo} alt="" />
+                            <div className="board-dropdown-info">
+                              {board.name}
+                            </div>
                           </div>
                         ))}
                       </div>
@@ -232,7 +245,7 @@ const PinShow = () => {
 
                   <div 
                     id="show-pin-save-btn"
-                    onClick={submitSave}
+                    onClick={() => submitSave(boardId, pinId)}
                     >
                     {clickedSave ? "Saved" : "Save"}
                   </div>
