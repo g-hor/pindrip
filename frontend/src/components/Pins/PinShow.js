@@ -233,9 +233,21 @@ const PinShow = () => {
                             key={i}
                             onClick={() => clickBoard(board)}
                             >
-                            <img className="board-dropdown-thumbnail" src={pins[board.savedPins[0]].photo} alt="" />
+                            <div className="board-dropdown-thumbnail-holder">
+                              {pins[board.savedPins[0]]?.photo && (
+                                <img className="board-dropdown-thumbnail" src={pins[board.savedPins[0]]?.photo} alt="" />
+                                )}
+                            </div>
                             <div className="board-dropdown-info">
-                              {board.name}
+                              <div>
+                                {board.name}
+                              </div>
+                              <div 
+                                id="show-pin-save-btn"
+                                onClick={() => submitSave(boardId, pinId)}
+                                >
+                                {clickedSave ? "Saved" : "Save"}
+                              </div>
                             </div>
                           </div>
                         ))}

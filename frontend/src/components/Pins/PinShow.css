@@ -128,13 +128,27 @@
   align-items: center;
 }
 
+.board-dropdown-thumbnail-holder {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background-color: rgb(238, 238, 238);
+  margin-right: 8px;
+}
+
 .board-dropdown-thumbnail {
   width: 48px;
   height: 48px;
   border-radius: 8px;
-  margin-right: 8px;
   overflow: hidden;
   object-fit: cover;
+}
+
+.board-dropdown-info {
+  width: 288px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .board-dropdown-option:hover {
