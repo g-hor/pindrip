@@ -1,5 +1,6 @@
-created_pins = user.pins.map{ |pin| pin.id } if user.pins
-created_boards = user.boards.map{ |board| board.id } if user.boards
+user.pins ? created_pins = user.pins.map{ |pin| pin.id } : created_pins = []
+user.boards ? created_boards = user.boards.map{ |board| board.id } : created_boards = []
+
 
 followers = 
   Follow

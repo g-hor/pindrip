@@ -5,7 +5,7 @@ import { getCurrentUser } from "../../store/session";
 import { deletePin, fetchPin } from "../../store/pin";
 import { getInitial } from "../../store/user";
 import { fetchAllBoards } from "../../store/board";
-import { savePin } from "../../store/boardPin";
+import { removeBoardPin, savePin } from "../../store/boardPin";
 import { Modal } from "../../context/modal";
 import Avatar from "../Profile/Avatar";
 import EditPinForm from "./EditPinForm";
@@ -26,7 +26,7 @@ const PinShow = () => {
   const [showEdit, setShowEdit] = useState(false);
   const [saved, setSaved] = useState(false);
   const [clickedSave, setClickedSave] = useState(false);
-  const [selectedBoard, setSelectedBoard] = useState(boards[0]?.name || 'All Pins');
+  const [selectedBoard, setSelectedBoard] = useState(boards[0]?.name || 'All');
   let boardId = boards?.filter(board => board?.name === selectedBoard)[0]?.id;
   let background = useRef();
   let dropdown = useRef();
@@ -45,6 +45,13 @@ const PinShow = () => {
     setShowBoards(false); 
   };
 
+  const clickBoard = (board) => {
+    defineDropMenu();
+    setClickedSave(false);
+    setSelectedBoard(board.name); 
+    setShowBoards(false);
+  };
+
   const goHome = (e) => {
     if (e.target !== background?.current) return;
     navigate(-1);
@@ -58,6 +65,60 @@ const PinShow = () => {
         setSaved(true);
         setTimeout(() => setSaved(false), 3000);
       }
+    }
+  };
+
+  const defineDropMenu = () => {
+    if ((currentUser.username === creator.username) && (boards?.filter(board => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pinId)))) {
+      dropMenu = 
+        <ul>
+          <li 
+            className="show-pin-drop-option"
+            onClick={() => setShowEdit(true)}
+            >
+            Edit Pin
+          </li>
+          <li
+            className="show-pin-drop-option"
+            onClick={() => {dispatch(removeBoardPin({ boardId, pinId }))}}
+            >
+            Remove Pin
+          </li>
+          <li 
+            className="show-pin-drop-option"
+            onClick={() => {dispatch(deletePin(pin.id)); navigate(-1)}}
+            >
+            Delete Pin
+          </li>
+        </ul>
+    } else if ((currentUser.username === creator.username) && !(boards?.filter(board => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pinId)))) {
+      dropMenu = 
+      <ul>
+        <li 
+          className="show-pin-drop-option"
+          onClick={() => setShowEdit(true)}
+          >
+          Edit Pin
+        </li>
+        <li 
+          className="show-pin-drop-option"
+          onClick={() => {dispatch(deletePin(pin.id)); navigate(-1)}}
+          >
+          Delete Pin
+        </li>
+      </ul>
+    } else if ((currentUser.username !== creator.username) && (boards?.filter(board => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pinId)))) {
+      dropMenu = 
+      <ul>
+        <li
+          className="show-pin-drop-option"
+          onClick={() => removeBoardPin({ boardId, pinId })}
+          >
+          Remove Pin
+        </li>
+      </ul>
+    } else {
+      dropMenu = null;
     }
   };
   
@@ -89,27 +150,8 @@ const PinShow = () => {
   });
 
 
-  
-  if (currentUser?.username === creator?.username) {
-    dropMenu = 
-      <ul>
-        <li 
-          className="show-pin-drop-option"
-          onClick={() => setShowEdit(true)}
-          >
-          Edit Pin
-        </li>
-        <li 
-          className="show-pin-drop-option"
-          onClick={() => {dispatch(deletePin(pin.id)); navigate(-1)}}
-          >
-          Delete Pin
-        </li>
-      </ul>
-  } 
-
   if (creator) { initial =  getInitial(creator) };
-
+  defineDropMenu();
 
   return (
     <>
@@ -174,7 +216,12 @@ const PinShow = () => {
                           <div 
                             className="board-dropdown-option" 
                             key={i}
-                            onClick={() => {setSelectedBoard(board.name); setShowBoards(false)}}
+                            onClick={() => {
+                              setSelectedBoard(board.name); 
+                              setClickedSave(false);
+                              setShowBoards(false);
+                              defineDropMenu();
+                            }}
                             >
                             {board.name}
                           </div>
