@@ -26,15 +26,24 @@ const PinShow = () => {
   const [showBoards, setShowBoards] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [saved, setSaved] = useState(false);
-  const [clickedSave, setClickedSave] = useState(false);
+  const [clickedSave, setClickedSave] = useState(Array(boards?.length).fill(false));
   const [selectedBoard, setSelectedBoard] = useState(boards[0]?.name || 'All');
   let boardId = boards?.filter(board => board?.name === selectedBoard)[0]?.id;
+  let boardIndex = boards.indexOf(boards?.filter(board => board?.name === selectedBoard)[0]);
   let background = useRef();
   let dropdown = useRef();
   let boardMenu = useRef();
   let initial;
   let dropMenu;
 
+
+  const abbreviateBoard = (boardName, length) => {
+    if (boardName.length > length) {
+      return boardName.slice(0, length) + '...';
+    } else {
+      return boardName;
+    }
+  };
   
   const hideDrop = (e) => {
     if (dropdown?.current?.contains(e.target)) return;
@@ -42,7 +51,7 @@ const PinShow = () => {
   };
 
   const hideBoards = (e) => {
-    if (e.target === boardMenu?.current) return;
+    if (boardMenu?.current?.contains(e.target)) return;
     setShowBoards(false); 
   };
 
@@ -52,15 +61,24 @@ const PinShow = () => {
   };
 
   const clickBoard = (board) => {
+    // const idx = boards.indexOf(board);
     setSelectedBoard(board.name); 
-    setClickedSave(false);
+    // setClickedSave(prev => {
+    //   const next = [ ...prev ];
+    //   next[idx] = true;
+    //   return next;
+    // });
     setShowBoards(false);
     defineDropMenu();
   };
 
-  const submitSave = async (boardId, pinId) => {
-    if (!clickedSave) {
-      setClickedSave(true);
+  const submitSave = async (boardId, pinId, boardIdx) => {
+    if (!clickedSave[boardIdx]) {
+      setClickedSave(prev => {
+        const next = [ ...prev ];
+        next[boardIdx] = true;
+        return next;
+      });
       const res = await dispatch(savePin({ boardId, pinId }));
       if (res?.ok) {
         setSaved(true);
@@ -221,7 +239,7 @@ const PinShow = () => {
                   <div id="show-pin-board-dropdown-btn" onClick={() => setShowBoards(true)}>
                     <i className="fa-solid fa-chevron-down dropbtn board-drop" />
                     <div id="board-first-option">
-                      {selectedBoard}
+                      {abbreviateBoard(selectedBoard, 9)}
                     </div>
 
                     {showBoards && (
@@ -240,13 +258,14 @@ const PinShow = () => {
                             </div>
                             <div className="board-dropdown-info">
                               <div>
-                                {board.name}
+                                {abbreviateBoard(board.name, 15)}
                               </div>
                               <div 
                                 id="show-pin-save-btn"
-                                onClick={() => submitSave(boardId, pinId)}
+                                className={clickedSave[i] ? "saved" : " "}
+                                onClick={() => submitSave(board?.id, pinId, i)}
                                 >
-                                {clickedSave ? "Saved" : "Save"}
+                                {clickedSave[i] ? "Saved" : "Save"}
                               </div>
                             </div>
                           </div>
@@ -257,9 +276,10 @@ const PinShow = () => {
 
                   <div 
                     id="show-pin-save-btn"
-                    onClick={() => submitSave(boardId, pinId)}
+                    className={clickedSave[boardIndex] ? "saved" : " "}
+                    onClick={() => submitSave(boardId, pinId, boardIndex)}
                     >
-                    {clickedSave ? "Saved" : "Save"}
+                    {clickedSave[boardIndex] ? "Saved" : "Save"}
                   </div>
                 </div>
               </div>

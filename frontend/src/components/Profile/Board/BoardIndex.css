@@ -99,6 +99,14 @@
   overflow: hidden;
 }
 
+.first-img img {
+  display: block;
+  width: 157px;
+  object-fit: cover;
+  border-top-left-radius: 16px;
+  border-bottom-left-radius: 16px;
+}
+
 .second-img-holder {
   display: flex;
   flex-direction: column;
@@ -116,7 +124,7 @@
 
 .secondary-img img {
   display: block;
-  min-width: 77px;
+  width: 77px;
   object-fit: cover;
   border-radius: 0 16px 0 0;
 }
@@ -131,7 +139,7 @@
 
 .tertiary-img img {
   display: block;
-  min-width: 77px;
+  width: 77px;
   object-fit: cover;
   border-radius: 0 0 16px 0;
 }
