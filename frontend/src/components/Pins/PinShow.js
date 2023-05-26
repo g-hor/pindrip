@@ -26,8 +26,10 @@ const PinShow = () => {
   const [showBoards, setShowBoards] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [saved, setSaved] = useState(false);
+  const [removed, setRemoved] = useState(false);
   const [clickedSave, setClickedSave] = useState(Array(boards?.length).fill(false));
-  const [selectedBoard, setSelectedBoard] = useState(boards[0]?.name || 'All');
+  const [showSaveBtn, setShowSaveBtn] = useState(Array(boards?.length).fill(false));
+  const [selectedBoard, setSelectedBoard] = useState(boards[0]?.name || 'All Pins');
   let boardId = boards?.filter(board => board?.name === selectedBoard)[0]?.id;
   let boardIndex = boards.indexOf(boards?.filter(board => board?.name === selectedBoard)[0]);
   let background = useRef();
@@ -51,8 +53,9 @@ const PinShow = () => {
   };
 
   const hideBoards = (e) => {
-    if (boardMenu?.current?.contains(e.target)) return;
+    if (e.target === boardMenu?.current) return;
     setShowBoards(false); 
+    setShowSaveBtn(Array(boards?.length).fill(false));
   };
 
   const goHome = (e) => {
@@ -61,13 +64,7 @@ const PinShow = () => {
   };
 
   const clickBoard = (board) => {
-    // const idx = boards.indexOf(board);
     setSelectedBoard(board.name); 
-    // setClickedSave(prev => {
-    //   const next = [ ...prev ];
-    //   next[idx] = true;
-    //   return next;
-    // });
     setShowBoards(false);
     defineDropMenu();
   };
@@ -84,6 +81,18 @@ const PinShow = () => {
         setSaved(true);
         setTimeout(() => setSaved(false), 3000);
       }
+    } else {
+      const res = await dispatch(removeBoardPin({ boardId, pinId }));
+      if (res?.ok) {
+        setClickedSave(prev => {
+          const next = [ ...prev ];
+          next[boardIdx] = false;
+          return next;
+        });
+        defineDropMenu();
+        setRemoved(true);
+        setTimeout(() => setRemoved(false), 3000);
+      }
     }
   };
 
@@ -91,8 +100,8 @@ const PinShow = () => {
     const res = await dispatch(removeBoardPin({ boardId, pinId })); 
     if (res?.ok) {
       defineDropMenu();
-      setSaved(true);
-      setTimeout(() => setSaved(false), 3000);
+      setRemoved(true);
+      setTimeout(() => setRemoved(false), 3000);
     }
   };
 
@@ -250,6 +259,16 @@ const PinShow = () => {
                             className="board-dropdown-option" 
                             key={i}
                             onClick={() => clickBoard(board)}
+                            onMouseEnter={() => setShowSaveBtn(prev => {
+                              const next = [ ...prev ];
+                              next[i] = true;
+                              return next;
+                            })}
+                            onMouseLeave={() => setShowSaveBtn(prev => {
+                              const next = [ ...prev ];
+                              next[i] = false;
+                              return next;
+                            })}
                             >
                             <div className="board-dropdown-thumbnail-holder">
                               {pins[board.savedPins[0]]?.photo && (
@@ -260,13 +279,15 @@ const PinShow = () => {
                               <div>
                                 {abbreviateBoard(board.name, 15)}
                               </div>
-                              <div 
-                                id="show-pin-save-btn"
-                                className={clickedSave[i] ? "saved" : " "}
-                                onClick={() => submitSave(board?.id, pinId, i)}
-                                >
-                                {clickedSave[i] ? "Saved" : "Save"}
-                              </div>
+                              {showSaveBtn[i] && (
+                                <div 
+                                  id="show-pin-save-btn"
+                                  className={clickedSave[i] ? "saved" : " "}
+                                  onClick={() => submitSave(board?.id, pinId, i)}
+                                  >
+                                  {clickedSave[i] ? "Saved" : "Save"}
+                                </div>
+                                )}
                             </div>
                           </div>
                         ))}
@@ -315,6 +336,10 @@ const PinShow = () => {
               </div>
             </div>
 
+          </div>
+          
+          <div id="saved-msg-container" className={removed ? "saved save-pin-show" : "save-pin-show"}>
+            Drip removed successfully!
           </div>
 
           <div id="saved-msg-container" className={saved ? "saved save-pin-show" : "save-pin-show"}>
