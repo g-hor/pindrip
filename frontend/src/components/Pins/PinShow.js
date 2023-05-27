@@ -64,6 +64,7 @@ const PinShow = () => {
   };
 
   const clickBoard = (board) => {
+    setShowSaveBtn(Array(boards?.length).fill(false));
     setSelectedBoard(board.name); 
     setShowBoards(false);
     defineDropMenu();

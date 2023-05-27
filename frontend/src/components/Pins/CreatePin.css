@@ -22,10 +22,15 @@
   position: relative;
 }
 
-#create-pin-top-btn-holder {
-  width: 100%;
+#create-pin-top-row {
   display: flex;
+  align-items: center;
   justify-content: flex-end;
+}
+
+#create-pin-top-btn-holder {
+  width: 205px;
+  display: flex;
   align-items: center;
   margin-bottom: 10px;
   position: relative;
@@ -94,7 +99,6 @@
 
 #create-pin-left-container {
   width: 270px;
-  /* height: 550px; */
   height: 100%;
   border-radius: 8px;
   background-color: rgb(238, 238, 238);
@@ -106,9 +110,13 @@
   justify-content: center;
 }
 
+#create-pin-left-container.no-picture {
+  border: 1px solid #CC0000;
+  background-color: #ffe8e7;
+}
+
 #create-pin-upload-box {
   width: 255px;
-  /* height: 515px; */
   height: 100%;
   border-radius: 8px;
   border: 2px dashed #dddddd;
@@ -144,6 +152,15 @@
   text-align: center;
   padding-top: 30px;
 }
+
+#dropbox-text.no-picture div {
+  color: #CC0000;
+}
+
+#dropbox-text.no-picture i {
+  font-size: 22px;
+  color: #CC0000;
+ }
 
 #create-pin-right-container {
   display: flex;
