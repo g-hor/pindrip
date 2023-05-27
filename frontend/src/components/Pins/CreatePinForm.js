@@ -15,7 +15,15 @@ const CreatePinForm = () => {
   const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser);
   const pins = useSelector(state => state?.pins);
-  const boards = useSelector(state => Object.values(state?.boards));
+  const boards = useSelector(state => 
+    Object.values(state?.boards)
+      .slice(0, 1)
+      .concat(
+        Object.values(state?.boards)
+          .slice(1)
+          .reverse()
+      )
+    );
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [altText, setAltText] = useState('');

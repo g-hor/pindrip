@@ -21,7 +21,15 @@ const PinShow = () => {
   const pin = pins[parseInt(pinId)];
   const creator = useSelector(state => state?.users[pin?.creator]);
   const currentUser = useSelector(getCurrentUser);
-  const boards = useSelector(state => Object.values(state?.boards));
+  const boards = useSelector(state => 
+    Object.values(state?.boards)
+      .slice(0, 1)
+      .concat(
+        Object.values(state?.boards)
+          .slice(1)
+          .reverse()
+      )
+    );
   const [showDrop, setShowDrop] = useState(false);
   const [showBoards, setShowBoards] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
