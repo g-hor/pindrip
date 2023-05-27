@@ -84,7 +84,7 @@ const pinsReducer = (state = {}, action) => {
   const nextState = { ...state };
   switch (action.type) {
     case RECEIVE_PIN:
-      return { ...action.payload, ...nextState };
+      return { ...nextState, ...action.payload};
     case RECEIVE_ALL_PINS:
       return { ...nextState, ...action.payload};
     case REMOVE_PIN:

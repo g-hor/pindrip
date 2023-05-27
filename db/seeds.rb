@@ -57,18 +57,18 @@ end
 
 puts "Creating follows..."
 # making the demo user very very popular
-15.times do |i|
+25.times do |i|
   Follow.create!({ follower_id: i + 2, following_id: 1 })
 end
 
 # making sure other seeded users also feel included
-50.times do
-  follower = rand(1..16)
-  following = rand(1..16)
+100.times do
+  follower = rand(1..26)
+  following = rand(2..26)
 
   while follower == following || Follow.exists?(follower_id: follower, following_id: following)
-    follower = rand(1..16)
-    following = rand(1..16)
+    follower = rand(1..26)
+    following = rand(2..26)
   end
 
   Follow.create!({ follower_id: follower, following_id: following })
@@ -76,7 +76,7 @@ end
 
 puts "Creating pins..."
 # creating pins for the demo user
-10.times do
+7.times do
   Pin.create!({
     title: Faker::Quote.famous_last_words,
     description: Faker::Hipster.paragraph,
@@ -87,13 +87,13 @@ puts "Creating pins..."
 end
 
 # creating pins for other seeded users
-24.times do 
+27.times do 
   Pin.create!({
     title: Faker::Quote.famous_last_words,
     description: Faker::Hipster.paragraph,
     website: Faker::Internet.url,
     alt_text: Faker::Hipster.sentence,
-    user_id: rand(2..16)
+    user_id: rand(2..26)
   })
 end
 
@@ -108,11 +108,11 @@ puts "Creating boards..."
 end
 
 # creating boards for other seeded users
-20.times do
+25.times do
   Board.create!({
     name: Faker::Emotion.unique.adjective,
     description: Faker::JapaneseMedia::StudioGhibli.character,
-    user_id: rand(2..16)
+    user_id: rand(2..26)
   })
 end
 
@@ -120,8 +120,8 @@ puts "Seeding boards with saved pins..."
 # randomly assigning pins to be saved to various boards
 100.times do
   BoardPin.create!({
-    board_id: rand(1..28),
-    pin_id: rand(1..24)
+    board_id: rand(1..30),
+    pin_id: rand(1..34)
   })
 end
 

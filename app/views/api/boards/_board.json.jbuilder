@@ -19,7 +19,7 @@ symbols = {
   '-' => "17"
 }
 
-saved_pins = board.pins.sort_by(&:created_at).map{ |pin| pin.id}
+board.pins ? saved_pins = board.pins.sort_by(&:created_at).map{ |pin| pin.id} : saved_pins = []
 board_name_split = board.name.split("").map do |char|
   symbols[char] ? symbols[char] : char.downcase
 end

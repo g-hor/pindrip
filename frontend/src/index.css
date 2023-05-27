@@ -76,7 +76,7 @@ table {
 	left: calc(50vw - 132px);
   padding: 10px 20px;
   border-radius: 12px;
-  box-shadow: 0 0 10px 0 rgba(210, 210, 210, 0.591);
+  box-shadow: 0 0 2px 0 rgba(210, 210, 210, 0.591);
   background-color: rgb(56, 10, 106);
 	color: white;
 	font-size: 22px;

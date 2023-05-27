@@ -6,7 +6,7 @@ import './PinIndex.css';
 
 const PinIndex = () => {
   const { username } = useParams();
-  const pins = useSelector(state => Object.values(state.pins));
+  const pins = useSelector(state => Object.values(state.pins).reverse());
 
   return (
     <>

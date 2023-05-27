@@ -74,6 +74,7 @@
 }
 
 #show-board-drop-save-btn-holder {
+  width: 205px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -106,19 +107,60 @@
 
 #board-options-menu {
   position: absolute;
-  width: 100%;
+  width: 360px;
   padding: 12px;
   border-radius: 16px;
   background-color: white;
   top: 55px;
-  left: 0;
+  left: -90px;
   box-shadow: 0px 1px 20px 0px rgba(0, 0, 0, 0.1);
   z-index: 1;
 }
 
+#board-options {
+  cursor: default;
+}
+
 .board-dropdown-option {
-  padding: 12px;
-  border-radius: 12px;
+  padding: 8px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+}
+
+.board-dropdown-thumbnail-holder {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  background-color: rgb(238, 238, 238);
+  margin-right: 8px;
+}
+
+.board-dropdown-thumbnail {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  overflow: hidden;
+  object-fit: cover;
+}
+
+.board-dropdown-info {
+  width: 288px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.board-dropdown-name-holder {
+  display: flex;
+  flex-direction: column;
+}
+
+.board-dropdown-name-holder div:nth-child(2) {
+  margin-top: 4px;
+  color: #666;
+  font-weight: 300;
+  font-size: 12px;
 }
 
 .board-dropdown-option:hover {
@@ -135,6 +177,14 @@
 
 #show-pin-save-btn:hover {
   background-color: rgb(56, 10, 106);
+}
+
+#show-pin-save-btn.saved {
+  background-color: black;
+}
+
+#show-pin-save-btn.saved:hover {
+  background-color: black;
 }
 
 #pin-show-website {

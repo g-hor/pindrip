@@ -13,7 +13,15 @@ const BoardIndex = ({ showUser }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const currentUser = useSelector(getCurrentUser);
-  const boards = useSelector(state => Object.values(state?.boards))
+  const boards = useSelector(state => 
+    Object.values(state?.boards)
+      .slice(0, 1)
+      .concat(
+        Object.values(state?.boards)
+          .slice(1)
+          .reverse()
+      )
+    );
   const [showDrop, setShowDrop] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState('');
