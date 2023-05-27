@@ -25,7 +25,7 @@ const CreatePinForm = () => {
   const [photoUrl, setPhotoUrl] = useState(null);
   const [showBoards, setShowBoards] = useState(false);
   const [selectedBoard, setSelectedBoard] = useState(boards[0]?.name || 'All Pins');
-  const [clickedSave, setClickedSave] = useState(Array(boards?.length).fill(false));
+  const [clickedSave, setClickedSave] = useState(false);
   const [showSaveBtn, setShowSaveBtn] = useState(Array(boards?.length).fill(false));
   const [saved, setSaved] = useState(false);
   const [noPicture, setNoPicture] = useState(false);
@@ -65,16 +65,12 @@ const CreatePinForm = () => {
       setNoPicture(true);
       return;
     }
-    if (!clickedSave.some(click => click === true)) {
+    if (!clickedSave) {
       const pin = await dispatch(createPin({ title, description, altText, website, photo }));
       const pinId = Object.keys(pin)[0];
       const res = await dispatch(savePin({ boardId, pinId }));
       if (res?.ok) {
-        setClickedSave(prev => {
-          const next = [ ...prev ];
-          next[boardIndex] = true;
-          return next;
-        });
+        setClickedSave(true);
         setSaved(true);
         setTimeout(() => setSaved(false), 3000);
         setTimeout(() => navigate(`/pins/${pinId}`), 3000);
@@ -182,10 +178,10 @@ const CreatePinForm = () => {
                             {showSaveBtn[i] && (
                               <div 
                                 id="show-pin-save-btn"
-                                className={clickedSave[i] ? "saved" : " "}
+                                className={clickedSave ? "saved" : " "}
                                 onClick={() => handleSubmit(board.id, i)}
                                 >
-                                {clickedSave[i] ? "Saved" : "Save"}
+                                {clickedSave ? "Saved" : "Save"}
                               </div>
                               )}
                           </div>
@@ -197,10 +193,10 @@ const CreatePinForm = () => {
 
                 <div 
                   id="show-pin-save-btn"
-                  className={clickedSave[boardIndex] ? "saved" : " "}
+                  className={clickedSave ? "saved" : " "}
                   onClick={() => handleSubmit(boardId)}
                   >
-                  {clickedSave[boardIndex] ? "Saved" : "Save"}
+                  {clickedSave ? "Saved" : "Save"}
                 </div>
 
               </div>

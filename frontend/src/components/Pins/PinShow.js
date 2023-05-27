@@ -277,8 +277,13 @@ const PinShow = () => {
                                 )}
                             </div>
                             <div className="board-dropdown-info">
-                              <div>
+                              <div className="board-dropdown-name-holder">
+                                <div>
                                 {abbreviateBoard(board.name, 15)}
+                                </div>
+                                {board.savedPins.includes(parseInt(pinId)) && 
+                                  <div>Saved here already</div>
+                                  }
                               </div>
                               {showSaveBtn[i] && (
                                 <div 
