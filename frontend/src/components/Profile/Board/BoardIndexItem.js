@@ -2,9 +2,9 @@ import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 
 const BoardIndexItem = ({ board, showUser }) => {
-  let firstIdx = board.savedPins[0];
-  let secondIdx = board.savedPins[1];
-  let thirdIdx = board.savedPins[2];
+  let firstIdx = board?.savedPins[0];
+  let secondIdx = board?.savedPins[1];
+  let thirdIdx = board?.savedPins[2];
   const firstPhoto = useSelector(state => state?.pins[firstIdx]?.photo);
   const secondPhoto = useSelector(state => state?.pins[secondIdx]?.photo);
   const thirdPhoto = useSelector(state => state?.pins[thirdIdx]?.photo);

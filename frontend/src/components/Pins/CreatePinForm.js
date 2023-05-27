@@ -30,7 +30,6 @@ const CreatePinForm = () => {
   const [saved, setSaved] = useState(false);
   const [noPicture, setNoPicture] = useState(false);
   const boardId = boards?.filter(board => board?.name === selectedBoard)[0]?.id;
-  let boardIndex = boards.indexOf(boards?.filter(board => board?.name === selectedBoard)[0]);
   const uploadInput = useRef();
   const boardMenu = useRef();
   let displayInitial;
@@ -66,11 +65,11 @@ const CreatePinForm = () => {
       return;
     }
     if (!clickedSave) {
+      setClickedSave(true);
       const pin = await dispatch(createPin({ title, description, altText, website, photo }));
       const pinId = Object.keys(pin)[0];
       const res = await dispatch(savePin({ boardId, pinId }));
       if (res?.ok) {
-        setClickedSave(true);
         setSaved(true);
         setTimeout(() => setSaved(false), 3000);
         setTimeout(() => navigate(`/pins/${pinId}`), 3000);
