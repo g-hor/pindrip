@@ -32,6 +32,8 @@ const PinIndexItem = ({ pin }) => {
   const [opacity, setOpacity] = useState({opacity: 0});
   const boardMenu = useRef();
   const pinImg = useRef();
+  const overlayContainer = useRef();
+  const [smallScreen, setSmallScreen] = useState((pinImg?.current?.offsetWidth) <= 200);
   let initial;
 
 
@@ -74,7 +76,18 @@ const PinIndexItem = ({ pin }) => {
       }
     }
   };
+  
+  useEffect(() => {
+    const resizeImg = () => {
+      if ((pinImg?.current?.offsetWidth) <= 200)
+      setSmallScreen(true);
+      console.log(pinImg?.current?.offsetWidth)
+    };
 
+    document.addEventListener('resize', resizeImg);
+
+    return () => (document.removeEventListener('resize', resizeImg));
+  }, [])
 
   useEffect(() => {
     if (!showBoards) return;
@@ -89,11 +102,13 @@ const PinIndexItem = ({ pin }) => {
     initial = getInitial(showUser)
   };
 
+
   return (
     <>
       <div 
         className="pin-img-overlay-container"
-        onMouseEnter={() => {setOpacity({opacity: 0.4}); setDisplayMenu(true)}}
+        ref={overlayContainer}
+        onMouseEnter={() => {setOpacity({opacity: 0.45}); setDisplayMenu(true)}}
         onMouseLeave={() => {setOpacity({opacity: 0}); setDisplayMenu(false)}}
         >
         <img 
@@ -102,17 +117,20 @@ const PinIndexItem = ({ pin }) => {
           className="pin-index-img"
           ref={pinImg}
           />
-        <div 
-          className="pin-overlay"
-          style={opacity}
+        <Link 
+          to={`/pins/${pin?.id}`}
           >
-        </div>
+          <div 
+            className="pin-overlay"
+            style={opacity}
+            />
+        </Link>
         {displayMenu && (
-          <div className="pin-item-top-bar">
+          <div className="pin-item-top-bar" onClick={() => setShowBoards(true)}>
             <div id="show-pin-board-dropdown-btn" onClick={() => setShowBoards(true)}>
               <i className="fa-solid fa-chevron-down dropbtn board-drop" />
               <div id="board-first-option">
-                {abbreviateBoard(selectedBoard, 9)}
+                {smallScreen ? "" : abbreviateBoard(selectedBoard, 9)}
               </div>
 
               {showBoards && (
@@ -142,7 +160,7 @@ const PinIndexItem = ({ pin }) => {
                       <div className="board-dropdown-info">
                         <div className="board-dropdown-name-holder">
                           <div>
-                          {abbreviateBoard(board.name, 15)}
+                          {abbreviateBoard(board.name, 12)}
                           </div>
                           {board.savedPins.includes(parseInt(pin?.id)) && 
                             <div>Saved here already</div>
@@ -150,8 +168,8 @@ const PinIndexItem = ({ pin }) => {
                         </div>
                         {showSaveBtn[i] && (
                           <div 
-                            id="show-pin-save-btn"
-                            className={clickedSave ? "saved" : " "}
+                            id="pin-item-save-btn"
+                            className={clickedSave[i] ? "saved" : " "}
                             onClick={() => submitSave(board?.id, pin?.id, i)}
                             >
                             {clickedSave[i] ? "Saved" : "Save"}
@@ -165,7 +183,7 @@ const PinIndexItem = ({ pin }) => {
             </div>
 
             <div 
-              id="show-pin-save-btn"
+              id="pin-item-save-btn"
               className={clickedSave[boardIndex] ? "saved" : " "}
               onClick={() => submitSave(boardId, pin?.id, boardIndex)}
               >

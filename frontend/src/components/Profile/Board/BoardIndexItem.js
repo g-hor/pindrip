@@ -10,6 +10,15 @@ const BoardIndexItem = ({ board, showUser }) => {
   const thirdPhoto = useSelector(state => state?.pins[thirdIdx]?.photo);
 
 
+  const abbreviateBoard = (boardName, length) => {
+    if (boardName.length > length) {
+      return boardName.slice(0, length) + '...';
+    } else {
+      return boardName;
+    }
+  };
+
+
   return (
       <div className="board-item">
         <div className="board-img-holder">
@@ -33,7 +42,7 @@ const BoardIndexItem = ({ board, showUser }) => {
         <div className="board-info">
           <div className="board-name">
             <Link to={`/${showUser?.username}/${board?.boardUrl}`}>
-              {board?.name}
+              {abbreviateBoard(board?.name, 10)}
             </Link>
           </div>
           
