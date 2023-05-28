@@ -1,12 +1,23 @@
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
+import { getCurrentUser } from "../../store/session";
+import { fetchAllBoards } from "../../store/board";
 import PinIndexItem from "./PinIndexItem";
 import './PinIndex.css';
 
 
 const PinIndex = () => {
+  const dispatch = useDispatch();
   const { username } = useParams();
+  const currentUser = useSelector(getCurrentUser);
   const pins = useSelector(state => Object.values(state.pins).reverse());
+
+
+  useEffect(() => {
+    dispatch(fetchAllBoards(currentUser?.id));
+  }, [dispatch, currentUser?.id, username])
+
 
   return (
     <>
