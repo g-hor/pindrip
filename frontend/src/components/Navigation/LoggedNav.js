@@ -6,6 +6,7 @@ import { capitalizeFirstLetter, fetchUser, formatEmail } from "../../store/user"
 import Avatar from "../Profile/Avatar";
 import MenuButton from "../MenuButton";
 import { fetchAllPins } from "../../store/pin";
+import { fetchAllBoards } from "../../store/board";
 
 const LoggedNav = () => {
   const dispatch = useDispatch();
@@ -18,7 +19,8 @@ const LoggedNav = () => {
   useEffect(() => {
     dispatch(fetchUser(username));
     dispatch(fetchAllPins());
-  }, [dispatch, username, currentUser?.avatar]);
+    dispatch(fetchAllBoards(currentUser?.id));
+  }, [dispatch, username, currentUser?.avatar, currentUser?.id]);
   
   useEffect(() => {
     if (currentUser) {

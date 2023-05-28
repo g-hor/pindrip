@@ -195,8 +195,8 @@ const CreatePinForm = () => {
                         </div>
                       ))}
                     </div>
-                    )}
-                  </div>
+                  )}
+                </div>
 
                 <div 
                   id="show-pin-save-btn"
