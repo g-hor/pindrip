@@ -105,6 +105,7 @@
 .pin-item-top-bar #board-options-menu {
   width: 360px;
   top: 62px;
+  box-shadow: 0px 1px 8px 0px rgba(0, 0, 0, 0.1);
 }
 
 .pin-index-img {

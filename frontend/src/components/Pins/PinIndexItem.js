@@ -33,7 +33,6 @@ const PinIndexItem = ({ pin }) => {
   const boardMenu = useRef();
   const pinImg = useRef();
   const overlayContainer = useRef();
-  const [smallScreen, setSmallScreen] = useState((pinImg?.current?.offsetWidth) <= 200);
   let initial;
 
 
@@ -76,18 +75,7 @@ const PinIndexItem = ({ pin }) => {
       }
     }
   };
-  
-  useEffect(() => {
-    const resizeImg = () => {
-      if ((pinImg?.current?.offsetWidth) <= 200)
-      setSmallScreen(true);
-      console.log(pinImg?.current?.offsetWidth)
-    };
 
-    document.addEventListener('resize', resizeImg);
-
-    return () => (document.removeEventListener('resize', resizeImg));
-  }, [])
 
   useEffect(() => {
     if (!showBoards) return;
@@ -130,7 +118,7 @@ const PinIndexItem = ({ pin }) => {
             <div id="show-pin-board-dropdown-btn" onClick={() => setShowBoards(true)}>
               <i className="fa-solid fa-chevron-down dropbtn board-drop" />
               <div id="board-first-option">
-                {smallScreen ? "" : abbreviateBoard(selectedBoard, 9)}
+                {abbreviateBoard(selectedBoard, 9)}
               </div>
 
               {showBoards && (
