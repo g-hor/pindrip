@@ -46,7 +46,7 @@ const BoardShow = () => {
   };
 
   const saveEdits = async () => {
-    if (name.length > 0) {
+    if (name?.length > 0) {
       const editedBoard = await dispatch(updateBoard({ id: currentBoard?.id, name, description }));
       setShowModal(false)
       navigate(`/${username}/${Object.keys(editedBoard)[0]}`)
