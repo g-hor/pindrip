@@ -33,6 +33,8 @@ const BoardShow = () => {
     setName(e.target.value);
     if (e.target.value.length === 0) {
       setError("Your board name can't be empty!");
+    } else if (e.target.value.length > 50) {
+      setError('Please enter no more than 50 characters.');
     } else {
       setError('');
     }

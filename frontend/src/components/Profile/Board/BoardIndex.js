@@ -25,13 +25,31 @@ const BoardIndex = ({ showUser }) => {
   const [showDrop, setShowDrop] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [name, setName] = useState('');
+  const [error, setError] = useState('');
+  const [canSave, setCanSave] = useState(false);
   let canEdit = (showUser?.id === currentUser?.id);
   const dropdown = useRef();
 
 
+  const handleName = (e) => {
+    setName(e.target.value);
+    if (e.target.value.length === 0) {
+      setError("Your board name can't be empty!");
+      setCanSave(false);
+    } else if (e.target.value.length > 50) {
+      setError('Please enter no more than 50 characters.');
+      setCanSave(false);
+    } else {
+      setError('');
+      setCanSave(true);
+    }
+  }
+
   const handleCreate = async () => {
-    const res = await dispatch(createBoard({name}));
-    if (res?.ok) setShowModal(false);
+    if (canSave) {
+      const res = await dispatch(createBoard({name}));
+      if (res?.ok) setShowModal(false);
+    }
   };
 
   useEffect(() => {
@@ -101,14 +119,21 @@ const BoardIndex = ({ showUser }) => {
                   type="text"
                   className="edit-pin-text-input board-input"
                   placeholder='Like "Outfit Ideas" or "Drip Goals"'
-                  onChange={(e) => setName(e.target.value)}
+                  onChange={handleName}
                   />
               </div>
+
+              {error.length !== 0 && (
+                  <div className="edit-board-error">
+                  {error}
+                </div>
+                )}
 
               <div id="create-board-bottom-bar">
                 <div 
                   id="create-board-modal-btn"
                   onClick={handleCreate}
+                  className={canSave ? "can-save" : ""}
                   >
                   Create
                 </div>

@@ -216,3 +216,13 @@
   background-color: rgb(208, 208, 208);
   cursor: pointer;
 }
+
+#create-board-modal-btn.can-save {
+  background-color: rgb(85, 15, 159);
+  color: white;
+}
+
+#create-board-modal-btn.can-save:hover {
+  background-color: rgb(56, 10, 106);
+  color: white;
+}
