@@ -23,7 +23,6 @@ const BoardShow = () => {
   const [description, setDescription] = useState(currentBoard?.description || '');
   const [showDrop, setShowDrop] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const [canSave, setCanSave] = useState(false);
   const [error, setError] = useState('');
   let canEdit = (showUser?.id === currentUser?.id && currentBoard?.name !== 'All Pins');
   let displayInitial;
@@ -34,7 +33,8 @@ const BoardShow = () => {
     setName(e.target.value);
     if (e.target.value.length === 0) {
       setError("Your board name can't be empty!");
-      setCanSave(false);
+    } else {
+      setError('');
     }
   }
 
@@ -44,7 +44,7 @@ const BoardShow = () => {
   };
 
   const saveEdits = async () => {
-    if (canSave) {
+    if (name.length > 0) {
       const editedBoard = await dispatch(updateBoard({ id: currentBoard?.id, name, description }));
       setShowModal(false)
       navigate(`/${username}/${Object.keys(editedBoard)[0]}`)

@@ -257,7 +257,7 @@ const PinShow = () => {
                   <div id="show-pin-board-dropdown-btn" onClick={() => setShowBoards(true)}>
                     <i className="fa-solid fa-chevron-down dropbtn board-drop" />
                     <div id="board-first-option">
-                      {abbreviateBoard(selectedBoard, 9)}
+                      {abbreviateBoard(selectedBoard, 6)}
                     </div>
 
                     {showBoards && (
