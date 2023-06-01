@@ -279,7 +279,7 @@ textarea.edit-text-input-field {
 }
 
 .edit-text-input-field.website.disabled {
-  cursor: not-allowed;
+  border: 2px solid lightgray;
 }
 
 /* BOTTOM BAR */
