@@ -97,7 +97,7 @@ const PinIndexItem = ({ pin }) => {
         className="pin-img-overlay-container"
         ref={overlayContainer}
         onMouseEnter={() => {setOpacity({opacity: 0.45}); setDisplayMenu(true)}}
-        onMouseLeave={() => {setOpacity({opacity: 0}); setDisplayMenu(false)}}
+        onMouseLeave={() => {setOpacity({opacity: 0}); setDisplayMenu(false); setShowBoards(false)}}
         >
         <img 
           src={pin?.photo} 

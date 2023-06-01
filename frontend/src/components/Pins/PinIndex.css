@@ -50,6 +50,7 @@
   width: 100%;
   height: calc(100% - 2px);
   border-radius: 16px;
+  cursor: zoom-in;
 }
 
 .pin-item-top-bar {
