@@ -157,10 +157,16 @@ const PinIndexItem = ({ pin }) => {
                         {showSaveBtn[i] && (
                           <div 
                             id="pin-item-save-btn"
-                            className={clickedSave[i] ? "saved" : " "}
+                            className={
+                              (boards?.filter(boardItem => boardItem?.name === board.name)[0]?.savedPins?.includes(parseInt(pin?.id))) ?
+                              "saved" :
+                                clickedSave[i] ? "saved" : " "
+                            }
                             onClick={() => submitSave(board?.id, pin?.id, i)}
                             >
-                            {clickedSave[i] ? "Saved" : "Save"}
+                            {(boards?.filter(boardItem => boardItem?.name === board.name)[0]?.savedPins?.includes(parseInt(pin?.id))) ? 
+                              "Saved" : 
+                                clickedSave[i] ? "Saved" : "Save"}
                           </div>
                           )}
                       </div>
@@ -172,10 +178,16 @@ const PinIndexItem = ({ pin }) => {
 
             <div 
               id="pin-item-save-btn"
-              className={clickedSave[boardIndex] ? "saved" : " "}
+              className={
+                (boards?.filter(board => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pin?.id))) ? 
+                "saved" : 
+                  clickedSave[boardIndex] ? "saved" : " "
+              }
               onClick={() => submitSave(boardId, pin?.id, boardIndex)}
               >
-              {clickedSave[boardIndex] ? "Saved" : "Save"}
+              {(boards?.filter(board => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pin?.id))) ? 
+                "Saved" : 
+                  clickedSave[boardIndex] ? "Saved" : "Save"}
             </div>
           </div>
         )}
