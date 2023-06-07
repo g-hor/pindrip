@@ -27,10 +27,10 @@ const PinIndexItem = ({ pin }) => {
 
   const [displayMenu, setDisplayMenu] = useState(false);
   const [showBoards, setShowBoards] = useState(false);
-  const [showSaveBtn, setShowSaveBtn] = useState(Array(boards?.length).fill(false));
   const [isSaved, setIsSaved] = useState(boards?.map(board =>
     board.savedPins.includes(parseInt(pin?.id))
   ));
+  const [showSaveBtn, setShowSaveBtn] = useState(isSaved);
   const [opacity, setOpacity] = useState({opacity: 0});
   const boardMenu = useRef();
   const pinImg = useRef();
@@ -52,8 +52,13 @@ const PinIndexItem = ({ pin }) => {
   };
 
   const clickBoard = (board) => {
-    setShowSaveBtn(Array(boards?.length).fill(false));
     setSelectedBoard(board.name);
+    setShowSaveBtn(isSaved);
+    setShowSaveBtn(prev => {
+      const next = [ ...prev ];
+      isSaved[boardIndex] ? next[boardIndex] = true : next[boardIndex] = false;
+      return next;
+    });
     setShowBoards(false);
   };
 
@@ -70,6 +75,11 @@ const PinIndexItem = ({ pin }) => {
       const res = await dispatch(removeBoardPin({ boardId, pinId }));
       if (res?.ok) {
         setIsSaved(prev => {
+          const next = [ ...prev ];
+          next[boardIdx] = false;
+          return next;
+        });
+        setShowSaveBtn(prev => { 
           const next = [ ...prev ];
           next[boardIdx] = false;
           return next;
@@ -138,6 +148,7 @@ const PinIndexItem = ({ pin }) => {
                       })}
                       onMouseLeave={() => setShowSaveBtn(prev => {
                         const next = [ ...prev ];
+                        if (isSaved[i]) return next;
                         next[i] = false;
                         return next;
                       })}
@@ -156,7 +167,7 @@ const PinIndexItem = ({ pin }) => {
                             <div>Saved here already</div>
                             }
                         </div>
-                        {showSaveBtn[i] && (
+                        {(showSaveBtn[i] || isSaved[i]) && (
                           <div 
                             id="pin-item-save-btn"
                             className={isSaved[i] ? "saved" : " "}
