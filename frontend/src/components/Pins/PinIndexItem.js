@@ -76,6 +76,10 @@ const PinIndexItem = ({ pin }) => {
     }
   };
 
+  const submitRemoval = async (boardId, pinId) => {
+    await dispatch(removeBoardPin({ boardId, pinId })); 
+  };
+
 
   useEffect(() => {
     if (!showBoards) return;
