@@ -28,7 +28,9 @@ const PinIndexItem = ({ pin }) => {
   const [displayMenu, setDisplayMenu] = useState(false);
   const [showBoards, setShowBoards] = useState(false);
   const [showSaveBtn, setShowSaveBtn] = useState(Array(boards?.length).fill(false));
-  const [clickedSave, setClickedSave] = useState(Array(boards?.length).fill(false));
+  const [isSaved, setIsSaved] = useState(boards?.map(board =>
+    board.savedPins.includes(parseInt(pin?.id))
+  ));
   const [opacity, setOpacity] = useState({opacity: 0});
   const boardMenu = useRef();
   const pinImg = useRef();
@@ -57,8 +59,8 @@ const PinIndexItem = ({ pin }) => {
 
 
   const submitSave = async (boardId, pinId, boardIdx) => {
-    if (!clickedSave[boardIdx]) {
-      setClickedSave(prev => {
+    if (!isSaved[boardIdx]) {
+      setIsSaved(prev => {
         const next = [ ...prev ];
         next[boardIdx] = true;
         return next;
@@ -67,21 +69,13 @@ const PinIndexItem = ({ pin }) => {
     } else {
       const res = await dispatch(removeBoardPin({ boardId, pinId }));
       if (res?.ok) {
-        setClickedSave(prev => {
+        setIsSaved(prev => {
           const next = [ ...prev ];
           next[boardIdx] = false;
           return next;
         });
       }
     }
-  };
-
-  const submitRemoval = async (boardId, pinId) => {
-    await dispatch(removeBoardPin({ boardId, pinId })); 
-  };
-
-  const isSaved = (boardName, pin) => {
-    return ((boards?.filter(boardItem => boardItem?.name === boardName)[0]?.savedPins?.includes(parseInt(pin?.id))));
   };
 
 
@@ -165,10 +159,10 @@ const PinIndexItem = ({ pin }) => {
                         {showSaveBtn[i] && (
                           <div 
                             id="pin-item-save-btn"
-                            className={isSaved(board.name, pin) ? "saved" : " "}
-                            onClick={() => isSaved(board.name, pin) ? submitRemoval(board.id, pin.id) : submitSave(board?.id, pin?.id, i)}
+                            className={isSaved[i] ? "saved" : " "}
+                            onClick={() => submitSave(board?.id, pin?.id, i)}
                             >
-                            {isSaved(board.name, pin) ? "Saved" : "Save"}
+                            {isSaved[i] ? "Saved" : "Save"}
                           </div>
                           )}
                       </div>
@@ -180,10 +174,10 @@ const PinIndexItem = ({ pin }) => {
 
             <div 
               id="pin-item-save-btn"
-              className={isSaved(selectedBoard, pin) ? "saved" : " "}
-              onClick={() => isSaved(selectedBoard, pin) ? submitRemoval(boardId, pin.id) : submitSave(boardId, pin?.id, boardIndex)}
+              className={isSaved[boardIndex] ? "saved" : " "}
+              onClick={() => submitSave(boardId, pin?.id, boardIndex)}
               >
-              {isSaved(selectedBoard, pin) ? "Saved" : "Save"}
+              {isSaved[boardIndex] ? "Saved" : "Save"}
             </div>
           </div>
         )}
