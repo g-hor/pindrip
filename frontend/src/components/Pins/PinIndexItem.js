@@ -152,7 +152,7 @@ const PinIndexItem = ({ pin }) => {
                           <div>
                           {abbreviateBoard(board.name, 12)}
                           </div>
-                          {board.savedPins.includes(parseInt(pin?.id)) && 
+                          {isSaved[i] && 
                             <div>Saved here already</div>
                             }
                         </div>
