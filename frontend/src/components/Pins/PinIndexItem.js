@@ -80,6 +80,10 @@ const PinIndexItem = ({ pin }) => {
     await dispatch(removeBoardPin({ boardId, pinId })); 
   };
 
+  const isSaved = (boardName, pin) => {
+    return ((boards?.filter(boardItem => boardItem?.name === boardName)[0]?.savedPins?.includes(parseInt(pin?.id))));
+  };
+
 
   useEffect(() => {
     if (!showBoards) return;
@@ -122,7 +126,7 @@ const PinIndexItem = ({ pin }) => {
             <div id="show-pin-board-dropdown-btn" onClick={() => setShowBoards(true)}>
               <i className="fa-solid fa-chevron-down dropbtn board-drop" />
               <div id="board-first-option">
-                {abbreviateBoard(selectedBoard, 9)}
+                {abbreviateBoard(selectedBoard, 8)}
               </div>
 
               {showBoards && (
@@ -161,16 +165,10 @@ const PinIndexItem = ({ pin }) => {
                         {showSaveBtn[i] && (
                           <div 
                             id="pin-item-save-btn"
-                            className={
-                              (boards?.filter(boardItem => boardItem?.name === board.name)[0]?.savedPins?.includes(parseInt(pin?.id))) ?
-                              "saved" :
-                                clickedSave[i] ? "saved" : " "
-                            }
-                            onClick={() => submitSave(board?.id, pin?.id, i)}
+                            className={isSaved(board.name, pin) ? "saved" : " "}
+                            onClick={() => isSaved(board.name, pin) ? submitRemoval(board.id, pin.id) : submitSave(board?.id, pin?.id, i)}
                             >
-                            {(boards?.filter(boardItem => boardItem?.name === board.name)[0]?.savedPins?.includes(parseInt(pin?.id))) ? 
-                              "Saved" : 
-                                clickedSave[i] ? "Saved" : "Save"}
+                            {isSaved(board.name, pin) ? "Saved" : "Save"}
                           </div>
                           )}
                       </div>
@@ -182,16 +180,10 @@ const PinIndexItem = ({ pin }) => {
 
             <div 
               id="pin-item-save-btn"
-              className={
-                (boards?.filter(board => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pin?.id))) ? 
-                "saved" : 
-                  clickedSave[boardIndex] ? "saved" : " "
-              }
-              onClick={() => submitSave(boardId, pin?.id, boardIndex)}
+              className={isSaved(selectedBoard, pin) ? "saved" : " "}
+              onClick={() => isSaved(selectedBoard, pin) ? submitRemoval(boardId, pin.id) : submitSave(boardId, pin?.id, boardIndex)}
               >
-              {(boards?.filter(board => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pin?.id))) ? 
-                "Saved" : 
-                  clickedSave[boardIndex] ? "Saved" : "Save"}
+              {isSaved(selectedBoard, pin) ? "Saved" : "Save"}
             </div>
           </div>
         )}
