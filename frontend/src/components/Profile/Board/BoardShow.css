@@ -38,10 +38,6 @@
   margin-bottom: 50px;
 }
 
-#board-show-page #pins-index-container {
-  height: 100%;
-}
-
 .board-drop-ellipsis#ellipsis-btn {
   margin-left: 16px;
   color: black;

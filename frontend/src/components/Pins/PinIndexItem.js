@@ -27,11 +27,14 @@ const PinIndexItem = ({ pin }) => {
 
   const [displayMenu, setDisplayMenu] = useState(false);
   const [showBoards, setShowBoards] = useState(false);
-  const [showSaveBtn, setShowSaveBtn] = useState(Array(boards?.length).fill(false));
-  const [clickedSave, setClickedSave] = useState(Array(boards?.length).fill(false));
+  const [isSaved, setIsSaved] = useState(boards?.map(board =>
+    board.savedPins.includes(parseInt(pin?.id))
+  ));
+  const [showSaveBtn, setShowSaveBtn] = useState(isSaved);
   const [opacity, setOpacity] = useState({opacity: 0});
   const boardMenu = useRef();
   const pinImg = useRef();
+  const topSave = useRef();
   const overlayContainer = useRef();
   let initial;
 
@@ -50,15 +53,20 @@ const PinIndexItem = ({ pin }) => {
   };
 
   const clickBoard = (board) => {
-    setShowSaveBtn(Array(boards?.length).fill(false));
     setSelectedBoard(board.name);
+    setShowSaveBtn(isSaved);
+    setShowSaveBtn(prev => {
+      const next = [ ...prev ];
+      isSaved[boardIndex] ? next[boardIndex] = true : next[boardIndex] = false;
+      return next;
+    });
     setShowBoards(false);
   };
 
 
   const submitSave = async (boardId, pinId, boardIdx) => {
-    if (!clickedSave[boardIdx]) {
-      setClickedSave(prev => {
+    if (!isSaved[boardIdx]) {
+      setIsSaved(prev => {
         const next = [ ...prev ];
         next[boardIdx] = true;
         return next;
@@ -67,7 +75,12 @@ const PinIndexItem = ({ pin }) => {
     } else {
       const res = await dispatch(removeBoardPin({ boardId, pinId }));
       if (res?.ok) {
-        setClickedSave(prev => {
+        setIsSaved(prev => {
+          const next = [ ...prev ];
+          next[boardIdx] = false;
+          return next;
+        });
+        setShowSaveBtn(prev => { 
           const next = [ ...prev ];
           next[boardIdx] = false;
           return next;
@@ -114,11 +127,11 @@ const PinIndexItem = ({ pin }) => {
             />
         </Link>
         {displayMenu && (
-          <div className="pin-item-top-bar" onClick={() => setShowBoards(true)}>
-            <div id="show-pin-board-dropdown-btn" onClick={() => setShowBoards(true)}>
+          <div className="pin-item-top-bar" onClick={(e) => (e.target !== topSave.current) && setShowBoards(true)}>
+            <div id="show-pin-board-dropdown-btn">
               <i className="fa-solid fa-chevron-down dropbtn board-drop" />
               <div id="board-first-option">
-                {abbreviateBoard(selectedBoard, 9)}
+                {abbreviateBoard(selectedBoard, 8)}
               </div>
 
               {showBoards && (
@@ -136,6 +149,7 @@ const PinIndexItem = ({ pin }) => {
                       })}
                       onMouseLeave={() => setShowSaveBtn(prev => {
                         const next = [ ...prev ];
+                        if (isSaved[i]) return next;
                         next[i] = false;
                         return next;
                       })}
@@ -150,23 +164,17 @@ const PinIndexItem = ({ pin }) => {
                           <div>
                           {abbreviateBoard(board.name, 12)}
                           </div>
-                          {board.savedPins.includes(parseInt(pin?.id)) && 
+                          {isSaved[i] && 
                             <div>Saved here already</div>
                             }
                         </div>
-                        {showSaveBtn[i] && (
+                        {(showSaveBtn[i] || isSaved[i]) && (
                           <div 
                             id="pin-item-save-btn"
-                            className={
-                              (boards?.filter(boardItem => boardItem?.name === board.name)[0]?.savedPins?.includes(parseInt(pin?.id))) ?
-                              "saved" :
-                                clickedSave[i] ? "saved" : " "
-                            }
+                            className={isSaved[i] ? "saved" : " "}
                             onClick={() => submitSave(board?.id, pin?.id, i)}
                             >
-                            {(boards?.filter(boardItem => boardItem?.name === board.name)[0]?.savedPins?.includes(parseInt(pin?.id))) ? 
-                              "Saved" : 
-                                clickedSave[i] ? "Saved" : "Save"}
+                            {isSaved[i] ? "Saved" : "Save"}
                           </div>
                           )}
                       </div>
@@ -178,16 +186,11 @@ const PinIndexItem = ({ pin }) => {
 
             <div 
               id="pin-item-save-btn"
-              className={
-                (boards?.filter(board => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pin?.id))) ? 
-                "saved" : 
-                  clickedSave[boardIndex] ? "saved" : " "
-              }
+              className={isSaved[boardIndex] ? "saved" : " "}
               onClick={() => submitSave(boardId, pin?.id, boardIndex)}
+              ref={topSave}
               >
-              {(boards?.filter(board => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pin?.id))) ? 
-                "Saved" : 
-                  clickedSave[boardIndex] ? "Saved" : "Save"}
+              {isSaved[boardIndex] ? "Saved" : "Save"}
             </div>
           </div>
         )}

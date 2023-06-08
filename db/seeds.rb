@@ -28,7 +28,7 @@ User.create!(
   about: 'welcome! check out my demo drip :)',
   pronouns: 'they/them',
   website: 'github.com/g-hor/pindrip',
-  gender: 'capybara',
+  gender: 'drip kitty',
   country: 'Antarctica'
 )
 
@@ -39,8 +39,8 @@ User.create!(
     email: Faker::Internet.unique.safe_email,
     password: 'pindrip',
     first_name: Faker::Emotion.adjective,
-    last_name: Faker::JapaneseMedia::Naruto.character,
-    about: "Believe it! I am from #{Faker::JapaneseMedia::Naruto.village}, and my goal is to someday slay as much as #{Faker::JapaneseMedia::Naruto.demon}",
+    last_name: Faker::Creature::Cat.name,
+    about: "Meow there human, I am a #{Faker::Creature::Cat.breed}. Purr-eased to meet you :)",
     pronouns: PRONOUNS[rand(9)],
     website: Faker::Internet.domain_name,
     gender: 'capybara'
@@ -119,18 +119,23 @@ end
 puts "Seeding boards with saved pins..."
 # randomly assigning pins to be saved to various boards
 100.times do
-  BoardPin.create!({
-    board_id: rand(1..30),
-    pin_id: rand(1..34)
-  })
+  board = rand(1..30)
+  pin = rand(1..34)
+
+  while BoardPin.exists?(board_id: board, pin_id: pin)
+    board = rand(1..30)
+    pin = rand(1..34)
+  end
+
+  BoardPin.create!({ board_id: board, pin_id: pin })
 end
 
 puts "Seeding image files..."
 # giving seeded users icons
 User.first(16).each_with_index do |user, index|
   user.avatar.attach(
-    io: URI.open("https://pindrip-seeds.s3.amazonaws.com/icons/#{index}.jpeg"),
-    filename: "icons/#{index}.jpeg"
+    io: URI.open("https://pindrip-seeds.s3.amazonaws.com/icons/#{index}.gif"),
+    filename: "icons/#{index}.gif"
   )
 end
 

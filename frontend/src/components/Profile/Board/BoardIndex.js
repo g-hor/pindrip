@@ -29,8 +29,13 @@ const BoardIndex = ({ showUser }) => {
   const [canSave, setCanSave] = useState(false);
   let canEdit = (showUser?.id === currentUser?.id);
   const dropdown = useRef();
-
-
+  const boardsContainer = useRef();
+  const [containerWidth, setContainerWidth] = useState(boardsContainer?.current?.offsetWidth);
+  const [rowAmt, setRowAmt] = useState(parseInt(containerWidth / 252))
+  const [fillerAmt, setFillerAmt] = useState(rowAmt - (boards.length % rowAmt));
+  const [fillers, setFillers] = useState([]);
+  
+  
   const handleName = (e) => {
     setName(e.target.value);
     if (e.target.value.length === 0) {
@@ -44,7 +49,7 @@ const BoardIndex = ({ showUser }) => {
       setCanSave(true);
     }
   }
-
+  
   const handleCreate = async () => {
     if (canSave) {
       const res = await dispatch(createBoard({name}));
@@ -52,27 +57,53 @@ const BoardIndex = ({ showUser }) => {
     }
   };
 
+
   useEffect(() => {
     dispatch(fetchAllBoards(showUser?.id));
   }, [dispatch, showUser?.id]);
-
+  
   useEffect(() => {
     if (!showDrop) return;
-
+    
     const clickHide = (e) => {
       if (dropdown?.current?.contains(e.target)) return;
       setShowDrop(false);
     };
-
+    
     document.addEventListener('click', clickHide);
-
+    
     return () => document.removeEventListener('click', clickHide);
   }, [showDrop])
+  
+  useEffect(() => {
+    const resize = () => setContainerWidth(boardsContainer?.current?.offsetWidth);
+    
+    window.addEventListener('resize', resize);
+    
+    return () => document.removeEventListener('resize', resize);
+  }, [])
 
+  useEffect(() => {
+    if (boardsContainer?.current) {
+      setContainerWidth(boardsContainer?.current?.offsetWidth);
+    }
+    if (containerWidth) {
+      setRowAmt(parseInt(containerWidth / 252));
+    }
+    if (rowAmt) {
+      setFillerAmt(rowAmt - (boards?.length % rowAmt));
+    }
+    if (fillerAmt) {
+      setFillers(Array(fillerAmt).fill('filler'));
+    }
+  }, [boardsContainer, boards?.length, containerWidth, fillerAmt, rowAmt])
+  
+  
   if (!showUser) return null;
 
+
   return (
-    <div id="boards-container">
+    <div id="boards-container" ref={boardsContainer}>
       {canEdit && (
         <div id="plus-sign-holder" onClick={() => setShowDrop(true)} >
           <i className="fa-solid fa-plus" />
@@ -103,6 +134,7 @@ const BoardIndex = ({ showUser }) => {
         <BoardIndexItem board={board} showUser={showUser} key={i} />
       ))}
 
+      {fillers.map((filler, i) => <div className="filler-board" key={i} />)}
 
       {showModal && (
         <Modal onClose={() => setShowModal(false)} customClass={"create-board-modal"}>
