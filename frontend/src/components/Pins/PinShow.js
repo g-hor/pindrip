@@ -36,7 +36,10 @@ const PinShow = () => {
   const [saved, setSaved] = useState(false);
   const [removed, setRemoved] = useState(false);
   const [clickedSave, setClickedSave] = useState(Array(boards?.length).fill(false));
-  const [showSaveBtn, setShowSaveBtn] = useState(Array(boards?.length).fill(false));
+  const [isSaved, setIsSaved] = useState(boards?.map(board =>
+    board.savedPins.includes(parseInt(pin?.id))
+  ));
+  const [showSaveBtn, setShowSaveBtn] = useState(isSaved);
   const [selectedBoard, setSelectedBoard] = useState(boards[0]?.name || 'All Pins');
   let boardId = boards?.filter(board => board?.name === selectedBoard)[0]?.id;
   let boardIndex = boards.indexOf(boards?.filter(board => board?.name === selectedBoard)[0]);
@@ -63,7 +66,6 @@ const PinShow = () => {
   const hideBoards = (e) => {
     if (e.target === boardMenu?.current) return;
     setShowBoards(false); 
-    setShowSaveBtn(Array(boards?.length).fill(false));
   };
 
   const goHome = (e) => {
@@ -72,15 +74,19 @@ const PinShow = () => {
   };
 
   const clickBoard = (board) => {
-    setShowSaveBtn(Array(boards?.length).fill(false));
-    setSelectedBoard(board.name); 
+    setSelectedBoard(board.name);
+    setShowSaveBtn(isSaved);
+    setShowSaveBtn(prev => {
+      const next = [ ...prev ];
+      isSaved[boardIndex] ? next[boardIndex] = true : next[boardIndex] = false;
+      return next;
+    });
     setShowBoards(false);
-    defineDropMenu();
   };
 
   const submitSave = async (boardId, pinId, boardIdx) => {
-    if (!clickedSave[boardIdx]) {
-      setClickedSave(prev => {
+    if (!isSaved[boardIdx]) {
+      setIsSaved(prev => {
         const next = [ ...prev ];
         next[boardIdx] = true;
         return next;
@@ -93,7 +99,7 @@ const PinShow = () => {
     } else {
       const res = await dispatch(removeBoardPin({ boardId, pinId }));
       if (res?.ok) {
-        setClickedSave(prev => {
+        setIsSaved(prev => {
           const next = [ ...prev ];
           next[boardIdx] = false;
           return next;
@@ -277,6 +283,7 @@ const PinShow = () => {
                               })}
                               onMouseLeave={() => setShowSaveBtn(prev => {
                                 const next = [ ...prev ];
+                                if (isSaved[i]) return next;
                                 next[i] = false;
                                 return next;
                               })}
@@ -295,13 +302,13 @@ const PinShow = () => {
                                     <div>Saved here already</div>
                                     }
                                 </div>
-                                {showSaveBtn[i] && (
+                                {(showSaveBtn[i] || isSaved[i]) && (
                                   <div 
                                     id="show-pin-save-btn"
-                                    className={clickedSave[i] ? "saved" : " "}
+                                    className={isSaved[i] ? "saved" : " "}
                                     onClick={() => submitSave(board?.id, pinId, i)}
                                     >
-                                    {clickedSave[i] ? "Saved" : "Save"}
+                                    {isSaved[i] ? "Saved" : "Save"}
                                   </div>
                                   )}
                               </div>
@@ -314,10 +321,10 @@ const PinShow = () => {
 
                   <div 
                     id="show-pin-save-btn"
-                    className={clickedSave[boardIndex] ? "saved" : " "}
+                    className={isSaved[boardIndex] ? "saved" : " "}
                     onClick={() => submitSave(boardId, pinId, boardIndex)}
                     >
-                    {clickedSave[boardIndex] ? "Saved" : "Save"}
+                    {isSaved[boardIndex] ? "Saved" : "Save"}
                   </div>
                 </div>
               </div>
