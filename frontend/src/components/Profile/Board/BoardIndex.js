@@ -31,9 +31,9 @@ const BoardIndex = ({ showUser }) => {
   const dropdown = useRef();
   const boardsContainer = useRef();
   const [containerWidth, setContainerWidth] = useState(boardsContainer?.current?.offsetWidth);
-  let rowAmt;
-  let fillerAmt;
-  let fillers = [];
+  const [rowAmt, setRowAmt] = useState(parseInt(containerWidth / 252))
+  const [fillerAmt, setFillerAmt] = useState(rowAmt - (boards.length % rowAmt));
+  const [fillers, setFillers] = useState([]);
   
   
   const handleName = (e) => {
@@ -82,16 +82,24 @@ const BoardIndex = ({ showUser }) => {
     
     return () => document.removeEventListener('resize', resize);
   }, [])
+
+  useEffect(() => {
+    if (boardsContainer?.current) {
+      setContainerWidth(boardsContainer?.current?.offsetWidth);
+    }
+    if (containerWidth) {
+      setRowAmt(parseInt(containerWidth / 252));
+    }
+    if (rowAmt) {
+      setFillerAmt(rowAmt - (boards?.length % rowAmt));
+    }
+    if (fillerAmt) {
+      setFillers(Array(fillerAmt).fill('filler'));
+    }
+  }, [boardsContainer, boards?.length, containerWidth, fillerAmt, rowAmt])
   
   
   if (!showUser) return null;
-  if (containerWidth) {
-    rowAmt = parseInt(containerWidth / 252);
-    fillerAmt = rowAmt - (boards.length % rowAmt);
-    for (let i = 0; i < fillerAmt; i ++) {
-      fillers.push('filler');
-    }
-  };
 
 
   return (

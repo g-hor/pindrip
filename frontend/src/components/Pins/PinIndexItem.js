@@ -34,6 +34,7 @@ const PinIndexItem = ({ pin }) => {
   const [opacity, setOpacity] = useState({opacity: 0});
   const boardMenu = useRef();
   const pinImg = useRef();
+  const topSave = useRef();
   const overlayContainer = useRef();
   let initial;
 
@@ -126,8 +127,8 @@ const PinIndexItem = ({ pin }) => {
             />
         </Link>
         {displayMenu && (
-          <div className="pin-item-top-bar" onClick={() => setShowBoards(true)}>
-            <div id="show-pin-board-dropdown-btn" onClick={() => setShowBoards(true)}>
+          <div className="pin-item-top-bar" onClick={(e) => (e.target !== topSave.current) && setShowBoards(true)}>
+            <div id="show-pin-board-dropdown-btn">
               <i className="fa-solid fa-chevron-down dropbtn board-drop" />
               <div id="board-first-option">
                 {abbreviateBoard(selectedBoard, 8)}
@@ -187,6 +188,7 @@ const PinIndexItem = ({ pin }) => {
               id="pin-item-save-btn"
               className={isSaved[boardIndex] ? "saved" : " "}
               onClick={() => submitSave(boardId, pin?.id, boardIndex)}
+              ref={topSave}
               >
               {isSaved[boardIndex] ? "Saved" : "Save"}
             </div>

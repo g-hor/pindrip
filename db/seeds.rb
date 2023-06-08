@@ -119,10 +119,15 @@ end
 puts "Seeding boards with saved pins..."
 # randomly assigning pins to be saved to various boards
 100.times do
-  BoardPin.create!({
-    board_id: rand(1..30),
-    pin_id: rand(1..34)
-  })
+  board = rand(1..30)
+  pin = rand(1..34)
+
+  while BoardPin.exists?(board_id: board, pin_id: pin)
+    board = rand(1..30)
+    pin = rand(1..34)
+  end
+
+  BoardPin.create!({ board_id: board, pin_id: pin })
 end
 
 puts "Seeding image files..."
