@@ -35,7 +35,6 @@ const PinShow = () => {
   const [showEdit, setShowEdit] = useState(false);
   const [saved, setSaved] = useState(false);
   const [removed, setRemoved] = useState(false);
-  const [clickedSave, setClickedSave] = useState(Array(boards?.length).fill(false));
   const [isSaved, setIsSaved] = useState(boards?.map(board =>
     board.savedPins.includes(parseInt(pin?.id))
   ));
