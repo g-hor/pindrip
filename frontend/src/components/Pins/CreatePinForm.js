@@ -124,6 +124,7 @@ const CreatePinForm = () => {
                 ref={uploadInput}
                 type="file"
                 onChange={handlePhoto}
+                accept="image/png, image/jpeg, image/jpg, image/gif"
                 style={{display: 'none'}}
                 />
               {preview || (
