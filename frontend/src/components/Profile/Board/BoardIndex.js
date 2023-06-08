@@ -94,7 +94,8 @@ const BoardIndex = ({ showUser }) => {
       setFillerAmt(rowAmt - (boards?.length % rowAmt));
     }
     if (fillerAmt) {
-      setFillers(Array(fillerAmt).fill('filler'));
+      if (fillerAmt === rowAmt) setFillers([]);
+      else setFillers(Array(fillerAmt).fill('filler'));
     }
   }, [boardsContainer, boards?.length, containerWidth, fillerAmt, rowAmt])
   

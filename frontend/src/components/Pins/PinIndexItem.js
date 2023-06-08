@@ -136,50 +136,53 @@ const PinIndexItem = ({ pin }) => {
 
               {showBoards && (
                 <div id="board-options-menu" ref={boardMenu}>
-                  <div id="board-options">All boards</div>
-                  {boards?.map((board, i) => (
-                    <div 
-                      className="board-dropdown-option" 
-                      key={i}
-                      onClick={() => clickBoard(board)}
-                      onMouseEnter={() => setShowSaveBtn(prev => {
-                        const next = [ ...prev ];
-                        next[i] = true;
-                        return next;
-                      })}
-                      onMouseLeave={() => setShowSaveBtn(prev => {
-                        const next = [ ...prev ];
-                        if (isSaved[i]) return next;
-                        next[i] = false;
-                        return next;
-                      })}
-                      >
-                      <div className="board-dropdown-thumbnail-holder">
-                        {pins[board.savedPins[0]]?.photo && (
-                          <img className="board-dropdown-thumbnail" src={pins[board.savedPins[0]]?.photo} alt="" />
-                          )}
-                      </div>
-                      <div className="board-dropdown-info">
-                        <div className="board-dropdown-name-holder">
-                          <div>
-                          {abbreviateBoard(board.name, 12)}
-                          </div>
-                          {isSaved[i] && 
-                            <div>Saved here already</div>
-                            }
+                  <div id="board-options-title">All boards</div>
+
+                  <div id="board-options-container">
+                    {boards?.map((board, i) => (
+                      <div 
+                        className="board-dropdown-option" 
+                        key={i}
+                        onClick={() => clickBoard(board)}
+                        onMouseEnter={() => setShowSaveBtn(prev => {
+                          const next = [ ...prev ];
+                          next[i] = true;
+                          return next;
+                        })}
+                        onMouseLeave={() => setShowSaveBtn(prev => {
+                          const next = [ ...prev ];
+                          if (isSaved[i]) return next;
+                          next[i] = false;
+                          return next;
+                        })}
+                        >
+                        <div className="board-dropdown-thumbnail-holder">
+                          {pins[board.savedPins[0]]?.photo && (
+                            <img className="board-dropdown-thumbnail" src={pins[board.savedPins[0]]?.photo} alt="" />
+                            )}
                         </div>
-                        {(showSaveBtn[i] || isSaved[i]) && (
-                          <div 
-                            id="pin-item-save-btn"
-                            className={isSaved[i] ? "saved" : " "}
-                            onClick={() => submitSave(board?.id, pin?.id, i)}
-                            >
-                            {isSaved[i] ? "Saved" : "Save"}
+                        <div className="board-dropdown-info">
+                          <div className="board-dropdown-name-holder">
+                            <div>
+                            {abbreviateBoard(board.name, 12)}
+                            </div>
+                            {isSaved[i] && 
+                              <div>Saved here already</div>
+                              }
                           </div>
-                          )}
+                          {(showSaveBtn[i] || isSaved[i]) && (
+                            <div 
+                              id="pin-item-save-btn"
+                              className={isSaved[i] ? "saved" : " "}
+                              onClick={() => submitSave(board?.id, pin?.id, i)}
+                              >
+                              {isSaved[i] ? "Saved" : "Save"}
+                            </div>
+                            )}
+                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               )}
             </div>

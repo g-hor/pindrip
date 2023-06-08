@@ -257,54 +257,57 @@ const PinShow = () => {
                   <div id="show-pin-board-dropdown-btn" onClick={() => setShowBoards(true)}>
                     <i className="fa-solid fa-chevron-down dropbtn board-drop" />
                     <div id="board-first-option">
-                      {abbreviateBoard(selectedBoard, 6)}
+                      {abbreviateBoard(selectedBoard, 8)}
                     </div>
 
                     {showBoards && (
                       <div id="board-options-menu" ref={boardMenu}>
-                        <div id="board-options">All boards</div>
-                        {boards?.map((board, i) => (
-                          <div 
-                            className="board-dropdown-option" 
-                            key={i}
-                            onClick={() => clickBoard(board)}
-                            onMouseEnter={() => setShowSaveBtn(prev => {
-                              const next = [ ...prev ];
-                              next[i] = true;
-                              return next;
-                            })}
-                            onMouseLeave={() => setShowSaveBtn(prev => {
-                              const next = [ ...prev ];
-                              next[i] = false;
-                              return next;
-                            })}
-                            >
-                            <div className="board-dropdown-thumbnail-holder">
-                              {pins[board.savedPins[0]]?.photo && (
-                                <img className="board-dropdown-thumbnail" src={pins[board.savedPins[0]]?.photo} alt="" />
-                                )}
-                            </div>
-                            <div className="board-dropdown-info">
-                              <div className="board-dropdown-name-holder">
-                                <div>
-                                {abbreviateBoard(board.name, 15)}
-                                </div>
-                                {board.savedPins.includes(parseInt(pinId)) && 
-                                  <div>Saved here already</div>
-                                  }
+                        <div id="board-options-title">All boards</div>
+
+                        <div id="board-options-container">
+                          {boards?.map((board, i) => (
+                            <div 
+                              className="board-dropdown-option" 
+                              key={i}
+                              onClick={() => clickBoard(board)}
+                              onMouseEnter={() => setShowSaveBtn(prev => {
+                                const next = [ ...prev ];
+                                next[i] = true;
+                                return next;
+                              })}
+                              onMouseLeave={() => setShowSaveBtn(prev => {
+                                const next = [ ...prev ];
+                                next[i] = false;
+                                return next;
+                              })}
+                              >
+                              <div className="board-dropdown-thumbnail-holder">
+                                {pins[board.savedPins[0]]?.photo && (
+                                  <img className="board-dropdown-thumbnail" src={pins[board.savedPins[0]]?.photo} alt="" />
+                                  )}
                               </div>
-                              {showSaveBtn[i] && (
-                                <div 
-                                  id="show-pin-save-btn"
-                                  className={clickedSave[i] ? "saved" : " "}
-                                  onClick={() => submitSave(board?.id, pinId, i)}
-                                  >
-                                  {clickedSave[i] ? "Saved" : "Save"}
+                              <div className="board-dropdown-info">
+                                <div className="board-dropdown-name-holder">
+                                  <div>
+                                  {abbreviateBoard(board.name, 15)}
+                                  </div>
+                                  {board.savedPins.includes(parseInt(pinId)) && 
+                                    <div>Saved here already</div>
+                                    }
                                 </div>
-                                )}
+                                {showSaveBtn[i] && (
+                                  <div 
+                                    id="show-pin-save-btn"
+                                    className={clickedSave[i] ? "saved" : " "}
+                                    onClick={() => submitSave(board?.id, pinId, i)}
+                                    >
+                                    {clickedSave[i] ? "Saved" : "Save"}
+                                  </div>
+                                  )}
+                              </div>
                             </div>
-                          </div>
-                        ))}
+                          ))}
+                        </div>
                       </div>
                       )}
                   </div>
