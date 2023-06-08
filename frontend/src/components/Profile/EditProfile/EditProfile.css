@@ -1,10 +1,7 @@
 /* PAGE LAYOUT & SIDEBAR */
 #edit-profile-main-container {
   width: 100vw;
-  min-height: 900px;
-  height: calc(100vh - 210px);
   padding: 110px 20px 0 20px;
-  z-index: -1;
 }
 
 #edit-profile-sidebar-container {
@@ -60,7 +57,6 @@
   padding: 0 10px 80px 10px;
   display: flex;
   flex-direction: column;
-  overflow: scroll;
   position: relative;
 }
 
