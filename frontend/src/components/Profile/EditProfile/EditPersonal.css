@@ -24,6 +24,7 @@
 .gender-option > input[type=radio] {
   transform: scale(1.9);
   cursor: pointer;
+  accent-color: rgb(85, 15, 159);
 }
 
 .gender-option-text {

@@ -259,6 +259,7 @@ const EditProfileForm = () => {
 
                 <input
                   ref={imgBtn}
+                  accept="image/png, image/jpeg, image/jpg, image/gif"
                   type="file"
                   onChange={handlePhoto}
                   style={{display: 'none'}}
