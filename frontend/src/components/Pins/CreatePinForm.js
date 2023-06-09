@@ -157,7 +157,7 @@ const CreatePinForm = () => {
 
                   {showBoards && (
                     <div id="board-options-menu" ref={boardMenu}>
-                      <div id="board-options">All boards</div>
+                      <div id="board-options-title">All boards</div>
                       {boards?.map((board, i) => (
                         <div 
                           className="board-dropdown-option" 
@@ -210,7 +210,7 @@ const CreatePinForm = () => {
               </div>
             </div>
 
-            <div id="cowboy">🤠</div>
+            {/* <div id="cowboy">🤠</div> */}
             <div id="relative-text-aligner">
               <textarea
                 type="text"
