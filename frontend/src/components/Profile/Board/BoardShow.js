@@ -99,7 +99,7 @@ const BoardShow = () => {
             <i className="fa-solid fa-ellipsis" />
             {showDrop && (
               <div id="edit-board-drop-menu">
-                <div id="board-options">
+                <div id="board-options-title">
                   Board options
                 </div>
                 <div 
