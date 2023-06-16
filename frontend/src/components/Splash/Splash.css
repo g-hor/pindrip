@@ -81,8 +81,6 @@
   height: 100vh;
   position: absolute;
   bottom: 0vh;
-  left: auto;
-  right: auto;
   margin: 0 auto;
   overflow: hidden;
 }
@@ -103,43 +101,36 @@
 }
 
 .col-1 {
-  top: -80vh;
   height: 84vh;
   animation: slideInTop1 2.1s ease-out 0.9s;
 }
 
 .col-2 {
-  top: -70vh;
   height: 76vh;
   animation: slideInTop2 1.3s ease-out 1.1s;
 }
 
 .col-3 {
-  top: -60vh;
   height: 64vh;
   animation: slideInTop3 1.9s ease-out 1.3s;
 }
 
 .col-4 {
-  top: -50vh;
   height: 56vh;
   animation: slideInTop4 2.4s ease-out 1.5s;
 }
 
 .col-5 {
-  top: -60vh;
   height: 64vh;
   animation: slideInTop3 2.7s ease-out 1.7s;
 }
 
 .col-6 {
-  top: -70vh;
   height: 76vh;
   animation: slideInTop2 1.7s ease-out 1.9s;
 }
 
 .col-7 {
-  top: -80vh;
   height: 84vh;
   animation: slideInTop1 2.1s ease-out 2.1s;
 }
