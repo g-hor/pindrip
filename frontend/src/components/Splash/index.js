@@ -21,7 +21,7 @@ const SplashPage = () => {
   }, [navigate, currentUser]);
 
   useEffect(() => {
-    setTimeout(() => {
+    const addDrip = () => setTimeout(() => {
       col1?.current?.classList.add('drip-col');
       col2?.current?.classList.add('drip-col');
       col3?.current?.classList.add('drip-col');
@@ -29,7 +29,49 @@ const SplashPage = () => {
       col5?.current?.classList.add('drip-col');
       col6?.current?.classList.add('drip-col');
       col7?.current?.classList.add('drip-col');
-    }, 0)
+    }, 0);
+    
+    const removeDrip = () => setTimeout(() => {
+      col1?.current?.classList.remove('drip-col');
+      col2?.current?.classList.remove('drip-col');
+      col3?.current?.classList.remove('drip-col');
+      col4?.current?.classList.remove('drip-col');
+      col5?.current?.classList.remove('drip-col');
+      col6?.current?.classList.remove('drip-col');
+      col7?.current?.classList.remove('drip-col');
+    }, 8000);
+
+    const addOpaque = () => setTimeout(() => {
+      col1?.current?.classList.add('opaque-drip');
+      col2?.current?.classList.add('opaque-drip');
+      col3?.current?.classList.add('opaque-drip');
+      col4?.current?.classList.add('opaque-drip');
+      col5?.current?.classList.add('opaque-drip');
+      col6?.current?.classList.add('opaque-drip');
+      col7?.current?.classList.add('opaque-drip');
+    }, 5000);
+
+    const removeOpaque = () => setTimeout(() => {
+      col1?.current?.classList.remove('opaque-drip');
+      col2?.current?.classList.remove('opaque-drip');
+      col3?.current?.classList.remove('opaque-drip');
+      col4?.current?.classList.remove('opaque-drip');
+      col5?.current?.classList.remove('opaque-drip');
+      col6?.current?.classList.remove('opaque-drip');
+      col7?.current?.classList.remove('opaque-drip');
+    }, 10000);
+
+    addDrip();
+    removeDrip();
+    addOpaque();
+    removeOpaque();
+
+    return () => {
+      clearTimeout(addDrip);
+      clearTimeout(removeDrip);
+      clearTimeout(addOpaque);
+      clearTimeout(removeOpaque);
+    }
   }, [])
 
   return (
