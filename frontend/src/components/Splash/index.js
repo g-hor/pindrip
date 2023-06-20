@@ -1,13 +1,14 @@
 import { useNavigate } from 'react-router-dom';
-import { splashImages1 } from './images';
+import { splashImages1, splashImages2 } from './images';
 import { useSelector } from 'react-redux';
 import { getCurrentUser } from '../../store/session';
 import './Splash.css';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 const SplashPage = () => {
   const navigate = useNavigate();
   const currentUser = useSelector(getCurrentUser);
+  const [cycle, setCycle] = useState(1);
   const col1 = useRef();
   const col2 = useRef();
   const col3 = useRef();
@@ -15,62 +16,65 @@ const SplashPage = () => {
   const col5 = useRef();
   const col6 = useRef();
   const col7 = useRef();
+  const col8 = useRef();
+  const col9 = useRef();
+  const col10 = useRef();
+  const col11 = useRef();
+  const col12 = useRef();
+  const col13 = useRef();
+  const col14 = useRef();
+
 
   useEffect(() => {
     if (currentUser) navigate("/home");
   }, [navigate, currentUser]);
 
   useEffect(() => {
-    const addDrip = () => setTimeout(() => {
-      col1?.current?.classList.add('drip-col');
-      col2?.current?.classList.add('drip-col');
-      col3?.current?.classList.add('drip-col');
-      col4?.current?.classList.add('drip-col');
-      col5?.current?.classList.add('drip-col');
-      col6?.current?.classList.add('drip-col');
-      col7?.current?.classList.add('drip-col');
-    }, 0);
+    const addDrip = (delay, ...columns) => setTimeout(() => {
+      columns?.forEach(column => column?.current?.classList.add('drip-col'))
+    }, delay);
     
-    const removeDrip = () => setTimeout(() => {
-      col1?.current?.classList.remove('drip-col');
-      col2?.current?.classList.remove('drip-col');
-      col3?.current?.classList.remove('drip-col');
-      col4?.current?.classList.remove('drip-col');
-      col5?.current?.classList.remove('drip-col');
-      col6?.current?.classList.remove('drip-col');
-      col7?.current?.classList.remove('drip-col');
-    }, 5000);
+    const removeDrip = (delay, ...columns) => setTimeout(() => {
+      columns?.forEach(column => column?.current?.classList.remove('drip-col'))
+    }, delay);
 
-    const addOpaque = () => setTimeout(() => {
-      col1?.current?.classList.add('opaque-drip');
-      col2?.current?.classList.add('opaque-drip');
-      col3?.current?.classList.add('opaque-drip');
-      col4?.current?.classList.add('opaque-drip');
-      col5?.current?.classList.add('opaque-drip');
-      col6?.current?.classList.add('opaque-drip');
-      col7?.current?.classList.add('opaque-drip');
-    }, 5000);
+    const addOpaque = (delay, ...columns) => setTimeout(() => {
+      columns?.forEach(column => column?.current?.classList.add('opaque-drip'))
+    }, delay);
 
-    const removeOpaque = () => setTimeout(() => {
-      col1?.current?.classList.remove('opaque-drip');
-      col2?.current?.classList.remove('opaque-drip');
-      col3?.current?.classList.remove('opaque-drip');
-      col4?.current?.classList.remove('opaque-drip');
-      col5?.current?.classList.remove('opaque-drip');
-      col6?.current?.classList.remove('opaque-drip');
-      col7?.current?.classList.remove('opaque-drip');
-    }, 10000);
+    const removeOpaque = (delay, ...columns) => setTimeout(() => {
+      columns?.forEach(column => column?.current?.classList.remove('opaque-drip'))
+    }, delay);
 
-    addDrip();
-    removeDrip();
-    addOpaque();
-    removeOpaque();
+    addDrip(0, col1, col2, col3, col4, col5, col6, col7);
+    removeDrip(5000, col1, col2, col3, col4, col5, col6, col7);
+    addOpaque(5000, col1, col2, col3, col4, col5, col6, col7);
+    removeOpaque(10000, col1, col2, col3, col4, col5, col6, col7);
+
+    const firstCycle = () => {
+      setCycle(1);
+      addDrip(0, col1, col2, col3, col4, col5, col6, col7);
+      removeOpaque(5000, col1, col2, col3, col4, col5, col6, col7);
+      removeDrip(5000, col1, col2, col3, col4, col5, col6, col7);
+      addOpaque(5000, col1, col2, col3, col4, col5, col6, col7);
+      removeOpaque(10000, col1, col2, col3, col4, col5, col6, col7);
+    };
+    
+    const secondCycle = () => {
+      setCycle(2);
+      addDrip(0, col8, col9, col10, col11, col12, col13, col14);
+      removeOpaque(5000, col8, col9, col10, col11, col12, col13, col14);
+      removeDrip(5000, col8, col9, col10, col11, col12, col13, col14);
+      addOpaque(5000, col8, col9, col10, col11, col12, col13, col14);
+      removeOpaque(10000, col8, col9, col10, col11, col12, col13, col14);
+    }
+
+    setTimeout(() => setInterval(firstCycle, 10000), 10000);
+    setInterval(secondCycle, 10000);
 
     return () => {
-      clearTimeout(addDrip);
-      clearTimeout(removeDrip);
-      clearTimeout(addOpaque);
-      clearTimeout(removeOpaque);
+      clearInterval(firstCycle);
+      clearInterval(secondCycle);
     }
   }, [])
 
@@ -86,44 +90,88 @@ const SplashPage = () => {
         </div>
       </div>
 
-      <div id="splash-grid-container">
-        <div className='splash-grid-col col-1' ref={col1}>
-          {splashImages1.slice(0, 3).map((img, i) => 
-            <img src={img} alt="" key={i} />
-            )}
+      {/* FIRST SET OF SPLASH IMGS */}
+      {(cycle === 1) && (
+        <div id="splash-grid-container">
+          <div className='splash-grid-col col-1' ref={col1}>
+            {splashImages1.slice(0, 3).map((img, i) => 
+              <img src={img} alt="" key={i} />
+              )}
+          </div>
+          <div className='splash-grid-col col-2' ref={col2}>
+            {splashImages1.slice(3, 6).map((img, i) => 
+              <img src={img} alt="" key={i} />
+              )}
+          </div>
+          <div className='splash-grid-col col-3' ref={col3}>
+            {splashImages1.slice(6, 9).map((img, i) => 
+              <img src={img} alt="" key={i} />
+              )}
+          </div>
+          <div className='splash-grid-col col-4' ref={col4}>
+            {splashImages1.slice(8, 11).map((img, i) => 
+              <img src={img} alt="" key={i} />
+              )}
+          </div>
+          <div className='splash-grid-col col-5' ref={col5}>
+            {splashImages1.slice(12, 15).map((img, i) => 
+              <img src={img} alt="" key={i} />
+              )}
+          </div>
+          <div className='splash-grid-col col-6' ref={col6}>
+            {splashImages1.slice(16, 20).map((img, i) => 
+              <img src={img} alt="" key={i} />
+              )}
+          </div>
+          <div className='splash-grid-col col-7' ref={col7}>
+            {splashImages1.slice(20, 23).map((img, i) => 
+              <img src={img} alt="" key={i} />
+              )}
+          </div>
         </div>
-        <div className='splash-grid-col col-2' ref={col2}>
-          {splashImages1.slice(3, 6).map((img, i) => 
-            <img src={img} alt="" key={i} />
-            )}
-        </div>
-        <div className='splash-grid-col col-3' ref={col3}>
-          {splashImages1.slice(6, 9).map((img, i) => 
-            <img src={img} alt="" key={i} />
-            )}
-        </div>
-        <div className='splash-grid-col col-4' ref={col4}>
-          {splashImages1.slice(8, 11).map((img, i) => 
-            <img src={img} alt="" key={i} />
-            )}
-        </div>
-        <div className='splash-grid-col col-5' ref={col5}>
-          {splashImages1.slice(12, 15).map((img, i) => 
-            <img src={img} alt="" key={i} />
-            )}
-        </div>
-        <div className='splash-grid-col col-6' ref={col6}>
-          {splashImages1.slice(16, 20).map((img, i) => 
-            <img src={img} alt="" key={i} />
-            )}
-        </div>
-        <div className='splash-grid-col col-7' ref={col7}>
-          {splashImages1.slice(20, 23).map((img, i) => 
-            <img src={img} alt="" key={i} />
-            )}
-        </div>
-      </div>
+      )}
 
+
+      {/* SECOND SET OF SPLASH IMAGES */}
+      {(cycle === 2) && (
+        <div id="splash-grid-container">
+          <div className='splash-grid-col col-1 opaque-drip' ref={col8}>
+            {splashImages2.slice(0, 3).map((img, i) => 
+              <img src={img} alt="" key={i} />
+              )}
+          </div>
+          <div className='splash-grid-col col-2 opaque-drip' ref={col9}>
+            {splashImages2.slice(3, 6).map((img, i) => 
+              <img src={img} alt="" key={i} />
+              )}
+          </div>
+          <div className='splash-grid-col col-3 opaque-drip' ref={col10}>
+            {splashImages2.slice(6, 9).map((img, i) => 
+              <img src={img} alt="" key={i} />
+              )}
+          </div>
+          <div className='splash-grid-col col-4 opaque-drip' ref={col11}>
+            {splashImages2.slice(9, 12).map((img, i) => 
+              <img src={img} alt="" key={i} />
+              )}
+          </div>
+          <div className='splash-grid-col col-5 opaque-drip' ref={col12}>
+            {splashImages2.slice(12, 15).map((img, i) => 
+              <img src={img} alt="" key={i} />
+              )}
+          </div>
+          <div className='splash-grid-col col-6 opaque-drip' ref={col13}>
+            {splashImages2.slice(15, 18).map((img, i) => 
+              <img src={img} alt="" key={i} />
+              )}
+          </div>
+          <div className='splash-grid-col col-7 opaque-drip' ref={col14}>
+            {splashImages2.slice(18, 21).map((img, i) => 
+              <img src={img} alt="" key={i} />
+              )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };
