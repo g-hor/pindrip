@@ -52,7 +52,6 @@ const SplashPage = () => {
     removeOpaque(10000, col1, col2, col3, col4, col5, col6, col7);
 
     const firstCycle = () => {
-      setCycle(1);
       addDrip(0, col1, col2, col3, col4, col5, col6, col7);
       removeOpaque(1000, col1, col2, col3, col4, col5, col6, col7);
       removeDrip(5000, col1, col2, col3, col4, col5, col6, col7);
@@ -61,7 +60,6 @@ const SplashPage = () => {
     };
     
     const secondCycle = () => {
-      setCycle(2);
       addDrip(0, col8, col9, col10, col11, col12, col13, col14);
       removeOpaque(1000, col8, col9, col10, col11, col12, col13, col14);
       removeDrip(5000, col8, col9, col10, col11, col12, col13, col14);
@@ -70,14 +68,20 @@ const SplashPage = () => {
     }
 
     setInterval(() => {
-      firstCycle();
-      secondCycle();
-    }, 10000);
+      setTimeout(() => {
+        setCycle(1);
+        firstCycle();
+      }, 7000)
+      setTimeout(() => {
+        setCycle(2);
+        secondCycle();
+      }, 0)
+    }, 7000);
 
-    return () => {
-      clearInterval(firstCycle);
-      clearInterval(secondCycle);
-    }
+    // return () => {
+    //   clearInterval(firstCycle);
+    //   clearInterval(secondCycle);
+    // }
   }, [])
 
   return (
