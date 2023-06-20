@@ -75,7 +75,7 @@
   transform: translateY(88vh);
 }
 
-/* .col-1.fade-out {
+.col-1.fade-out {
   opacity: 0;
   transform: translateY(-10vh);
 }
@@ -83,7 +83,7 @@
 .col-1.fade-in {
   opacity: 1;
   transform: translateY(10vh);
-} */
+}
 
 .col-2 {
   position: relative;
