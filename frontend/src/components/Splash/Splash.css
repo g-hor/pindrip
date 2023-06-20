@@ -66,13 +66,13 @@
 
 .col-1 {
   position: relative;
-  top: -84vh;
-  height: 84vh;
+  top: -88vh;
+  height: 88vh;
   transition: transform 2.1s ease-out 0.9s, opacity 1s ease-out 0s;
 }
 
 .col-1.drip-col {
-  transform: translateY(84vh);
+  transform: translateY(88vh);
 }
 
 .col-2 {
@@ -99,13 +99,13 @@
 
 .col-4 {
   position: relative;
-  top: -56vh;
-  height: 56vh;
+  top: -54vh;
+  height: 54vh;
   transition: transform 2.4s ease-out 1.5s, opacity 1s ease-out 0.45s;
 }
 
 .col-4.drip-col {
-  transform: translateY(56vh);
+  transform: translateY(54vh);
 }
 
 .col-5 {
@@ -132,11 +132,11 @@
 
 .col-7 {
   position: relative;
-  top: -84vh;
-  height: 84vh;
+  top: -88vh;
+  height: 88vh;
   transition: transform 2.1s ease-out 2.1s, opacity 1s ease-out 0.9s;
 }
 
 .col-7.drip-col {
-  transform: translateY(84vh);
+  transform: translateY(88vh);
 }

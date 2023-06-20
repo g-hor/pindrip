@@ -71,17 +71,12 @@ const SplashPage = () => {
       setTimeout(() => {
         setCycle(1);
         firstCycle();
-      }, 7000)
+      }, 6500)
       setTimeout(() => {
         setCycle(2);
         secondCycle();
       }, 0)
-    }, 7000);
-
-    // return () => {
-    //   clearInterval(firstCycle);
-    //   clearInterval(secondCycle);
-    // }
+    }, 6500);
   }, [])
 
   return (
