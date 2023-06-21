@@ -52,17 +52,21 @@ const SplashPage = () => {
     addOpaque(5225, col1, col2, col3, col4, col5, col6, col7);
     removeOpaque(6000, col8, col9, col10, col11, col12, col13, col14);
     addOpaque(10500, col8, col9, col10, col11, col12, col13, col14);
+    removeOpaque(11225, col15, col16, col17, col18, col19, col20, col21);
+    addOpaque(16500, col15, col16, col17, col18, col19, col20, col21);
 
     const cycleLoop = () => setInterval(() => {
-      // removeOpaque(775, col15, col16, col17, col18, col19, col20, col21);
-      // addOpaque(5225, col15, col16, col17, col18, col19, col20, col21);
 
       removeOpaque(775, col1, col2, col3, col4, col5, col6, col7);
       addOpaque(5225, col1, col2, col3, col4, col5, col6, col7);
 
       removeOpaque(6000, col8, col9, col10, col11, col12, col13, col14);
       addOpaque(10500, col8, col9, col10, col11, col12, col13, col14);
-    }, 10500)
+
+      removeOpaque(11225, col15, col16, col17, col18, col19, col20, col21);
+      addOpaque(16500, col15, col16, col17, col18, col19, col20, col21);
+
+    }, 16500)
 
     cycleLoop();
 
