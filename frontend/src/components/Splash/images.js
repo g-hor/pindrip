@@ -1,4 +1,4 @@
-export const splashImages = [
+export const splashImages1 = [
   "https://pindrip-seeds.s3.amazonaws.com/splash/0.jpeg",
   "https://pindrip-seeds.s3.amazonaws.com/splash/1.jpeg",
   "https://pindrip-seeds.s3.amazonaws.com/splash/2.jpeg",
@@ -19,7 +19,58 @@ export const splashImages = [
   "https://pindrip-seeds.s3.amazonaws.com/splash/24.jpeg",
   "https://pindrip-seeds.s3.amazonaws.com/splash/25.jpeg",
   "https://pindrip-seeds.s3.amazonaws.com/splash/26.jpeg",
-  "https://pindrip-seeds.s3.amazonaws.com/splash/27.jpeg",
-  "https://pindrip-seeds.s3.amazonaws.com/splash/28.jpeg",
   "https://pindrip-seeds.s3.amazonaws.com/splash/17.jpeg",
-]
+  "https://pindrip-seeds.s3.amazonaws.com/splash/27.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/28.jpeg"
+];
+
+export const splashImages2 = [
+  "https://pindrip-seeds.s3.amazonaws.com/splash/30.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/31.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/32.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/33.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/34.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/35.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/36.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/37.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/38.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/39.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/40.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/41.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/42.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/43.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/44.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/45.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/46.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/47.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/48.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/49.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/50.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/51.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/52.jpeg"
+];
+
+export const splashImages3 = [
+  "https://pindrip-seeds.s3.amazonaws.com/splash/11.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/22.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/65.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/9.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/13.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/18.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/63.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/29.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/53.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/54.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/55.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/56.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/57.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/58.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/59.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/10.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/60.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/61.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/62.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/64.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/66.jpeg",
+  "https://pindrip-seeds.s3.amazonaws.com/splash/67.jpeg"
+];
