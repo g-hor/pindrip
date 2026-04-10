@@ -2,12 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
-import App from './App';
+
 import store from './store/index';
 import csrfFetch from './store/csrf';
 import { ModalProvider } from './context/modal';
 import * as sessionActions from './store/session';
 import * as userActions from './store/user';
+
+import App from './App';
+
 import './index.css';
 
 if (import.meta.env.DEV) {

@@ -15,29 +15,29 @@ import SplashPage from './components/Splash';
 import BoardShow from './components/Profile/Board/BoardShow';
 
 function App() {
-  const navigate = useNavigate();
-  let currentUser = useSelector(getCurrentUser);
+	const navigate = useNavigate();
+	let currentUser = useSelector(getCurrentUser);
 
-  useEffect(() => {
-    if (!currentUser) navigate('/');
-  }, [navigate, currentUser]);
+	useEffect(() => {
+		if (!currentUser) navigate('/');
+	}, [navigate, currentUser]);
 
-  return (
-    <div id="entire-page">
-      <Navbar />
-      <Routes>
-        <Route exact path="/editprofile" element={<EditProfile />} />
-        <Route exact path="/editpersonal" element={<EditPersonalForm />} />
-        <Route exact path="/editaccount" element={<EditAccountForm />} />
-        <Route exact path="/pin-builder" element={<CreatePinForm />} />
-        <Route exact path="/pins/:pinId" element={<PinShow />} />
-        <Route exact path="/:username/:boardUrl" element={<BoardShow />} />
-        <Route exact path="/:username" element={<Profile />} />
-        <Route exact path="/home" element={<PinIndex />} />
-        <Route exact path="/" element={<SplashPage />} />
-      </Routes>
-    </div>
-  );
-};
+	return (
+		<div id="entire-page">
+			<Navbar />
+			<Routes>
+				<Route path="/editprofile" element={<EditProfile />} />
+				<Route path="/editpersonal" element={<EditPersonalForm />} />
+				<Route path="/editaccount" element={<EditAccountForm />} />
+				<Route path="/pin-builder" element={<CreatePinForm />} />
+				<Route path="/pins/:pinId" element={<PinShow />} />
+				<Route path="/:username/:boardUrl" element={<BoardShow />} />
+				<Route path="/:username" element={<Profile />} />
+				<Route path="/home" element={<PinIndex />} />
+				<Route path="/" element={<SplashPage />} />
+			</Routes>
+		</div>
+	);
+}
 
 export default App;

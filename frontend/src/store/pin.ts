@@ -2,7 +2,6 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { IPin, ICreatePinArgs, TThunkDispatch } from '../types';
 import csrfFetch from './csrf';
 
-
 // SLICE
 const pinsSlice = createSlice({
 	name: 'pins',
@@ -23,21 +22,24 @@ const pinsSlice = createSlice({
 export const { receivePin, receiveAllPins, removePin } = pinsSlice.actions;
 export default pinsSlice.reducer;
 
-
 // THUNKS
-export const fetchPin = (pinId: number) => async (dispatch: TThunkDispatch): Promise<Response> => {
-	const res = await csrfFetch(`/api/pins/${pinId}`);
-	const data = await res.json();
-	dispatch(receivePin(data));
-	return res;
-};
+export const fetchPin =
+	(pinId: number) =>
+	async (dispatch: TThunkDispatch): Promise<Response> => {
+		const res = await csrfFetch(`/api/pins/${pinId}`);
+		const data = await res.json();
+		dispatch(receivePin(data));
+		return res;
+	};
 
-export const fetchAllPins = () => async (dispatch: TThunkDispatch): Promise<Response> => {
-	const res = await csrfFetch('/api/pins');
-	const data = await res.json();
-	dispatch(receiveAllPins(data));
-	return res;
-};
+export const fetchAllPins =
+	() =>
+	async (dispatch: TThunkDispatch): Promise<Response> => {
+		const res = await csrfFetch('/api/pins');
+		const data = await res.json();
+		dispatch(receiveAllPins(data));
+		return res;
+	};
 
 export const createPin =
 	({ title, description, altText, website, photo }: ICreatePinArgs) =>
@@ -54,18 +56,22 @@ export const createPin =
 		return data;
 	};
 
-export const deletePin = (pinId: number) => async (dispatch: TThunkDispatch): Promise<Response> => {
-	const res = await csrfFetch(`/api/pins/${pinId}`, { method: 'DELETE' });
-	dispatch(removePin(pinId));
-	return res;
-};
+export const deletePin =
+	(pinId: number) =>
+	async (dispatch: TThunkDispatch): Promise<Response> => {
+		const res = await csrfFetch(`/api/pins/${pinId}`, { method: 'DELETE' });
+		dispatch(removePin(pinId));
+		return res;
+	};
 
-export const updatePin = (pin: IPin) => async (dispatch: TThunkDispatch): Promise<Response> => {
-	const res = await csrfFetch(`/api/pins/${pin.id}`, {
-		method: 'PATCH',
-		body: JSON.stringify({ pin }),
-	});
-	const data: IPin = await res.json();
-	dispatch(receivePin(data));
-	return res;
-};
+export const updatePin =
+	(pin: IPin) =>
+	async (dispatch: TThunkDispatch): Promise<Response> => {
+		const res = await csrfFetch(`/api/pins/${pin.id}`, {
+			method: 'PATCH',
+			body: JSON.stringify({ pin }),
+		});
+		const data: IPin = await res.json();
+		dispatch(receivePin(data));
+		return res;
+	};

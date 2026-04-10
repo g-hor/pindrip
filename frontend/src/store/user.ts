@@ -3,7 +3,6 @@ import type { IUser, IUpdatePasswordArgs, IDeleteUserArgs, IFollowArgs, TThunkDi
 import csrfFetch from './csrf';
 import { logoutUser, storeCurrentUser } from './session';
 
-
 // FORMATTING HELPERS
 export const getInitial = (user: IUser): string => {
 	if (user.username) return user.username[0].toUpperCase();
@@ -17,7 +16,6 @@ export const capitalizeFirstLetter = (string: string): string => {
 export const formatEmail = (emailAddress: string): string => {
 	return capitalizeFirstLetter(emailAddress.split('@')[0]);
 };
-
 
 // SLICE
 const usersSlice = createSlice({
@@ -41,21 +39,24 @@ const usersSlice = createSlice({
 export const { receiveAllUsers, receiveUser, removeUser } = usersSlice.actions;
 export default usersSlice.reducer;
 
-
 // THUNKS
-export const fetchAllUsers = () => async (dispatch: TThunkDispatch): Promise<Response> => {
-	const res = await csrfFetch('/api/users');
-	const data = await res.json();
-	dispatch(receiveAllUsers(data));
-	return res;
-};
+export const fetchAllUsers =
+	() =>
+	async (dispatch: TThunkDispatch): Promise<Response> => {
+		const res = await csrfFetch('/api/users');
+		const data = await res.json();
+		dispatch(receiveAllUsers(data));
+		return res;
+	};
 
-export const fetchUser = (username: string) => async (dispatch: TThunkDispatch): Promise<Response> => {
-	const res = await csrfFetch(`/api/users/${username}`);
-	const data = await res.json();
-	dispatch(receiveUser(data));
-	return res;
-};
+export const fetchUser =
+	(username: string) =>
+	async (dispatch: TThunkDispatch): Promise<Response> => {
+		const res = await csrfFetch(`/api/users/${username}`);
+		const data = await res.json();
+		dispatch(receiveUser(data));
+		return res;
+	};
 
 export const updateUser =
 	(user: Partial<IUser> & { id: number }) =>

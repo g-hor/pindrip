@@ -1,289 +1,262 @@
-import { useState, useRef, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import { useNavigate, Link } from "react-router-dom";
-import { getCurrentUser } from "../../store/session";
-import { createPin } from "../../store/pin";
-import { savePin } from "../../store/boardPin";
-import { getInitial } from "../../store/user";
-import { fetchAllBoards } from "../../store/board";
+import { useState, useRef, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+
+import { getCurrentUser } from '@store/session';
+import { createPin } from '@store/pin';
+import { savePin } from '@store/boardPin';
+import { getInitial } from '@store/user';
+import { fetchAllBoards } from '@store/board';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
+
 import Avatar from '../Profile/Avatar';
+
 import './CreatePin.css';
 
-
 const CreatePinForm = () => {
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const currentUser = useSelector(getCurrentUser);
-  const pins = useSelector(state => state?.pins);
-  const boards = useSelector(state => 
-    Object.values(state?.boards)
-      .slice(0, 1)
-      .concat(
-        Object.values(state?.boards)
-          .slice(1)
-          .reverse()
-      )
-    );
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [altText, setAltText] = useState('');
-  const [website, setWebsite] = useState('');
-  const [showAlt, setShowAlt] = useState(false);
-  const [photo, setPhoto] = useState(null);
-  const [photoUrl, setPhotoUrl] = useState(null);
-  const [showBoards, setShowBoards] = useState(false);
-  const [selectedBoard, setSelectedBoard] = useState(boards[0]?.name || 'All Pins');
-  const [clickedSave, setClickedSave] = useState(false);
-  const [showSaveBtn, setShowSaveBtn] = useState(Array(boards?.length).fill(false));
-  const [saved, setSaved] = useState(false);
-  const [noPicture, setNoPicture] = useState(false);
-  const boardId = boards?.filter(board => board?.name === selectedBoard)[0]?.id;
-  const uploadInput = useRef();
-  const boardMenu = useRef();
-  let displayInitial;
+	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
 
+	const currentUser = useAppSelector(getCurrentUser);
+	const pins = useAppSelector((state) => state?.pins);
+	const boards = useAppSelector((state) =>
+		Object.values(state?.boards).slice(0, 1).concat(Object.values(state?.boards).slice(1).reverse()),
+	);
 
-  const abbreviateBoard = (boardName, length) => {
-    if (boardName.length > length) {
-      return boardName.slice(0, length) + '...';
-    } else {
-      return boardName;
-    }
-  };
+	const [title, setTitle] = useState('');
+	const [description, setDescription] = useState('');
+	const [altText, setAltText] = useState('');
+	const [website, setWebsite] = useState('');
+	const [showAlt, setShowAlt] = useState(false);
+	const [photo, setPhoto] = useState(null);
+	const [photoUrl, setPhotoUrl] = useState(null);
+	const [showBoards, setShowBoards] = useState(false);
+	const [selectedBoard, setSelectedBoard] = useState(boards[0]?.name || 'All Pins');
+	const [clickedSave, setClickedSave] = useState(false);
+	const [showSaveBtn, setShowSaveBtn] = useState(Array(boards?.length).fill(false));
+	const [saved, setSaved] = useState(false);
+	const [noPicture, setNoPicture] = useState(false);
 
-  const clickBoard = (board) => {
-    setShowSaveBtn(Array(boards?.length).fill(false));
-    setSelectedBoard(board.name);
-    setShowBoards(false);
-  };
+	const uploadInput = useRef<HTMLInputElement | null>(null);
+	const boardMenu = useRef<HTMLDivElement | null>(null);
 
-  const handlePhoto = async ({ currentTarget }) => {
-    if (currentTarget.files[0]) {
-      setPhoto(currentTarget.files[0]);
-      const fileReader = new FileReader();
-      fileReader.readAsDataURL(currentTarget.files[0]);
-      fileReader.onload = () => setPhotoUrl(fileReader.result);
-      setNoPicture(false);
-    }
-  };
+	const boardId = boards?.filter((board) => board?.name === selectedBoard)[0]?.id;
 
-  const handleSubmit = async (boardId, boardIdx) => {
-    if (!photoUrl) {
-      setNoPicture(true);
-      return;
-    }
-    if (!clickedSave) {
-      setClickedSave(true);
-      const pin = await dispatch(createPin({ title, description, altText, website, photo }));
-      const pinId = Object.keys(pin)[0];
-      const res = await dispatch(savePin({ boardId, pinId }));
-      if (res?.ok) {
-        setSaved(true);
-        setTimeout(() => setSaved(false), 3000);
-        setTimeout(() => navigate(`/pins/${pinId}`), 3000);
-      }
-    }
-  };
+	let displayInitial: string;
 
-  const hideBoards = (e) => {
-    if (e.target === boardMenu?.current) return;
-    setShowBoards(false); 
-  };
+	const abbreviateBoard = (boardName: string, length: number) => {
+		if (boardName.length > length) {
+			return boardName.slice(0, length) + '...';
+		} else {
+			return boardName;
+		}
+	};
 
-  useEffect(() => {
-    dispatch(fetchAllBoards(currentUser?.id));
-  }, [dispatch, currentUser?.id]);
+	const clickBoard = (board) => {
+		setShowSaveBtn(Array(boards?.length).fill(false));
+		setSelectedBoard(board.name);
+		setShowBoards(false);
+	};
 
-  useEffect(() => {
-    if (!showBoards) return;
+	const handlePhoto = async ({ currentTarget }) => {
+		if (currentTarget.files[0]) {
+			setPhoto(currentTarget.files[0]);
+			const fileReader = new FileReader();
+			fileReader.readAsDataURL(currentTarget.files[0]);
+			fileReader.onload = () => setPhotoUrl(fileReader.result);
+			setNoPicture(false);
+		}
+	};
 
-    document.addEventListener('click', hideBoards)
+	const handleSubmit = async (boardId: number) => {
+		if (!photoUrl) {
+			setNoPicture(true);
+			return;
+		}
+		if (!clickedSave) {
+			setClickedSave(true);
+			const pin = await dispatch(createPin({ title, description, altText, website, photo }));
+			const res = await dispatch(savePin({ boardId, pinId: pin.id }));
+			if (res?.ok) {
+				setSaved(true);
+				setTimeout(() => setSaved(false), 3000);
+				setTimeout(() => navigate(`/pins/${pin.id}`), 3000);
+			}
+		}
+	};
 
-    return () => (document.removeEventListener('click', hideBoards))
-  })
+	const hideBoards = (e) => {
+		if (e.target === boardMenu?.current) return;
+		setShowBoards(false);
+	};
 
-  let preview = null;
-  if (photoUrl) preview = <img src={photoUrl} id="preview-pin-img" alt="" />;
-  if (currentUser) displayInitial = getInitial(currentUser);
+	useEffect(() => {
+		dispatch(fetchAllBoards(currentUser?.id));
+	}, [dispatch, currentUser?.id]);
 
-  return (
-    <div id="create-pin-main-bg">
+	useEffect(() => {
+		if (!showBoards) return;
 
-      <div id="create-pin-content-bg">
-        <div id="create-pin-bottom-content-holder">
+		document.addEventListener('click', hideBoards);
 
-          <div 
-            id="create-pin-left-container"
-            className={noPicture ? "no-picture" : ""}
-            >
-            <div 
-              id="create-pin-upload-box"
-              onClick={() => uploadInput.current.click()}
-              >
-              <input
-                ref={uploadInput}
-                type="file"
-                onChange={handlePhoto}
-                accept="image/png, image/jpeg, image/jpg, image/gif"
-                style={{display: 'none'}}
-                />
-              {preview || (
-                <div 
-                  id="dropbox-text"
-                  className={noPicture ? "no-picture" : ""}
-                  >
-                  <i className="fa-solid fa-cloud-arrow-up"></i>
-                  <div>
-                    {!noPicture ? 
-                      "Click here to upload an image."
-                      :
-                      "An Image is required to create a Pin."
-                      }
-                  </div>
-                </div>
-              )}
-            </div>
+		return () => document.removeEventListener('click', hideBoards);
+	});
 
-          </div>
+	let preview = null;
+	if (photoUrl) preview = <img src={photoUrl} id="preview-pin-img" alt="" />;
+	if (currentUser) displayInitial = getInitial(currentUser);
 
-          <div id="create-pin-right-container">
-            <div id="create-pin-top-row">
-              <div id="create-pin-top-btn-holder">
-                <div id="show-pin-board-dropdown-btn" onClick={() => setShowBoards(true)}>
-                  <i className="fa-solid fa-chevron-down dropbtn board-drop" />
-                  <div id="board-first-option">
-                    {abbreviateBoard(selectedBoard, 9)}
-                  </div>
+	return (
+		<div id="create-pin-main-bg">
+			<div id="create-pin-content-bg">
+				<div id="create-pin-bottom-content-holder">
+					<div id="create-pin-left-container" className={noPicture ? 'no-picture' : ''}>
+						<div id="create-pin-upload-box" onClick={() => uploadInput.current?.click()}>
+							<input
+								ref={uploadInput}
+								type="file"
+								onChange={handlePhoto}
+								accept="image/png, image/jpeg, image/jpg, image/gif"
+								style={{ display: 'none' }}
+							/>
+							{preview || (
+								<div id="dropbox-text" className={noPicture ? 'no-picture' : ''}>
+									<i className="fa-solid fa-cloud-arrow-up"></i>
+									<div>
+										{!noPicture ? 'Click here to upload an image.' : 'An Image is required to create a Pin.'}
+									</div>
+								</div>
+							)}
+						</div>
+					</div>
 
-                  {showBoards && (
-                    <div id="board-options-menu" ref={boardMenu}>
-                      <div id="board-options-title">All boards</div>
-                      {boards?.map((board, i) => (
-                        <div 
-                          className="board-dropdown-option" 
-                          key={i}
-                          onClick={() => clickBoard(board)}
-                          onMouseEnter={() => setShowSaveBtn(prev => {
-                            const next = [ ...prev ];
-                            next[i] = true;
-                            return next;
-                          })}
-                          onMouseLeave={() => setShowSaveBtn(prev => {
-                            const next = [ ...prev ];
-                            next[i] = false;
-                            return next;
-                          })}
-                          >
-                          <div className="board-dropdown-thumbnail-holder">
-                            {pins[board.savedPins[0]]?.photo && (
-                              <img className="board-dropdown-thumbnail" src={pins[board.savedPins[0]]?.photo} alt="" />
-                              )}
-                          </div>
-                          <div className="board-dropdown-info">
-                            <div>
-                              {abbreviateBoard(board.name, 15)}
-                            </div>
-                            {showSaveBtn[i] && (
-                              <div 
-                                id="show-pin-save-btn"
-                                className={clickedSave ? "saved" : " "}
-                                onClick={() => handleSubmit(board.id, i)}
-                                >
-                                {clickedSave ? "Saved" : "Save"}
-                              </div>
-                              )}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
+					<div id="create-pin-right-container">
+						<div id="create-pin-top-row">
+							<div id="create-pin-top-btn-holder">
+								<div id="show-pin-board-dropdown-btn" onClick={() => setShowBoards(true)}>
+									<i className="fa-solid fa-chevron-down dropbtn board-drop" />
+									<div id="board-first-option">{abbreviateBoard(selectedBoard, 9)}</div>
 
-                <div 
-                  id="show-pin-save-btn"
-                  className={clickedSave ? "saved" : " "}
-                  onClick={() => handleSubmit(boardId)}
-                  >
-                  {clickedSave ? "Saved" : "Save"}
-                </div>
+									{showBoards && (
+										<div id="board-options-menu" ref={boardMenu}>
+											<div id="board-options-title">All boards</div>
+											{boards?.map((board, i) => (
+												<div
+													className="board-dropdown-option"
+													key={i}
+													onClick={() => clickBoard(board)}
+													onMouseEnter={() =>
+														setShowSaveBtn((prev) => {
+															const next = [...prev];
+															next[i] = true;
+															return next;
+														})
+													}
+													onMouseLeave={() =>
+														setShowSaveBtn((prev) => {
+															const next = [...prev];
+															next[i] = false;
+															return next;
+														})
+													}
+												>
+													<div className="board-dropdown-thumbnail-holder">
+														{pins[board.savedPins[0]]?.photo && (
+															<img
+																className="board-dropdown-thumbnail"
+																src={pins[board.savedPins[0]]?.photo}
+																alt=""
+															/>
+														)}
+													</div>
+													<div className="board-dropdown-info">
+														<div>{abbreviateBoard(board.name, 15)}</div>
+														{showSaveBtn[i] && (
+															<div
+																id="show-pin-save-btn"
+																className={clickedSave ? 'saved' : ' '}
+																onClick={() => handleSubmit(board.id)}
+															>
+																{clickedSave ? 'Saved' : 'Save'}
+															</div>
+														)}
+													</div>
+												</div>
+											))}
+										</div>
+									)}
+								</div>
 
-              </div>
-            </div>
+								<div
+									id="show-pin-save-btn"
+									className={clickedSave ? 'saved' : ' '}
+									onClick={() => handleSubmit(boardId)}
+								>
+									{clickedSave ? 'Saved' : 'Save'}
+								</div>
+							</div>
+						</div>
 
-            {/* <div id="cowboy">🤠</div> */}
-            <div id="relative-text-aligner">
-              <textarea
-                type="text"
-                id="create-pin-title"
-                placeholder='Add your title'
-                onChange={(e) => setTitle(e.target.value)}
-                />
-            </div>
+						{/* <div id="cowboy">🤠</div> */}
+						<div id="relative-text-aligner">
+							<textarea
+								id="create-pin-title"
+								placeholder="Add your title"
+								onChange={(e) => setTitle(e.target.value)}
+							/>
+						</div>
 
-            <div id="create-pin-user-info">
-              <Link to={`/${currentUser?.username}`}>
-                {currentUser?.avatar && (
-                    <Avatar avatar={currentUser?.avatar} />
-                  )}
+						<div id="create-pin-user-info">
+							<Link to={`/${currentUser?.username}`}>
+								{currentUser?.avatar && <Avatar avatar={currentUser?.avatar} />}
 
-                {!currentUser?.avatar && (
-                    <div id="pin-show-creator-initial">{displayInitial}</div>
-                  )}
-              </Link>
-              
-              <Link to={`/${currentUser?.username}`}>
-                <div>{currentUser?.firstName + ' ' + (currentUser?.lastName || '')}</div>
-              </Link>
-            </div>
+								{!currentUser?.avatar && <div id="pin-show-creator-initial">{displayInitial}</div>}
+							</Link>
 
-            <span
-              contentEditable
-              role="textbox"
-              id="create-pin-description"
-              placeholder="Tell everyone what your Pin is about" // This line is a no-op, see corresponding CSS file for 'content'
-              onInput={(e) => setDescription(e.currentTarget.textContent)}
-              />
+							<Link to={`/${currentUser?.username}`}>
+								<div>{currentUser?.firstName + ' ' + (currentUser?.lastName || '')}</div>
+							</Link>
+						</div>
 
-            <div id="alt-btn-or-text">
+						<span
+							contentEditable
+							role="textbox"
+							id="create-pin-description"
+							onInput={(e) => setDescription(e.currentTarget.textContent)}
+						/>
 
-              {!showAlt && (
-                <div 
-                  id="add-alt-text-btn"
-                  onClick={() => setShowAlt(true)}
-                  >
-                  Add alt text
-                </div>
-                )}
+						<div id="alt-btn-or-text">
+							{!showAlt && (
+								<div id="add-alt-text-btn" onClick={() => setShowAlt(true)}>
+									Add alt text
+								</div>
+							)}
 
-              {showAlt && (
-                <span
-                  contentEditable
-                  role="textbox"
-                  id="alt-text-textbox"
-                  placeholder="Explain what people can see in the Pin" // This line is a no-op, see corresponding CSS file for 'content'
-                  onInput={(e) => {if (altText?.length < 500) setAltText(e.target.value)}}
-                  />
-                )}
+							{showAlt && (
+								<span
+									contentEditable
+									role="textbox"
+									id="alt-text-textbox"
+									onInput={(e) => {
+										if (altText?.length < 500) setAltText(e.currentTarget.textContent);
+									}}
+								/>
+							)}
+						</div>
 
-            </div>
+						<textarea
+							id="pin-website"
+							placeholder="Add a destination link"
+							onChange={(e) => setWebsite(e.target.value)}
+						/>
+					</div>
+				</div>
+			</div>
 
-            <textarea
-              type="text"
-              id="pin-website"
-              placeholder="Add a destination link"
-              onChange={(e) => setWebsite(e.target.value)}
-              />
-          </div>
-
-        </div>
-
-      </div>
-
-      <div id="saved-msg-container" className={saved ? "saved save-pin" : "save-pin"}>
-        Drip saved successfully!
-      </div>
-    </div>
-  );
+			<div id="saved-msg-container" className={saved ? 'saved save-pin' : 'save-pin'}>
+				Drip saved successfully!
+			</div>
+		</div>
+	);
 };
 
 export default CreatePinForm;

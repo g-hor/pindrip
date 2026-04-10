@@ -1,41 +1,40 @@
-import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { getInitial } from "../../store/user";
-import { getCurrentUser } from "../../store/session";
-import Avatar from "../Profile/Avatar";
-import FollowButton from "./FollowButton";
+import { Link } from 'react-router-dom';
 
+import { getInitial } from '@store/user';
+import { getCurrentUser } from '@store/session';
+import { useAppSelector } from '@store/hooks';
+
+import Avatar from '../Profile/Avatar';
+import FollowButton from './FollowButton';
 
 const FollowIndexItem = ({ username, onClose }) => {
-  const currentUser = useSelector(getCurrentUser);
-  const showUser = useSelector(state => state?.users[username]);
-  const avatar = showUser?.avatar;
-  const isSelf = (username === currentUser?.username);
+	const currentUser = useAppSelector(getCurrentUser);
+	const showUser = useAppSelector((state) => state?.users[username]);
 
-  return (
-    <div className="follow-index-item">
-      <div className="follow-index-item-user">
-        <Link to={`/${username}`} onClick={onClose}>
-          {avatar ? 
-            <Avatar avatar={avatar} /> : 
-            <div className="follow-index-initial-holder">
-              <div className="follow-index-initial">
-                {getInitial(showUser)}
-              </div>
-            </div>
-            }
-        </Link>
-        
-        <Link to={`/${username}`} onClick={onClose}>{username}</Link>
-      </div>
+	const avatar = showUser?.avatar;
+	const isSelf = username === currentUser?.username;
 
-      {isSelf ? (
-        <div></div>
-      ) : (
-        <FollowButton currentUser={currentUser} showUser={showUser} />
-      )}
-    </div>
-  )
+	return (
+		<div className="follow-index-item">
+			<div className="follow-index-item-user">
+				<Link to={`/${username}`} onClick={onClose}>
+					{avatar ? (
+						<Avatar avatar={avatar} />
+					) : (
+						<div className="follow-index-initial-holder">
+							<div className="follow-index-initial">{getInitial(showUser)}</div>
+						</div>
+					)}
+				</Link>
+
+				<Link to={`/${username}`} onClick={onClose}>
+					{username}
+				</Link>
+			</div>
+
+			{isSelf ? <div></div> : <FollowButton currentUser={currentUser} showUser={showUser} />}
+		</div>
+	);
 };
 
 export default FollowIndexItem;

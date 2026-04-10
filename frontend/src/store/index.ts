@@ -1,4 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { createLogger } from 'redux-logger';
+
 import sessionReducer from './session';
 import usersReducer from './user';
 import pinsReducer from './pin';
@@ -13,7 +15,6 @@ const store = configureStore({
 	},
 	middleware: (getDefaultMiddleware) => {
 		if (import.meta.env.DEV) {
-			const { createLogger } = require('redux-logger');
 			return getDefaultMiddleware().concat(createLogger());
 		}
 		return getDefaultMiddleware();

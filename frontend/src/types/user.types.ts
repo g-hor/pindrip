@@ -10,6 +10,11 @@ export interface IUser {
 	gender?: string;
 	country?: string;
 	avatar?: string;
+	createdPins: number[];
+	followingCount: number;
+	followerCount: number;
+	followers: string[];
+	followedUsers: string[];
 }
 
 export interface IUpdatePasswordArgs {

@@ -1,31 +1,32 @@
-import SignupForm from "./SignupForm";
-import { Modal } from "../../context/modal";
-import { useState } from "react";
-
+import { useState } from 'react';
+import { Modal } from '@context/modal';
+import SignupForm from './SignupForm';
 
 const SignupFormModal = () => {
-  const [showModal, setShowModal] = useState(false);
+	const [showModal, setShowModal] = useState(false);
 
-  const showSignup = (e) => {
-    e.preventDefault();
-    setShowModal(true);
-  };
+	const showSignup = (e) => {
+		e.preventDefault();
+		setShowModal(true);
+	};
 
-  const hideSignup = (e) => {
-    e.preventDefault();
-    setShowModal(false);
-  };
+	const hideSignup = (e) => {
+		e.preventDefault();
+		setShowModal(false);
+	};
 
-  return (
-    <>
-      <button className="signup-btn" onClick={showSignup}>Sign up</button>
-      {showModal && (
-        <Modal onClose={hideSignup}>
-          <SignupForm />
-        </Modal>
-      )}
-    </>
-  );
+	return (
+		<>
+			<button className="signup-btn" onClick={showSignup}>
+				Sign up
+			</button>
+			{showModal && (
+				<Modal onClose={hideSignup}>
+					<SignupForm />
+				</Modal>
+			)}
+		</>
+	);
 };
 
 export default SignupFormModal;

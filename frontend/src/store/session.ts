@@ -25,12 +25,10 @@ const sessionSlice = createSlice({
 export const { receiveSession, removeSession } = sessionSlice.actions;
 export default sessionSlice.reducer;
 
-
 // SELECTOR
 export const getCurrentUser = (state: any): IUser | null => {
 	return state?.session?.user ?? null;
 };
-
 
 // HELPER METHODS
 export const storeCurrentUser = (user: IUser | null): void => {
@@ -42,7 +40,6 @@ function storeCSRFToken(response: Response): void {
 	const csrfToken = response.headers.get('X-CSRF-Token');
 	if (csrfToken) sessionStorage.setItem('X-CSRF-Token', csrfToken);
 }
-
 
 // THUNKS
 export const loginUser =
@@ -58,12 +55,14 @@ export const loginUser =
 		return res;
 	};
 
-export const logoutUser = () => async (dispatch: TThunkDispatch): Promise<Response> => {
-	const res = await csrfFetch('/api/session', { method: 'DELETE' });
-	dispatch(removeSession());
-	storeCurrentUser(null);
-	return res;
-};
+export const logoutUser =
+	() =>
+	async (dispatch: TThunkDispatch): Promise<Response> => {
+		const res = await csrfFetch('/api/session', { method: 'DELETE' });
+		dispatch(removeSession());
+		storeCurrentUser(null);
+		return res;
+	};
 
 export const signupUser =
 	({ email, password }: { email: string; password: string }) =>
@@ -78,11 +77,13 @@ export const signupUser =
 		return res;
 	};
 
-export const restoreSession = () => async (dispatch: TThunkDispatch): Promise<Response> => {
-	const res = await csrfFetch('/api/session');
-	storeCSRFToken(res);
-	const data = await res.json();
-	storeCurrentUser(data.user);
-	dispatch(receiveSession(data.user));
-	return res;
-};
+export const restoreSession =
+	() =>
+	async (dispatch: TThunkDispatch): Promise<Response> => {
+		const res = await csrfFetch('/api/session');
+		storeCSRFToken(res);
+		const data = await res.json();
+		storeCurrentUser(data.user);
+		dispatch(receiveSession(data.user));
+		return res;
+	};
