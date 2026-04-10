@@ -116,7 +116,7 @@ const PinShow = () => {
 
 	const defineDropMenu = () => {
 		if (
-			currentUser?.username === creator?.username &&
+			currentUser?.id === creator?.id &&
 			boards?.filter((board) => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pinId))
 		) {
 			dropMenu = (
@@ -139,7 +139,7 @@ const PinShow = () => {
 				</ul>
 			);
 		} else if (
-			currentUser?.username === creator?.username &&
+			currentUser?.id === creator?.id &&
 			!boards?.filter((board) => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pinId))
 		) {
 			dropMenu = (
@@ -159,7 +159,7 @@ const PinShow = () => {
 				</ul>
 			);
 		} else if (
-			currentUser?.username !== creator?.username &&
+			currentUser?.id !== creator?.id &&
 			boards?.filter((board) => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pinId))
 		) {
 			dropMenu = (
@@ -201,12 +201,11 @@ const PinShow = () => {
 
 	useEffect(() => {
 		defineDropMenu();
-	});
+	}, [defineDropMenu]);
 
 	if (creator) {
 		initial = getInitial(creator);
 	}
-	defineDropMenu();
 
 	return (
 		<>

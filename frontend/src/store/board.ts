@@ -30,7 +30,7 @@ export default boardsSlice.reducer;
 export const getBoardByUrl =
 	(boardUrl: string) =>
 	(state: any): IBoard | undefined =>
-		Object.values((state?.boards as Record<number, IBoard>) ?? {}).find((b) => b.name === boardUrl);
+		Object.values((state?.boards as Record<number, IBoard>) ?? {}).find((b) => b.boardUrl === boardUrl);
 
 export const getSortedBoards = createSelector(
 	(state: any) => state.boards as Record<number, IBoard>,

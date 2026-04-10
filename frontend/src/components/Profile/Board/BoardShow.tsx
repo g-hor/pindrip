@@ -56,7 +56,7 @@ const BoardShow = () => {
 		if (name?.length > 0) {
 			const editedBoard = await dispatch(updateBoard({ id: currentBoard?.id, name, description }));
 			setShowModal(false);
-			navigate(`/${username}/${Object.keys(editedBoard)[0]}`);
+			navigate(`/${username}/${editedBoard.boardUrl}`);
 		}
 	};
 

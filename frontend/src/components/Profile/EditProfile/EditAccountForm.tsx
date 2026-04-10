@@ -28,7 +28,7 @@ const EditAccountForm = () => {
 	const [canSubmit, setCanSubmit] = useState(false);
 
 	const id = currentUser?.id;
-	const isDemo = id === 1;
+	const isDemoUser = id === 1;
 	const username = currentUser?.username;
 
 	const handleEmail = (e) => {
@@ -72,7 +72,7 @@ const EditAccountForm = () => {
 	};
 
 	const saveChanges = () => {
-		if (!isDemo) {
+		if (!isDemoUser) {
 			return dispatch(
 				updateUser({
 					id,
@@ -104,7 +104,7 @@ const EditAccountForm = () => {
 	const handleDelete = () => {
 		if (!notMatch) {
 			setErrors([]);
-			return dispatch(deleteUser({ id, username, email, newPw })).catch(async (res) => {
+			return dispatch(deleteUser({ id, email, newPw })).catch(async (res) => {
 				let data;
 				try {
 					data = await res.clone().json();
@@ -149,8 +149,8 @@ const EditAccountForm = () => {
 					<div className="edit-form-label">Email · Private</div>
 
 					<input
-						className={isDemo ? 'edit-text-input-field email disabled' : 'edit-text-input-field email'}
-						disabled={isDemo ? true : false}
+						className={isDemoUser ? 'edit-text-input-field email disabled' : 'edit-text-input-field email'}
+						disabled={isDemoUser ? true : false}
 						type="text"
 						value={email}
 						onChange={handleEmail}
@@ -159,28 +159,33 @@ const EditAccountForm = () => {
 					{emailErrors.length !== 0 && <div className="edit-form-label valid-email">{emailErrors}</div>}
 
 					<div className="edit-form-field-row-holder field-description account">
-						{isDemo && "Sorry! The demo user's email cannot be changed."}
+						{isDemoUser && "Sorry! The demo user's email cannot be changed."}
 					</div>
 
 					<div className="edit-form-label">Password</div>
 
 					<div id="password-field-holder">
 						<input
-							className={isDemo ? 'edit-text-input-field password disabled' : 'edit-text-input-field password'}
-							disabled={isDemo ? true : false}
+							className={
+								isDemoUser ? 'edit-text-input-field password disabled' : 'edit-text-input-field password'
+							}
+							disabled={isDemoUser ? true : false}
 							type="password"
 							value={newPw}
 							onChange={(e) => setNewPw(e.target.value)}
 							onClick={() => setShowPw(true)}
 						/>
 
-						<div className={isDemo ? 'change-pw-btn disabled' : 'change-pw-btn'} onClick={() => setShowPw(true)}>
+						<div
+							className={isDemoUser ? 'change-pw-btn disabled' : 'change-pw-btn'}
+							onClick={() => setShowPw(true)}
+						>
 							Change
 						</div>
 					</div>
 
 					<div className="edit-form-field-row-holder field-description account">
-						{isDemo && "Sorry! The demo user's password cannot be changed."}
+						{isDemoUser && "Sorry! The demo user's password cannot be changed."}
 					</div>
 
 					<div id="delete-acc-holder">
@@ -190,14 +195,14 @@ const EditAccountForm = () => {
 						</div>
 
 						<div
-							className={isDemo ? 'change-pw-btn disabled' : 'change-pw-btn'}
+							className={isDemoUser ? 'change-pw-btn disabled' : 'change-pw-btn'}
 							onClick={() => setShowConfirm(true)}
 						>
 							Delete account
 						</div>
 					</div>
 
-					{!isDemo && showPw && (
+					{!isDemoUser && showPw && (
 						<Modal onClose={closeReset}>
 							<div id="change-pw-form-container">
 								<div className="edit-form-header-container">
@@ -254,7 +259,7 @@ const EditAccountForm = () => {
 						</Modal>
 					)}
 
-					{!isDemo && showConfirm && (
+					{!isDemoUser && showConfirm && (
 						<Modal onClose={closeReset}>
 							<div id="confirm-delete-container">
 								<div className="edit-form-header-container">
@@ -309,7 +314,7 @@ const EditAccountForm = () => {
 						</Modal>
 					)}
 
-					<BottomBar resetChanges={resetChanges} saveChanges={saveChanges} isDemo={isDemo} canSubmit={canSubmit} />
+					<BottomBar resetChanges={resetChanges} saveChanges={saveChanges} canSubmit={canSubmit} />
 
 					<div id="saved-msg-container" className={saved ? 'saved profile-save' : 'profile-save'}>
 						Drip saved successfully!

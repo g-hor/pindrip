@@ -34,8 +34,7 @@ const EditProfileForm = () => {
 	const imgButtonInput = useRef<HTMLInputElement | null>(null);
 	const pronounsList = useRef<HTMLDivElement | null>(null);
 
-	const id = currentUser?.id;
-	const isDemo = id === 1;
+	const isDemoUser = currentUser?.id === 1;
 	let formData = new FormData();
 
 	const handleChange = (setField, field, e) => {
@@ -135,7 +134,7 @@ const EditProfileForm = () => {
 		if (canSubmit) {
 			const res = await dispatch(
 				updateUser({
-					id,
+					id: currentUser?.id,
 					firstName: first,
 					lastName: last,
 					about,
@@ -383,9 +382,9 @@ const EditProfileForm = () => {
 							<div className="edit-form-input">
 								<input
 									className={
-										isDemo ? 'edit-text-input-field website disabled' : 'edit-text-input-field website'
+										isDemoUser ? 'edit-text-input-field website disabled' : 'edit-text-input-field website'
 									}
-									disabled={isDemo ? true : false}
+									disabled={isDemoUser ? true : false}
 									type="text"
 									value={username}
 									onChange={(e) => handleChange(setUsername, username, e)}
@@ -393,7 +392,7 @@ const EditProfileForm = () => {
 								/>
 
 								<div className="edit-form-field-row-holder field-description">
-									{isDemo
+									{isDemoUser
 										? "Sorry! The demo user's username cannot be changed."
 										: `www.pindrip.onrender.com/${username}`}
 								</div>
@@ -401,7 +400,7 @@ const EditProfileForm = () => {
 						</div>
 					</div>
 
-					<BottomBar resetChanges={resetChanges} saveChanges={saveChanges} canSubmit={canSubmit} isDemo={isDemo} />
+					<BottomBar resetChanges={resetChanges} saveChanges={saveChanges} canSubmit={canSubmit} />
 
 					<div id="saved-msg-container" className={saved ? 'saved profile-save' : 'profile-save'}>
 						Drip saved successfully!

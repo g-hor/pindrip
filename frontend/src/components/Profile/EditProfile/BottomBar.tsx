@@ -1,4 +1,4 @@
-const BottomBar = ({ resetChanges, saveChanges, isDemo, canSubmit }) => {
+const BottomBar = ({ resetChanges, saveChanges, canSubmit }) => {
 	return (
 		<div id="edit-page-bottom-bar">
 			<div id="bottom-bar-align-holder">
@@ -10,9 +10,7 @@ const BottomBar = ({ resetChanges, saveChanges, isDemo, canSubmit }) => {
 					</div>
 
 					<div
-						className={
-							isDemo || !canSubmit ? 'bottom-profile-btn save-btn disabled' : 'bottom-profile-btn save-btn'
-						}
+						className={!canSubmit ? 'bottom-profile-btn save-btn disabled' : 'bottom-profile-btn save-btn'}
 						onClick={saveChanges}
 					>
 						Save
