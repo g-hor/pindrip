@@ -5,23 +5,30 @@ import csrfFetch from './csrf';
 // SLICE
 const boardsSlice = createSlice({
 	name: 'boards',
-	initialState: {} as Record<string, IBoard>,
+	initialState: {} as Record<number, IBoard>,
 	reducers: {
 		receiveBoard(state, action: PayloadAction<IBoard>) {
-			state[action.payload.name] = action.payload;
+			state[action.payload.id] = action.payload;
 		},
 		receiveAllBoards(_state, action: PayloadAction<Record<string, IBoard>>) {
-			return action.payload;
+			const normalized: Record<number, IBoard> = {};
+			Object.values(action.payload).forEach((board) => {
+				normalized[board.id] = board;
+			});
+			return normalized;
 		},
 		removeBoard(state, action: PayloadAction<number>) {
-			const key = Object.keys(state).find((k) => state[k].id === action.payload);
-			if (key) delete state[key];
+			delete state[action.payload];
 		},
 	},
 });
 
 export const { receiveBoard, receiveAllBoards, removeBoard } = boardsSlice.actions;
 export default boardsSlice.reducer;
+
+// SELECTORS
+export const getBoardByUrl = (boardUrl: string) => (state: any): IBoard | undefined =>
+	Object.values(state?.boards as Record<number, IBoard> ?? {}).find((b) => b.name === boardUrl);
 
 // THUNKS
 export const fetchBoard =

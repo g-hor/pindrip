@@ -2,10 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 
 import { Modal } from '@context/modal';
-import { getInitial } from '@store/user';
+import { getInitial, getUserByUsername } from '@store/user';
 import { getCurrentUser } from '@store/session';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
-import { deleteBoard, fetchAllBoards, updateBoard } from '@store/board';
+import { deleteBoard, fetchAllBoards, getBoardByUrl, updateBoard } from '@store/board';
 
 import PinIndexItem from '../../Pins/PinIndexItem';
 import Avatar from '../Avatar';
@@ -19,8 +19,8 @@ const BoardShow = () => {
 	const { username, boardUrl } = useParams();
 
 	const currentUser = useAppSelector(getCurrentUser);
-	const showUser = useAppSelector((state) => state?.users[username]);
-	const currentBoard = useAppSelector((state) => state?.boards[boardUrl]);
+	const showUser = useAppSelector(getUserByUsername(username));
+	const currentBoard = useAppSelector(getBoardByUrl(boardUrl));
 	const pins = useAppSelector((state) => state?.pins);
 
 	const boardPins = currentBoard?.savedPins.map((pinId) => pins[pinId]);
@@ -157,8 +157,8 @@ const BoardShow = () => {
 			<div id="board-show-count-bar">{currentBoard?.count} Pins</div>
 
 			<div id="pins-index-container">
-				{boardPins?.map((pin, i) => (
-					<div className="pin-index-item" key={i}>
+				{boardPins?.map((pin) => (
+					<div className="pin-index-item" key={pin.id}>
 						<PinIndexItem pin={pin} />
 					</div>
 				))}

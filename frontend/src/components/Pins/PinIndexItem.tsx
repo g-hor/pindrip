@@ -1,20 +1,28 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import { createSelector } from '@reduxjs/toolkit';
 
 import { getInitial } from '@store/user';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { savePin, removeBoardPin } from '@store/boardPin';
+import type { TRootState } from '@store/index';
 
 import Avatar from '../Profile/Avatar';
+
+const selectSortedBoards = createSelector(
+	(state: TRootState) => state.boards,
+	(boards) => {
+		const vals = Object.values(boards);
+		return vals.slice(0, 1).concat(vals.slice(1).reverse());
+	},
+);
 
 const PinIndexItem = ({ pin }) => {
 	const dispatch = useAppDispatch();
 
 	const showUser = useAppSelector((state) => state?.users[pin?.creator]);
 	const pins = useAppSelector((state) => state?.pins);
-	const boards = useAppSelector((state) =>
-		Object.values(state?.boards).slice(0, 1).concat(Object.values(state?.boards).slice(1).reverse()),
-	);
+	const boards = useAppSelector(selectSortedBoards);
 
 	const { username } = useParams();
 
@@ -130,7 +138,7 @@ const PinIndexItem = ({ pin }) => {
 										{boards?.map((board, i) => (
 											<div
 												className="board-dropdown-option"
-												key={i}
+												key={board.id}
 												onClick={() => clickBoard(board)}
 												onMouseEnter={() =>
 													setShowSaveBtn((prev) => {
@@ -196,7 +204,7 @@ const PinIndexItem = ({ pin }) => {
 				<div className="home-pins-info">
 					<Link to={`/${pin?.creator}`}>
 						{avatar ? <Avatar avatar={avatar} /> : <div id="pin-show-creator-initial">{initial}</div>}
-						<span>{pin?.creator}</span>
+						<span>{showUser?.username}</span>
 					</Link>
 				</div>
 			)}

@@ -9,7 +9,7 @@ import './Follow.css';
 const FollowButton = ({ currentUser, showUser }) => {
 	const dispatch = useAppDispatch();
 
-	const [isFollowing, setIsFollowing] = useState(showUser?.followers?.includes(currentUser?.username));
+	const [isFollowing, setIsFollowing] = useState(showUser?.followers?.includes(currentUser?.id));
 	const [clickLimited, setClickLimited] = useState(false);
 
 	const submitFollow = async () => {
@@ -41,7 +41,7 @@ const FollowButton = ({ currentUser, showUser }) => {
 	};
 
 	useEffect(() => {
-		if (showUser?.followers?.includes(currentUser?.username)) {
+		if (showUser?.followers?.includes(currentUser?.id)) {
 			setIsFollowing(true);
 		}
 	}, [currentUser?.username, showUser?.followers]);

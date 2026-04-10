@@ -5,18 +5,19 @@ import './MenuButton.css';
 const MenuButton = ({ displayInitial, displayName }) => {
 	const [showDrop, setShowDrop] = useState(false);
 	const dropdown = useRef<HTMLDivElement | null>(null);
+	const arrowContainer = useRef<HTMLDivElement | null>(null);
 
-	const clickShow = () => {
-		if (showDrop) return;
-		setShowDrop(true);
+	const toggleShowDropdown = () => {
+		setShowDrop((prev) => !prev);
 	};
 
 	useEffect(() => {
 		if (!showDrop) return;
 
 		const clickHide = (e) => {
-			if (dropdown?.current?.contains(e.target)) return;
-			setShowDrop(false);
+			if (!dropdown?.current?.contains(e.target) && !arrowContainer?.current?.contains(e.target)) {
+				setShowDrop(false);
+			}
 		};
 
 		document.addEventListener('click', clickHide);
@@ -24,9 +25,11 @@ const MenuButton = ({ displayInitial, displayName }) => {
 		return () => document.removeEventListener('click', clickHide);
 	}, [showDrop]);
 
+	console.log({ showDrop });
+
 	return (
 		<>
-			<div className="right-drop-icon-holder dropdown" onClick={clickShow}>
+			<div className="right-drop-icon-holder dropdown" ref={arrowContainer} onClick={toggleShowDropdown}>
 				<i className="fa-solid fa-chevron-down dropbtn" />
 			</div>
 			{showDrop && (

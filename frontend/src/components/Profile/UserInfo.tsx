@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
-import { getCurrentUser } from '../../store/session';
-import { getInitial, fetchUser } from '../../store/user';
+import { getCurrentUser } from '@store/session';
+import { getInitial, fetchUser, getUserByUsername } from '@store/user';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 
 import Avatar from './Avatar';
@@ -13,7 +13,7 @@ const UserInfo = ({ username }) => {
 	const dispatch = useAppDispatch();
 
 	const currentUser = useAppSelector(getCurrentUser);
-	const showUser = useAppSelector((state) => state?.users[username]);
+	const showUser = useAppSelector(getUserByUsername(username));
 
 	const [showFollowers, setShowFollowers] = useState(false);
 	const [showFollowings, setShowFollowings] = useState(false);
@@ -120,7 +120,7 @@ const UserInfo = ({ username }) => {
 
 			{showFollowers && (
 				<FollowIndex
-					displayUsernames={followers}
+					displayUserIds={followers}
 					count={followerCount}
 					title={'Followers'}
 					onClose={() => setShowFollowers(false)}
@@ -128,7 +128,7 @@ const UserInfo = ({ username }) => {
 			)}
 			{showFollowings && (
 				<FollowIndex
-					displayUsernames={followedUsers}
+					displayUserIds={followedUsers}
 					count={followingCount}
 					title={'Following'}
 					onClose={() => setShowFollowings(false)}

@@ -13,8 +13,8 @@ export interface IUser {
 	createdPins: number[];
 	followingCount: number;
 	followerCount: number;
-	followers: string[];
-	followedUsers: string[];
+	followers: number[];
+	followedUsers: number[];
 }
 
 export interface IUpdatePasswordArgs {
@@ -26,7 +26,6 @@ export interface IUpdatePasswordArgs {
 
 export interface IDeleteUserArgs {
 	id: number;
-	username: string;
 	email: string;
 	newPw: string;
 }

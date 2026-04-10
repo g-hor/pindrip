@@ -1,19 +1,26 @@
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { createSelector } from '@reduxjs/toolkit';
 
 import { getCurrentUser } from '@store/session';
 import { fetchAllBoards } from '@store/board';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
+import type { TRootState } from '@store/index';
 
 import PinIndexItem from './PinIndexItem';
 
 import './PinIndex.css';
 
+const selectReversedPins = createSelector(
+	(state: TRootState) => state.pins,
+	(pins) => Object.values(pins).reverse(),
+);
+
 const PinIndex = () => {
 	const dispatch = useAppDispatch();
 
 	const currentUser = useAppSelector(getCurrentUser);
-	const pins = useAppSelector((state) => Object.values(state.pins).reverse());
+	const pins = useAppSelector(selectReversedPins);
 
 	const { username } = useParams();
 
@@ -26,7 +33,7 @@ const PinIndex = () => {
 			<div id="pins-index-page">
 				<div id="pins-index-container">
 					{pins.map((pin, i) => (
-						<div className={!username ? 'pin-index-item home-pin' : 'pin-index-item'} key={i}>
+						<div className={!username ? 'pin-index-item home-pin' : 'pin-index-item'} key={pin.id}>
 							<PinIndexItem pin={pin} />
 						</div>
 					))}

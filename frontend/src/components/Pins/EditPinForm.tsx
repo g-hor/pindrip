@@ -36,6 +36,7 @@ const EditPinForm = ({ pin, onClose }) => {
 			description: description,
 			website: website,
 			altText: altText,
+			creator: currentUser.id,
 		};
 		const res = await dispatch(updatePin(updatedPin));
 		if (res?.ok) {
@@ -84,10 +85,10 @@ const EditPinForm = ({ pin, onClose }) => {
 
 								{showBoards && (
 									<div id="board-options-menu" ref={boardMenu}>
-										{boards?.map((board, i) => (
+										{boards?.map((board) => (
 											<div
 												className="board-dropdown-option"
-												key={i}
+												key={board.id}
 												onClick={() => {
 													setSelectedBoard(board.name);
 													setShowBoards(false);

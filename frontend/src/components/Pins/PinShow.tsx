@@ -254,7 +254,7 @@ const PinShow = () => {
 														{boards?.map((board, i) => (
 															<div
 																className="board-dropdown-option"
-																key={i}
+																key={board.id}
 																onClick={() => clickBoard(board)}
 																onMouseEnter={() =>
 																	setShowSaveBtn((prev) => {

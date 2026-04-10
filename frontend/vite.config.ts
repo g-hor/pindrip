@@ -8,6 +8,7 @@ export default defineConfig({
 		port: 3000,
 		proxy: {
 			'/api': 'http://localhost:5001',
+			'/rails': 'http://localhost:5001',
 		},
 	},
 	build: {

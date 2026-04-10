@@ -86,38 +86,38 @@ const SplashPage = () => {
 			{/* FIRST SET OF SPLASH IMGS */}
 			<div id="splash-grid-container">
 				<div className="splash-grid-col col-1" ref={col1}>
-					{splashImages1.slice(0, 4).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages1.slice(0, 4).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 				<div className="splash-grid-col col-2" ref={col2}>
-					{splashImages1.slice(3, 6).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages1.slice(3, 6).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 				<div className="splash-grid-col col-3" ref={col3}>
-					{splashImages1.slice(6, 9).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages1.slice(6, 9).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 				<div className="splash-grid-col col-4" ref={col4}>
-					{splashImages1.slice(8, 11).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages1.slice(8, 11).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 				<div className="splash-grid-col col-5" ref={col5}>
-					{splashImages1.slice(12, 15).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages1.slice(12, 15).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 				<div className="splash-grid-col col-6" ref={col6}>
-					{splashImages1.slice(16, 20).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages1.slice(16, 20).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 				<div className="splash-grid-col col-7" ref={col7}>
-					{splashImages1.slice(20, 23).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages1.slice(20, 23).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 			</div>
@@ -125,38 +125,38 @@ const SplashPage = () => {
 			{/* SECOND SET OF SPLASH IMAGES */}
 			<div id="splash-grid-container">
 				<div className="splash-grid-col col-1 drip-col opaque-drip" ref={col8}>
-					{splashImages2.slice(0, 4).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages2.slice(0, 4).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 				<div className="splash-grid-col col-2 drip-col opaque-drip" ref={col9}>
-					{splashImages2.slice(3, 6).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages2.slice(3, 6).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 				<div className="splash-grid-col col-3 drip-col opaque-drip" ref={col10}>
-					{splashImages2.slice(6, 9).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages2.slice(6, 9).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 				<div className="splash-grid-col col-4 drip-col opaque-drip" ref={col11}>
-					{splashImages2.slice(9, 12).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages2.slice(9, 12).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 				<div className="splash-grid-col col-5 drip-col opaque-drip" ref={col12}>
-					{splashImages2.slice(12, 15).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages2.slice(12, 15).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 				<div className="splash-grid-col col-6 drip-col opaque-drip" ref={col13}>
-					{splashImages2.slice(15, 18).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages2.slice(15, 18).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 				<div className="splash-grid-col col-7 drip-col opaque-drip" ref={col14}>
-					{splashImages2.slice(17, 21).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages2.slice(17, 21).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 			</div>
@@ -164,38 +164,38 @@ const SplashPage = () => {
 			{/* THIRD SET OF SPLASH IMAGES */}
 			<div id="splash-grid-container">
 				<div className="splash-grid-col col-1 drip-col opaque-drip" ref={col15}>
-					{splashImages3.slice(0, 4).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages3.slice(0, 4).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 				<div className="splash-grid-col col-2 drip-col opaque-drip" ref={col16}>
-					{splashImages3.slice(3, 6).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages3.slice(3, 6).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 				<div className="splash-grid-col col-3 drip-col opaque-drip" ref={col17}>
-					{splashImages3.slice(6, 9).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages3.slice(6, 9).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 				<div className="splash-grid-col col-4 drip-col opaque-drip" ref={col18}>
-					{splashImages3.slice(9, 12).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages3.slice(9, 12).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 				<div className="splash-grid-col col-5 drip-col opaque-drip" ref={col19}>
-					{splashImages3.slice(12, 15).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages3.slice(12, 15).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 				<div className="splash-grid-col col-6 drip-col opaque-drip" ref={col20}>
-					{splashImages3.slice(15, 18).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages3.slice(15, 18).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 				<div className="splash-grid-col col-7 drip-col opaque-drip" ref={col21}>
-					{splashImages3.slice(17, 21).map((img, i) => (
-						<img src={img} alt="" key={i} />
+					{splashImages3.slice(17, 21).map((imgUrl) => (
+						<img src={imgUrl} alt="" key={imgUrl} />
 					))}
 				</div>
 			</div>

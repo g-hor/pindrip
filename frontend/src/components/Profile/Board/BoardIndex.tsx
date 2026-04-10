@@ -116,12 +116,12 @@ const BoardIndex = ({ showUser }) => {
 					</div>
 				</div>
 			)}
-			{boards.map((board, i) => (
-				<BoardIndexItem board={board} showUser={showUser} key={i} />
+			{boards.map((board) => (
+				<BoardIndexItem board={board} showUser={showUser} key={board.id} />
 			))}
 
-			{fillers.map((filler, i) => (
-				<div className="filler-board" key={i} />
+			{fillers.map((filler, idx) => (
+				<div className="filler-board" key={filler + idx} />
 			))}
 
 			{showModal && (

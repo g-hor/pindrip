@@ -1,23 +1,23 @@
 import { Link } from 'react-router-dom';
 
-import { getInitial } from '@store/user';
+import { getInitial, getUserById } from '@store/user';
 import { getCurrentUser } from '@store/session';
 import { useAppSelector } from '@store/hooks';
 
 import Avatar from '../Profile/Avatar';
 import FollowButton from './FollowButton';
 
-const FollowIndexItem = ({ username, onClose }) => {
+const FollowIndexItem = ({ userId, onClose }: { userId: number; onClose: () => void }) => {
 	const currentUser = useAppSelector(getCurrentUser);
-	const showUser = useAppSelector((state) => state?.users[username]);
+	const showUser = useAppSelector(getUserById(userId));
 
 	const avatar = showUser?.avatar;
-	const isSelf = username === currentUser?.username;
+	const isSelf = userId === currentUser?.id;
 
 	return (
 		<div className="follow-index-item">
 			<div className="follow-index-item-user">
-				<Link to={`/${username}`} onClick={onClose}>
+				<Link to={`/${showUser?.username}`} onClick={onClose}>
 					{avatar ? (
 						<Avatar avatar={avatar} />
 					) : (
@@ -27,8 +27,8 @@ const FollowIndexItem = ({ username, onClose }) => {
 					)}
 				</Link>
 
-				<Link to={`/${username}`} onClick={onClose}>
-					{username}
+				<Link to={`/${showUser?.username}`} onClick={onClose}>
+					{showUser?.username}
 				</Link>
 			</div>
 

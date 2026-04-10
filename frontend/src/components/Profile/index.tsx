@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { fetchUser } from '@store/user';
+import { fetchUser, getUserByUsername } from '@store/user';
 import { fetchAllBoards } from '@store/board';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 
@@ -15,7 +15,7 @@ import './Profile.css';
 const Profile = () => {
 	const dispatch = useAppDispatch();
 	const { username } = useParams();
-	const showUser = useAppSelector((state) => state?.users[username]);
+	const showUser = useAppSelector(getUserByUsername(username));
 	const pins = useAppSelector((state) => state?.pins);
 	const createdPins = showUser?.createdPins.map((pinId) => pins[pinId]);
 	const [showCreated, setShowCreated] = useState(false);
@@ -34,8 +34,8 @@ const Profile = () => {
 
 			{showCreated && (
 				<div id="pins-index-container">
-					{createdPins?.map((pin, i) => (
-						<div className="pin-index-item" key={i}>
+					{createdPins?.map((pin) => (
+						<div className="pin-index-item" key={pin.id}>
 							<PinIndexItem pin={pin} />
 						</div>
 					))}

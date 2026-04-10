@@ -20,17 +20,19 @@ export const formatEmail = (emailAddress: string): string => {
 // SLICE
 const usersSlice = createSlice({
 	name: 'users',
-	initialState: {} as Record<string, IUser>,
+	initialState: {} as Record<number, IUser>,
 	reducers: {
 		receiveAllUsers(_state, action: PayloadAction<Record<string, IUser>>) {
-			return action.payload;
+			const normalized: Record<number, IUser> = {};
+			Object.values(action.payload).forEach((user) => {
+				normalized[user.id] = user;
+			});
+			return normalized;
 		},
 		receiveUser(state, action: PayloadAction<IUser>) {
-			if (action.payload.username) {
-				state[action.payload.username] = action.payload;
-			}
+			state[action.payload.id] = action.payload;
 		},
-		removeUser(state, action: PayloadAction<string>) {
+		removeUser(state, action: PayloadAction<number>) {
 			delete state[action.payload];
 		},
 	},
@@ -38,6 +40,17 @@ const usersSlice = createSlice({
 
 export const { receiveAllUsers, receiveUser, removeUser } = usersSlice.actions;
 export default usersSlice.reducer;
+
+// SELECTORS
+export const getUserById =
+	(id: number) =>
+	(state: any): IUser | undefined =>
+		state?.users?.[id];
+
+export const getUserByUsername =
+	(username: string) =>
+	(state: any): IUser | undefined =>
+		Object.values((state?.users as Record<number, IUser>) ?? {}).find((u) => u.username === username);
 
 // THUNKS
 export const fetchAllUsers =
@@ -84,14 +97,14 @@ export const updatePassword =
 	};
 
 export const deleteUser =
-	({ id, username, email, newPw }: IDeleteUserArgs) =>
+	({ id, email, newPw }: IDeleteUserArgs) =>
 	async (dispatch: TThunkDispatch): Promise<Response> => {
 		const res = await csrfFetch(`/api/users/${id}`, {
 			method: 'DELETE',
 			body: JSON.stringify({ user: { email, newPw } }),
 		});
 		if (res?.ok) dispatch(logoutUser());
-		dispatch(removeUser(username));
+		dispatch(removeUser(id));
 		return res;
 	};
 

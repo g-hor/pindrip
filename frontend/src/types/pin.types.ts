@@ -5,7 +5,7 @@ export interface IPin {
 	altText?: string;
 	website?: string;
 	photo?: string;
-	creator?: string;
+	creator: number;
 }
 
 export interface ICreatePinArgs {

@@ -2,16 +2,14 @@ user.pins ? created_pins = user.pins.map{ |pin| pin.id } : created_pins = []
 user.boards ? created_boards = user.boards.map{ |board| board.id } : created_boards = []
 
 
-followers = 
+followers =
   Follow
     .where(following_id: user.id)
     .map { |follow| follow.follower_id }
-    .map { |id| User.find_by(id: id).username }
-followed_users = 
+followed_users =
   Follow
     .where(follower_id: user.id)
     .map { |follow| follow.following_id }
-    .map { |id| User.find_by(id: id).username }
 follower_count = followers.length
 following_count = followed_users.length
 

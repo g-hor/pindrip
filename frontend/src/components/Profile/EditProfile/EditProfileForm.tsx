@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 
 import { getCurrentUser, receiveSession, storeCurrentUser } from '@store/session';
-import { getInitial, updateUser, fetchUser, receiveUser } from '@store/user';
+import { getInitial, getUserByUsername, updateUser, fetchUser, receiveUser } from '@store/user';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import csrfFetch from '@store/csrf';
 import { Modal } from '@context/modal';
@@ -15,7 +15,7 @@ const EditProfileForm = () => {
 	const dispatch = useAppDispatch();
 
 	let currentUser = useAppSelector(getCurrentUser);
-	const showUser = useAppSelector((state) => state?.users[username]);
+	const showUser = useAppSelector(getUserByUsername(currentUser?.username));
 
 	const [username, setUsername] = useState(currentUser?.username);
 	const displayInitial = getInitial(currentUser);
@@ -210,8 +210,8 @@ const EditProfileForm = () => {
 
 					{errors.length !== 0 && (
 						<ul className="profile-errors">
-							{errors?.map((error, i) => (
-								<li key={i}>{error}</li>
+							{errors?.map((error, idx) => (
+								<li key={error + idx}>{error}</li>
 							))}
 						</ul>
 					)}

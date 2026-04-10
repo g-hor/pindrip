@@ -1,7 +1,17 @@
 import { Modal } from '../../context/modal';
 import FollowIndexItem from './FollowIndexItem';
 
-const FollowIndex = ({ displayUsernames, count, title, onClose }) => {
+const FollowIndex = ({
+	displayUserIds,
+	count,
+	title,
+	onClose,
+}: {
+	displayUserIds: number[];
+	count: number;
+	title: string;
+	onClose: () => void;
+}) => {
 	return (
 		<Modal onClose={onClose}>
 			<div id="follows-container">
@@ -10,8 +20,8 @@ const FollowIndex = ({ displayUsernames, count, title, onClose }) => {
 				</h3>
 
 				<div id="follows-index">
-					{displayUsernames.map((username, idx) => (
-						<FollowIndexItem username={username} onClose={onClose} key={idx} />
+					{displayUserIds.map((userId) => (
+						<FollowIndexItem userId={userId} onClose={onClose} key={userId} />
 					))}
 				</div>
 			</div>

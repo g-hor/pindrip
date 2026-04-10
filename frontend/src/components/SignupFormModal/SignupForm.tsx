@@ -68,8 +68,8 @@ const SignupForm = () => {
 						<div className="form-welcome-msg">Welcome to Pindrip</div>
 						<div className="errors-container">
 							<ul className="errors-list">
-								{errors.map((error) => (
-									<li className="error" key={error}>
+								{errors.map((error, idx) => (
+									<li className="error" key={error + idx}>
 										{error}
 									</li>
 								))}
