@@ -70,7 +70,7 @@ const LoggedNav = () => {
 				</div>
 				<div className="right-icon-holder">
 					<div className="icon-holder">
-						<a href="https://www.linkedin.com/in/garyhor65/" target="_blank" rel="noreferrer">
+						<a href="https://www.linkedin.com/in/g-hor/" target="_blank" rel="noreferrer">
 							<i className="fa-brands fa-linkedin social-icon" />
 						</a>
 					</div>
