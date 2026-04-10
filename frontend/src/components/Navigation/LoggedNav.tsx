@@ -30,7 +30,7 @@ const LoggedNav = () => {
 			if (currentUser.firstName) {
 				setDisplayName(capitalizeFirstLetter(currentUser.firstName));
 			} else {
-				setDisplayName(capitalizeFirstLetter(formatEmail(currentUser.email)));
+				setDisplayName(capitalizeFirstLetter(formatEmail(currentUser?.email)));
 			}
 			setDisplayInitial(displayName[0]);
 		}

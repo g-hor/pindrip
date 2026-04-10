@@ -5,7 +5,7 @@ import { getCurrentUser } from '@store/session';
 import { createPin } from '@store/pin';
 import { savePin } from '@store/boardPin';
 import { getInitial } from '@store/user';
-import { fetchAllBoards } from '@store/board';
+import { fetchAllBoards, getSortedBoards } from '@store/board';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 
 import Avatar from '../Profile/Avatar';
@@ -18,9 +18,7 @@ const CreatePinForm = () => {
 
 	const currentUser = useAppSelector(getCurrentUser);
 	const pins = useAppSelector((state) => state?.pins);
-	const boards = useAppSelector((state) =>
-		Object.values(state?.boards).slice(0, 1).concat(Object.values(state?.boards).slice(1).reverse()),
-	);
+	const boards = useAppSelector(getSortedBoards);
 
 	const [title, setTitle] = useState('');
 	const [description, setDescription] = useState('');

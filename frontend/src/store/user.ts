@@ -4,9 +4,11 @@ import csrfFetch from './csrf';
 import { logoutUser, storeCurrentUser } from './session';
 
 // FORMATTING HELPERS
-export const getInitial = (user: IUser): string => {
+export const getInitial = (user: IUser | null | undefined): string => {
+	if (!user) return '';
 	if (user.username) return user.username[0].toUpperCase();
-	return formatEmail(user.email)[0];
+	if (user.email) return formatEmail(user.email)[0];
+	return '';
 };
 
 export const capitalizeFirstLetter = (string: string): string => {

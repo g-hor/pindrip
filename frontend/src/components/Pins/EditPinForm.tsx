@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { deletePin, fetchPin, updatePin } from '@store/pin';
-import { fetchAllBoards } from '@store/board';
+import { fetchAllBoards, getSortedBoards } from '@store/board';
 import { getCurrentUser } from '@store/session';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 
@@ -14,7 +14,7 @@ const EditPinForm = ({ pin, onClose }) => {
 	const { pinId } = useParams();
 
 	const currentUser = useAppSelector(getCurrentUser);
-	const boards = useAppSelector((state) => Object.values(state?.boards));
+	const boards = useAppSelector(getSortedBoards);
 
 	const [showBoards, setShowBoards] = useState(false);
 	const [selectedBoard, setSelectedBoard] = useState(boards[0]?.name || 'All Pins');

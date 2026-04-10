@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Modal } from '@context/modal';
-import { createBoard, fetchAllBoards } from '@store/board';
+import { createBoard, fetchAllBoards, getSortedBoards } from '@store/board';
 import { getCurrentUser } from '@store/session';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 
@@ -18,9 +18,7 @@ const BoardIndex = ({ showUser }) => {
 	const boardsContainer = useRef<HTMLDivElement | null>(null);
 
 	const currentUser = useAppSelector(getCurrentUser);
-	const boards = useAppSelector((state) =>
-		Object.values(state?.boards).slice(0, 1).concat(Object.values(state?.boards).slice(1).reverse()),
-	);
+	const boards = useAppSelector(getSortedBoards);
 
 	const [showDrop, setShowDrop] = useState(false);
 	const [showModal, setShowModal] = useState(false);
@@ -85,7 +83,7 @@ const BoardIndex = ({ showUser }) => {
 			setContainerWidth(boardsContainer?.current?.offsetWidth);
 		}
 		if (containerWidth) {
-			setRowAmt(containerWidth / 252);
+			setRowAmt(Math.floor(containerWidth / 252));
 		}
 		if (rowAmt) {
 			setFillerAmt(rowAmt - (boards?.length % rowAmt));

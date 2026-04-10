@@ -1,28 +1,19 @@
 import { useRef, useState, useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { createSelector } from '@reduxjs/toolkit';
 
 import { getInitial } from '@store/user';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { savePin, removeBoardPin } from '@store/boardPin';
-import type { TRootState } from '@store/index';
+import { getSortedBoards } from '@store/board';
 
 import Avatar from '../Profile/Avatar';
-
-const selectSortedBoards = createSelector(
-	(state: TRootState) => state.boards,
-	(boards) => {
-		const vals = Object.values(boards);
-		return vals.slice(0, 1).concat(vals.slice(1).reverse());
-	},
-);
 
 const PinIndexItem = ({ pin }) => {
 	const dispatch = useAppDispatch();
 
 	const showUser = useAppSelector((state) => state?.users[pin?.creator]);
 	const pins = useAppSelector((state) => state?.pins);
-	const boards = useAppSelector(selectSortedBoards);
+	const boards = useAppSelector(getSortedBoards);
 
 	const { username } = useParams();
 

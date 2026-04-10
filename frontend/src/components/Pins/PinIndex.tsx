@@ -32,7 +32,7 @@ const PinIndex = () => {
 		<>
 			<div id="pins-index-page">
 				<div id="pins-index-container">
-					{pins.map((pin, i) => (
+					{pins.map((pin) => (
 						<div className={!username ? 'pin-index-item home-pin' : 'pin-index-item'} key={pin.id}>
 							<PinIndexItem pin={pin} />
 						</div>

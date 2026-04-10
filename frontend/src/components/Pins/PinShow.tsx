@@ -4,7 +4,7 @@ import { useNavigate, useParams, Link } from 'react-router-dom';
 import { getCurrentUser } from '@store/session';
 import { deletePin, fetchPin } from '@store/pin';
 import { getInitial } from '@store/user';
-import { fetchAllBoards } from '@store/board';
+import { fetchAllBoards, getSortedBoards } from '@store/board';
 import { removeBoardPin, savePin } from '@store/boardPin';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 
@@ -25,9 +25,7 @@ const PinShow = () => {
 	const pin = pins[parseInt(pinId)];
 	const creator = useAppSelector((state) => state?.users[pin?.creator]);
 	const currentUser = useAppSelector(getCurrentUser);
-	const boards = useAppSelector((state) =>
-		Object.values(state?.boards).slice(0, 1).concat(Object.values(state?.boards).slice(1).reverse()),
-	);
+	const boards = useAppSelector(getSortedBoards);
 
 	const [showDrop, setShowDrop] = useState(false);
 	const [showBoards, setShowBoards] = useState(false);

@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import type { IBoard, TThunkDispatch } from '../types';
 import csrfFetch from './csrf';
 
@@ -27,8 +27,18 @@ export const { receiveBoard, receiveAllBoards, removeBoard } = boardsSlice.actio
 export default boardsSlice.reducer;
 
 // SELECTORS
-export const getBoardByUrl = (boardUrl: string) => (state: any): IBoard | undefined =>
-	Object.values(state?.boards as Record<number, IBoard> ?? {}).find((b) => b.name === boardUrl);
+export const getBoardByUrl =
+	(boardUrl: string) =>
+	(state: any): IBoard | undefined =>
+		Object.values((state?.boards as Record<number, IBoard>) ?? {}).find((b) => b.name === boardUrl);
+
+export const getSortedBoards = createSelector(
+	(state: any) => state.boards as Record<number, IBoard>,
+	(boards) => {
+		const vals = Object.values(boards);
+		return vals.slice(0, 1).concat(vals.slice(1).reverse());
+	},
+);
 
 // THUNKS
 export const fetchBoard =

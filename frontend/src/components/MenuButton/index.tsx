@@ -25,8 +25,6 @@ const MenuButton = ({ displayInitial, displayName }) => {
 		return () => document.removeEventListener('click', clickHide);
 	}, [showDrop]);
 
-	console.log({ showDrop });
-
 	return (
 		<>
 			<div className="right-drop-icon-holder dropdown" ref={arrowContainer} onClick={toggleShowDropdown}>

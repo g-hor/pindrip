@@ -18,7 +18,7 @@ const UserInfo = ({ username }) => {
 	const [showFollowers, setShowFollowers] = useState(false);
 	const [showFollowings, setShowFollowings] = useState(false);
 
-	const { followingCount, followerCount, followers, followedUsers } = showUser;
+	const { followingCount, followerCount, followers, followedUsers } = showUser || {};
 
 	let displayName: string;
 	let usernamePronouns: string;
