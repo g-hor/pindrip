@@ -11,3 +11,22 @@ export interface IUser {
 	country?: string;
 	avatar?: string;
 }
+
+export interface IUpdatePasswordArgs {
+	id: number;
+	email: string;
+	oldPw: string;
+	newPw: string;
+}
+
+export interface IDeleteUserArgs {
+	id: number;
+	username: string;
+	email: string;
+	newPw: string;
+}
+
+export interface IFollowArgs {
+	followingId: number;
+	followerId: number;
+}

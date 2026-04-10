@@ -1,3 +1,4 @@
-export type { IUser } from './user.types';
-export type { IPin } from './pin.types';
-export type { IBoard } from './board.types';
+export type { IUser, IUpdatePasswordArgs, IDeleteUserArgs, IFollowArgs } from './user.types';
+export type { IPin, ICreatePinArgs } from './pin.types';
+export type { IBoard, IBoardPinArgs } from './board.types';
+export type { TThunkDispatch } from './dispatch.types';

@@ -7,3 +7,11 @@ export interface IPin {
 	photo?: string;
 	creator?: string;
 }
+
+export interface ICreatePinArgs {
+	title: string;
+	description: string;
+	altText: string;
+	website: string;
+	photo: File;
+}

@@ -1,9 +1,10 @@
+import type { IBoardPinArgs, TThunkDispatch } from '../types';
 import { receiveBoard } from './board';
 import csrfFetch from './csrf';
 
 export const savePin =
-	({ boardId, pinId }: { boardId: number; pinId: number }) =>
-	async (dispatch: any) => {
+	({ boardId, pinId }: IBoardPinArgs) =>
+	async (dispatch: TThunkDispatch): Promise<Response> => {
 		const res = await csrfFetch('/api/board_pins', {
 			method: 'POST',
 			body: JSON.stringify({ boardPin: { boardId, pinId } }),
@@ -14,8 +15,8 @@ export const savePin =
 	};
 
 export const removeBoardPin =
-	({ boardId, pinId }: { boardId: number; pinId: number }) =>
-	async (dispatch: any) => {
+	({ boardId, pinId }: IBoardPinArgs) =>
+	async (dispatch: TThunkDispatch): Promise<Response> => {
 		const res = await csrfFetch('/api/board_pins/1', {
 			method: 'DELETE',
 			body: JSON.stringify({ boardPin: { boardId, pinId } }),
