@@ -28,7 +28,7 @@ User.create!(
   about: 'welcome! check out my demo drip :)',
   pronouns: 'they/them',
   website: 'github.com/g-hor/pindrip',
-  gender: 'drip kitty',
+  gender: 'cat',
   country: 'Antarctica'
 )
 
