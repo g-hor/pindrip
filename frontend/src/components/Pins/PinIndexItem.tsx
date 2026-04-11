@@ -18,7 +18,7 @@ const PinIndexItem = ({ pin }) => {
 	const { username } = useParams();
 
 	const [selectedBoard, setSelectedBoard] = useState(boards[0]?.name || 'All Pins');
-	const [displayMenu, setDisplayMenu] = useState(false);
+	const [displayOverlay, setDisplayOverlay] = useState(false);
 	const [showBoards, setShowBoards] = useState(false);
 	const [isSaved, setIsSaved] = useState(boards?.map((board) => board.savedPins.includes(parseInt(pin?.id))));
 	const [showSaveBtn, setShowSaveBtn] = useState(isSaved);
@@ -28,6 +28,7 @@ const PinIndexItem = ({ pin }) => {
 	const boardId = boards?.filter((board) => board?.name === selectedBoard)[0]?.id;
 	let boardIndex = boards.indexOf(boards?.filter((board) => board?.name === selectedBoard)[0]);
 
+	const topBar = useRef<HTMLDivElement | null>(null);
 	const boardMenu = useRef<HTMLDivElement | null>(null);
 	const pinImg = useRef<HTMLImageElement | null>(null);
 	const topSave = useRef<HTMLDivElement | null>(null);
@@ -41,11 +42,6 @@ const PinIndexItem = ({ pin }) => {
 		} else {
 			return boardName;
 		}
-	};
-
-	const hideBoards = (e) => {
-		if (e.target === boardMenu?.current) return;
-		setShowBoards(false);
 	};
 
 	const clickBoard = (board) => {
@@ -85,12 +81,17 @@ const PinIndexItem = ({ pin }) => {
 	};
 
 	useEffect(() => {
-		if (!showBoards) return;
+		const hideBoards = (e) => {
+			if (!showBoards || topBar.current?.contains(e.target) || boardMenu.current?.contains(e.target)) {
+				return;
+			}
+			setShowBoards(false);
+		};
 
 		document.addEventListener('click', hideBoards);
 
 		return () => document.removeEventListener('click', hideBoards);
-	});
+	}, [showBoards]);
 
 	if (showUser) {
 		initial = getInitial(showUser);
@@ -103,11 +104,11 @@ const PinIndexItem = ({ pin }) => {
 				ref={overlayContainer}
 				onMouseEnter={() => {
 					setOpacity({ opacity: 0.45 });
-					setDisplayMenu(true);
+					setDisplayOverlay(true);
 				}}
 				onMouseLeave={() => {
 					setOpacity({ opacity: 0 });
-					setDisplayMenu(false);
+					setDisplayOverlay(false);
 					setShowBoards(false);
 				}}
 			>
@@ -115,8 +116,12 @@ const PinIndexItem = ({ pin }) => {
 				<Link to={`/pins/${pin?.id}`}>
 					<div className="pin-overlay" style={opacity} />
 				</Link>
-				{displayMenu && (
-					<div className="pin-item-top-bar" onClick={(e) => e.target !== topSave.current && setShowBoards(true)}>
+				{displayOverlay && (
+					<div
+						className="pin-item-top-bar"
+						ref={topBar}
+						onClick={(e) => e.target !== topSave.current && setShowBoards(true)}
+					>
 						<div id="show-pin-board-dropdown-btn">
 							<i className="fa-solid fa-chevron-down dropbtn board-drop" />
 							<div id="board-first-option">{abbreviateBoard(selectedBoard, 8)}</div>

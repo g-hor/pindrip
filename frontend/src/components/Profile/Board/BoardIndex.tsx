@@ -16,6 +16,7 @@ const BoardIndex = ({ showUser }) => {
 
 	const dropdown = useRef<HTMLDivElement | null>(null);
 	const boardsContainer = useRef<HTMLDivElement | null>(null);
+	const plusSign = useRef<HTMLDivElement | null>(null);
 
 	const currentUser = useAppSelector(getCurrentUser);
 	const boards = useAppSelector(getSortedBoards);
@@ -58,10 +59,10 @@ const BoardIndex = ({ showUser }) => {
 	}, [dispatch, showUser?.id]);
 
 	useEffect(() => {
-		if (!showDrop) return;
-
 		const clickHide = (e) => {
-			if (dropdown?.current?.contains(e.target)) return;
+			if (!showDrop || dropdown?.current?.contains(e.target) || plusSign.current?.contains(e.target)) {
+				return;
+			}
 			setShowDrop(false);
 		};
 
@@ -99,7 +100,7 @@ const BoardIndex = ({ showUser }) => {
 	return (
 		<div id="boards-container" ref={boardsContainer}>
 			{canEdit && (
-				<div id="plus-sign-holder" onClick={() => setShowDrop(true)}>
+				<div id="plus-sign-holder" ref={plusSign} onClick={() => setShowDrop(true)}>
 					<i className="fa-solid fa-plus" />
 				</div>
 			)}

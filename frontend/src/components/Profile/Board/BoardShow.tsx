@@ -31,6 +31,7 @@ const BoardShow = () => {
 	const [showModal, setShowModal] = useState(false);
 	const [error, setError] = useState('');
 
+	const optionsButton = useRef<HTMLDivElement | null>(null);
 	const dropdown = useRef<HTMLDivElement | null>(null);
 
 	let canEdit = showUser?.id === currentUser?.id && currentBoard?.name !== 'All Pins';
@@ -45,11 +46,6 @@ const BoardShow = () => {
 		} else {
 			setError('');
 		}
-	};
-
-	const hideDrop = (e) => {
-		if (dropdown?.current?.contains(e.target)) return;
-		setShowDrop(false);
 	};
 
 	const saveEdits = async () => {
@@ -70,12 +66,17 @@ const BoardShow = () => {
 	}, [dispatch, showUser]);
 
 	useEffect(() => {
-		if (!showDrop) return;
+		const hideDrop = (e) => {
+			if (!showDrop || optionsButton.current?.contains(e.target) || dropdown?.current?.contains(e.target)) {
+				return;
+			}
+			setShowDrop(false);
+		};
 
 		document.addEventListener('click', hideDrop);
 
 		return () => document.removeEventListener('click', hideDrop);
-	});
+	}, [showDrop]);
 
 	useEffect(() => {
 		if (currentBoard) {
@@ -94,7 +95,12 @@ const BoardShow = () => {
 			<div id="board-show-title">
 				<div>{currentBoard?.name}</div>
 				{canEdit && (
-					<div id="ellipsis-btn" className="board-drop-ellipsis" onClick={() => setShowDrop(true)}>
+					<div
+						id="ellipsis-btn"
+						className="board-drop-ellipsis"
+						ref={optionsButton}
+						onClick={() => setShowDrop(true)}
+					>
 						<i className="fa-solid fa-ellipsis" />
 						{showDrop && (
 							<div id="edit-board-drop-menu">
