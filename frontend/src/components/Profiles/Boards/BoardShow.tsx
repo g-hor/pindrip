@@ -7,7 +7,7 @@ import { getCurrentUser } from '@store/session';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { deleteBoard, fetchAllBoards, getBoardByUrl, updateBoard } from '@store/board';
 
-import PinIndexItem from '../../Pins/PinIndexItem';
+import PinIndexItem from '../../Pins/Index/PinIndexItem';
 import Avatar from '../Avatar';
 
 import './BoardShow.css';

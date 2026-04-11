@@ -8,10 +8,12 @@ import { fetchAllPins } from '@store/pin';
 import { fetchAllBoards } from '@store/board';
 import { useAppDispatch } from '@store/hooks';
 
-import Avatar from '../Profile/Avatar';
+import Avatar from '../../Profiles/Avatar';
 import MenuButton from '../MenuButton';
 
-const LoggedNav = () => {
+import './AuthNav.css';
+
+const AuthNav = () => {
 	const dispatch = useAppDispatch();
 	const currentUser = useSelector(getCurrentUser);
 	const username = currentUser?.username;
@@ -41,8 +43,8 @@ const LoggedNav = () => {
 	}, [displayName, currentUser, currentUser.avatar, currentUser.email, currentUser.firstName]);
 
 	return (
-		<div className="loggednav-container">
-			<div className="loggednav-left">
+		<div className="AuthNav-container">
+			<div className="AuthNav-left">
 				<Link to="/home">
 					<div className="logged-logo-holder">
 						<img
@@ -52,15 +54,15 @@ const LoggedNav = () => {
 						/>
 					</div>
 				</Link>
-				<NavLink className="loggednav-btn" to="/home">
+				<NavLink className="AuthNav-btn" to="/home">
 					Home
 				</NavLink>
-				<NavLink className="loggednav-btn" to="/pin-builder">
+				<NavLink className="AuthNav-btn" to="/pin-builder">
 					Create
 				</NavLink>
 			</div>
 
-			<div className="loggednav-right">
+			<div className="AuthNav-right">
 				<div className="right-icon-holder">
 					<div className="icon-holder">
 						<a href="https://github.com/g-hor" target="_blank" rel="noreferrer">
@@ -94,4 +96,4 @@ const LoggedNav = () => {
 	);
 };
 
-export default LoggedNav;
+export default AuthNav;

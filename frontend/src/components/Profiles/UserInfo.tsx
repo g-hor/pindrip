@@ -6,8 +6,8 @@ import { getInitial, fetchUser, getUserByUsername } from '@store/user';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 
 import Avatar from './Avatar';
-import FollowButton from '../Follows/FollowButton';
-import FollowIndex from '../Follows/FollowIndex';
+import FollowButton from './Follows/FollowButton';
+import FollowIndex from './Follows/FollowIndex';
 
 const UserInfo = ({ username }) => {
 	const dispatch = useAppDispatch();

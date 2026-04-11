@@ -10,11 +10,11 @@ import { useAppDispatch, useAppSelector } from '@store/hooks';
 
 import { Modal } from '@context/modal';
 
-import Avatar from '../Profile/Avatar';
-import EditPinForm from './EditPinForm';
+import Avatar from '../../Profiles/Avatar';
+import EditPinForm from '../Edit/EditPinForm';
+import { PinShowOptions } from './PinShowOptions';
 
 import './PinShow.css';
-import { PinShowOptions } from './PinShowOptions';
 
 const PinShow = () => {
 	const dispatch = useAppDispatch();

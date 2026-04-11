@@ -6,9 +6,9 @@ import { fetchAllBoards } from '@store/board';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 
 import UserInfo from './UserInfo';
-import PinIndexItem from '../Pins/PinIndexItem';
+import PinIndexItem from '../Pins/Index/PinIndexItem';
 import SelectorBar from './SelectorBar';
-import BoardIndex from './Board/BoardIndex';
+import BoardIndex from './Boards/BoardIndex';
 
 import './Profile.css';
 

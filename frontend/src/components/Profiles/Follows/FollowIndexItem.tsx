@@ -4,7 +4,7 @@ import { getInitial, getUserById } from '@store/user';
 import { getCurrentUser } from '@store/session';
 import { useAppSelector } from '@store/hooks';
 
-import Avatar from '../Profile/Avatar';
+import Avatar from '../Avatar';
 import FollowButton from './FollowButton';
 
 const FollowIndexItem = ({ userId, onClose }: { userId: number; onClose: () => void }) => {

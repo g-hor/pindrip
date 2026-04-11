@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import { getCurrentUser, logoutUser } from '@store/session';
 import { useAppDispatch } from '@store/hooks';
 
-import Avatar from '../Profile/Avatar';
+import Avatar from '../../Profiles/Avatar';
 
 const DropdownMenu = ({ displayInitial, displayName, setShowDrop }) => {
 	const navigate = useNavigate();

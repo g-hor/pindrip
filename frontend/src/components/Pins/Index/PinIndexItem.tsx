@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { savePin, removeBoardPin } from '@store/boardPin';
 import { getSortedBoards } from '@store/board';
 
-import Avatar from '../Profile/Avatar';
+import Avatar from '../../Profiles/Avatar';
 
 const PinIndexItem = ({ pin }) => {
 	const dispatch = useAppDispatch();

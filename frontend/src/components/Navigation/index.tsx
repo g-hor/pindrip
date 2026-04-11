@@ -5,11 +5,9 @@ import { getCurrentUser } from '@store/session';
 import { fetchAllUsers } from '@store/user';
 import { useAppDispatch } from '@store/hooks';
 
-import LoggedNav from './LoggedNav';
-import UnauthNav from './UnauthNav';
+import AuthNav from './AuthNav/AuthNav';
+import UnauthNav from './UnauthNav/UnauthNav';
 
-import './UnauthNav.css';
-import './LoggedNav.css';
 import './Navbar.css';
 
 const Navbar = () => {
@@ -20,7 +18,7 @@ const Navbar = () => {
 		dispatch(fetchAllUsers());
 	}, [dispatch, currentUser]);
 
-	return <div className="nav-container">{currentUser ? <LoggedNav /> : <UnauthNav />}</div>;
+	return <div className="nav-container">{currentUser ? <AuthNav /> : <UnauthNav />}</div>;
 };
 
 export default Navbar;

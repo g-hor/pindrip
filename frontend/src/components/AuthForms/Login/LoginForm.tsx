@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { loginUser } from '@store/session';
 import { useAppDispatch } from '@store/hooks';
 
-import SignupForm from '../SignupFormModal/SignupForm';
+import SignupForm from '../Signup/SignupForm';
 
 const LoginForm = () => {
 	const navigate = useNavigate();

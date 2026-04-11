@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
-import LoginFormModal from '../LoginFormModal';
-import SignupFormModal from '../SignupFormModal';
+import LoginFormModal from '../../AuthForms/Login/LoginFormModal';
+import SignupFormModal from '../../AuthForms/Signup/SignupFormModal';
+
+import './UnauthNav.css';
 
 const UnauthNav = () => {
 	return (

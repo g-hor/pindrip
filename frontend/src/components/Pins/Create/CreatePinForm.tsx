@@ -8,7 +8,7 @@ import { getInitial } from '@store/user';
 import { fetchAllBoards, getSortedBoards } from '@store/board';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 
-import Avatar from '../Profile/Avatar';
+import Avatar from '../../Profiles/Avatar';
 
 import './CreatePin.css';
 

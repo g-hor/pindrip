@@ -1,4 +1,4 @@
-import { Modal } from '../../context/modal';
+import { Modal } from '@context/modal';
 import FollowIndexItem from './FollowIndexItem';
 
 const FollowIndex = ({

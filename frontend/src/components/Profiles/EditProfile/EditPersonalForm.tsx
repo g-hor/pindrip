@@ -166,7 +166,7 @@ const EditPersonalForm = () => {
 						</div>
 					</div>
 
-					<BottomBar saveChanges={saveChanges} resetChanges={resetChanges} canSubmit={canSubmit} isDemo={isDemo} />
+					<BottomBar saveChanges={saveChanges} resetChanges={resetChanges} canSubmit={canSubmit} />
 
 					<div id="saved-msg-container" className={saved ? 'saved profile-save' : 'profile-save'}>
 						Drip saved successfully!

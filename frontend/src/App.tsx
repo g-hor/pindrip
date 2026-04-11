@@ -1,18 +1,19 @@
-import React from 'react';
+import { useEffect } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+
 import { getCurrentUser } from './store/session';
+
 import Navbar from './components/Navigation';
-import Profile from './components/Profile';
-import EditProfile from './components/Profile/EditProfile/EditProfileForm';
-import EditAccountForm from './components/Profile/EditProfile/EditAccountForm';
-import EditPersonalForm from './components/Profile/EditProfile/EditPersonalForm';
-import CreatePinForm from './components/Pins/CreatePinForm';
-import PinShow from './components/Pins/PinShow';
-import { useEffect } from 'react';
-import PinIndex from './components/Pins/PinIndex';
+import Profile from './components/Profiles';
+import EditProfile from './components/Profiles/EditProfile/EditProfileForm';
+import EditAccountForm from './components/Profiles/EditProfile/EditAccountForm';
+import EditPersonalForm from './components/Profiles/EditProfile/EditPersonalForm';
+import CreatePinForm from './components/Pins/Create/CreatePinForm';
+import PinShow from './components/Pins/Show/PinShow';
+import PinIndex from './components/Pins/Index/PinIndex';
 import SplashPage from './components/Splash';
-import BoardShow from './components/Profile/Board/BoardShow';
+import BoardShow from './components/Profiles/Boards/BoardShow';
 
 function App() {
 	const navigate = useNavigate();
