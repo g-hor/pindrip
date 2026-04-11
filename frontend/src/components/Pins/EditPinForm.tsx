@@ -31,11 +31,11 @@ const EditPinForm = ({ pin, onClose }) => {
 
 	const savePin = async (pin) => {
 		const updatedPin = {
-			id: pin.id,
-			title: title,
-			description: description,
-			website: website,
-			altText: altText,
+			id: pin?.id,
+			title,
+			description,
+			website,
+			altText,
 			creator: currentUser.id,
 		};
 		const res = await dispatch(updatePin(updatedPin));
@@ -44,8 +44,6 @@ const EditPinForm = ({ pin, onClose }) => {
 			setTimeout(() => setSaved(false), 3000);
 			setTimeout(() => cancelBtn?.current?.click(), 3000);
 		}
-
-		savePin({ boardId, pinId });
 	};
 
 	const hideBoards = (e) => {

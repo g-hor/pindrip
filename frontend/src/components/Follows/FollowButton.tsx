@@ -17,7 +17,6 @@ const FollowButton = ({ currentUser, showUser }) => {
 		if (!isFollowing && !clickLimited) {
 			const res = await dispatch(followUser({ followerId: currentUser.id, followingId: showUser.id }));
 			if (res?.ok) {
-				currentUser.followedUsers.push(showUser.username);
 				dispatch(receiveSession({ ...currentUser }));
 				storeCurrentUser({ ...currentUser });
 				setClickLimited(false);
@@ -30,8 +29,6 @@ const FollowButton = ({ currentUser, showUser }) => {
 		if (isFollowing && !clickLimited) {
 			const res = await dispatch(unfollowUser({ followerId: currentUser.id, followingId: showUser.id }));
 			if (res?.ok) {
-				const showUserIdx = currentUser.followedUsers.indexOf(showUser.username);
-				currentUser.followedUsers.splice(showUserIdx, 1);
 				dispatch(receiveSession({ ...currentUser }));
 				storeCurrentUser({ ...currentUser });
 				setIsFollowing(false);

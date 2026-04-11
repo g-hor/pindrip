@@ -198,7 +198,7 @@ const PinIndexItem = ({ pin }) => {
 
 			{!username && (
 				<div className="home-pins-info">
-					<Link to={`/${pin?.creator}`}>
+					<Link to={`/${showUser?.username}`}>
 						{avatar ? <Avatar avatar={avatar} /> : <div id="pin-show-creator-initial">{initial}</div>}
 						<span>{showUser?.username}</span>
 					</Link>
