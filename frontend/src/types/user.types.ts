@@ -17,17 +17,14 @@ export interface IUser {
 	followedUsers: number[];
 }
 
-export interface IUpdatePasswordArgs {
-	id: number;
-	email: string;
-	oldPw: string;
-	newPw: string;
-}
-
 export interface IDeleteUserArgs {
 	id: number;
 	email: string;
 	newPw: string;
+}
+
+export interface IUpdatePasswordArgs extends IDeleteUserArgs {
+	oldPw: string;
 }
 
 export interface IFollowArgs {

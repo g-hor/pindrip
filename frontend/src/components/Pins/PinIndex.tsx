@@ -28,8 +28,6 @@ const PinIndex = () => {
 		dispatch(fetchAllBoards(currentUser?.id));
 	}, [dispatch, currentUser?.id, username]);
 
-	console.log({ pins });
-
 	return (
 		<>
 			<div id="pins-index-page">

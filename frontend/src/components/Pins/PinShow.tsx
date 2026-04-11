@@ -2,7 +2,7 @@ import { ReactElement, useEffect, useRef, useState } from 'react';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 
 import { getCurrentUser } from '@store/session';
-import { deletePin, fetchPin } from '@store/pin';
+import { fetchPin } from '@store/pin';
 import { getInitial } from '@store/user';
 import { fetchAllBoards, getSortedBoards } from '@store/board';
 import { removeBoardPin, savePin } from '@store/boardPin';
@@ -14,6 +14,7 @@ import Avatar from '../Profile/Avatar';
 import EditPinForm from './EditPinForm';
 
 import './PinShow.css';
+import { PinShowOptions } from './PinShowOptions';
 
 const PinShow = () => {
 	const dispatch = useAppDispatch();
@@ -27,39 +28,35 @@ const PinShow = () => {
 	const currentUser = useAppSelector(getCurrentUser);
 	const boards = useAppSelector(getSortedBoards);
 
-	const [showDrop, setShowDrop] = useState(false);
-	const [showBoards, setShowBoards] = useState(false);
+	const [isOptionsOpen, setIsOptionsOpen] = useState(false);
+	const [isBoardsOpen, setIsBoardsOpen] = useState(false);
 	const [showEdit, setShowEdit] = useState(false);
 	const [saved, setSaved] = useState(false);
 	const [removed, setRemoved] = useState(false);
 	const [isSaved, setIsSaved] = useState(boards?.map((board) => board.savedPins.includes(pin?.id)));
 	const [showSaveBtn, setShowSaveBtn] = useState(isSaved);
 	const [selectedBoard, setSelectedBoard] = useState(boards[0]?.name || 'All Pins');
+	const [creatorInitials, setCreatorInitials] = useState('');
 
-	let boardId = boards?.filter((board) => board?.name === selectedBoard)[0]?.id;
-	let boardIndex = boards.indexOf(boards?.filter((board) => board?.name === selectedBoard)[0]);
-	let background = useRef<HTMLDivElement | null>(null);
-	let dropdown = useRef<HTMLDivElement | null>(null);
-	let boardMenu = useRef<HTMLDivElement | null>(null);
-	let initial: string;
-	let dropMenu: ReactElement<HTMLUListElement>;
+	const background = useRef<HTMLDivElement | null>(null);
+	const boardsButton = useRef<HTMLDivElement | null>(null);
+	const boardsDropdown = useRef<HTMLDivElement | null>(null);
+	const optionsButton = useRef<HTMLDivElement | null>(null);
+	const optionsDropdown = useRef<HTMLDivElement | null>(null);
 
-	const abbreviateBoard = (boardName, length) => {
-		if (boardName.length > length) {
-			return boardName.slice(0, length) + '...';
+	const boardId = boards?.filter((board) => board?.name === selectedBoard)[0]?.id;
+	const boardIndex = boards.indexOf(boards?.filter((board) => board?.name === selectedBoard)[0]);
+	const isCurrentUserCreator = currentUser?.id === creator?.id;
+	const isSavedToSelectedBoard = boards
+		?.filter((board) => board?.name === selectedBoard)[0]
+		?.savedPins?.includes(pin?.id);
+
+	const truncateBoardName = (boardName, maxLength) => {
+		if (boardName.length > maxLength) {
+			return boardName.slice(0, maxLength) + '...';
 		} else {
 			return boardName;
 		}
-	};
-
-	const hideDrop = (e) => {
-		if (dropdown?.current?.contains(e.target)) return;
-		setShowDrop(false);
-	};
-
-	const hideBoards = (e) => {
-		if (e.target === boardMenu?.current) return;
-		setShowBoards(false);
 	};
 
 	const goHome = (e) => {
@@ -75,7 +72,7 @@ const PinShow = () => {
 			isSaved[boardIndex] ? (next[boardIndex] = true) : (next[boardIndex] = false);
 			return next;
 		});
-		setShowBoards(false);
+		setIsBoardsOpen(false);
 	};
 
 	const submitSave = async (boardId, pinId, boardIdx) => {
@@ -98,7 +95,6 @@ const PinShow = () => {
 					next[boardIdx] = false;
 					return next;
 				});
-				defineDropMenu();
 				setRemoved(true);
 				setTimeout(() => setRemoved(false), 3000);
 			}
@@ -108,69 +104,8 @@ const PinShow = () => {
 	const submitRemoval = async () => {
 		const res = await dispatch(removeBoardPin({ boardId, pinId: pin?.id }));
 		if (res?.ok) {
-			defineDropMenu();
 			setRemoved(true);
 			setTimeout(() => setRemoved(false), 3000);
-		}
-	};
-
-	const defineDropMenu = () => {
-		if (
-			currentUser?.id === creator?.id &&
-			boards?.filter((board) => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pinId))
-		) {
-			dropMenu = (
-				<ul>
-					<li className="show-pin-drop-option" onClick={() => setShowEdit(true)}>
-						Edit Pin
-					</li>
-					<li className="show-pin-drop-option" onClick={() => submitRemoval()}>
-						Remove Pin
-					</li>
-					<li
-						className="show-pin-drop-option"
-						onClick={() => {
-							dispatch(deletePin(pin.id));
-							navigate(-1);
-						}}
-					>
-						Delete Pin
-					</li>
-				</ul>
-			);
-		} else if (
-			currentUser?.id === creator?.id &&
-			!boards?.filter((board) => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pinId))
-		) {
-			dropMenu = (
-				<ul>
-					<li className="show-pin-drop-option" onClick={() => setShowEdit(true)}>
-						Edit Pin
-					</li>
-					<li
-						className="show-pin-drop-option"
-						onClick={() => {
-							dispatch(deletePin(pin.id));
-							navigate(-1);
-						}}
-					>
-						Delete Pin
-					</li>
-				</ul>
-			);
-		} else if (
-			currentUser?.id !== creator?.id &&
-			boards?.filter((board) => board?.name === selectedBoard)[0]?.savedPins?.includes(parseInt(pinId))
-		) {
-			dropMenu = (
-				<ul>
-					<li className="show-pin-drop-option" onClick={() => submitRemoval()}>
-						Remove Pin
-					</li>
-				</ul>
-			);
-		} else {
-			dropMenu = null;
 		}
 	};
 
@@ -180,32 +115,40 @@ const PinShow = () => {
 	}, [dispatch, showEdit, pin?.id, currentUser?.id]);
 
 	useEffect(() => {
-		if (!showDrop) return;
+		const hideOptions = (e) => {
+			if (
+				!isOptionsOpen ||
+				optionsDropdown.current?.contains(e.target) ||
+				optionsButton.current?.contains(e.target)
+			) {
+				return;
+			}
+			setIsOptionsOpen(false);
+		};
 
-		document.addEventListener('click', hideDrop);
+		const hideBoardsDropdown = (e) => {
+			if (!isBoardsOpen || boardsDropdown.current?.contains(e.target) || boardsButton.current?.contains(e.target)) {
+				return;
+			}
+			setIsBoardsOpen(false);
+		};
+
+		document.addEventListener('click', hideOptions);
+		document.addEventListener('click', hideBoardsDropdown);
 		document.addEventListener('click', goHome);
 
 		return () => {
+			document.removeEventListener('click', hideOptions);
+			document.removeEventListener('click', hideBoardsDropdown);
 			document.removeEventListener('click', goHome);
-			document.removeEventListener('click', hideDrop);
 		};
-	});
+	}, [isOptionsOpen, isBoardsOpen, goHome]);
 
 	useEffect(() => {
-		if (!showBoards) return;
-
-		document.addEventListener('click', hideBoards);
-
-		return () => document.removeEventListener('click', hideBoards);
-	});
-
-	useEffect(() => {
-		defineDropMenu();
-	}, [defineDropMenu]);
-
-	if (creator) {
-		initial = getInitial(creator);
-	}
+		if (creator) {
+			setCreatorInitials(getInitial(creator));
+		}
+	}, [creator]);
 
 	return (
 		<>
@@ -219,18 +162,26 @@ const PinShow = () => {
 						<div id="pin-info-container">
 							<div>
 								<div id="pin-show-top-bar">
-									{dropMenu ? (
-										<div id="ellipsis-btn" onClick={() => setShowDrop(true)}>
-											<i className="fa-solid fa-ellipsis" />
-											{showDrop && (
-												<div id="pin-show-drop" ref={dropdown}>
-													{dropMenu}
-												</div>
-											)}
-										</div>
-									) : (
-										<div />
-									)}
+									<div id="ellipsis-btn" ref={optionsButton} onClick={() => setIsOptionsOpen(true)}>
+										{isCurrentUserCreator || isSavedToSelectedBoard ? (
+											<>
+												<i className="fa-solid fa-ellipsis" />
+												{isOptionsOpen && (
+													<div id="pin-show-drop" ref={optionsDropdown}>
+														<PinShowOptions
+															isCurrentUserCreator={isCurrentUserCreator}
+															isSavedToSelectedBoard={isSavedToSelectedBoard}
+															pinId={pin?.id}
+															setShowEdit={setShowEdit}
+															submitRemoval={submitRemoval}
+														/>
+													</div>
+												)}
+											</>
+										) : (
+											<div />
+										)}
+									</div>
 
 									{showEdit && (
 										<Modal onClose={() => setShowEdit(false)} customClass="edit-pin">
@@ -239,12 +190,16 @@ const PinShow = () => {
 									)}
 
 									<div id="show-board-drop-save-btn-holder">
-										<div id="show-pin-board-dropdown-btn" onClick={() => setShowBoards(true)}>
+										<div
+											id="show-pin-board-dropdown-btn"
+											ref={boardsButton}
+											onClick={() => setIsBoardsOpen(true)}
+										>
 											<i className="fa-solid fa-chevron-down dropbtn board-drop" />
-											<div id="board-first-option">{abbreviateBoard(selectedBoard, 8)}</div>
+											<div id="board-first-option">{truncateBoardName(selectedBoard, 8)}</div>
 
-											{showBoards && (
-												<div id="board-options-menu" ref={boardMenu}>
+											{isBoardsOpen && (
+												<div id="board-options-menu" ref={boardsDropdown}>
 													<div id="board-options-title">All boards</div>
 
 													<div id="board-options-container">
@@ -280,7 +235,7 @@ const PinShow = () => {
 																</div>
 																<div className="board-dropdown-info">
 																	<div className="board-dropdown-name-holder">
-																		<div>{abbreviateBoard(board.name, 15)}</div>
+																		<div>{truncateBoardName(board.name, 15)}</div>
 																		{board.savedPins.includes(parseInt(pinId)) && (
 																			<div>Saved here already</div>
 																		)}
@@ -328,7 +283,7 @@ const PinShow = () => {
 									<Link to={`/${creator?.username}`}>
 										{creator?.avatar && <Avatar avatar={creator?.avatar} />}
 
-										{!creator?.avatar && <div id="pin-show-creator-initial">{initial}</div>}
+										{!creator?.avatar && <div id="pin-show-creator-initial">{creatorInitials}</div>}
 									</Link>
 
 									<Link to={`/${creator?.username}`}>
