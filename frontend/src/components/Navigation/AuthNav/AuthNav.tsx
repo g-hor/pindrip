@@ -8,7 +8,7 @@ import { fetchAllPins } from '@store/pin';
 import { fetchAllBoards } from '@store/board';
 import { useAppDispatch } from '@store/hooks';
 
-import Avatar from '../../Profiles/Avatar';
+import Avatar from '../../Profiles/Avatar/Avatar';
 import MenuButton from '../MenuButton';
 
 import './AuthNav.css';
@@ -80,7 +80,7 @@ const AuthNav = () => {
 				<div className="right-initial-icon-holder">
 					{currentUser?.avatar && (
 						<NavLink to={`/${currentUser?.username || displayName}`} className="initial-holder">
-							<Avatar avatar={avatar} />
+							<Avatar avatarUrl={avatar} />
 						</NavLink>
 					)}
 

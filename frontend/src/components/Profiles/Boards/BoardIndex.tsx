@@ -5,12 +5,15 @@ import { Modal } from '@context/modal';
 import { createBoard, fetchAllBoards, getSortedBoards } from '@store/board';
 import { getCurrentUser } from '@store/session';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
+import { IUser } from '@app-types/index';
 
 import BoardIndexItem from './BoardIndexItem';
 
 import './BoardIndex.css';
 
-const BoardIndex = ({ showUser }) => {
+type Props = { showUser: IUser };
+
+const BoardIndex = ({ showUser }: Props) => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 

@@ -8,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { deleteBoard, fetchAllBoards, getBoardByUrl, updateBoard } from '@store/board';
 
 import PinIndexItem from '../../Pins/Index/PinIndexItem';
-import Avatar from '../Avatar';
+import Avatar from '../Avatar/Avatar';
 
 import './BoardShow.css';
 
@@ -156,7 +156,7 @@ const BoardShow = () => {
 			{currentBoard?.description && <div id="board-show-description">{currentBoard?.description}</div>}
 
 			<Link to={`/${username}`}>
-				{showUser?.avatar && <Avatar avatar={showUser?.avatar} />}
+				{showUser?.avatar && <Avatar avatarUrl={showUser?.avatar} />}
 				{!showUser?.avatar && <div id="pin-show-creator-initial">{displayInitial}</div>}
 			</Link>
 

@@ -1,4 +1,10 @@
-const BottomBar = ({ resetChanges, saveChanges, canSubmit }) => {
+type Props = {
+	resetChanges: (e) => void;
+	saveChanges: () => void | Promise<void>;
+	canSubmit: boolean;
+};
+
+const BottomBar = ({ resetChanges, saveChanges, canSubmit }: Props) => {
 	return (
 		<div id="edit-page-bottom-bar">
 			<div id="bottom-bar-align-holder">

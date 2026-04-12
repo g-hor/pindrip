@@ -4,10 +4,15 @@ import { getInitial, getUserById } from '@store/user';
 import { getCurrentUser } from '@store/session';
 import { useAppSelector } from '@store/hooks';
 
-import Avatar from '../Avatar';
+import Avatar from '../Avatar/Avatar';
 import FollowButton from './FollowButton';
 
-const FollowIndexItem = ({ userId, onClose }: { userId: number; onClose: () => void }) => {
+type Props = {
+	userId: number;
+	onClose: () => void;
+};
+
+const FollowIndexItem = ({ userId, onClose }: Props) => {
 	const currentUser = useAppSelector(getCurrentUser);
 	const showUser = useAppSelector(getUserById(userId));
 
@@ -19,7 +24,7 @@ const FollowIndexItem = ({ userId, onClose }: { userId: number; onClose: () => v
 			<div className="follow-index-item-user">
 				<Link to={`/${showUser?.username}`} onClick={onClose}>
 					{avatar ? (
-						<Avatar avatar={avatar} />
+						<Avatar avatarUrl={avatar} />
 					) : (
 						<div className="follow-index-initial-holder">
 							<div className="follow-index-initial">{getInitial(showUser)}</div>

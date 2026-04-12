@@ -5,11 +5,13 @@ import { getCurrentUser } from '@store/session';
 import { getInitial, fetchUser, getUserByUsername } from '@store/user';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 
-import Avatar from './Avatar';
-import FollowButton from './Follows/FollowButton';
-import FollowIndex from './Follows/FollowIndex';
+import Avatar from '../Avatar/Avatar';
+import FollowButton from '../Follows/FollowButton';
+import FollowIndex from '../Follows/FollowIndex';
 
-const UserInfo = ({ username }) => {
+type Props = { username: string };
+
+const UserInfo = ({ username }: Props) => {
 	const dispatch = useAppDispatch();
 
 	const currentUser = useAppSelector(getCurrentUser);
@@ -54,7 +56,7 @@ const UserInfo = ({ username }) => {
 			{showUser?.avatar && (
 				<div id="user-info-initial-holder">
 					<div id="user-info-intial">
-						<Avatar avatar={showUser?.avatar} />
+						<Avatar avatarUrl={showUser?.avatar} />
 					</div>
 				</div>
 			)}

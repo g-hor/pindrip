@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from '@store/hooks';
 
 import { Modal } from '@context/modal';
 
-import Avatar from '../../Profiles/Avatar';
+import Avatar from '../../Profiles/Avatar/Avatar';
 import EditPinForm from '../Edit/EditPinForm';
 import { PinShowOptions } from './PinShowOptions';
 
@@ -281,7 +281,7 @@ const PinShow = () => {
 							<div id="pin-show-creator-info">
 								<div id="create-pin-user-info">
 									<Link to={`/${creator?.username}`}>
-										{creator?.avatar && <Avatar avatar={creator?.avatar} />}
+										{creator?.avatar && <Avatar avatarUrl={creator?.avatar} />}
 
 										{!creator?.avatar && <div id="pin-show-creator-initial">{creatorInitials}</div>}
 									</Link>

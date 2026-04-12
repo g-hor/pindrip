@@ -21,7 +21,7 @@
 		"paths": {
 			"@components/*": ["components/*"],
 			"@store/*": ["store/*"],
-			"@types/*": ["types/*"],
+			"@app-types/*": ["types/*"],
 			"@context/*": ["context/*"]
 		}
 	},

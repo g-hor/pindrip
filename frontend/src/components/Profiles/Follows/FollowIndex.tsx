@@ -1,17 +1,14 @@
 import { Modal } from '@context/modal';
 import FollowIndexItem from './FollowIndexItem';
 
-const FollowIndex = ({
-	displayUserIds,
-	count,
-	title,
-	onClose,
-}: {
+type Props = {
 	displayUserIds: number[];
 	count: number;
 	title: string;
 	onClose: () => void;
-}) => {
+};
+
+const FollowIndex = ({ displayUserIds, count, title, onClose }: Props) => {
 	return (
 		<Modal onClose={onClose}>
 			<div id="follows-container">

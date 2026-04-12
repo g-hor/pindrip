@@ -2,7 +2,12 @@ import { useEffect, useState, useRef } from 'react';
 import DropdownMenu from './DropdownMenu';
 import './MenuButton.css';
 
-const MenuButton = ({ displayInitial, displayName }) => {
+type Props = {
+	displayInitial: string;
+	displayName: string;
+};
+
+const MenuButton = ({ displayInitial, displayName }: Props) => {
 	const [showDrop, setShowDrop] = useState(false);
 	const dropdown = useRef<HTMLDivElement | null>(null);
 	const arrowContainer = useRef<HTMLDivElement | null>(null);

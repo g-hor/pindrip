@@ -2,7 +2,15 @@ import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '@store/hooks';
 import { deletePin } from '@store/pin';
 
-export const PinShowOptions = ({ isCurrentUserCreator, isSavedToSelectedBoard, pinId, setShowEdit, submitRemoval }) => {
+type Props = {
+	isCurrentUserCreator: boolean;
+	isSavedToSelectedBoard: boolean;
+	pinId: number;
+	setShowEdit: (value: boolean) => void;
+	submitRemoval: () => Promise<void>;
+};
+
+export const PinShowOptions = ({ isCurrentUserCreator, isSavedToSelectedBoard, pinId, setShowEdit, submitRemoval }: Props) => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 

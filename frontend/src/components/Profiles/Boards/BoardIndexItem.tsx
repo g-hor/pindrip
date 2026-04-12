@@ -1,7 +1,13 @@
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '@store/hooks';
+import { IBoard, IUser } from '@app-types/index';
 
-const BoardIndexItem = ({ board, showUser }) => {
+type Props = {
+	board: IBoard;
+	showUser: IUser;
+};
+
+const BoardIndexItem = ({ board, showUser }: Props) => {
 	let firstIdx = board?.savedPins[0];
 	let secondIdx = board?.savedPins[1];
 	let thirdIdx = board?.savedPins[2];

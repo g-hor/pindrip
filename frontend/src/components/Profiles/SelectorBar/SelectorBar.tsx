@@ -1,6 +1,11 @@
 import { useState } from 'react';
 
-const SelectorBar = ({ setShowCreated, setShowSaved }) => {
+type Props = {
+	setShowCreated: (value: boolean) => void;
+	setShowSaved: (value: boolean) => void;
+};
+
+const SelectorBar = ({ setShowCreated, setShowSaved }: Props) => {
 	const [showUnderline, setShowUnderline] = useState('saved');
 	const [createdTabClassName, setCreatedTabClassName] = useState('unselected');
 	const [savedTabClassName, setSavedTabClassName] = useState('');

@@ -5,9 +5,15 @@ import { useSelector } from 'react-redux';
 import { getCurrentUser, logoutUser } from '@store/session';
 import { useAppDispatch } from '@store/hooks';
 
-import Avatar from '../../Profiles/Avatar';
+import Avatar from '../../Profiles/Avatar/Avatar';
 
-const DropdownMenu = ({ displayInitial, displayName, setShowDrop }) => {
+type Props = {
+	displayInitial: string;
+	displayName: string;
+	setShowDrop: (value: boolean) => void;
+};
+
+const DropdownMenu = ({ displayInitial, displayName, setShowDrop }: Props) => {
 	const navigate = useNavigate();
 	const dispatch = useAppDispatch();
 
@@ -18,7 +24,7 @@ const DropdownMenu = ({ displayInitial, displayName, setShowDrop }) => {
 
 	useEffect(() => {
 		if (displayEmail.length > 23) {
-			setDisplayEmail((prev) => currentUser.email.slice(0, 23) + '...');
+			setDisplayEmail(() => currentUser.email.slice(0, 23) + '...');
 		}
 
 		if (displayName.length > 20) {
@@ -40,7 +46,7 @@ const DropdownMenu = ({ displayInitial, displayName, setShowDrop }) => {
 					<div id="profile-display">
 						<div id="profile-initial-holder">
 							{!currentUser.avatar && <div id="profile-initial">{displayInitial}</div>}
-							{currentUser.avatar && <Avatar avatar={currentUser?.avatar} />}
+							{currentUser.avatar && <Avatar avatarUrl={currentUser?.avatar} />}
 						</div>
 						<div id="profile-details-holder">
 							<div id="profile-details-name">{loggedName}</div>

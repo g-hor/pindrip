@@ -8,7 +8,7 @@ import { getInitial } from '@store/user';
 import { fetchAllBoards, getSortedBoards } from '@store/board';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 
-import Avatar from '../../Profiles/Avatar';
+import Avatar from '../../Profiles/Avatar/Avatar';
 
 import './CreatePin.css';
 
@@ -205,7 +205,7 @@ const CreatePinForm = () => {
 
 						<div id="create-pin-user-info">
 							<Link to={`/${currentUser?.username}`}>
-								{currentUser?.avatar && <Avatar avatar={currentUser?.avatar} />}
+								{currentUser?.avatar && <Avatar avatarUrl={currentUser?.avatar} />}
 
 								{!currentUser?.avatar && <div id="pin-show-creator-initial">{displayInitial}</div>}
 							</Link>

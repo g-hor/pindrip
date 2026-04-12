@@ -5,10 +5,16 @@ import { deletePin, fetchPin, updatePin } from '@store/pin';
 import { fetchAllBoards, getSortedBoards } from '@store/board';
 import { getCurrentUser } from '@store/session';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
+import { IPin } from '@app-types/index';
 
 import './EditPinForm.css';
 
-const EditPinForm = ({ pin, onClose }) => {
+type Props = {
+	pin: IPin;
+	onClose: () => void;
+};
+
+const EditPinForm = ({ pin, onClose }: Props) => {
 	const dispatch = useAppDispatch();
 
 	const { pinId } = useParams();

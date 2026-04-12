@@ -3,10 +3,16 @@ import { useEffect, useState } from 'react';
 import { followUser, unfollowUser } from '@store/user';
 import { receiveSession, storeCurrentUser } from '@store/session';
 import { useAppDispatch } from '@store/hooks';
+import { IUser } from '@app-types/index';
 
 import './Follow.css';
 
-const FollowButton = ({ currentUser, showUser }) => {
+type Props = {
+	currentUser: IUser;
+	showUser: IUser;
+};
+
+const FollowButton = ({ currentUser, showUser }: Props) => {
 	const dispatch = useAppDispatch();
 
 	const [isFollowing, setIsFollowing] = useState(showUser?.followers?.includes(currentUser?.id));

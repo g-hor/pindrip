@@ -8,7 +8,7 @@ import { Modal } from '@context/modal';
 
 import Sidebar from './Sidebar';
 import BottomBar from './BottomBar';
-import Avatar from '../Avatar';
+import Avatar from '../Avatar/Avatar';
 import './EditProfile.css';
 
 const EditProfileForm = () => {
@@ -220,7 +220,7 @@ const EditProfileForm = () => {
 					<div className="edit-form-field-row-holder">
 						{(avatar && (
 							<div className="avatar-holder">
-								<Avatar avatar={avatar} />
+								<Avatar avatarUrl={avatar} />
 							</div>
 						)) ||
 							(!currentUser.avatar && <div id="edit-form-initial">{displayInitial}</div>)}

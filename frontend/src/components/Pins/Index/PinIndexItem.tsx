@@ -5,10 +5,13 @@ import { getInitial } from '@store/user';
 import { useAppDispatch, useAppSelector } from '@store/hooks';
 import { savePin, removeBoardPin } from '@store/boardPin';
 import { getSortedBoards } from '@store/board';
+import { IPin } from '@app-types/index';
 
-import Avatar from '../../Profiles/Avatar';
+import Avatar from '../../Profiles/Avatar/Avatar';
 
-const PinIndexItem = ({ pin }) => {
+type Props = { pin: IPin };
+
+const PinIndexItem = ({ pin }: Props) => {
 	const dispatch = useAppDispatch();
 
 	const showUser = useAppSelector((state) => state?.users[pin?.creator]);
@@ -20,7 +23,7 @@ const PinIndexItem = ({ pin }) => {
 	const [selectedBoard, setSelectedBoard] = useState(boards[0]?.name || 'All Pins');
 	const [displayOverlay, setDisplayOverlay] = useState(false);
 	const [showBoards, setShowBoards] = useState(false);
-	const [isSaved, setIsSaved] = useState(boards?.map((board) => board.savedPins.includes(parseInt(pin?.id))));
+	const [isSaved, setIsSaved] = useState(boards?.map((board) => board.savedPins.includes(pin?.id)));
 	const [showSaveBtn, setShowSaveBtn] = useState(isSaved);
 	const [opacity, setOpacity] = useState({ opacity: 0 });
 
@@ -199,7 +202,7 @@ const PinIndexItem = ({ pin }) => {
 			{!username && (
 				<div className="home-pins-info">
 					<Link to={`/${showUser?.username}`}>
-						{avatar ? <Avatar avatar={avatar} /> : <div id="pin-show-creator-initial">{initial}</div>}
+						{avatar ? <Avatar avatarUrl={avatar} /> : <div id="pin-show-creator-initial">{initial}</div>}
 						<span>{showUser?.username}</span>
 					</Link>
 				</div>
