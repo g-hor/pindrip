@@ -1,0 +1,260 @@
+import { useState, useRef, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
+
+import { getCurrentUser } from '@store/session';
+import { createPin } from '@store/pin';
+import { savePin } from '@store/boardPin';
+import { getInitial } from '@store/user';
+import { fetchAllBoards, getSortedBoards } from '@store/board';
+import { useAppDispatch, useAppSelector } from '@store/hooks';
+
+import Avatar from '../../Profiles/Avatar/Avatar';
+
+import './CreatePin.css';
+
+const CreatePinForm = () => {
+	const navigate = useNavigate();
+	const dispatch = useAppDispatch();
+
+	const currentUser = useAppSelector(getCurrentUser);
+	const pins = useAppSelector((state) => state?.pins);
+	const boards = useAppSelector(getSortedBoards);
+
+	const [title, setTitle] = useState('');
+	const [description, setDescription] = useState('');
+	const [altText, setAltText] = useState('');
+	const [website, setWebsite] = useState('');
+	const [showAlt, setShowAlt] = useState(false);
+	const [photo, setPhoto] = useState(null);
+	const [photoUrl, setPhotoUrl] = useState(null);
+	const [showBoards, setShowBoards] = useState(false);
+	const [selectedBoard, setSelectedBoard] = useState(boards[0]?.name || 'All Pins');
+	const [clickedSave, setClickedSave] = useState(false);
+	const [showSaveBtn, setShowSaveBtn] = useState(Array(boards?.length).fill(false));
+	const [saved, setSaved] = useState(false);
+	const [noPicture, setNoPicture] = useState(false);
+
+	const uploadInput = useRef<HTMLInputElement | null>(null);
+	const boardMenu = useRef<HTMLDivElement | null>(null);
+
+	const boardId = boards?.filter((board) => board?.name === selectedBoard)[0]?.id;
+
+	let displayInitial: string;
+
+	const abbreviateBoard = (boardName: string, length: number) => {
+		if (boardName.length > length) {
+			return boardName.slice(0, length) + '...';
+		} else {
+			return boardName;
+		}
+	};
+
+	const clickBoard = (board) => {
+		setShowSaveBtn(Array(boards?.length).fill(false));
+		setSelectedBoard(board.name);
+		setShowBoards(false);
+	};
+
+	const handlePhoto = async ({ currentTarget }) => {
+		if (currentTarget.files[0]) {
+			setPhoto(currentTarget.files[0]);
+			const fileReader = new FileReader();
+			fileReader.readAsDataURL(currentTarget.files[0]);
+			fileReader.onload = () => setPhotoUrl(fileReader.result);
+			setNoPicture(false);
+		}
+	};
+
+	const handleSubmit = async (boardId: number) => {
+		if (!photoUrl) {
+			setNoPicture(true);
+			return;
+		}
+		if (!clickedSave) {
+			setClickedSave(true);
+			const pin = await dispatch(createPin({ title, description, altText, website, photo }));
+			const res = await dispatch(savePin({ boardId, pinId: pin.id }));
+			if (res?.ok) {
+				setSaved(true);
+				setTimeout(() => setSaved(false), 3000);
+				setTimeout(() => navigate(`/pins/${pin.id}`), 3000);
+			}
+		}
+	};
+
+	const hideBoards = (e) => {
+		if (e.target === boardMenu?.current) return;
+		setShowBoards(false);
+	};
+
+	useEffect(() => {
+		dispatch(fetchAllBoards(currentUser?.id));
+	}, [dispatch, currentUser?.id]);
+
+	useEffect(() => {
+		if (!showBoards) return;
+
+		document.addEventListener('click', hideBoards);
+
+		return () => document.removeEventListener('click', hideBoards);
+	});
+
+	let preview = null;
+	if (photoUrl) preview = <img src={photoUrl} id="preview-pin-img" alt="" />;
+	if (currentUser) displayInitial = getInitial(currentUser);
+
+	return (
+		<div id="create-pin-main-bg">
+			<div id="create-pin-content-bg">
+				<div id="create-pin-bottom-content-holder">
+					<div id="create-pin-left-container" className={noPicture ? 'no-picture' : ''}>
+						<div id="create-pin-upload-box" onClick={() => uploadInput.current?.click()}>
+							<input
+								ref={uploadInput}
+								type="file"
+								onChange={handlePhoto}
+								accept="image/png, image/jpeg, image/jpg, image/gif"
+								style={{ display: 'none' }}
+							/>
+							{preview || (
+								<div id="dropbox-text" className={noPicture ? 'no-picture' : ''}>
+									<i className="fa-solid fa-cloud-arrow-up"></i>
+									<div>
+										{!noPicture ? 'Click here to upload an image.' : 'An Image is required to create a Pin.'}
+									</div>
+								</div>
+							)}
+						</div>
+					</div>
+
+					<div id="create-pin-right-container">
+						<div id="create-pin-top-row">
+							<div id="create-pin-top-btn-holder">
+								<div id="show-pin-board-dropdown-btn" onClick={() => setShowBoards(true)}>
+									<i className="fa-solid fa-chevron-down dropbtn board-drop" />
+									<div id="board-first-option">{abbreviateBoard(selectedBoard, 9)}</div>
+
+									{showBoards && (
+										<div id="board-options-menu" ref={boardMenu}>
+											<div id="board-options-title">All boards</div>
+											{boards?.map((board, i) => (
+												<div
+													className="board-dropdown-option"
+													key={board.id}
+													onClick={() => clickBoard(board)}
+													onMouseEnter={() =>
+														setShowSaveBtn((prev) => {
+															const next = [...prev];
+															next[i] = true;
+															return next;
+														})
+													}
+													onMouseLeave={() =>
+														setShowSaveBtn((prev) => {
+															const next = [...prev];
+															next[i] = false;
+															return next;
+														})
+													}
+												>
+													<div className="board-dropdown-thumbnail-holder">
+														{pins[board.savedPins[0]]?.photo && (
+															<img
+																className="board-dropdown-thumbnail"
+																src={pins[board.savedPins[0]]?.photo}
+																alt=""
+															/>
+														)}
+													</div>
+													<div className="board-dropdown-info">
+														<div>{abbreviateBoard(board.name, 15)}</div>
+														{showSaveBtn[i] && (
+															<div
+																id="show-pin-save-btn"
+																className={clickedSave ? 'saved' : ' '}
+																onClick={() => handleSubmit(board.id)}
+															>
+																{clickedSave ? 'Saved' : 'Save'}
+															</div>
+														)}
+													</div>
+												</div>
+											))}
+										</div>
+									)}
+								</div>
+
+								<div
+									id="show-pin-save-btn"
+									className={clickedSave ? 'saved' : ' '}
+									onClick={() => handleSubmit(boardId)}
+								>
+									{clickedSave ? 'Saved' : 'Save'}
+								</div>
+							</div>
+						</div>
+
+						{/* <div id="cowboy">🤠</div> */}
+						<div id="relative-text-aligner">
+							<textarea
+								id="create-pin-title"
+								placeholder="Add your title"
+								onChange={(e) => setTitle(e.target.value)}
+							/>
+						</div>
+
+						<div id="create-pin-user-info">
+							<Link to={`/${currentUser?.username}`}>
+								{currentUser?.avatar && <Avatar avatarUrl={currentUser?.avatar} />}
+
+								{!currentUser?.avatar && <div id="pin-show-creator-initial">{displayInitial}</div>}
+							</Link>
+
+							<Link to={`/${currentUser?.username}`}>
+								<div>{currentUser?.firstName + ' ' + (currentUser?.lastName || '')}</div>
+							</Link>
+						</div>
+
+						<span
+							contentEditable
+							role="textbox"
+							id="create-pin-description"
+							onInput={(e) => setDescription(e.currentTarget.textContent)}
+						/>
+
+						<div id="alt-btn-or-text">
+							{!showAlt && (
+								<div id="add-alt-text-btn" onClick={() => setShowAlt(true)}>
+									Add alt text
+								</div>
+							)}
+
+							{showAlt && (
+								<span
+									contentEditable
+									role="textbox"
+									id="alt-text-textbox"
+									onInput={(e) => {
+										if (altText?.length < 500) setAltText(e.currentTarget.textContent);
+									}}
+								/>
+							)}
+						</div>
+
+						<textarea
+							id="pin-website"
+							placeholder="Add a destination link"
+							onChange={(e) => setWebsite(e.target.value)}
+						/>
+					</div>
+				</div>
+			</div>
+
+			<div id="saved-msg-container" className={saved ? 'saved save-pin' : 'save-pin'}>
+				Drip saved successfully!
+			</div>
+		</div>
+	);
+};
+
+export default CreatePinForm;

@@ -1,0 +1,135 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { IUser, IUpdatePasswordArgs, IDeleteUserArgs, IFollowArgs, TThunkDispatch } from '../types';
+import csrfFetch from './csrf';
+import { logoutUser, storeCurrentUser } from './session';
+
+// FORMATTING HELPERS
+export const getInitial = (user: IUser | null | undefined): string => {
+	if (!user) return '';
+	if (user.username) return user.username[0].toUpperCase();
+	if (user.email) return formatEmail(user.email)[0];
+	return '';
+};
+
+export const capitalizeFirstLetter = (string: string): string => {
+	return string[0].toUpperCase() + string.slice(1);
+};
+
+export const formatEmail = (emailAddress: string): string => {
+	return capitalizeFirstLetter(emailAddress.split('@')[0]);
+};
+
+// SLICE
+const usersSlice = createSlice({
+	name: 'users',
+	initialState: {} as Record<number, IUser>,
+	reducers: {
+		receiveAllUsers(_state, action: PayloadAction<Record<string, IUser>>) {
+			const normalized: Record<number, IUser> = {};
+			Object.values(action.payload).forEach((user) => {
+				normalized[user.id] = user;
+			});
+			return normalized;
+		},
+		receiveUser(state, action: PayloadAction<IUser>) {
+			state[action.payload.id] = action.payload;
+		},
+		removeUser(state, action: PayloadAction<number>) {
+			delete state[action.payload];
+		},
+	},
+});
+
+export const { receiveAllUsers, receiveUser, removeUser } = usersSlice.actions;
+export default usersSlice.reducer;
+
+// SELECTORS
+export const getUserById =
+	(id: number) =>
+	(state: any): IUser | undefined =>
+		state?.users?.[id];
+
+export const getUserByUsername =
+	(username: string) =>
+	(state: any): IUser | undefined =>
+		Object.values((state?.users as Record<number, IUser>) ?? {}).find((u) => u.username === username);
+
+// THUNKS
+export const fetchAllUsers =
+	() =>
+	async (dispatch: TThunkDispatch): Promise<Response> => {
+		const res = await csrfFetch('/api/users');
+		const data = await res.json();
+		dispatch(receiveAllUsers(data));
+		return res;
+	};
+
+export const fetchUser =
+	(username: string) =>
+	async (dispatch: TThunkDispatch): Promise<Response> => {
+		const res = await csrfFetch(`/api/users/${username}`);
+		const data = await res.json();
+		dispatch(receiveUser(data));
+		return res;
+	};
+
+export const updateUser =
+	(user: Partial<IUser> & { id: number }) =>
+	async (dispatch: TThunkDispatch): Promise<Response> => {
+		const res = await csrfFetch(`/api/users/${user.id}`, {
+			method: 'PATCH',
+			body: JSON.stringify({ user: { ...user } }),
+		});
+		const data = await res.json();
+		storeCurrentUser(data);
+		dispatch(receiveUser(data));
+		return res;
+	};
+
+export const updatePassword =
+	({ id, email, oldPw, newPw }: IUpdatePasswordArgs) =>
+	async (dispatch: TThunkDispatch): Promise<Response> => {
+		const res = await csrfFetch(`/api/users/${id}`, {
+			method: 'PATCH',
+			body: JSON.stringify({ user: { email, oldPw, newPw } }),
+		});
+		const data = await res.json();
+		dispatch(receiveUser(data));
+		return res;
+	};
+
+export const deleteUser =
+	({ id, email, newPw }: IDeleteUserArgs) =>
+	async (dispatch: TThunkDispatch): Promise<Response> => {
+		const res = await csrfFetch(`/api/users/${id}`, {
+			method: 'DELETE',
+			body: JSON.stringify({ user: { email, newPw } }),
+		});
+		if (res?.ok) dispatch(logoutUser());
+		dispatch(removeUser(id));
+		return res;
+	};
+
+export const followUser =
+	({ followingId, followerId }: IFollowArgs) =>
+	async (dispatch: TThunkDispatch): Promise<Response> => {
+		const res = await csrfFetch('/api/follows', {
+			method: 'POST',
+			body: JSON.stringify({ follow: { followerId, followingId } }),
+		});
+		const data = await res.json();
+		dispatch(receiveAllUsers(data));
+		return res;
+	};
+
+export const unfollowUser =
+	({ followingId, followerId }: IFollowArgs) =>
+	async (dispatch: TThunkDispatch): Promise<Response> => {
+		const res = await csrfFetch('/api/follows/1', {
+			method: 'DELETE',
+			body: JSON.stringify({ follow: { followerId, followingId } }),
+		});
+		const data = await res.json();
+		dispatch(receiveAllUsers(data));
+		return res;
+	};

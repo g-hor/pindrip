@@ -1,0 +1,29 @@
+{
+	"compilerOptions": {
+		"target": "ESNext",
+		"lib": ["DOM", "DOM.Iterable", "ESNext"],
+		"types": ["vite/client"],
+		"allowJs": false,
+		"skipLibCheck": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"strict": false,
+		"forceConsistentCasingInFileNames": true,
+		"noFallthroughCasesInSwitch": true,
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noEmit": true,
+		"jsx": "react-jsx",
+		"ignoreDeprecations": "6.0", // Ignore deprecated baseUrl to use paths
+		"baseUrl": "src",
+		"paths": {
+			"@components/*": ["components/*"],
+			"@store/*": ["store/*"],
+			"@app-types/*": ["types/*"],
+			"@context/*": ["context/*"]
+		}
+	},
+	"include": ["src", "vite.config.ts"]
+}
