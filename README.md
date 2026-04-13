@@ -2,21 +2,19 @@
 
 Click [here](https://pindrip.onrender.com/) to check out the live site!
 
-### Introduction
+## Introduction
 
 Pindrip is a clone of Pinterest, a platform on which users share images, videos, and inspirational ideas. The main theme of Pindrip is fashion and outfit ideas. A user can create Pins (media posts) and save other users' Pins to their own Boards (collection of Pins). This project aims to capture Pinterest's aesthetic and intuitive user interface to provide a simple browsing experience and visually pleasing organizational structure to the user.
 
-* Languages: Javascript, Ruby, HTML, and CSS
-* Frontend: React-Redux
-* Database: PostgreSQL
-* Hosting: Render
-* Asset Storage: AWS Simple Cloud Storage (S3)
+-  Languages: TypeScript (WIP), Ruby, HTML, and CSS
+-  Frontend: React, Redux Toolkit
+-  Database: PostgreSQL
+-  Hosting: Render
+-  Asset Storage: AWS Simple Cloud Storage (S3) with IAM User permissions
 
 ![gif of the splash page](app/assets/images/splash_page.gif)
 
-# Minimum Viable Product (Features List)
-
-## Profiles
+### Profiles
 
 A Pindrip user is only required to provide an email and password to create an account. This information is used to generate default minimum information to display on their profile:
 
@@ -50,11 +48,11 @@ def ensure_default_board
 end
 ```
 
-Pindrip users can view and edit their public profile information (e.g. avatar), personal information, and account information: 
+Pindrip profiles have the potential to capture and express a lot of information about the user. Users can edit their profiles through three separate forms. For example, they can upload an image to serve as a profile picture (avatar) or specify their country of residence. This snippet shows just a small section of the React form in which the user can upload a profile picture:
 
 ```
-<div 
-  id="change-avatar-btn" 
+<div
+  id="change-avatar-btn"
   onClick={() => setShowUpload(true)}
   >
   Change
@@ -69,7 +67,7 @@ Pindrip users can view and edit their public profile information (e.g. avatar), 
         </h1>
       </div>
 
-      <div 
+      <div
         id="upload-img-btn"
         onClick={() => imgBtn.current.click()}
         >
@@ -87,18 +85,18 @@ Pindrip users can view and edit their public profile information (e.g. avatar), 
 )}
 ```
 
-## Pins
+### Pins
 
-Upon signing up and/or logging in, users are shown an index of all pins from other users:
+After the user successfully authenticates, they are brought to the home page that features an index view of all Pins from other users. When the user hovers over a `<PinIndexItem />`, an overlay appears that allows the user to conveniently save to any of their Boards.
 
 ```
 <>
   <div id="pins-index-page">
     <div id="pins-index-container">
-      {pins.map((pin, i) => 
+      {pins.map((pin, i) =>
         <div className="pin-index-item" key={i}>
           <PinIndexItem pin={pin} />
-        </div> 
+        </div>
         )}
     </div>
 
@@ -107,47 +105,47 @@ Upon signing up and/or logging in, users are shown an index of all pins from oth
 </>
 ```
 
-Users can also create, edit, and delete their own Pins:
+Clicking on a Pin navigates the user to the Pin Show page, where the user can edit or delete their own Pins. They can also save the Pin to any of their Boards from this page:
 
 ```
 {showEdit && (
-  <Modal 
-    onClose={() => setShowEdit(false)} 
+  <Modal
+    onClose={() => setShowEdit(false)}
     customClass="edit-pin"
     >
-    <EditPinForm 
-      pin={pin} 
+    <EditPinForm
+      pin={pin}
       onClose={() => setShowEdit(false)}
       />
   </Modal>
 )}
 ```
 
-## Boards
+### Boards
 
-Pindrip users can create Boards to organize their Pins:
+A Board is a collection of ideas centered around a common theme. Pindrip users can create new Boards from their own Profile pages:
 
 ```
 <div id="boards-container">
   {canEdit && (
     <div id="plus-sign-holder" onClick={() => setShowDrop(true)} >
       <i className="fa-solid fa-plus" />
-    </div> 
+    </div>
     )}
   {showDrop && (
     <div id="profile-create-dropdown" ref={dropdown} >
       <div id="create-text">
         Create
       </div>
-      <div 
-        className="create-option" 
+      <div
+        className="create-option"
         id="create-pin-btn"
         onClick={() => navigate('/pin-builder')}
         >
         Pin
       </div>
-      <div 
-        className="create-option" 
+      <div
+        className="create-option"
         id="create-board-btn"
         onClick={() => setShowModal(true)}
         >
@@ -160,4 +158,3 @@ Pindrip users can create Boards to organize their Pins:
   ))}
 </div>
 ```
-
